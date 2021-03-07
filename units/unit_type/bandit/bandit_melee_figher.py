@@ -37,12 +37,16 @@ class Bandit(BasicUnit, MeleeFighter):
         else:
             if output_damage != 0:
                 # Updates current Target Health
-                target.current_hp -= output_damage
+                target.reduce_health(output_damage)
+
+                # Updates current Target Fury
+                target.gain_fury(output_damage)
 
                 # Activates Hurt Animation: Target
                 target.hurt()
 
-                if target.current_hp < 1:
+                # Evaluate Death: Target
+                if target.is_dead():
                     target.death()
 
         damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)

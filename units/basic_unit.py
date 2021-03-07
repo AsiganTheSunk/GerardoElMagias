@@ -14,10 +14,15 @@ class BasicUnit:
         # Basic Unit Stats
         self.level = level
 
+        # Basic Resource Stats: Fury, Mana, Health
+        self.max_fury = 100
+        self.current_fury = 0
         self.max_hp = max_hp
         self.current_hp = self.max_hp
         self.max_mp = max_mp
         self.current_mp = self.max_mp
+
+        # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
         self.strength = strength
         self.dexterity = dexterity
         self.magic = magic
@@ -26,7 +31,48 @@ class BasicUnit:
         # Basic Unit Status
         self.alive = True
 
+        # Basic Unit Animation Resource
         self.unit_animation = UnitAnimation(self.x, self.y, self.name)
+
+    def reduce_health(self, input_health):
+        if self.current_hp - input_health < 0:
+            self.current_hp = 0
+        else:
+            self.current_hp -= input_health
+
+    def reduce_mana(self, input_mana):
+        if self.current_mp >= input_mana:
+            # Consume Mana: Spell Casting
+            self.current_mp -= input_mana
+            return True
+        return False
+
+    def reset_fury(self):
+        self.current_fury = 0
+
+    def gain_health(self, input_health):
+        if self.current_hp + input_health >= self.max_hp:
+            self.current_hp = 100
+        else:
+            self.current_hp += input_health
+
+    def gain_mana(self, input_mana):
+        if self.current_mp + input_mana >= self.max_mp:
+            self.current_mp = self.max_mp
+        else:
+            self.current_mp += input_mana
+
+    def gain_fury(self, input_damage):
+        fury_amount = round(input_damage * 1.5)
+        if self.current_fury + fury_amount >= 100:
+            self.current_fury = 100
+        else:
+            self.current_fury += fury_amount
+
+    def is_dead(self):
+        if self.current_hp < 1:
+            return True
+        return False
 
     def death(self):
         self.current_hp = 0

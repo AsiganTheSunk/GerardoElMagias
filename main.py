@@ -141,7 +141,7 @@ def setup_battle(target_list, hero_player):
     hero_player.draw(screen)
     hero_player.health_bar.draw(hero_player.current_hp, hero_player.max_hp, screen)
     hero_player.mana_bar.draw(hero_player.current_mp, hero_player.max_mp, screen)
-    # hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
+    hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
 
     for target_unit in target_list:
         target_unit.update()
@@ -250,11 +250,10 @@ while run:
             runshop = True
             runbattle = False
 
-        # if hero_player.current_fury == 100:
-        #     if prueba_button.draw():
-        #        fakeultimate = True
-        #        hero_player.current_fury = 0
-
+        if hero_player.current_fury == 100:
+             if prueba_button.draw():
+                fakeultimate = True
+                hero_player.reset_fury()
 
         if game_over == 0:
             # make sure mouse is visible
