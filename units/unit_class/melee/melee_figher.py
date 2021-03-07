@@ -3,7 +3,7 @@ from constants.basic_colors import *
 
 
 class MeleeFighter:
-    HIT = ' Hit! '
+    HIT = ' Hit ! '
     CRITICAL_HIT = ' Critical Hit ! '
     MISS = ' Miss ! '
     BLOCKED = " Blocked !"

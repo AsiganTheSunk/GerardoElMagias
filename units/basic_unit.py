@@ -53,14 +53,18 @@ class BasicUnit:
     def gain_health(self, input_health):
         if self.current_hp + input_health >= self.max_hp:
             self.current_hp = self.max_hp
-        else:
-            self.current_hp += input_health
+            return self.max_hp - self.current_mp
+
+        self.current_hp += input_health
+        return input_health
 
     def gain_mana(self, input_mana):
         if self.current_mp + input_mana >= self.max_mp:
             self.current_mp = self.max_mp
-        else:
-            self.current_mp += input_mana
+            return self.max_mp - self.current_mp
+
+        self.current_mp += input_mana
+        return input_mana
 
     def gain_fury(self, input_damage):
         fury_amount = round(input_damage * 1.5)
@@ -78,6 +82,9 @@ class BasicUnit:
         self.current_hp = 0
         self.alive = False
         self.unit_animation.death_animation()
+
+    def melee_attack(self):
+        self.unit_animation.melee_attack_animation()
 
     def block(self):
         self.unit_animation.block_animation()

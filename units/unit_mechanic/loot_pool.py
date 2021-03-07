@@ -1,79 +1,63 @@
 from random import randint
-from floating_text.damagetext import DamageText
-from constants.basic_colors import *
+from floating_text.damage_text import DamageText
+
+
+# Init: Damage Text
+damage_text = DamageText()
 
 
 class LootPool:
     @staticmethod
     def get_loot(hero_player, target, damage_text_group):
-        loot_message = f' Empty '
-        loot_color = WHITE_COLOR
         loot_chance = randint(0, 5)
 
         if not target.is_looted():
             if loot_chance == 0:
-                pass
+                damage_text.heal(target, f' Empty ', damage_text_group)
 
             elif loot_chance == 1:
-                loot_color = GREEN_COLOR
-                loot_message = f' +1 Healing Potion! '
                 hero_player.stash.add_healing_potion(1)
+                damage_text.heal(target, f' 1 Healing Potion! ', damage_text_group)
 
             elif loot_chance == 2:
-                loot_color = GREEN_COLOR
-                loot_message = f' Found Food: +30 HEALTH! '
-
                 food_healing = 30
-                hero_player.gain_health(food_healing)
+                gained_health = hero_player.gain_health(food_healing)
+                damage_text.heal(target, f' Found Food! {gained_health} Health ', damage_text_group)
 
             elif loot_chance == 3:
-                loot_color = BLUE_COLOR
-                loot_message = f' +1 Mana Potion! '
                 hero_player.stash.add_mana_potion(1)
+                damage_text.mana(target, f' 1 Mana Potion! ', damage_text_group)
 
             elif loot_chance == 4:
-                loot_color = BLUE_COLOR
-                loot_message = f' Found Drink: +10 MANA! '
                 drink = 10
-                hero_player.gain_mana(drink)
+                gained_mana = hero_player.gain_mana(drink)
+                damage_text.mana(target, f' Found Drink {gained_mana} Mana ', damage_text_group)
 
             elif loot_chance == 5:
                 gold = randint(1, 4) + target.level
-                loot_color = YELLOW_COLOR
-                loot_message = f' {gold} Gold! '
                 hero_player.stash.add_gold(gold)
+                damage_text.cast(target, f' {gold} Gold! ', damage_text_group)
 
             target.update_looted_status()
 
         else:
-            loot_color = RED_COLOR
-            loot_message = f' ALREADY LOOTED! '
-
-        damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y - 30, loot_message, loot_color)
-        damage_text_group.add(damage_text)
+            # Todo: Init with -30y
+            damage_text.warning(target, f' ALREADY LOOTED! ', damage_text_group)
 
     @staticmethod
     def get_loot_boss(hero_player, target, damage_text_group):
-        loot_message = f' Empty '
-        loot_color = WHITE_COLOR
         loot_chance = randint(0, 2)
 
         if not target.is_looted():
             if loot_chance == 0:
-                loot_color = GREEN_COLOR
-                loot_message = f' Espada de Yisus '
+                damage_text.heal(target, f' Espada de Yisus ', damage_text_group)
 
             elif loot_chance == 1:
-                loot_color = GREEN_COLOR
-                loot_message = f' Escudo de Yisus! '
+                damage_text.heal(target, f' Escudo de Yisus! ', damage_text_group)
 
             elif loot_chance == 2:
-                loot_color = GREEN_COLOR
-                loot_message = f' Armadura de Yisus '
+                damage_text.heal(target, f' Armadura de Yisus ', damage_text_group)
 
         else:
-            loot_color = RED_COLOR
-            loot_message = f' ALREADY LOOTED! '
-
-        damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y - 30, loot_message, loot_color)
-        damage_text_group.add(damage_text)
+            # Todo: Init with -30y
+            damage_text.warning(target, f' ALREADY LOOTED! ', damage_text_group)

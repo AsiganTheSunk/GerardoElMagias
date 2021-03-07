@@ -3,9 +3,9 @@ from constants.basic_colors import *
 
 
 class MageFighter:
-    HIT = ' Hit! '
-    CRITICAL_HIT = ' Critical Hit! '
-    RESIST = ' Resist! '
+    HIT = ' Hit ! '
+    CRITICAL_HIT = ' Critical Hit ! '
+    RESIST = ' Resist ! '
 
     @staticmethod
     def critical_hit(base_damage, multiplier=2):
