@@ -5,7 +5,8 @@ damage_text = DamageText()
 
 
 class CombatTextResolver:
-    def resolve(self, target, message, damage_text_group):
+    @staticmethod
+    def resolve(target, message, damage_text_group):
         if 'Blocked' in message:
             damage_text.block(target, message, damage_text_group)
         elif 'Miss' in message:

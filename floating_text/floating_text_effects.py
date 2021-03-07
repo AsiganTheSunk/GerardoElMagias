@@ -1,6 +1,6 @@
-from constants.basic_fonts import combat_text_font, critical_combat_text_font
 from pygame import init, sprite, transform, time, display, Color, Surface, SRCALPHA, BLEND_RGBA_MULT
-from math import sin,cos,radians
+from math import sin, cos, radians
+
 
 init()
 
