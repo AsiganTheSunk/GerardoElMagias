@@ -21,7 +21,7 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
-        self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
+        # self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
         self.stash = Stash(healing_potion, magic_potion, gold)
 
         self.damage_spells = DamageSpells()
@@ -38,15 +38,27 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         # Activates Attack Animation: Bandit -> MeleeFighter
         self.unit_animation.melee_attack_animation()
 
-        if output_damage != 0:
-            target.current_hp -= output_damage
+        # Activates Blocked Animation on Target
+        if 'Blocked !' in output_message:
+            # Todo: Update Animation to proper block animation
+            target.unit_animation.block_animation()
 
-            # Activates Hurt Animation: Target
-            target.hurt()
+        # Activates Miss Animation on Target
+        elif ' Miss !' in output_message:
+            # Todo: Rename or Change block to miss animation frame for consistency purposes
+            target.unit_animation.block_animation()
 
-            if target.current_hp < 1:
-                target.death()
-                self.experience_system.evaluate_kill(self, target, damage_text_group)
+        # Activates Hurt/Death Animation on Target
+        else:
+            if output_damage != 0:
+                target.current_hp -= output_damage
+
+                # Activates Hurt Animation: Target
+                target.hurt()
+
+                if target.current_hp < 1:
+                    target.death()
+                    self.experience_system.evaluate_kill(self, target, damage_text_group)
 
         damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)
         damage_text_group.add(damage_text)

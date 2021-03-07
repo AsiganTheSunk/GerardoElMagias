@@ -23,29 +23,27 @@ class Bandit(BasicUnit, MeleeFighter):
         self.looted_status = True
 
     def attack(self, target, damage_text_group):
+        # Get Damage, Message, Color for current Attack
         output_damage, output_message, output_color = self.cast_attack(self)
 
         # Activates Attack Animation: Bandit -> MeleeFighter
         self.unit_animation.melee_attack_animation()
 
-        if output_damage != 0:
-            target.current_hp -= output_damage
+        # Activates Blocked Animation on Target
+        if 'BLOCKED !' in output_message:
+            target.unit_animation.block_animation()
 
-            ###PERAS meter en funcion fury?
+        # Activates Hurt/Death Animation on Target
+        else:
+            if output_damage != 0:
+                # Updates current Target Health
+                target.current_hp -= output_damage
 
-            fury_gained = round(output_damage*1,5)
-            if fury_gained + target.current_fury >= 100:
-                target.current_fury = 100
-            else:
-                target.current_fury += fury_gained
+                # Activates Hurt Animation: Target
+                target.hurt()
 
-
-
-            # Activates Hurt Animation: Target
-            target.hurt()
-
-            if target.current_hp < 1:
-                target.death()
+                if target.current_hp < 1:
+                    target.death()
 
         damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)
         damage_text_group.add(damage_text)
