@@ -6,7 +6,7 @@ class MeleeFighter:
     HIT = ' Hit! '
     CRITICAL_HIT = ' Critical Hit ! '
     MISS = ' Miss ! '
-    BLOCKED = " BLOCKED !"
+    BLOCKED = " Blocked !"
 
     @staticmethod
     def critical_hit(base_damage, multiplier=2):
