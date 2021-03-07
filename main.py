@@ -186,7 +186,7 @@ while run:
         action_cooldown = 0
         runreset = False
         runbattle = True
-        fakeultimate = False
+        # fakeultimate = False
         ultimate = False
 
         if level % 4 != 0:
@@ -269,8 +269,8 @@ while run:
             runbattle = False
 
         if hero_player.current_fury == 100:
-             if prueba_button.draw():
-                fakeultimate = True
+            if prueba_button.draw():
+                ultimate = True
                 hero_player.reset_fury()
 
         if game_over == 0:
@@ -311,13 +311,10 @@ while run:
 
                         # Use: Ultimate Spell
                         if ultimate:
-                            if hero_player.use_ultimate(enemy_list, damage_text_group):
-                                current_fighter += 1
-                                action_cooldown = 0
+                            # if hero_player.use_ultimate(enemy_list, damage_text_group):
+                            #     current_fighter += 1
+                            #     action_cooldown = 0
 
-                        #Use Fakeultimate Spell
-                        ###PERAS
-                        if fakeultimate:
                             if number_of_strikes <= 5:
                                 for count, target_unit in enumerate(enemy_list):
                                     if action_cooldown >= action_wait_time:
@@ -329,11 +326,10 @@ while run:
 
                             else:
                                 number_of_strikes = 1
-                                fakeultimate = False
+                                ultimate = False
                                 current_fighter += 1
-                                #la siguiente accion de la ia será un poco más lenta
-                                action_cooldown = -50
-
+                                # la siguiente accion dl enemigo tardará un poco más después del ultimate
+                                action_cooldown = -25
             else:
                 game_over = -1
 
