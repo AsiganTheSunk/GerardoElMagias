@@ -56,7 +56,7 @@ class DamageText:
     @staticmethod
     def mana(target, message, damage_text_group):
         floating_text = CombatTextTypes(target.unit_animation.rect.centerx, target.unit_animation.rect.y, 'move_up')
-        floating_text.combat_text(message, BLUE_COLOR)
+        floating_text.combat_text('+ ' + message, BLUE_COLOR)
         damage_text_group.add(floating_text)
 
     @staticmethod

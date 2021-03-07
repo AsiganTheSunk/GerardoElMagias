@@ -77,13 +77,15 @@ class HeroPlayer(BasicUnit, MeleeFighter):
     def loot_boss(self, target, damage_text_group):
         target.loot_pool.get_loot_boss(self, target, damage_text_group)
 
-    def use_ultimate(self, target_list, damage_text_group):
-        self.hero_spells.cast_ultimate(self, target_list, damage_text_group)
-        return True
+    def use_ultimate(self, number_of_strikes, target_list, damage_text_group,
+                     action_cooldown, action_wait_time, current_fighter, ultimate_status):
 
-    def use_fakeultimate(self, target_list, damage_text_group):
-        self.hero_spells.cast_ultimate(self, target_list, damage_text_group)
-        return True
+        if number_of_strikes == 0:
+            damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group)
+
+        return self.hero_spells.cast_path_of_the_seven_strikes(self, number_of_strikes, target_list, damage_text_group,
+                                                               action_cooldown, action_wait_time, current_fighter,
+                                                               ultimate_status)
 
     def use_firestorm(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
