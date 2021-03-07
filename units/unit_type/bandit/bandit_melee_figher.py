@@ -2,7 +2,13 @@ from units.unit_class.melee.melee_figher import MeleeFighter
 from units.unit_mechanic.loot_pool import LootPool
 from units.basic_unit import BasicUnit
 from units.unit_mechanic.health_bar import HealthBar
-from floating_text.combat_text_types import CombatTextTypes
+
+from floating_text.combat_text_resolver import CombatTextResolver
+from floating_text.damage_text import DamageText
+
+# Init: Damage Text, CombatTextResolver
+damage_text = DamageText()
+combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(BasicUnit, MeleeFighter):
@@ -27,11 +33,15 @@ class Bandit(BasicUnit, MeleeFighter):
         output_damage, output_message, output_color = self.cast_attack(self)
 
         # Activates Attack Animation: Bandit -> MeleeFighter
-        self.unit_animation.melee_attack_animation()
+        self.melee_attack()
 
         # Activates Blocked Animation on Target
-        if 'BLOCKED !' in output_message:
-            target.unit_animation.block_animation()
+        if 'Blocked' in output_message:
+            target.block()
+
+        if 'Miss' in output_message:
+            # Todo: Get miss animation
+            target.block()
 
         # Activates Hurt/Death Animation on Target
         else:
@@ -49,13 +59,5 @@ class Bandit(BasicUnit, MeleeFighter):
                 if target.is_dead():
                     target.death()
 
-        if ' Critical ' in output_message:
-            floating_text = CombatTextTypes(target.unit_animation.rect.centerx, target.unit_animation.rect.y, 'move_up')
-            floating_text.critical_combat_text(str(output_damage) + output_message, output_color)
-            damage_text_group.add(floating_text)
-
-        else:
-            floating_text = CombatTextTypes(target.unit_animation.rect.centerx, target.unit_animation.rect.y, 'move_up')
-            floating_text.combat_text(str(output_damage) + output_message, output_color)
-            damage_text_group.add(floating_text)
+        combat_text_resolver.resolve(target, str(output_damage) + output_message, damage_text_group)
         return True

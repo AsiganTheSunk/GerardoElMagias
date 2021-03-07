@@ -79,6 +79,9 @@ class BasicUnit:
         self.alive = False
         self.unit_animation.death_animation()
 
+    def melee_attack(self):
+        self.unit_animation.melee_attack_animation()
+
     def block(self):
         self.unit_animation.block_animation()
 

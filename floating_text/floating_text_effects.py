@@ -21,14 +21,33 @@ class FloatingTextEffects(sprite.Sprite):
             self.move_down()
         elif self.animation_type == 'move_up':
             self.move_up()
+        elif self.animation_type == 'move_up_diagonal_left':
+            self.move_up()
+        elif self.animation_type == 'move_up_diagonal_right':
+            self.move_up()
         elif self.animation_type == 'mover_arc_right':
             pass
         elif self.animation_type == 'mover_arc_left':
             pass
 
-    def move_down(self):
+    def move_up_diagonal_left(self):
         # move damage text up
         self.rect.y += 1
+        self.rect.x -= 1
+        # delete after counter
+        self.counter += 1
+        fade_out_counter = 0
+        if self.counter > 60:
+            self.kill()
+
+        if self.counter > 20:
+            self.fade_out_counter += 6
+            self.image.set_alpha(300 - self.fade_out_counter)
+
+    def move_up_diagonal_right(self):
+        # move damage text up
+        self.rect.y += 1
+        self.rect.x += 1
         # delete after counter
         self.counter += 1
         fade_out_counter = 0
@@ -51,9 +70,21 @@ class FloatingTextEffects(sprite.Sprite):
             self.fade_out_counter += 6
             self.image.set_alpha(300 - self.fade_out_counter)
 
-    def move_arc_left(self):
+    def move_down(self):
         # move damage text up
+        self.rect.y += 1
+        # delete after counter
+        self.counter += 1
+        fade_out_counter = 0
+        if self.counter > 60:
+            self.kill()
 
+        if self.counter > 20:
+            self.fade_out_counter += 6
+            self.image.set_alpha(300 - self.fade_out_counter)
+
+    def move_arc_left(self):
+        # Todo: This does not work as intended, text stays static
         radius = 100
         print(radius * cos(radians(self.theta)), radius * sin(radians(self.theta)))
         self.rect.x += radius * cos(radians(self.theta))

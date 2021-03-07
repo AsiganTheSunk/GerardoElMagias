@@ -12,8 +12,14 @@ from units.unit_resource.stash import Stash
 from units.unit_mechanic.experience import ExperienceSystem
 
 from random import randint
+from floating_text.combat_text_resolver import CombatTextResolver
 from floating_text.damage_text import DamageText
-from constants.basic_colors import *
+from units.unit_mechanic.utils import get_alive_targets
+
+
+# Init: Damage Text, CombatTextResolver
+damage_text = DamageText()
+combat_text_resolver = CombatTextResolver()
 
 
 class HeroPlayer(BasicUnit, MeleeFighter):
@@ -36,17 +42,17 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         output_damage, output_message, output_color = self.cast_attack(self)
 
         # Activates Attack Animation: Bandit -> MeleeFighter
-        self.unit_animation.melee_attack_animation()
+        self.melee_attack()
 
         # Activates Blocked Animation on Target
-        if 'Blocked !' in output_message:
+        if 'Blocked' in output_message:
             # Todo: Update Animation to proper block animation
-            target.unit_animation.block_animation()
+            target.block()
 
         # Activates Miss Animation on Target
-        elif ' Miss !' in output_message:
+        elif 'Miss' in output_message:
             # Todo: Rename or Change block to miss animation frame for consistency purposes
-            target.unit_animation.block_animation()
+            target.block()
 
         # Activates Hurt/Death Animation on Target
         else:
@@ -62,8 +68,7 @@ class HeroPlayer(BasicUnit, MeleeFighter):
                     # Gain XP
                     self.experience_system.evaluate_kill(self, target, damage_text_group)
 
-        damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)
-        damage_text_group.add(damage_text)
+        combat_text_resolver.resolve(target, str(output_damage) + output_message, damage_text_group)
         return True
 
     def loot(self, target, damage_text_group):
@@ -82,114 +87,78 @@ class HeroPlayer(BasicUnit, MeleeFighter):
 
     def use_firestorm(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
-
         if self.reduce_mana(15):
 
             # Pre Save State for Enemy List: target_list
-            pre_target_list = []
-            for enemy_unit in target_list:
-                if enemy_unit.alive:
-                    pre_target_list.append(True)
-                else:
-                    pre_target_list.append(False)
+            pre_target_list = get_alive_targets(target_list)
 
             # Retrieve State for Enemy List: target_list
             self.damage_spells.cast_firestorm(self, target_list, damage_text_group)
 
             # Post Save State for Enemy List: target_list
-            pos_target_list = []
-            for enemy_unit in target_list:
-                if enemy_unit.alive:
-                    pos_target_list.append(True)
-                else:
-                    pos_target_list.append(False)
+            pos_target_list = get_alive_targets(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)
             return True
 
-        damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, ' No Enough Mana! ', RED_COLOR)
-        damage_text_group.add(damage_text)
+        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
     def use_lightning(self, target_list, damage_text_group):
-        if self.current_mp >= 20:
-            # Consume Mana: Spell Casting
-            self.current_mp -= 20
-
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(20):
             # Save State for Enemy List: target_list
-            pre_target_list = []
-            for enemy_unit in target_list:
-                if enemy_unit.alive:
-                    pre_target_list.append(True)
-                else:
-                    pre_target_list.append(False)
+            pre_target_list = get_alive_targets(target_list)
 
             self.damage_spells.cast_lightning(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
-            pos_target_list = []
-            for enemy_unit in target_list:
-                if enemy_unit.alive:
-                    pos_target_list.append(True)
-                else:
-                    pos_target_list.append(False)
+            pos_target_list = get_alive_targets(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)
             return True
 
-        damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, ' No Enough Mana! ', RED_COLOR)
-        damage_text_group.add(damage_text)
+        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
     def use_heal(self, damage_text_group):
-        if self.current_mp >= 12:
-            self.current_mp -= 12
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(12):
             self.healing_spells.cast_heal(self, damage_text_group)
             return True
 
-        damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, ' No Enough Mana! ', RED_COLOR)
-        damage_text_group.add(damage_text)
+        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
     def use_healing_potion(self, damage_text_group):
-        if self.stash.healing_potions >= 1:
+        if self.stash.has_healing_potion():
             base_health = 40
             health_interval = randint(0, 10)
             base_health_multiplier = (self.level * 4)
             health_recover = base_health + health_interval + base_health_multiplier
 
-            if self.max_hp - self.current_hp > health_recover:
-                heal_amount = health_recover
-            else:
-                heal_amount = self.max_hp - self.current_hp
-            self.current_hp += heal_amount
             self.stash.consume_healing_potion()
-            damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, str(heal_amount), GREEN_COLOR)
-            damage_text_group.add(damage_text)
+            self.gain_health(health_recover)
+
+            damage_text.heal(self, str(health_recover), damage_text_group)
             return True
 
-        damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, 'No Healing Potions', RED_COLOR)
-        damage_text_group.add(damage_text)
+        damage_text.warning(self, 'No Healing Potions', damage_text_group)
         return False
 
     def use_mana_potion(self, damage_text_group):
-        if self.stash.mana_potions >= 1:
+        if self.stash.has_mana_potion():
             base_mana = 15
             mana_interval = randint(0, 5)
             base_mana_multiplier = (self.level * 2)
             mana_recover = base_mana + mana_interval + base_mana_multiplier
 
-            if self.max_mp - self.current_mp > mana_recover:
-                mana_recovered = mana_recover
-            else:
-                mana_recovered = self.max_mp - self.current_mp
-            self.current_mp += mana_recovered
+            self.gain_mana(mana_recover)
             self.stash.consume_mana_potion()
-            damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, str(mana_recovered), BLUE_COLOR)
-            damage_text_group.add(damage_text)
+
+            damage_text.mana(self, str(mana_recover), damage_text_group)
             return True
 
-        damage_text = DamageText(self.unit_animation.rect.centerx, self.unit_animation.rect.y, 'No Healing Potions', RED_COLOR)
-        damage_text_group.add(damage_text)
+        damage_text.warning(self, 'No Mana Potions', damage_text_group)
         return False
