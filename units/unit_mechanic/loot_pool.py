@@ -13,7 +13,7 @@ class LootPool:
 
         if not target.is_looted():
             if loot_chance == 0:
-                damage_text.heal(target, f' Empty ', damage_text_group)
+                damage_text.warning(target, f' Empty ', damage_text_group)
 
             elif loot_chance == 1:
                 hero_player.stash.add_healing_potion(1)

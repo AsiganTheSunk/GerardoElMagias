@@ -113,7 +113,7 @@ def draw_panel():
 potion_button = button.Button(screen, 110, screen_height - bottom_panel + 75, health_potion_img, 64, 64)
 mana_potion_button = button.Button(screen, 220, screen_height - bottom_panel + 75, mana_potion_img, 60, 60)
 spellbook_button = button.Button(screen, 0, 695, spellbook_img, 100, 100)
-ultimate_button = button.Button(screen, 0, 590, ultimate_img, 80, 80)
+
 lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
 firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
 heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
@@ -122,11 +122,11 @@ heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
 restart_button = button.Button(screen, 400, 120, restart_img, 100, 100)
 next_button = button.Button(screen, 800, 10, next_img, 80, 80)
 
-#BOTON DE PRUEBAS
-prueba_button = button.Button(screen, 400, 400, restart_img, 50, 50)
+# Ultimate Button
+ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
 
-
-
+# Kill Button
+kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
 
 def draw_bgintro():
     screen.blit(background_intro, (0, 0))
@@ -171,7 +171,6 @@ damage_text_group = sprite.Group()
 hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - bottom_panel + 50, 290, screen_height - bottom_panel + 50, 90, 510)
 enemy_list = []
 
-
 runreset = True
 runintro = False
 runshop = False
@@ -181,23 +180,20 @@ run = True
 while run:
     while runreset:
         ###PERAS
-        number_of_strikes = 1
+        number_of_strikes = 0
         animation_cooldown = 0
         action_cooldown = 0
         runreset = False
         runbattle = True
-        fakeultimate = False
-        ultimate = False
+        ultimate_status = False
 
         if level % 4 != 0:
             enemy_group = EnemyGroup()
             enemy_list = enemy_group.generate_enemy(level)
             total_fighters = len(enemy_list) + 1
         else:
-            total_fighters = 2
             enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
             total_fighters = len(enemy_list) + 1
-
 
     while runintro:
         screen.blit(background_intro, (0, 0))
@@ -209,7 +205,6 @@ while run:
             if _event.type == MOUSEBUTTONDOWN:
                 runintro = False
                 runreset = True
-
 
     while runshop:
         setup_shop()
@@ -248,7 +243,6 @@ while run:
     while runbattle:
 
         # reset action variables
-        ###PERAS
         mana_potion = False
         attack = False
         potion = False
@@ -256,10 +250,12 @@ while run:
         loot = False
 
         setup_battle(enemy_list, hero_player)
-        #draw_debug_panel(current_fighter, total_fighters)
+        # draw_debug_panel(current_fighter, total_fighters)
 
-        if ultimate_button.draw():
-            ultimate = True
+        if kill_button.draw():
+            for target_unit in enemy_list:
+                target_unit.death()
+
         if potion_button.draw():
             potion = True
         if mana_potion_button.draw():
@@ -269,8 +265,8 @@ while run:
             runbattle = False
 
         if hero_player.current_fury == 100:
-             if prueba_button.draw():
-                fakeultimate = True
+            if ultimate_button.draw():
+                ultimate_status = True
                 hero_player.reset_fury()
 
         if game_over == 0:
@@ -286,7 +282,8 @@ while run:
                     if clicked and enemy_unit.alive:
                         attack = True
                         target = enemy_list[count]
-            #player action
+
+            # Player Actions
             if hero_player.alive:
                 if current_fighter == 1:
                     action_cooldown += 1
@@ -310,30 +307,12 @@ while run:
                                 action_cooldown = 0
 
                         # Use: Ultimate Spell
-                        if ultimate:
-                            if hero_player.use_ultimate(enemy_list, damage_text_group):
-                                current_fighter += 1
-                                action_cooldown = 0
-
-                        #Use Fakeultimate Spell
-                        ###PERAS
-                        if fakeultimate:
-                            if number_of_strikes <= 5:
-                                for count, target_unit in enumerate(enemy_list):
-                                    if action_cooldown >= action_wait_time:
-
-                                        hero_player.attack(enemy_list[randint(0, len(enemy_list)) - 1], damage_text_group)
-                                        number_of_strikes = number_of_strikes + 1
-                                        #hace la animacion de ataque más rapido
-                                        action_cooldown = 55
-
-                            else:
-                                number_of_strikes = 1
-                                fakeultimate = False
-                                current_fighter += 1
-                                #la siguiente accion de la ia será un poco más lenta
-                                action_cooldown = -50
-
+                        # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
+                        if ultimate_status:
+                            number_of_strikes, current_fighter, action_cooldown, ultimate_status = \
+                                    hero_player.use_ultimate(number_of_strikes, enemy_list, damage_text_group,
+                                                             action_cooldown, action_wait_time, current_fighter,
+                                                             ultimate_status)
             else:
                 game_over = -1
 

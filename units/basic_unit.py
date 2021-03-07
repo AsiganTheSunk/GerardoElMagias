@@ -52,16 +52,18 @@ class BasicUnit:
 
     def gain_health(self, input_health):
         if self.current_hp + input_health >= self.max_hp:
+            gained_health = self.max_hp - self.current_hp
             self.current_hp = self.max_hp
-            return self.max_hp - self.current_mp
+            return gained_health
 
         self.current_hp += input_health
         return input_health
 
     def gain_mana(self, input_mana):
         if self.current_mp + input_mana >= self.max_mp:
+            gained_mana = self.max_mp - self.current_mp
             self.current_mp = self.max_mp
-            return self.max_mp - self.current_mp
+            return gained_mana
 
         self.current_mp += input_mana
         return input_mana

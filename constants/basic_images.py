@@ -33,3 +33,6 @@ loot_img = image.load("resources/icons/loot.png")
 
 # Shop Image:
 shop_image = image.load("resources/icons/shop.jpg")
+
+# Skull Image:
+skull_image = image.load("resources/icons/skull.png")
