@@ -1,7 +1,5 @@
 from random import randint
 from floating_text.damage_text import DamageText
-from constants.basic_colors import *
-
 
 # Init: Damage Text
 damage_text = DamageText()
@@ -22,8 +20,8 @@ class LootPool:
 
             elif loot_chance == 2:
                 food_healing = 30
-                hero_player.gain_health(food_healing)
-                damage_text.heal(target, f' Found Food: +30 HEALTH! ', damage_text_group)
+                gained_health = hero_player.gain_health(food_healing)
+                damage_text.heal(target, f' Found Food: +{gained_health} HEALTH! ', damage_text_group)
 
             elif loot_chance == 3:
                 hero_player.stash.add_mana_potion(1)
@@ -31,8 +29,8 @@ class LootPool:
 
             elif loot_chance == 4:
                 drink = 10
-                hero_player.gain_mana(drink)
-                damage_text.mana(target, f' Found Drink: +10 MANA! ', damage_text_group)
+                gained_mana = hero_player.gain_mana(drink)
+                damage_text.mana(target, f' Found Drink: +{gained_mana} MANA! ', damage_text_group)
 
             elif loot_chance == 5:
                 gold = randint(1, 4) + target.level
