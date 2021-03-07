@@ -4,3 +4,7 @@
 .idea/RPG BATTLE SYSTEM.iml
 
 .idea/vcs.xml
+
+constants/__pycache__/
+
+*.pyc
