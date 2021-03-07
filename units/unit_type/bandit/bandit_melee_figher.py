@@ -2,7 +2,7 @@ from units.unit_class.melee.melee_figher import MeleeFighter
 from units.unit_mechanic.loot_pool import LootPool
 from units.basic_unit import BasicUnit
 from units.unit_mechanic.health_bar import HealthBar
-from floating_text.damagetext import DamageText
+from floating_text.combat_text_types import CombatTextTypes
 
 
 class Bandit(BasicUnit, MeleeFighter):
@@ -49,6 +49,13 @@ class Bandit(BasicUnit, MeleeFighter):
                 if target.is_dead():
                     target.death()
 
-        damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)
-        damage_text_group.add(damage_text)
+        if ' Critical ' in output_message:
+            floating_text = CombatTextTypes(target.unit_animation.rect.centerx, target.unit_animation.rect.y, 'move_up')
+            floating_text.critical_combat_text(str(output_damage) + output_message, output_color)
+            damage_text_group.add(floating_text)
+
+        else:
+            floating_text = CombatTextTypes(target.unit_animation.rect.centerx, target.unit_animation.rect.y, 'move_up')
+            floating_text.combat_text(str(output_damage) + output_message, output_color)
+            damage_text_group.add(floating_text)
         return True

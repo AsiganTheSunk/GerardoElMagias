@@ -1,15 +1,33 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = "Father Karras and AsiganTheSunk"
+__copyright__ = "Copyright 2021, Gerardo El Magias"
+
+__credits__ = ["Father Karras", "AsiganTheSunk"]
+__version__ = "0.1a"
+__maintainer__ = "Father Karras and AsiganTheSunk"
+__email__ = ""
+__status__ = "Development"
+
+# Pygame Imports:
 from pygame import time, display, sprite, event, QUIT, MOUSEBUTTONDOWN, mouse, quit, init
 
+# Game Engine Imports:
 from interface.basic_components import button
 from units.unit_type.hero.player import HeroPlayer
 from units.unit_type.bandit.bandit_melee_figher import Bandit
 from units.enemy_group import EnemyGroup
 
+# Game Engine Constants Imports
 from constants.basic_colors import *
 from constants.game_windows import *
 from constants.basic_images import *
 from constants.basic_fonts import *
+
+# Python Imports:
 from random import randint
+
 
 init()
 clock = time.Clock()
@@ -297,7 +315,6 @@ while run:
                                 current_fighter += 1
                                 action_cooldown = 0
 
-
                         #Use Fakeultimate Spell
                         ###PERAS
                         if fakeultimate:
@@ -374,17 +391,16 @@ while run:
                         if clicked and animation_cooldown >= 30:
                             animation_cooldown = 0
                             target = enemy_list[count]
-                            ###PERAS
-                            if level == 4:
+
+                            # Todo: Create a proper function
+                            if level % 4 == 0:
                                 hero_player.loot_boss(target, damage_text_group)
                             else:
                                 hero_player.loot(target, damage_text_group)
 
-
             if game_over == -1:
                 screen.blit(defeat_img,(180, 50))
                 draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
-
 
         for _event in event.get():
             if _event.type == QUIT:

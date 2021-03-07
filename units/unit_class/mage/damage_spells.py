@@ -1,8 +1,7 @@
 from random import randint
 from units.unit_class.mage.mage_fighter import MageFighter
 from constants.basic_colors import *
-from floating_text.combat_text import CombatText
-from floating_text.damagetext import DamageText
+from floating_text.combat_text_types import CombatTextTypes
 
 
 class DamageSpells(MageFighter):
@@ -11,9 +10,9 @@ class DamageSpells(MageFighter):
             output_damage, output_message, output_color = \
                 self.cast_spell(caster.magic, caster.intellect, base_damage, base_multiplier)
 
-            floating_text = CombatText(target_unit.unit_animation.rect.centerx, target_unit.unit_animation.rect.y,
-                                       str(output_damage) + output_message, output_color, 'move_up')
-            damage_text_group.add(floating_text.combat_text())
+            floating_text = CombatTextTypes(target_unit.unit_animation.rect.centerx, target_unit.unit_animation.rect.y, 'move_up')
+            floating_text.combat_text(str(output_damage) + output_message, output_color)
+            damage_text_group.add(floating_text)
 
             if target_unit.alive:
                 target_unit.current_hp -= output_damage
@@ -35,8 +34,9 @@ class DamageSpells(MageFighter):
                 alive_enemy.append(enemy_unit)
 
         if len(alive_enemy) > 0:
-            floating_text = CombatText(200, 500, " Firestorm! ", RED_COLOR, 'move_up')
-            damage_text_group.add(floating_text.cast_text())
+            floating_text = CombatTextTypes(200, 500, 'move_up')
+            floating_text.cast_text(" Firestorm! ", RED_COLOR)
+            damage_text_group.add(floating_text)
 
             return self.cast_aoe_spell(caster, base_damage, base_multiplier, alive_enemy, damage_text_group)
         return target_list
@@ -52,8 +52,9 @@ class DamageSpells(MageFighter):
                 alive_enemy.append(enemy_unit)
 
         if len(alive_enemy) > 0:
-            floating_text = CombatText(200, 500, " Lightning Bolt! ", YELLOW_COLOR, 'move_up')
-            damage_text_group.add(floating_text.cast_text())
+            floating_text = CombatTextTypes(200, 500, 'move_up')
+            floating_text.cast_text(" Lightning Bolt! ", YELLOW_COLOR)
+            damage_text_group.add(floating_text)
 
             return self.cast_aoe_spell(caster, base_damage, base_multiplier, target_list, damage_text_group)
         return target_list

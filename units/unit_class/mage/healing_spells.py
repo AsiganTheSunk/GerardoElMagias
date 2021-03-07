@@ -1,6 +1,6 @@
 from random import randint
 from units.unit_class.mage.mage_fighter import MageFighter
-from floating_text.damagetext import DamageText
+from floating_text.damage_text import DamageText
 from constants.basic_colors import *
 
 

@@ -12,7 +12,7 @@ from units.unit_resource.stash import Stash
 from units.unit_mechanic.experience import ExperienceSystem
 
 from random import randint
-from floating_text.damagetext import DamageText
+from floating_text.damage_text import DamageText
 from constants.basic_colors import *
 
 

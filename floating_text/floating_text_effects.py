@@ -15,7 +15,6 @@ class FloatingTextEffects(sprite.Sprite):
         self.counter = 0
         self.fade_out_counter = 0
         self.theta = 180
-        self.image = None
 
     def update(self):
         if self.animation_type == 'move_down':

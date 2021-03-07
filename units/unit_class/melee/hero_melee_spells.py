@@ -1,6 +1,6 @@
 from units.unit_class.melee.melee_figher import MeleeFighter
 from constants.basic_colors import *
-from floating_text.damagetext import DamageText
+from floating_text.damage_text import DamageText
 from random import randint
 from pygame import time
 
