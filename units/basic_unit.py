@@ -52,7 +52,7 @@ class BasicUnit:
 
     def gain_health(self, input_health):
         if self.current_hp + input_health >= self.max_hp:
-            self.current_hp = 100
+            self.current_hp = self.max_hp
         else:
             self.current_hp += input_health
 

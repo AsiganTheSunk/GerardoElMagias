@@ -177,7 +177,7 @@ while run:
             total_fighters = len(enemy_list) + 1
         else:
             total_fighters = 2
-            enemy_list = [Bandit(500, 555, "the boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
+            enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
             total_fighters = len(enemy_list) + 1
 
 

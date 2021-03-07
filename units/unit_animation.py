@@ -16,7 +16,12 @@ class UnitAnimation:
         self.animation_list.append(self.load_animation(self.unit_name, 'Attack', 8))
         self.animation_list.append(self.load_animation(self.unit_name, 'Hurt', 3))
         self.animation_list.append(self.load_animation(self.unit_name, 'Death', 10))
-        self.animation_list.append(self.load_animation(self.unit_name, 'Block', 5))
+
+        # Todo: Add boss block Animation, currently using Idle to avoid Crash
+        if self.unit_name == 'The Boss':
+            self.animation_list.append(self.load_animation(self.unit_name, 'Idle', 8))
+        else:
+            self.animation_list.append(self.load_animation(self.unit_name, 'Block', 5))
 
         # Init Default Frames
         self.frame_index = 0
