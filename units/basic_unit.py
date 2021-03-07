@@ -13,8 +13,7 @@ class BasicUnit:
 
         # Basic Unit Stats
         self.level = level
-        self.max_fury = 100
-        self.current_fury = 0
+
         self.max_hp = max_hp
         self.current_hp = self.max_hp
         self.max_mp = max_mp
@@ -33,6 +32,9 @@ class BasicUnit:
         self.current_hp = 0
         self.alive = False
         self.unit_animation.death_animation()
+
+    def block(self):
+        self.unit_animation.block_animation()
 
     def hurt(self):
         self.unit_animation.hurt_animation()
