@@ -21,7 +21,7 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
-        # self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
+        self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
         self.stash = Stash(healing_potion, magic_potion, gold)
 
         self.damage_spells = DamageSpells()
@@ -51,13 +51,15 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         # Activates Hurt/Death Animation on Target
         else:
             if output_damage != 0:
-                target.current_hp -= output_damage
+                target.reduce_health(output_damage)
 
                 # Activates Hurt Animation: Target
                 target.hurt()
 
-                if target.current_hp < 1:
+                # Evaluate Death: Target
+                if target.is_dead():
                     target.death()
+                    # Gain XP
                     self.experience_system.evaluate_kill(self, target, damage_text_group)
 
         damage_text = DamageText(target.unit_animation.rect.centerx, target.unit_animation.rect.y, str(output_damage) + output_message, output_color)
@@ -79,9 +81,9 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         return True
 
     def use_firestorm(self, target_list, damage_text_group):
-        if self.current_mp >= 15:
-            # Consume Mana: Spell Casting
-            self.current_mp -= 15
+        # Consume Mana: Spell Casting
+
+        if self.reduce_mana(15):
 
             # Pre Save State for Enemy List: target_list
             pre_target_list = []

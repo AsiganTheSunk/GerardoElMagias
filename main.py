@@ -141,7 +141,7 @@ def setup_battle(target_list, hero_player):
     hero_player.draw(screen)
     hero_player.health_bar.draw(hero_player.current_hp, hero_player.max_hp, screen)
     hero_player.mana_bar.draw(hero_player.current_mp, hero_player.max_mp, screen)
-    # hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
+    hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
 
     for target_unit in target_list:
         target_unit.update()
@@ -177,7 +177,7 @@ while run:
             total_fighters = len(enemy_list) + 1
         else:
             total_fighters = 2
-            enemy_list = [Bandit(500, 555, "the boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
+            enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
             total_fighters = len(enemy_list) + 1
 
 
@@ -250,11 +250,10 @@ while run:
             runshop = True
             runbattle = False
 
-        # if hero_player.current_fury == 100:
-        #     if prueba_button.draw():
-        #        fakeultimate = True
-        #        hero_player.current_fury = 0
-
+        if hero_player.current_fury == 100:
+             if prueba_button.draw():
+                fakeultimate = True
+                hero_player.reset_fury()
 
         if game_over == 0:
             # make sure mouse is visible

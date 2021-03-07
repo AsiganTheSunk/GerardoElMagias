@@ -25,7 +25,7 @@ class MeleeFighter:
         return False
 
     @staticmethod
-    def block_chance(dexterity, shield_value=10):
+    def block_chance(dexterity, shield_value=2):
         block_chance = dexterity * shield_value
 
         if block_chance > randint(1, 100):

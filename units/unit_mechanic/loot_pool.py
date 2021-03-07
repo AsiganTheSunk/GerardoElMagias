@@ -24,11 +24,7 @@ class LootPool:
                 loot_message = f' Found Food: +30 HEALTH! '
 
                 food_healing = 30
-                if hero_player.max_hp - hero_player.current_hp > food_healing:
-                    heal_amount = food_healing
-                else:
-                    heal_amount = hero_player.max_hp - hero_player.current_hp
-                hero_player.current_hp += heal_amount
+                hero_player.gain_health(food_healing)
 
             elif loot_chance == 3:
                 loot_color = BLUE_COLOR
@@ -39,12 +35,7 @@ class LootPool:
                 loot_color = BLUE_COLOR
                 loot_message = f' Found Drink: +10 MANA! '
                 drink = 10
-
-                if hero_player.max_mp - hero_player.current_mp > drink:
-                    drink_amount = drink
-                else:
-                    drink_amount = hero_player.max_mp - hero_player.current_mp
-                hero_player.current_mp += drink_amount
+                hero_player.gain_mana(drink)
 
             elif loot_chance == 5:
                 gold = randint(1, 4) + target.level
@@ -63,17 +54,18 @@ class LootPool:
 
     @staticmethod
     def get_loot_boss(hero_player, target, damage_text_group):
+        loot_message = f' Empty '
+        loot_color = WHITE_COLOR
         loot_chance = randint(0, 2)
+
         if not target.is_looted():
             if loot_chance == 0:
                 loot_color = GREEN_COLOR
                 loot_message = f' Espada de Yisus '
 
-
             elif loot_chance == 1:
                 loot_color = GREEN_COLOR
                 loot_message = f' Escudo de Yisus! '
-
 
             elif loot_chance == 2:
                 loot_color = GREEN_COLOR
