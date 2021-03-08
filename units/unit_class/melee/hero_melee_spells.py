@@ -1,6 +1,7 @@
 from units.unit_class.melee.melee_figher import MeleeFighter
 from floating_text.damage_text import DamageText
 from random import randint
+from units.unit_mechanic.utils import get_alive_targets
 
 # Init: Damage Text
 damage_text = DamageText()
@@ -9,11 +10,8 @@ damage_text = DamageText()
 class HeroMeleeSpells(MeleeFighter):
     def cast_multi_strike_attack(self, caster, number_of_strikes, multi_strike, target_list, damage_text_group,
                                  action_cooldown, action_wait_time, current_fighter, ultimate_status):
-        alive_enemy = []
-        for enemy_unit in target_list:
-            if enemy_unit.alive:
-                alive_enemy.append(enemy_unit)
 
+        alive_enemy = get_alive_targets(target_list)
         if number_of_strikes < multi_strike:
             if action_cooldown >= action_wait_time:
                 if len(alive_enemy) > 0:
@@ -25,10 +23,10 @@ class HeroMeleeSpells(MeleeFighter):
                     # Animation will be accelerated
                     action_cooldown = 55
         else:
-            attack_number = 0
+            number_of_strikes = 0
             ultimate_status = False
             current_fighter += 1
-            # Action Delay: Next Enemy Action will be dealayed after the ultimate cast
+            # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             action_cooldown = -25
 
         return number_of_strikes, current_fighter, action_cooldown, ultimate_status
@@ -36,7 +34,7 @@ class HeroMeleeSpells(MeleeFighter):
     def cast_aoe_attack(self, caster, target_list, damage_text_group):
         for count, target_unit in enumerate(target_list):
             if target_unit.alive:
-                output_damage, output_message, output_color = self.cast_attack(caster)
+                output_damage, output_message = self.cast_attack(caster)
 
                 target_unit.current_hp -= output_damage
                 target_unit.hurt()

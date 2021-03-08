@@ -76,9 +76,7 @@ class BasicUnit:
             self.current_fury += fury_amount
 
     def is_dead(self):
-        if self.current_hp < 1:
-            return True
-        return False
+        return self.current_hp < 1
 
     def death(self):
         self.current_hp = 0

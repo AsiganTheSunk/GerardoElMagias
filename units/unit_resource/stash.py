@@ -1,5 +1,5 @@
 class Stash:
-    def __init__(self, healing_potions=2, mana_potions=2, gold=0):
+    def __init__(self, healing_potions=2, mana_potions=1, gold=0):
         self.healing_potions = healing_potions
         self.mana_potions = mana_potions
         self.gold = gold

@@ -12,14 +12,8 @@ class MageFighter:
         return base_damage * multiplier
 
     @staticmethod
-    def critical_chance(hit_chance, intellect):
-        if hit_chance < intellect:
-            return True
-        return False
-
-    @staticmethod
-    def miss_chance(hit_chance, dexterity):
-        if hit_chance > (80 + dexterity):
+    def critical_chance(hit_chance, magic):
+        if hit_chance < round(magic/2):
             return True
         return False
 
@@ -27,7 +21,7 @@ class MageFighter:
     def hit_chance():
         return randint(0, 99)
 
-    def cast_spell(self, magic, intellect, base_damage, multiplier):
+    def cast_spell(self, magic, base_damage, multiplier):
         # Calculate Basic Damage: Based on Magic
         base_damage = (magic * multiplier) + base_damage
 
@@ -35,8 +29,6 @@ class MageFighter:
         hit_chance = self.hit_chance()
 
         # Calculate Miss, Basic Damage & Critical Hit
-        if not self.miss_chance(hit_chance, intellect):
-            if self.critical_chance(hit_chance, intellect):
-                return self.critical_hit(base_damage), self.CRITICAL_HIT, RED_COLOR
-            return base_damage, self.HIT, RED_COLOR
-        return 0, self.RESIST, WHITE_COLOR
+        if self.critical_chance(hit_chance, magic):
+            return self.critical_hit(base_damage), self.CRITICAL_HIT
+        return base_damage, self.HIT
