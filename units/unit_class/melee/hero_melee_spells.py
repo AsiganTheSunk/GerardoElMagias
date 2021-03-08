@@ -36,7 +36,7 @@ class HeroMeleeSpells(MeleeFighter):
     def cast_aoe_attack(self, caster, target_list, damage_text_group):
         for count, target_unit in enumerate(target_list):
             if target_unit.alive:
-                output_damage, output_message, output_color = self.cast_attack(caster)
+                output_damage, output_message = self.cast_attack(caster)
 
                 target_unit.current_hp -= output_damage
                 target_unit.hurt()

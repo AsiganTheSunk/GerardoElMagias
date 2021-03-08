@@ -14,7 +14,7 @@ from units.unit_mechanic.experience import ExperienceSystem
 from random import randint
 from floating_text.combat_text_resolver import CombatTextResolver
 from floating_text.damage_text import DamageText
-from units.unit_mechanic.utils import get_alive_targets
+from units.unit_mechanic.utils import get_alive_targets_status
 
 
 # Init: Damage Text, CombatTextResolver
@@ -39,7 +39,7 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         self.exp_level_break = 5
 
     def attack(self, target, damage_text_group):
-        output_damage, output_message, output_color = self.cast_attack(self)
+        output_damage, output_message = self.cast_attack(self)
 
         # Activates Attack Animation: Bandit -> MeleeFighter
         self.melee_attack()
@@ -92,13 +92,13 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         if self.reduce_mana(15):
 
             # Pre Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets(target_list)
+            pre_target_list = get_alive_targets_status(target_list)
 
             # Retrieve State for Enemy List: target_list
             self.damage_spells.cast_firestorm(self, target_list, damage_text_group)
 
             # Post Save State for Enemy List: target_list
-            pos_target_list = get_alive_targets(target_list)
+            pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)
@@ -111,11 +111,11 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             # Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets(target_list)
+            pre_target_list = get_alive_targets_status(target_list)
 
             self.damage_spells.cast_lightning(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
-            pos_target_list = get_alive_targets(target_list)
+            pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)

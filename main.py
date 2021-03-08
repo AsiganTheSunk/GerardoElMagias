@@ -24,7 +24,7 @@ from constants.basic_colors import *
 from constants.game_windows import *
 from constants.basic_images import *
 from constants.basic_fonts import *
-
+from game_mechanic.scripted_enemies import scripted_enemy
 # Python Imports:
 from random import randint
 
@@ -45,9 +45,35 @@ action_wait_time = 80
 clicked = False
 game_over = 0
 level = 1
+bosslevel = 1
 update_time = time.get_ticks()
 
 
+def setup_battle(target_list, hero_player):
+    clock.tick(fps)
+
+    # draw backgrounds
+    draw_bg_forest()
+
+    # draw panel
+    draw_stage()
+    draw_panel()
+
+    # damage text
+    damage_text_group.update()
+    damage_text_group.draw(screen)
+
+    # draw fighters
+    hero_player.unit_animation.update()
+    hero_player.draw(screen)
+    hero_player.health_bar.draw(hero_player.current_hp, hero_player.max_hp, screen)
+    hero_player.mana_bar.draw(hero_player.current_mp, hero_player.max_mp, screen)
+    hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
+
+    for target_unit in target_list:
+        target_unit.update()
+        target_unit.draw(screen)
+        target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
 
 
 # create function for drawing text
@@ -101,11 +127,12 @@ def draw_panel():
     ENEMY_TEXT_POS_3 = [700, screen_height - bottom_panel + 65]
 
     tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
-    for index, enemy_fighter in enumerate(enemy_list):
-        if level % 4 != 0:
-            draw_text(f"Bandit {index + 1} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0], tmp[index][1])
-        else:
-            draw_text(f" Boss {index + 1} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
+
+    if scripted_battle[level]:
+        draw_text(f" The Boss HP: {enemy_list[0].current_hp}", default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
+    else:
+        for index, enemy_fighter in enumerate(enemy_list):
+            draw_text(f"Bandit {index + 1} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
                       tmp[index][1])
 
 
@@ -167,6 +194,9 @@ def setup_battle(target_list, hero_player):
         target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
 
 
+# el primer True es un filler que no se lee nunca
+scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
+
 damage_text_group = sprite.Group()
 hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - bottom_panel + 50, 290, screen_height - bottom_panel + 50, 90, 510)
 enemy_list = []
@@ -187,13 +217,23 @@ while run:
         runbattle = True
         ultimate_status = False
 
-        if level % 4 != 0:
+        if scripted_battle[level]:
+            enemy_list = scripted_enemy(bosslevel)
+            total_fighters = len(enemy_list) + 1
+            bosslevel += 1
+        else:
             enemy_group = EnemyGroup()
             enemy_list = enemy_group.generate_enemy(level)
             total_fighters = len(enemy_list) + 1
-        else:
-            enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
-            total_fighters = len(enemy_list) + 1
+
+
+        # if level % 4 != 0:
+        #     enemy_group = EnemyGroup()
+        #     enemy_list = enemy_group.generate_enemy(level)
+        #     total_fighters = len(enemy_list) + 1
+        # else:
+        #     enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
+        #     total_fighters = len(enemy_list) + 1
 
     while runintro:
         screen.blit(background_intro, (0, 0))
@@ -371,8 +411,15 @@ while run:
                             animation_cooldown = 0
                             target = enemy_list[count]
 
+                            # # Todo: Create a proper function
+                            # if level % 4 == 0:
+                            #     hero_player.loot_boss(target, damage_text_group)
+                            # else:
+                            #     hero_player.loot(target, damage_text_group)
+
                             # Todo: Create a proper function
-                            if level % 4 == 0:
+
+                            if scripted_battle[level]:
                                 hero_player.loot_boss(target, damage_text_group)
                             else:
                                 hero_player.loot(target, damage_text_group)

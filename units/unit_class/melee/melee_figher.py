@@ -46,12 +46,7 @@ class MeleeFighter:
         if not self.miss_chance(hit_chance, caster.dexterity):
             if not self.block_chance(caster.dexterity):
                 if self.critical_chance(hit_chance, caster.dexterity):
-                    return self.critical_hit(base_damage), self.CRITICAL_HIT, RED_COLOR
-                return base_damage, self.HIT, RED_COLOR
-            return 0, self.BLOCKED, GRAY_COLOR
-        return 0, self.MISS, WHITE_COLOR
-
-
-
-
-
+                    return self.critical_hit(base_damage), self.CRITICAL_HIT
+                return base_damage, self.HIT
+            return 0, self.BLOCKED
+        return 0, self.MISS

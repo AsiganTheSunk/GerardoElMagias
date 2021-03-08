@@ -11,10 +11,10 @@ class EnemyGroup:
     @staticmethod
     def generate_enemy_stats(level):
         randomlevel = level + randint(0, 2)
-        maxhp = randomlevel * 12
-        maxmp = randomlevel * 5
-        str = 8 + randomlevel
-        dex = 7 + randomlevel
+        maxhp = randomlevel * 9
+        maxmp = randomlevel * 4
+        str = 8 + round(randomlevel/2)
+        dex = 7 + round(randomlevel/2)
         mag = 5 + randomlevel
         return randomlevel, maxhp, maxmp, str, dex, mag
 

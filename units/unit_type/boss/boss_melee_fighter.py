@@ -11,7 +11,7 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class Bandit(BasicUnit, MeleeFighter):
+class Boss(BasicUnit, MeleeFighter):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeFighter.__init__(self)
