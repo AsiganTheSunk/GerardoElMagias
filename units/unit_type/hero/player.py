@@ -156,8 +156,8 @@ class HeroPlayer(BasicUnit, MeleeFighter):
             base_mana_multiplier = (self.level * 2)
             mana_recover = base_mana + mana_interval + base_mana_multiplier
 
-            self.gain_mana(mana_recover)
-            gained_mana = self.stash.consume_mana_potion()
+            self.stash.consume_mana_potion()
+            gained_mana = self.gain_mana(mana_recover)
 
             damage_text.mana(self, str(gained_mana), damage_text_group)
             return True
