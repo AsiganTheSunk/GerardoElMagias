@@ -25,7 +25,7 @@ class HeroMeleeSpells(MeleeFighter):
                     # Animation will be accelerated
                     action_cooldown = 55
         else:
-            attack_number = 0
+            number_of_strikes = 0
             ultimate_status = False
             current_fighter += 1
             # Action Delay: Next Enemy Action will be dealayed after the ultimate cast

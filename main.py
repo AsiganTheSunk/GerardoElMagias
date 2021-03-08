@@ -226,15 +226,6 @@ while run:
             enemy_list = enemy_group.generate_enemy(level)
             total_fighters = len(enemy_list) + 1
 
-
-        # if level % 4 != 0:
-        #     enemy_group = EnemyGroup()
-        #     enemy_list = enemy_group.generate_enemy(level)
-        #     total_fighters = len(enemy_list) + 1
-        # else:
-        #     enemy_list = [Bandit(500, 555, "The Boss", 10, 214, 50, 21, 3, 0, 490, (screen_height - bottom_panel + 40))]
-        #     total_fighters = len(enemy_list) + 1
-
     while runintro:
         screen.blit(background_intro, (0, 0))
         display.update()
@@ -281,7 +272,6 @@ while run:
         display.update()
 
     while runbattle:
-
         # reset action variables
         mana_potion = False
         attack = False
@@ -362,12 +352,25 @@ while run:
                     if enemy_unit.alive:
                         action_cooldown += 1
                         if action_cooldown >= action_wait_time:
-                            # Attack
-                            enemy_unit.attack(hero_player, damage_text_group)
+                            health_trigger = enemy_unit.current_hp <= round(enemy_unit.max_hp * 0.3)
+
+                            if 'Boss' in enemy_unit.name:
+                                if enemy_unit.stash.has_healing_potion() and health_trigger:
+                                    enemy_unit.use_healing_potion(damage_text_group)
+                                elif not enemy_unit.stash.has_healing_potion() and enemy_unit.has_tried_to_consume_health_potion() and health_trigger:
+                                    enemy_unit.use_healing_potion(damage_text_group)
+                                    enemy_unit.update_try_to_consume_health_potion()
+                                else:
+                                    # Attack
+                                    enemy_unit.attack(hero_player, damage_text_group)
+                            else:
+                                # Attack
+                                enemy_unit.attack(hero_player, damage_text_group)
                             current_fighter += 1
                             action_cooldown = 0
                     else:
                         current_fighter += 1
+
 
             # Reset Turn
             if current_fighter > total_fighters:
