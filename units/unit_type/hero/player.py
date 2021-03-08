@@ -141,25 +141,25 @@ class HeroPlayer(BasicUnit, MeleeFighter):
             health_recover = base_health + health_interval + base_health_multiplier
 
             self.stash.consume_healing_potion()
-            self.gain_health(health_recover)
+            gained_health = self.gain_health(health_recover)
 
-            damage_text.heal(self, str(health_recover), damage_text_group)
+            damage_text.heal(self, str(gained_health), damage_text_group)
             return True
 
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
         return False
 
     def use_mana_potion(self, damage_text_group):
-        if self.stash.has_mana_potion():
+        if self.stash.has_mana_potion() and self.current_mp < self.max_mp:
             base_mana = 15
             mana_interval = randint(0, 5)
             base_mana_multiplier = (self.level * 2)
             mana_recover = base_mana + mana_interval + base_mana_multiplier
 
             self.gain_mana(mana_recover)
-            self.stash.consume_mana_potion()
+            gained_mana = self.stash.consume_mana_potion()
 
-            damage_text.mana(self, str(mana_recover), damage_text_group)
+            damage_text.mana(self, str(gained_mana), damage_text_group)
             return True
 
         damage_text.warning(self, 'No Mana Potions', damage_text_group)

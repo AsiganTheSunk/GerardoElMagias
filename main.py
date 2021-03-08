@@ -209,7 +209,6 @@ run = True
 
 while run:
     while runreset:
-        ###PERAS
         number_of_strikes = 0
         animation_cooldown = 0
         action_cooldown = 0
@@ -371,7 +370,6 @@ while run:
                     else:
                         current_fighter += 1
 
-
             # Reset Turn
             if current_fighter > total_fighters:
                 current_fighter = 1
@@ -414,14 +412,7 @@ while run:
                             animation_cooldown = 0
                             target = enemy_list[count]
 
-                            # # Todo: Create a proper function
-                            # if level % 4 == 0:
-                            #     hero_player.loot_boss(target, damage_text_group)
-                            # else:
-                            #     hero_player.loot(target, damage_text_group)
-
                             # Todo: Create a proper function
-
                             if scripted_battle[level]:
                                 hero_player.loot_boss(target, damage_text_group)
                             else:

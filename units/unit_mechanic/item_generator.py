@@ -131,17 +131,18 @@ class ItemGenerator:
             item_rarity = ("Normal")
             return item_rarity
 
-#
-#item_type = item_generator.get_item_type()
-#item_rarity = item_generator.roll_rarity(base_mf, item_type)
-#base_item = item_generator.get_base_item(level, item_type)
 
 item_generator = ItemGenerator()
 item_type = item_generator.get_item_type()
 item_rarity = item_generator.roll_rarity(base_mf, item_type)
-base_item = item_generator.get_base_item2(level, item_type, items_pool)
+base_item = item_generator.get_base_item(level, item_type)
 
-print(item_type, item_rarity, base_item.item_lvl, base_item.name)
+
+# item_type = item_generator.get_item_type()
+# item_rarity = item_generator.roll_rarity(base_mf, item_type)
+# base_item = item_generator.get_base_item2(level, item_type, items_pool)
+
+# print(item_type, item_rarity, base_item.item_lvl, base_item.name)
 
 print(f'Monster level: {level}')
 print(f"MF: {base_mf}")
