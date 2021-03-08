@@ -150,7 +150,7 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         return False
 
     def use_mana_potion(self, damage_text_group):
-        if self.stash.has_mana_potion() and self.current_mp < self.max_mp:
+        if self.stash.has_mana_potion():
             base_mana = 15
             mana_interval = randint(0, 5)
             base_mana_multiplier = (self.level * 2)
