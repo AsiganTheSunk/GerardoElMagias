@@ -5,6 +5,7 @@ from core.game_units.unit_mechanic.health_bar import HealthBar
 
 from core.game_text.combat_text_resolver import CombatTextResolver
 from core.game_text.damage_text import DamageText
+from constants.sound import *
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
@@ -38,13 +39,19 @@ class Bandit(BasicUnit, MeleeFighter):
         # Activates Blocked Animation on Target
         if 'Blocked' in output_message:
             target.block()
+            block_sound.play()
 
         if 'Miss' in output_message:
             # Todo: Get miss animation
-            target.block()
+            target.miss()
+            miss_sound.play()
 
         # Activates Hurt/Death Animation on Target
         else:
+            # Activates Critical Hit Sound
+            if 'Critical' in output_message:
+                critical_hit_sound.play()
+
             if output_damage != 0:
                 # Updates current Target Health
                 target.reduce_health(output_damage)
@@ -54,6 +61,9 @@ class Bandit(BasicUnit, MeleeFighter):
 
                 # Activates Hurt Animation: Target
                 target.hurt()
+                hit_cut_sound.play()
+
+                #Activates hurt sound
 
                 # Evaluate Death: Target
                 if target.is_dead():

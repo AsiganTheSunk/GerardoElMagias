@@ -16,11 +16,12 @@ class UnitAnimation:
         self.animation_list.append(self.load_animation(self.unit_name, 'Attack', 8))
         self.animation_list.append(self.load_animation(self.unit_name, 'Hurt', 3))
         self.animation_list.append(self.load_animation(self.unit_name, 'Death', 10))
-        self.animation_list.append(self.load_animation(self.unit_name, 'Block', 5))
+        self.animation_list.append(self.load_animation(self.unit_name, 'Block', 9))
+        self.animation_list.append(self.load_animation(self.unit_name, 'Miss', 5))
 
         # Init Default Frames
         self.frame_index = 0
-        self.action = 0  # 0: Idle, 1: Attack, 2: Hurt, 3:Death, 4:Block
+        self.action = 0  # 0: Idle, 1: Attack, 2: Hurt, 3:Death, 4:Block, 5: Miss
         self.image = self.animation_list[self.action][self.frame_index]
 
         self.update_time = time.get_ticks()
@@ -92,9 +93,11 @@ class UnitAnimation:
         self.frame_index = 0
         self.update_time = time.get_ticks()
 
-    def dodge_animation(self):
+    def miss_animation(self):
         # Activates: Miss Animation
-        pass
+        self.action = 5
+        self.frame_index = 0
+        self.update_time = time.get_ticks()
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

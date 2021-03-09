@@ -14,7 +14,7 @@ from random import randint
 from core.game_text.combat_text_resolver import CombatTextResolver
 from core.game_text.damage_text import DamageText
 from core.game_units.unit_mechanic.utils import get_alive_targets_status
-
+from constants.sound import *
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
@@ -43,23 +43,41 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         # Activates Attack Animation: Bandit -> MeleeFighter
         self.melee_attack()
 
+
         # Activates Blocked Animation on Target
         if 'Blocked' in output_message:
             # Todo: Update Animation to proper block animation
             target.block()
 
+            block_sound.play()
+
+
+
         # Activates Miss Animation on Target
         elif 'Miss' in output_message:
             # Todo: Rename or Change block to miss animation frame for consistency purposes
-            target.block()
+            target.miss()
+
+            miss_sound.play()
+
+
+
+
+
 
         # Activates Hurt/Death Animation on Target
         else:
+            # Activates Critical Hit Sound
+            if 'Critical' in output_message:
+                critical_hit_sound.play()
+
             if output_damage != 0:
                 target.reduce_health(output_damage)
 
                 # Activates Hurt Animation: Target
                 target.hurt()
+                hit_cut_sound.play()
+
 
                 # Evaluate Death: Target
                 if target.is_dead():
@@ -134,6 +152,9 @@ class HeroPlayer(BasicUnit, MeleeFighter):
 
     def use_healing_potion(self, damage_text_group):
         if self.stash.has_healing_potion():
+            health_potion_sound.play()
+
+
             base_health = 40
             health_interval = randint(0, 10)
             base_health_multiplier = (self.level * 4)
@@ -145,11 +166,16 @@ class HeroPlayer(BasicUnit, MeleeFighter):
             damage_text.heal(self, str(gained_health), damage_text_group)
             return True
 
+
+
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
+        error_sound.play()
         return False
 
     def use_mana_potion(self, damage_text_group):
+
         if self.stash.has_mana_potion():
+            health_potion_sound.play()
             base_mana = 15
             mana_interval = randint(0, 5)
             base_mana_multiplier = (self.level * 2)
@@ -162,4 +188,5 @@ class HeroPlayer(BasicUnit, MeleeFighter):
             return True
 
         damage_text.warning(self, 'No Mana Potions', damage_text_group)
+        error_sound.play()
         return False

@@ -24,10 +24,14 @@ from constants.game_windows import *
 from constants.basic_images import *
 from constants.basic_fonts import *
 from core.game_mechanics.battle_system.scripted_enemies import scripted_enemy
+
 # Python Imports:
+from random import randint
+from constants.sound import *
 
 
 init()
+mixer.pre_init(44100, -16, 2, 4096)
 clock = time.Clock()
 fps = 60
 
@@ -39,7 +43,7 @@ current_fighter = 1
 total_fighters = 3
 action_cooldown = 0
 animation_cooldown = 0
-action_wait_time = 80
+action_wait_time = 90
 clicked = False
 game_over = 0
 level = 1
@@ -92,11 +96,14 @@ def draw_bg_castle():
 def draw_stage():
     draw_text(f"Oro: {hero_player.stash.gold}", default_font, YELLOW_COLOR, 50, 20)
     draw_text(f"LVL: {hero_player.level}", default_font, WHITE_COLOR, 50, 100)
-    draw_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 310, 25)
     draw_text(f"Exp: {hero_player.experience} / {hero_player.exp_level_break} ", default_font, WHITE_COLOR, 50, 125)
     draw_text(f"STR: {hero_player.strength}", default_font, WHITE_COLOR, 50, 175)
     draw_text(f"DEX: {hero_player.dexterity}", default_font, WHITE_COLOR, 50, 200)
     draw_text(f"MAG: {hero_player.magic}", default_font, WHITE_COLOR, 50, 225)
+    if level <= 7:
+        draw_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 310, 25)
+    else:
+        draw_text(f"THE CASTLE: STAGE {level - 7}", default_font, RED_COLOR, 310, 25)
 
 
 def draw_debug_panel(_current_fighter, _total_fighters):
@@ -153,6 +160,7 @@ ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
 # Kill Button
 kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
 
+
 def draw_bgintro():
     screen.blit(background_intro, (0, 0))
 
@@ -169,7 +177,10 @@ def setup_battle(target_list, hero_player):
     clock.tick(fps)
 
     # draw backgrounds
-    draw_bg_forest()
+    if level <=7:
+        draw_bg_forest()
+    if level > 7:
+        draw_bg_castle()
 
     # draw panel
     draw_stage()
@@ -200,7 +211,6 @@ hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, sc
 enemy_list = []
 
 runreset = True
-runintro = False
 runshop = False
 runbattle = False
 run = True
@@ -210,29 +220,33 @@ while run:
         number_of_strikes = 0
         animation_cooldown = 0
         action_cooldown = 0
-        runreset = False
-        runbattle = True
         ultimate_status = False
 
         if scripted_battle[level]:
+            mixer.fadeout(1)
             enemy_list = scripted_enemy(bosslevel)
             total_fighters = len(enemy_list) + 1
             bosslevel += 1
-        else:
-            enemy_group = EnemyGroup()
-            enemy_list = enemy_group.generate_enemy(level)
-            total_fighters = len(enemy_list) + 1
+            boss_music.play()
 
-    while runintro:
-        screen.blit(background_intro, (0, 0))
-        display.update()
-        for _event in event.get():
-            if _event.type == QUIT:
-               run = False
-               runintro = False
-            if _event.type == MOUSEBUTTONDOWN:
-                runintro = False
-                runreset = True
+        else:
+            if level <= 7:
+                enemy_group = EnemyGroup()
+                enemy_list = enemy_group.generate_enemy(level)
+                total_fighters = len(enemy_list) + 1
+                if not mixer.get_busy():
+                    battle_music.play()
+
+            if level > 7:
+                enemy_group = EnemyGroup()
+                enemy_list = enemy_group.generate_enemy(level)
+                total_fighters = len(enemy_list) + 1
+                if not mixer.get_busy():
+                    castle_music.play()
+
+        runreset = False
+        runbattle = True
+
 
     while runshop:
         setup_shop()
@@ -242,22 +256,29 @@ while run:
 
         if lightning_spell_button.draw():
             if hero_player.use_lightning(enemy_list, damage_text_group):
+                lightning_spell_1_sound.play()
                 current_fighter += 1
-                action_cooldown = 0
+                action_cooldown = -30
                 runshop = False
                 runbattle = True
 
         if firestorm_spell_button.draw():
             if hero_player.use_firestorm(enemy_list, damage_text_group):
+                i = randint(0, 1)
+                if i == 0:
+                    firestorm_spell_1_sound.play()
+                if i == 1:
+                    firestorm_spell_2_sound.play()
                 current_fighter += 1
-                action_cooldown = 0
+                action_cooldown = -30
                 runshop = False
                 runbattle = True
 
         if heal_spell_button.draw():
             if hero_player.use_heal(damage_text_group):
+                heal_spell_1_sound.play()
                 current_fighter += 1
-                action_cooldown = 0
+                action_cooldown = -30
                 runshop = False
                 runbattle = True
 
@@ -292,9 +313,12 @@ while run:
             runbattle = False
 
         if hero_player.current_fury == 100:
-            if ultimate_button.draw():
+            if ultimate_button.draw() and current_fighter == 1 and action_cooldown >= action_wait_time:
+                #TODO activar animacion pre-ulti
                 ultimate_status = True
+                ultimate_sound.play()
                 hero_player.reset_fury()
+                action_cooldown = -20
 
         if game_over == 0:
             # make sure mouse is visible
@@ -384,16 +408,34 @@ while run:
         if game_over != 0:
             # Condicion de Victoria
             if game_over == 1:
-                screen.blit(victory_img, (180, 50))
-                draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
-                ### PERAS correr aquí la funcion de experiencia y ganar nivel
-                if next_button.draw():
-                    current_fighter = 1
-                    game_over = 0
-                    action_cooldown = 0
-                    runreset = True
-                    runbattle = False
-                    level += 1
+                if scripted_battle[level]:
+                    boss_music.stop()
+                    if not mixer.get_busy():
+                        victory_music.play()
+                    screen.blit(victory_img, (180, 50))
+                    draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+
+                    ### PERAS correr aquí la funcion de experiencia y ganar nivel
+                    if next_button.draw():
+                        current_fighter = 1
+                        game_over = 0
+                        action_cooldown = 0
+                        runreset = True
+                        runbattle = False
+                        level += 1
+                        victory_music.stop()
+                else:
+                    draw_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
+                    draw_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
+                    draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+                    ### PERAS correr aquí la funcion de experiencia y ganar nivel
+                    if next_button.draw():
+                        current_fighter = 1
+                        game_over = 0
+                        action_cooldown = 0
+                        runreset = True
+                        runbattle = False
+                        level += 1
 
                 # LOOT PHASE
                 # ADD COOLDOWN BEFORE LOOT

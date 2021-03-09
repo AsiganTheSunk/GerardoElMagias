@@ -6,6 +6,7 @@ from core.game_units.unit_resource.stash import Stash
 from random import randint
 from core.game_text.combat_text_resolver import CombatTextResolver
 from core.game_text.damage_text import DamageText
+from constants.sound import *
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
@@ -48,12 +49,19 @@ class Boss(BasicUnit, MeleeFighter):
         if 'Blocked' in output_message:
             target.block()
 
+            block_sound.play()
+
         if 'Miss' in output_message:
             # Todo: Get miss animation
-            target.block()
+            target.miss()
+            block_sound.play()
 
         # Activates Hurt/Death Animation on Target
         else:
+            # Activates Critical Hit Sound
+            if 'Critical' in output_message:
+                critical_hit_sound.play()
+
             if output_damage != 0:
                 # Updates current Target Health
                 target.reduce_health(output_damage)
@@ -63,6 +71,7 @@ class Boss(BasicUnit, MeleeFighter):
 
                 # Activates Hurt Animation: Target
                 target.hurt()
+                hit_cut_boss_sound.play()
 
                 # Evaluate Death: Target
                 if target.is_dead():
@@ -73,6 +82,9 @@ class Boss(BasicUnit, MeleeFighter):
 
     def use_healing_potion(self, damage_text_group):
         if self.stash.has_healing_potion():
+            # Activates potion sound
+            health_potion_sound.play()
+
             base_health = 40
             health_interval = randint(0, 10)
             base_health_multiplier = (self.level * 4)
@@ -83,6 +95,8 @@ class Boss(BasicUnit, MeleeFighter):
 
             damage_text.heal(self, str(health_recover), damage_text_group)
             return True
+
+
 
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
         return False

@@ -1,6 +1,8 @@
 from core.game_units.unit_animation import UnitAnimation
 
 
+
+
 class BasicUnit:
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic):
 
@@ -69,7 +71,7 @@ class BasicUnit:
         return input_mana
 
     def gain_fury(self, input_damage):
-        fury_amount = round(input_damage * 1.5)
+        fury_amount = round(input_damage * 1.4)
         if self.current_fury + fury_amount >= 100:
             self.current_fury = 100
         else:
@@ -92,8 +94,8 @@ class BasicUnit:
     def hurt(self):
         self.unit_animation.hurt_animation()
 
-    def dodge(self):
-        self.unit_animation.dodge_animation()
+    def miss(self):
+        self.unit_animation.miss_animation()
 
     def idle(self):
         self.unit_animation.idle_animation()
