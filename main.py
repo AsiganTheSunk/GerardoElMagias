@@ -11,22 +11,20 @@ __email__ = ""
 __status__ = "Development"
 
 # Pygame Imports:
-from pygame import time, display, sprite, event, QUIT, MOUSEBUTTONDOWN, mouse, quit, init
+from pygame import time, display, sprite, event, QUIT, MOUSEBUTTONDOWN, mouse, quit
 
 # Game Engine Imports:
 from interface.basic_components import button
-from units.unit_type.hero.player import HeroPlayer
-from units.unit_type.bandit.bandit_melee_figher import Bandit
-from units.enemy_group import EnemyGroup
+from core.game_units.unit_type.hero.player import HeroPlayer
+from core.game_units.enemy_group import EnemyGroup
 
 # Game Engine Constants Imports
 from constants.basic_colors import *
 from constants.game_windows import *
 from constants.basic_images import *
 from constants.basic_fonts import *
-from game_mechanic.scripted_enemies import scripted_enemy
+from core.game_mechanics.battle_system.scripted_enemies import scripted_enemy
 # Python Imports:
-from random import randint
 
 
 init()

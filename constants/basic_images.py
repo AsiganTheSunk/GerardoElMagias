@@ -73,7 +73,6 @@ piel_de_balrog_image = image.load("resources/items/armors/base/coraza.png")
 # Elite Armors
 
 
-
 # Shield Images
 # Base Shields
 aegis_image = image.load("resources/items/shields/base/aegis.png")
