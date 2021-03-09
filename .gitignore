@@ -5,4 +5,4 @@ constants/__pycache__/
 
 *.pyc
 
-units/unit_mechanic/__pycache__/
+core/game_units/unit_mechanic/__pycache__/

@@ -1,8 +1,12 @@
 from pygame import image
+from pygame import transform
+
+background_castle = image.load("resources/background/castle.gif")
+background_castle = transform.scale(background_castle, (928, 663))
+
 
 # Background Images:
 background_forest = image.load("resources/background/forest.png")
-background_castle = image.load("resources/background/castle.jpg")
 background_intro = image.load("resources/background/magia.jpg")
 
 # Panel Images:
