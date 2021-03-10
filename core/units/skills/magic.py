@@ -32,7 +32,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
     def cast_firestorm(self, caster, target_list, damage_text_group):
         # Basic Spell Attributes: minimum, maximum, multiplier
-        basic_spell_attributes = [0, 20, 3]
+        base_damage = randint(0, 20)
+        output_damage = (caster.magic * 3) + base_damage
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
@@ -41,7 +42,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_damage_list = []
             input_type_list = []
             for _ in target_list:
-                input_damage, input_type = self.spell_attack_resolution(caster, 1, self.hit_resolution())
+                input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
 
@@ -51,7 +52,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
     def cast_lightning(self, caster, target_list, damage_text_group):
         # Basic Spell Attributes: minimum, maximum, multiplier
-        basic_spell_attributes = [0, 50, 1]
+        base_damage = randint(0, 50)
+        output_damage = (caster.magic * 1) + base_damage
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:

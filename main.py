@@ -299,6 +299,7 @@ while constants.globals.run:
         if kill_button.draw():
             for target_unit in enemy_list:
                 target_unit.death()
+                target_unit.death_animation()
 
         if potion_button.draw():
             potion = True
@@ -349,11 +350,8 @@ while constants.globals.run:
 
                         # Use: Ultimate Spell
                         # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
-                        if ultimate_status:
-                            number_of_strikes, constants.globals.current_fighter, constants.globals.action_cooldown, ultimate_status = \
-                                    hero_player.use_ultimate(number_of_strikes, enemy_list, damage_text_group,
-                                                             constants.globals.action_cooldown, action_wait_time, constants.globals.current_fighter,
-                                                             ultimate_status)
+                        if constants.globals.ultimate_status:
+                            hero_player.use_ultimate(enemy_list, damage_text_group)
 
 
             else:

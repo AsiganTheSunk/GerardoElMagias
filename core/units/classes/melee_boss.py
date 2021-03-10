@@ -30,7 +30,6 @@ class Boss(BasicUnit, MeleeSpells):
 
         self.animation_set = AnimationSet(x, y, name, MeleeBossSet)
 
-
     def update_try_to_consume_health_potion(self):
         self.try_to_consume_health_potion = True
 
@@ -46,45 +45,8 @@ class Boss(BasicUnit, MeleeSpells):
         self.looted_status = True
 
     def attack(self, target, damage_text_group):
-        # Get Damage, Message, Color for current Attack
-        output_damage, output_message = self.cast_attack(self)
-
-        # Activates Attack Animation: Bandit -> MeleeFighter
-        self.melee_attack()
-
-        # Activates Blocked Animation on Target
-        if 'Blocked' in output_message:
-            target.block()
-
-            block_sound.play()
-
-        if 'Miss' in output_message:
-            # Todo: Get miss animation
-            target.miss()
-            block_sound.play()
-
-        # Activates Hurt/Death Animation on Target
-        else:
-            # Activates Critical Hit Sound
-            if 'Critical' in output_message:
-                critical_hit_sound.play()
-
-            if output_damage != 0:
-                # Updates current Target Health
-                target.reduce_health(output_damage)
-
-                # Updates current Target Fury
-                target.gain_fury(output_damage)
-
-                # Activates Hurt Animation: Target
-                target.hurt()
-                hit_cut_boss_sound.play()
-
-                # Evaluate Death: Target
-                if target.is_dead():
-                    target.death()
-
-        combat_text_resolver.resolve(target, str(output_damage) + output_message, damage_text_group)
+        self.melee_attack_animation()
+        self.cast_attack(self, target, damage_text_group)
         return True
 
     def use_healing_potion(self, damage_text_group):
@@ -103,7 +65,42 @@ class Boss(BasicUnit, MeleeSpells):
             damage_text.heal(self, str(health_recover), damage_text_group)
             return True
 
-
-
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
         return False
+
+    def action(self, target, damage_text_group):
+        health_trigger = self.current_hp <= round(self.max_hp * 0.3)
+
+        if self.stash.has_healing_potion() and health_trigger:
+            self.use_healing_potion(damage_text_group)
+        elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
+            self.use_healing_potion(damage_text_group)
+            self.update_try_to_consume_health_potion()
+        else:
+            # Attack
+            self.attack(target, damage_text_group)
+
+    def death_animation(self):
+        # Activates: Death Animation
+        self.animation_set.action = 1
+        self.animation_set.reset_frame_index()
+
+    def melee_attack_animation(self):
+        # Activates: Melee Attack Animation
+        self.animation_set.action = 2
+        self.animation_set.reset_frame_index()
+
+    def hurt_animation(self):
+        # Activates: Hurt Animation
+        self.animation_set.action = 3
+        self.animation_set.reset_frame_index()
+
+    def block_animation(self):
+        # Activates: Block Animation
+        self.animation_set.action = 4
+        self.animation_set.reset_frame_index()
+
+    def miss_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 5
+        self.animation_set.reset_frame_index()

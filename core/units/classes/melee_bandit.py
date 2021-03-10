@@ -17,11 +17,11 @@ class Bandit(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
+
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
         self.looted_status = False
         self.loot_pool = LootPool()
-
         self.animation_set = AnimationSet(x, y, name, MeleeBanditSet)
 
     def is_looted(self):

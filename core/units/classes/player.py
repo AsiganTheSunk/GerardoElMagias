@@ -31,6 +31,8 @@ from core.units.combat.combat_resolver import CombatResolver
 from core.units.animations.animation_db import HeroSet
 from core.units.animations.animation_set import AnimationSet
 
+import constants.globals
+
 combat_resolver = CombatResolver()
 combat_formulas = CombatFormulas()
 
@@ -43,6 +45,7 @@ combat_text_resolver = CombatTextResolver()
 class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
+        FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 
@@ -57,6 +60,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
 
         self.experience = 0
         self.exp_level_break = 5
+        self.fury_status = True
 
     def attack(self, target, damage_text_group):
         self.melee_attack_animation()
@@ -69,22 +73,16 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
     def loot_boss(self, target, damage_text_group):
         target.loot_pool.get_loot_boss(self, target, damage_text_group)
 
-    # def use_ultimate(self, number_of_strikes, target_list, damage_text_group,
-    #                  action_cooldown, action_wait_time, current_fighter, ultimate_status):
-    #
-    #     if number_of_strikes == 0:
-    #         damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group)
-    #
-    #     return self.hero_spells.cast_path_of_the_seven_strikes(self, number_of_strikes, target_list, damage_text_group,
-    #                                                            action_cooldown, action_wait_time, current_fighter,
-    #                                                            ultimate_status)
+    def use_ultimate(self, target_list, damage_text_group):
+        self.melee_attack_animation()
+        self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
+        return True
 
     def use_firestorm(self, target_list, damage_text_group):
-        constants.globals.action_cooldown = 0
-        constants.globals.current_fighter += 1
-
         # Consume Mana: Spell Casting
         if self.reduce_mana(15):
+            constants.globals.action_cooldown = -30
+            constants.globals.current_fighter += 1
 
             # Pre Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
@@ -103,10 +101,11 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
         return False
 
     def use_lightning(self, target_list, damage_text_group):
-        constants.globals.action_cooldown = -30
-        constants.globals.current_fighter += 1
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
+            constants.globals.action_cooldown = -30
+            constants.globals.current_fighter += 1
+
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
@@ -171,11 +170,8 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
             self.stash.consume_healing_potion()
             gained_health = self.gain_health(health_recover)
 
-
             damage_text.heal(self, str(gained_health), damage_text_group)
             return True
-
-
 
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
         error_sound.play()

@@ -9,6 +9,9 @@ from core.text.damage_text import DamageText
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
+from core.units.combat.utils import get_alive_targets
+
+from random import randint
 
 class CombatResolver:
     @staticmethod
@@ -62,6 +65,9 @@ class CombatResolver:
         combat_text_resolver.resolve(target, input_damage,  input_type, damage_text_group)
 
     def resolve_aoe_attack(self, target_list, input_damage_list, input_damage_type_list, damage_text_group):
+        constants.globals.action_cooldown = 0
+        constants.globals.current_fighter += 1
+
         for index, target in enumerate(target_list):
             print(index, target.name, len(target_list))
             if target.alive:
@@ -69,28 +75,23 @@ class CombatResolver:
             else:
                 pass
 
-    #
-    #     def cast_multi_strike_attack(self, caster, number_of_strikes, multi_strike, target_list, damage_text_group,
-    #                                  action_cooldown, action_wait_time, current_fighter, ultimate_status):
-    #
-    # def resolve_multi_attack(self, caster, target_list, input_damage_list, input_damage_type):
-    #
-    #     alive_enemy = get_alive_targets(target_list)
-    #     if number_of_strikes < multi_strike:
-    #         if action_cooldown >= action_wait_time:
-    #             if len(alive_enemy) > 0:
-    #                 enemy_index = randint(0, len(alive_enemy) - 1)
-    #                 target_unit = alive_enemy[enemy_index]
-    #                 caster.attack(target_unit, damage_text_group)
-    #                 number_of_strikes += 1
-    #
-    #                 # Animation will be accelerated
-    #                 action_cooldown = 55
-    #     else:
-    #         number_of_strikes = 0
-    #         ultimate_status = False
-    #         current_fighter += 1
-    #         # Action Delay: Next Enemy Action will be delayed after the ultimate cast
-    #         action_cooldown = -25
-    #
-    #     return number_of_strikes, current_fighter, action_cooldown, ultimate_status
+    def resolve_multi_attack(self, caster, target_list, multi_strike, input_damage_list, input_damage_type, damage_text_group):
+        alive_enemy = get_alive_targets(target_list)
+
+        if constants.globals.number_of_strikes < multi_strike:
+            if constants.globals.action_cooldown >= constants.globals.action_wait_time:
+                if len(alive_enemy) > 0:
+                    enemy_index = randint(0, len(alive_enemy) - 1)
+                    target = alive_enemy[enemy_index]
+
+                    self.resolve_attack(target, input_damage_list[index], input_damage_type_list[index], damage_text_group)
+                    constants.globals.number_of_strikes += 1
+
+                    # Animation will be accelerated
+                    constants.globals.action_cooldown = 55
+        else:
+            constants.globals.number_of_strikes = 0
+            ultimate_status = False
+            constants.globals.current_fighter += 1
+            # Action Delay: Next Enemy Action will be delayed after the ultimate cast
+            constants.globals.action_cooldown = -25
