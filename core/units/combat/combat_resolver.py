@@ -19,23 +19,24 @@ class CombatResolver:
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
             target.block_animation()
-            target.block_sound.play()
+            # target.block_sound.play()
 
         # Activates Miss Animation & Sound on the current Target
-        elif input_type in CombatTypeResolution.MISS:
+        elif input_type is CombatTypeResolution.MISS:
             target.miss_animation()
-            target.miss_sound.play()
+            # target.miss_sound.play()
 
         # Activates Hurt/Death Animation and Sound on the current Target
         else:
             # Activates Critical Hit Sound
-            if input_type in CombatTypeResolution.CRITICAL_HIT:
-                target.critical_hit_animation()
-                target.critical_hit_sound.play()
+            if input_type is CombatTypeResolution.CRITICAL_HIT:
+                target.hurt_animation()
+                # target.critical_hit_animation()
+                # target.critical_hit_sound.play()
 
             else:
-                target.hit_animation()
-                target.hit_sound.play()
+                target.hurt_animation()
+                # target.hit_sound.play()
 
             if input_damage != 0:
                 # Updates current Target Health
@@ -49,7 +50,7 @@ class CombatResolver:
 
                 # Activates Hurt Animation: Target
                 target.hurt_animation()
-                target.hurt_sound.play()
+                # target.hurt_sound.play()
                 # hit_cut_sound.play()
 
                 # TODO Activates hurt sound
@@ -62,6 +63,7 @@ class CombatResolver:
 
     def resolve_aoe_attack(self, target_list, input_damage_list, input_damage_type_list, damage_text_group):
         for index, target in enumerate(target_list):
+            print(index, target.name, len(target_list))
             if target.alive:
                 self.resolve_attack(target, input_damage_list[index], input_damage_type_list[index], damage_text_group)
             else:

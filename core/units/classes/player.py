@@ -1,6 +1,3 @@
-from core.units.skills.melee import MeleeSpells
-from core.units.basic_unit import BasicUnit
-from core.units.resources.health_bar import HealthBar
 from core.units.resources.mana_bar import ManaBar
 from core.units.resources.stash import Stash
 
@@ -31,7 +28,7 @@ from core.units.combat.combat_formulas import CombatFormulas
 from core.units.combat.combat_resolver import CombatResolver
 
 # Animation Imports
-from core.units.animations.animation_db import MeleeBanditSet
+from core.units.animations.animation_db import HeroSet
 from core.units.animations.animation_set import AnimationSet
 
 combat_resolver = CombatResolver()
@@ -43,19 +40,19 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(BasicUnit, MeleeSpells):
+class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
+        MagicSpells.__init__(self)
+
+        self.animation_set = AnimationSet(x, y, name, HeroSet)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
         self.stash = Stash(healing_potion, magic_potion, gold)
 
-        self.damage_spells = MagicSpells()
-        self.healing_spells = HealingSpells()
-        self.hero_spells = FurySpells()
         self.experience_system = ExperienceSystem()
 
         self.experience = 0
@@ -72,15 +69,15 @@ class HeroPlayer(BasicUnit, MeleeSpells):
     def loot_boss(self, target, damage_text_group):
         target.loot_pool.get_loot_boss(self, target, damage_text_group)
 
-    def use_ultimate(self, number_of_strikes, target_list, damage_text_group,
-                     action_cooldown, action_wait_time, current_fighter, ultimate_status):
-
-        if number_of_strikes == 0:
-            damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group)
-
-        return self.hero_spells.cast_path_of_the_seven_strikes(self, number_of_strikes, target_list, damage_text_group,
-                                                               action_cooldown, action_wait_time, current_fighter,
-                                                               ultimate_status)
+    # def use_ultimate(self, number_of_strikes, target_list, damage_text_group,
+    #                  action_cooldown, action_wait_time, current_fighter, ultimate_status):
+    #
+    #     if number_of_strikes == 0:
+    #         damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group)
+    #
+    #     return self.hero_spells.cast_path_of_the_seven_strikes(self, number_of_strikes, target_list, damage_text_group,
+    #                                                            action_cooldown, action_wait_time, current_fighter,
+    #                                                            ultimate_status)
 
     def use_firestorm(self, target_list, damage_text_group):
         constants.globals.action_cooldown = 0
@@ -93,7 +90,7 @@ class HeroPlayer(BasicUnit, MeleeSpells):
             pre_target_list = get_alive_targets_status(target_list)
 
             # Retrieve State for Enemy List: target_list
-            self.damage_spells.cast_firestorm(self, target_list, damage_text_group)
+            self.cast_firestorm(self, target_list, damage_text_group)
 
             # Post Save State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
@@ -113,7 +110,7 @@ class HeroPlayer(BasicUnit, MeleeSpells):
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.damage_spells.cast_lightning(self, target_list, damage_text_group)
+            self.cast_lightning(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
@@ -154,7 +151,7 @@ class HeroPlayer(BasicUnit, MeleeSpells):
         constants.globals.current_fighter += 1
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
-            self.healing_spells.cast_heal(self, damage_text_group)
+            self.cast_heal(self, self, damage_text_group)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)

@@ -1,5 +1,5 @@
-from core.units.spells.melee_skills import MeleeFighter
-from core.units.unit_mechanic.loot_pool import LootPool
+from core.units.skills.melee import MeleeSpells
+from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 from core.units.resources.stash import Stash
@@ -15,10 +15,10 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class Dragon(BasicUnit, MeleeFighter):
+class Dragon(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
-        MeleeFighter.__init__(self)
+        MeleeSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)
         # Bandit Loot

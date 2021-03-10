@@ -15,17 +15,17 @@ castle_music.set_volume(0.1)
 
 # SOUND FX
 # SPELL SOUNDS
-lightning_spell_1_sound = mixer.Sound("resources/sound/skills/lightning_spell_1.wav")
+lightning_spell_1_sound = mixer.Sound("resources/sound/spells/lightning_spell_1.wav")
 lightning_spell_1_sound.set_volume(0.1)
-lightning_spell_2_sound = mixer.Sound("resources/sound/skills/lightning_spell_2.wav")
+lightning_spell_2_sound = mixer.Sound("resources/sound/spells/lightning_spell_2.wav")
 lightning_spell_2_sound.set_volume(0.1)
 
-firestorm_spell_1_sound = mixer.Sound("resources/sound/skills/firestorm_spell_1.wav")
+firestorm_spell_1_sound = mixer.Sound("resources/sound/spells/firestorm_spell_1.wav")
 firestorm_spell_1_sound.set_volume(0.1)
-firestorm_spell_2_sound = mixer.Sound("resources/sound/skills/firestorm_spell_2.wav")
+firestorm_spell_2_sound = mixer.Sound("resources/sound/spells/firestorm_spell_2.wav")
 firestorm_spell_2_sound.set_volume(0.1)
 
-heal_spell_1_sound = mixer.Sound("resources/sound/skills/heal_spell_1.wav")
+heal_spell_1_sound = mixer.Sound("resources/sound/spells/heal_spell_1.wav")
 heal_spell_1_sound.set_volume(0.1)
 
 

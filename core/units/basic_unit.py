@@ -1,7 +1,4 @@
-from core.units.animations.animation_resolver import AnimationSet
-
-
-
+# from core.units.animations.animation_resolver import AnimationSet
 
 class BasicUnit:
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic):
@@ -32,9 +29,7 @@ class BasicUnit:
 
         # Basic Unit Status
         self.alive = True
-
-        # Basic Unit Animation Resource
-        self.unit_animation = AnimationSet(self.x, self.y, self.name)
+        self.fury_status = False
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
@@ -48,6 +43,9 @@ class BasicUnit:
             self.current_mp -= input_mana
             return True
         return False
+
+    def has_fury(self):
+        return self.fury_status
 
     def reset_fury(self):
         self.current_fury = 0
@@ -84,23 +82,23 @@ class BasicUnit:
         self.current_hp = 0
         self.alive = False
 
-    def melee_attack(self):
-        self.unit_animation.melee_attack_animation()
-
-    def block(self):
-        self.unit_animation.block_animation()
-
-    def hurt(self):
-        self.unit_animation.hurt_animation()
-
-    def miss(self):
-        self.unit_animation.miss_animation()
-
-    def idle(self):
-        self.unit_animation.idle_animation()
-
-    def update(self):
-        self.unit_animation.update()
-
-    def draw(self, screen):
-        self.unit_animation.draw(screen)
+    # def melee_attack(self):
+    #     self.unit_animation.melee_attack_animation()
+    #
+    # def block(self):
+    #     self.unit_animation.block_animation()
+    #
+    # def hurt(self):
+    #     self.unit_animation.hurt_animation()
+    #
+    # def miss(self):
+    #     self.unit_animation.miss_animation()
+    #
+    # def idle(self):
+    #     self.unit_animation.idle_animation()
+    #
+    # def update(self):
+    #     self.unit_animation.update()
+    #
+    # def draw(self, screen):
+    #     self.unit_animation.draw(screen)

@@ -40,10 +40,12 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
             input_damage_list = []
             input_type_list = []
-            for index in range(len(target_list) - 1):
+            for _ in target_list:
                 input_damage, input_type = self.spell_attack_resolution(caster, 1, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
+
+            print(input_damage_list, input_type_list)
 
             self.resolve_aoe_attack(target_list, input_damage_list, input_type_list, damage_text_group)
 
@@ -54,9 +56,10 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             damage_text.cast(caster, " Lightning Bolt! ", damage_text_group)
+
             input_damage_list = []
             input_type_list = []
-            for index in range(len(target_list) - 1):
+            for _ in target_list:
                 input_damage, input_type = self.spell_attack_resolution(caster, 1, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
