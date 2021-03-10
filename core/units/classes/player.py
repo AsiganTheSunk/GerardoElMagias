@@ -43,9 +43,11 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(BasicUnit, MeleeFighter):
+class HeroPlayer(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
+        MeleeSpells.__init__(self)
+
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
@@ -60,56 +62,8 @@ class HeroPlayer(BasicUnit, MeleeFighter):
         self.exp_level_break = 5
 
     def attack(self, target, damage_text_group):
-        constants.globals.action_cooldown = 0
-        constants.globals.current_fighter += 1
-        output_damage, output_message = self.cast_attack(self)
-        # Activates Attack Animation: Bandit -> MeleeFighter
-        self.melee_attack()
-
-
-        # Activates Blocked Animation on Target
-        if 'Blocked' in output_message:
-            # Todo: Update Animation to proper block animation
-            target.block()
-            block_sound.play()
-
-
-
-
-
-        # Activates Miss Animation on Target
-        elif 'Miss' in output_message:
-            # Todo: Rename or Change block to miss animation frame for consistency purposes
-            target.miss()
-
-            miss_sound.play()
-
-
-
-
-
-
-        # Activates Hurt/Death Animation on Target
-        else:
-            # Activates Critical Hit Sound
-            if 'Critical' in output_message:
-                critical_hit_sound.play()
-
-            if output_damage != 0:
-                target.reduce_health(output_damage)
-
-                # Activates Hurt Animation: Target
-                target.hurt()
-                hit_cut_sound.play()
-
-
-                # Evaluate Death: Target
-                if target.is_dead():
-                    target.death()
-                    # Gain XP
-                    self.experience_system.evaluate_kill(self, target, damage_text_group)
-
-        combat_text_resolver.resolve(target, str(output_damage) + output_message, damage_text_group)
+        self.melee_attack_animation()
+        self.cast_attack(self, target, damage_text_group)
         return True
 
     def loot(self, target, damage_text_group):
@@ -169,6 +123,31 @@ class HeroPlayer(BasicUnit, MeleeFighter):
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
+
+    def death_animation(self):
+        # Activates: Death Animation
+        self.animation_set.action = 1
+        self.animation_set.reset_frame_index()
+
+    def melee_attack_animation(self):
+        # Activates: Melee Attack Animation
+        self.animation_set.action = 2
+        self.animation_set.reset_frame_index()
+
+    def hurt_animation(self):
+        # Activates: Hurt Animation
+        self.animation_set.action = 3
+        self.animation_set.reset_frame_index()
+
+    def block_animation(self):
+        # Activates: Block Animation
+        self.animation_set.action = 4
+        self.animation_set.reset_frame_index()
+
+    def miss_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 5
+        self.animation_set.reset_frame_index()
 
     def use_heal(self, damage_text_group):
         constants.globals.action_cooldown = -30

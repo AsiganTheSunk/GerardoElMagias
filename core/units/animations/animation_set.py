@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from pygame import time, image, transform
 
 

@@ -25,9 +25,7 @@ class Bandit(BasicUnit, MeleeSpells):
         self.animation_set = AnimationSet(x, y, name, MeleeBanditSet)
 
     def is_looted(self):
-        if self.looted_status:
-            return True
-        return False
+        return self.looted_status
 
     def update_looted_status(self):
         self.looted_status = True

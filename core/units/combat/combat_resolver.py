@@ -18,12 +18,12 @@ class CombatResolver:
 
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
-            target.block()
+            target.block_animation()
             target.block_sound.play()
 
         # Activates Miss Animation & Sound on the current Target
         elif input_type in CombatTypeResolution.MISS:
-            target.miss()
+            target.miss_animation()
             target.miss_sound.play()
 
         # Activates Hurt/Death Animation and Sound on the current Target

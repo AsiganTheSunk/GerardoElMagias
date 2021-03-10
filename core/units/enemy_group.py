@@ -1,6 +1,6 @@
 from constants.game_windows import *
 from random import randint
-from core.units.classes.melee_bandid import Bandit
+from core.units.classes.melee_bandit import Bandit
 
 
 class EnemyGroup:

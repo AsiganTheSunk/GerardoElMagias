@@ -28,10 +28,7 @@ class CombatFormulas:
         # Calculate Hit Chance: Based on Random Integer
         return randint(1, 100)
 
-    def melee_attack_resolution(self, caster, output_damage):
-        # Calculate Hit Chance: Based on Random Integer
-        hit_resolution = self.hit_resolution()
-
+    def melee_attack_resolution(self, caster, output_damage, hit_resolution):
         if not self.melee_miss_chance(hit_resolution, caster.dexterity):
             if not self.melee_block_chance(caster.dexterity):
                 if self.melee_critical_chance(hit_resolution, caster.dexterity):
@@ -40,10 +37,7 @@ class CombatFormulas:
             return 0, CombatTypeResolution.BLOCKED
         return 0, CombatTypeResolution.MISS
 
-    def spell_attack_resolution(self, caster, output_damage):
-        # Calculate Hit Chance: Based on Random Integer
-        hit_resolution = self.hit_resolution()
-
+    def spell_attack_resolution(self, caster, output_damage, hit_resolution):
         # Calculate Miss, Basic Damage & Critical Hit
         if self.spell_critical_chance(hit_resolution, caster.magic):
             return self.critical_hit(output_damage), CombatTypeResolution.CRITICAL_HIT
