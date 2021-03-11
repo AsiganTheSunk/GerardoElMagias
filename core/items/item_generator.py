@@ -9,6 +9,7 @@ from core.items.item_db.base_item_db import *
 from core.items.item_db.affix_db import *
 from core.items.generated_item import GeneratedItem
 
+
 class ItemGenerator:
     @staticmethod
     def roll_item_type():
@@ -102,10 +103,10 @@ class ItemGenerator:
         return final_equipment_prefix_list
 
 
-level = randint(1, 30)
-base_mf = 0
-
-
-item_generator = ItemGenerator()
-dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
-print(dropped_item)
+# level = randint(1, 30)
+# base_mf = 0
+#
+#
+# item_generator = ItemGenerator()
+# dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
+# print(dropped_item)
