@@ -13,6 +13,7 @@ from core.units.combat.utils import get_alive_targets
 from constants.sound import *
 from random import randint
 
+
 class CombatResolver:
     @staticmethod
     def resolve_attack(caster, target, input_damage, input_type, damage_text_group, multi_strike=False):
@@ -74,8 +75,8 @@ class CombatResolver:
 
     def resolve_multi_attack(self, caster, target_list, multi_strike, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
-        if constants.globals.number_of_strikes < multi_strike:
 
+        if constants.globals.number_of_strikes < multi_strike:
             if constants.globals.action_cooldown >= constants.globals.action_wait_time:
                 if len(alive_enemy) > 0:
                     target = alive_enemy[randint(0, len(alive_enemy) - 1)]

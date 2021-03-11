@@ -29,7 +29,7 @@ from core.game.battle.scripted_enemies import scripted_enemy
 from constants.sound import *
 import constants.globals
 
-from event_control import Event_Control
+from event_control import event_control
 
 from interface.composed_component.spellbook import open_spellbook
 
@@ -48,32 +48,24 @@ level = 0
 bosslevel = 1
 update_time = time.get_ticks()
 
+# Item Buttons:
+potion_button = button.Button(screen, 110, screen_height - bottom_panel + 75, health_potion_img, 64, 64)
+mana_potion_button = button.Button(screen, 220, screen_height - bottom_panel + 75, mana_potion_img, 60, 60)
+spellbook_button = button.Button(screen, 0, 695, spellbook_img, 100, 100)
 
-def setup_battle(target_list, hero_player):
-    clock.tick(fps)
+lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
+firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
+heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
 
-    # draw backgrounds
-    draw_bg_forest()
+# Control Buttons:
+restart_button = button.Button(screen, 400, 120, restart_img, 100, 100)
+next_button = button.Button(screen, 800, 10, next_img, 80, 80)
 
-    # draw panel
-    draw_stage()
-    draw_panel()
+# Ultimate Button
+ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
 
-    # damage text
-    damage_text_group.update()
-    damage_text_group.draw(screen)
-
-    # draw fighters
-    hero_player.unit_animation.update()
-    hero_player.draw(screen)
-    hero_player.health_bar.draw(hero_player.current_hp, hero_player.max_hp, screen)
-    hero_player.mana_bar.draw(hero_player.current_mp, hero_player.max_mp, screen)
-    hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
-
-    for target_unit in target_list:
-        target_unit.update()
-        target_unit.draw(screen)
-        target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
+# Kill Button
+kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
 
 
 # create function for drawing text
@@ -139,26 +131,7 @@ def draw_panel():
                       tmp[index][1])
 
 
-# Item Buttons:
-potion_button = button.Button(screen, 110, screen_height - bottom_panel + 75, health_potion_img, 64, 64)
-mana_potion_button = button.Button(screen, 220, screen_height - bottom_panel + 75, mana_potion_img, 60, 60)
-spellbook_button = button.Button(screen, 0, 695, spellbook_img, 100, 100)
-
-lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
-firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
-heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
-
-# Control Buttons:
-restart_button = button.Button(screen, 400, 120, restart_img, 100, 100)
-next_button = button.Button(screen, 800, 10, next_img, 80, 80)
-
-# Ultimate Button
-ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
-
-# Kill Button
-kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
-
-def setup_battle(target_list, hero_player):
+def setup_battle(target_list, hero):
     clock.tick(fps)
 
     # draw backgrounds
@@ -177,11 +150,11 @@ def setup_battle(target_list, hero_player):
     damage_text_group.draw(screen)
 
     # draw fighters
-    hero_player.animation_set.update()
-    hero_player.animation_set.draw(screen)
-    hero_player.health_bar.draw(hero_player.current_hp, hero_player.max_hp, screen)
-    hero_player.mana_bar.draw(hero_player.current_mp, hero_player.max_mp, screen)
-    hero_player.fury_bar.draw(hero_player.current_fury, hero_player.max_fury, screen)
+    hero.animation_set.update()
+    hero.animation_set.draw(screen)
+    hero.health_bar.draw(hero.current_hp, hero.max_hp, screen)
+    hero.mana_bar.draw(hero.current_mp, hero.max_mp, screen)
+    hero.fury_bar.draw(hero.current_fury, hero.max_fury, screen)
 
     for target_unit in target_list:
         target_unit.animation_set.update()
@@ -189,7 +162,7 @@ def setup_battle(target_list, hero_player):
         target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
 
 
-    # el primer True es un filler que no se lee nunca
+# fst True es un filler que no se lee nunca
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
 
 damage_text_group = sprite.Group()
@@ -198,7 +171,7 @@ enemy_list = []
 
 runreset = True
 runshop = False
-
+total_fighters = 0
 
 while constants.globals.run:
     while runreset:
@@ -235,8 +208,6 @@ while constants.globals.run:
         runreset = False
         constants.globals.runbattle = True
 
-
-
     while constants.globals.runbattle:
         # reset action variables
         attack = False
@@ -262,7 +233,7 @@ while constants.globals.run:
 
         if hero_player.current_fury == 100:
             if ultimate_button.draw() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
-                #TODO activar animacion pre-ulti
+                # Todo: activar animacion pre-ulti
                 constants.globals.ultimate_status = True
                 ultimate_sound.play()
                 hero_player.reset_fury()
@@ -356,7 +327,6 @@ while constants.globals.run:
                         runreset = True
                         constants.globals.runbattle = False
 
-
                 # LOOT PHASE
                 mouse.set_visible(True)
                 pos = mouse.get_pos()
@@ -380,7 +350,7 @@ while constants.globals.run:
                 screen.blit(defeat_img,(180, 50))
                 draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
 
-        Event_Control()
+        event_control()
 
         display.update()
 

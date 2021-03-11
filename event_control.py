@@ -2,8 +2,7 @@ from pygame import event, QUIT, MOUSEBUTTONDOWN
 import constants.globals
 
 
-
-def Event_Control():
+def event_control():
     for _event in event.get():
         if _event.type == QUIT:
             constants.globals.run = False
