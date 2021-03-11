@@ -11,11 +11,10 @@ __email__ = ""
 __status__ = "Development"
 
 # Pygame Imports:
-
-from pygame import time, display, sprite, event, QUIT, MOUSEBUTTONDOWN, mouse, quit
+from pygame import time, display, sprite, mouse, quit
 
 # Game Engine Imports:
-from interface.basic_component import button
+from interface.basic_components import button
 from core.units.classes.player import HeroPlayer
 from core.units.enemy_group import EnemyGroup
 
@@ -27,11 +26,12 @@ from constants.basic_fonts import *
 from core.game.battle.scripted_enemies import scripted_enemy
 
 # Python Imports:
-from random import randint
 from constants.sound import *
 import constants.globals
 
 from event_control import Event_Control
+
+from interface.composed_component.spellbook import open_spellbook
 
 init()
 mixer.pre_init(44100, -16, 2, 4096)
@@ -44,7 +44,7 @@ display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 # define game variables
 action_wait_time = 90
 game_over = 0
-level = 3
+level = 0
 bosslevel = 1
 update_time = time.get_ticks()
 
@@ -92,7 +92,7 @@ def draw_bg_castle():
 
 
 def draw_stage():
-    draw_text(f"Oro: {hero_player.stash.gold}", default_font, YELLOW_COLOR, 50, 20)
+    draw_text(f"{hero_player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
     draw_text(f"LVL: {hero_player.level}", default_font, WHITE_COLOR, 50, 100)
     draw_text(f"Exp: {hero_player.experience} / {hero_player.exp_level_break} ", default_font, WHITE_COLOR, 50, 125)
     draw_text(f"STR: {hero_player.strength}", default_font, WHITE_COLOR, 50, 175)
@@ -158,19 +158,6 @@ ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
 # Kill Button
 kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
 
-
-def draw_bgintro():
-    screen.blit(background_intro, (0, 0))
-
-
-def setup_shop():
-    damage_text_group.update()
-    damage_text_group.draw(screen)
-    clock.tick(fps)
-    draw_text("Magias y embrujos", default_font, WHITE_COLOR, 360, 140)
-    screen.blit(shop_image, (120, 190))
-
-
 def setup_battle(target_list, hero_player):
     clock.tick(fps)
 
@@ -183,6 +170,7 @@ def setup_battle(target_list, hero_player):
     # draw panel
     draw_stage()
     draw_panel()
+    screen.blit(oro_img, (20, 20))
 
     # damage text
     damage_text_group.update()
@@ -201,7 +189,7 @@ def setup_battle(target_list, hero_player):
         target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
 
 
-# el primer True es un filler que no se lee nunca
+    # el primer True es un filler que no se lee nunca
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
 
 damage_text_group = sprite.Group()
@@ -211,7 +199,6 @@ enemy_list = []
 runreset = True
 runshop = False
 
-total_fighters = 0
 
 while constants.globals.run:
     while runreset:
@@ -221,7 +208,7 @@ while constants.globals.run:
         animation_cooldown = 0
         constants.globals.action_cooldown = 0
         constants.globals.current_fighter = 1
-        constants.globals.ultimate_status = False
+        constants.globals.ultimate_status = False 
 
         if scripted_battle[level]:
             mixer.fadeout(1)
@@ -250,41 +237,6 @@ while constants.globals.run:
 
 
 
-    while runshop:
-        setup_shop()
-        if next_button.draw():
-            runshop = False
-            constants.globals.runbattle = True
-
-        if lightning_spell_button.draw():
-            if hero_player.use_lightning(enemy_list, damage_text_group):
-                lightning_spell_1_sound.play()
-                runshop = False
-                constants.globals.runbattle = True
-
-        if firestorm_spell_button.draw():
-            if hero_player.use_firestorm(enemy_list, damage_text_group):
-                i = randint(0, 1)
-                if i == 0:
-                    firestorm_spell_1_sound.play()
-                if i == 1:
-                    firestorm_spell_2_sound.play()
-                runshop = False
-                constants.globals.runbattle = True
-
-        if heal_spell_button.draw():
-            if hero_player.use_heal(damage_text_group):
-                heal_spell_1_sound.play()
-                runshop = False
-                constants.globals.runbattle = True
-
-        for _event in event.get():
-            if _event.type == QUIT:
-               constants.globals.run = False
-               runshop = False
-
-        display.update()
-
     while constants.globals.runbattle:
         # reset action variables
         attack = False
@@ -306,8 +258,7 @@ while constants.globals.run:
         if mana_potion_button.draw():
             mana_potion = True
         if spellbook_button.draw():
-            runshop = True
-            constants.globals.runbattle = False
+            constants.globals.spell_book_open = True
 
         if hero_player.current_fury == 100:
             if ultimate_button.draw() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
@@ -347,6 +298,9 @@ while constants.globals.run:
                         # Use: Mana Potion
                         if mana_potion:
                             hero_player.use_mana_potion(damage_text_group)
+
+                        if constants.globals.spell_book_open == True:
+                            open_spellbook(hero_player, enemy_list, screen, damage_text_group)
 
                         # Use: Ultimate Spell
                         # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
