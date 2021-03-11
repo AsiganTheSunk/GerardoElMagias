@@ -44,7 +44,7 @@ display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 # define game variables
 action_wait_time = 90
 game_over = 0
-level = 0
+level = 17
 bosslevel = 1
 update_time = time.get_ticks()
 
@@ -211,7 +211,7 @@ enemy_list = []
 runreset = True
 runshop = False
 
-
+total_fighters = 0
 
 while constants.globals.run:
     while runreset:
@@ -221,7 +221,7 @@ while constants.globals.run:
         animation_cooldown = 0
         constants.globals.action_cooldown = 0
         constants.globals.current_fighter = 1
-        ultimate_status = False
+        constants.globals.ultimate_status = False
 
         if scripted_battle[level]:
             mixer.fadeout(1)
@@ -312,7 +312,7 @@ while constants.globals.run:
         if hero_player.current_fury == 100:
             if ultimate_button.draw() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
                 #TODO activar animacion pre-ulti
-                ultimate_status = True
+                constants.globals.ultimate_status = True
                 ultimate_sound.play()
                 hero_player.reset_fury()
                 constants.globals.action_cooldown = -25
@@ -352,8 +352,6 @@ while constants.globals.run:
                         # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
                         if constants.globals.ultimate_status:
                             hero_player.use_ultimate(enemy_list, damage_text_group)
-
-
             else:
                 game_over = -1
 
@@ -363,7 +361,7 @@ while constants.globals.run:
                     if enemy_unit.alive:
                         constants.globals.action_cooldown += 1
                         if constants.globals.action_cooldown >= action_wait_time:
-                                enemy_unit.action(hero_player, damage_text_group)
+                            enemy_unit.action(hero_player, damage_text_group)
                     else:
                         constants.globals.current_fighter += 1
 

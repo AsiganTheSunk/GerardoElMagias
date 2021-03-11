@@ -42,7 +42,7 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
+class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         FurySpells.__init__(self)
@@ -58,9 +58,11 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
 
         self.experience_system = ExperienceSystem()
 
+        self.current_fury = 100
         self.experience = 0
         self.exp_level_break = 5
         self.fury_status = True
+        self.experience_status = True
 
     def attack(self, target, damage_text_group):
         self.melee_attack_animation()
@@ -74,12 +76,23 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
         target.loot_pool.get_loot_boss(self, target, damage_text_group)
 
     def use_ultimate(self, target_list, damage_text_group):
-        self.melee_attack_animation()
         self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
         return True
 
+    def use_heal(self, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(12):
+            constants.globals.action_cooldown = -30
+            constants.globals.current_fighter += 1
+            self.cast_heal(self, self, damage_text_group)
+            return True
+
+        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
+        return False
+
     def use_firestorm(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
+        print('Turn:', constants.globals.current_fighter)
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
             constants.globals.current_fighter += 1
@@ -94,7 +107,8 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)
+            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
+                                                       damage_text_group)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
@@ -105,7 +119,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
             constants.globals.current_fighter += 1
-
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
@@ -114,52 +127,18 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list, damage_text_group)
-            return True
-
-        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
-        return False
-
-    def death_animation(self):
-        # Activates: Death Animation
-        self.animation_set.action = 1
-        self.animation_set.reset_frame_index()
-
-    def melee_attack_animation(self):
-        # Activates: Melee Attack Animation
-        self.animation_set.action = 2
-        self.animation_set.reset_frame_index()
-
-    def hurt_animation(self):
-        # Activates: Hurt Animation
-        self.animation_set.action = 3
-        self.animation_set.reset_frame_index()
-
-    def block_animation(self):
-        # Activates: Block Animation
-        self.animation_set.action = 4
-        self.animation_set.reset_frame_index()
-
-    def miss_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 5
-        self.animation_set.reset_frame_index()
-
-    def use_heal(self, damage_text_group):
-        constants.globals.action_cooldown = -30
-        constants.globals.current_fighter += 1
-        # Consume Mana: Spell Casting
-        if self.reduce_mana(12):
-            self.cast_heal(self, self, damage_text_group)
+            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
+                                                       damage_text_group)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
     def use_healing_potion(self, damage_text_group):
-        constants.globals.action_cooldown = 0
-        constants.globals.current_fighter += 1
         if self.stash.has_healing_potion():
+            constants.globals.action_cooldown = 0
+            constants.globals.current_fighter += 1
+
             health_potion_sound.play()
 
             base_health = 40
@@ -197,3 +176,28 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, AnimationSet):
         damage_text.warning(self, 'No Mana Potions', damage_text_group)
         error_sound.play()
         return False
+
+    def death_animation(self):
+        # Activates: Death Animation
+        self.animation_set.action = 1
+        self.animation_set.reset_frame_index()
+
+    def melee_attack_animation(self):
+        # Activates: Melee Attack Animation
+        self.animation_set.action = 2
+        self.animation_set.reset_frame_index()
+
+    def hurt_animation(self):
+        # Activates: Hurt Animation
+        self.animation_set.action = 3
+        self.animation_set.reset_frame_index()
+
+    def block_animation(self):
+        # Activates: Block Animation
+        self.animation_set.action = 4
+        self.animation_set.reset_frame_index()
+
+    def miss_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 5
+        self.animation_set.reset_frame_index()

@@ -31,9 +31,6 @@ class MagicSpells(CombatFormulas, CombatResolver):
         damage_text.heal(caster, str(heal_amount) + " Heal ", damage_text_group)
 
     def cast_firestorm(self, caster, target_list, damage_text_group):
-        # Basic Spell Attributes: minimum, maximum, multiplier
-        base_damage = randint(0, 20)
-        output_damage = (caster.magic * 3) + base_damage
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
@@ -42,18 +39,19 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_damage_list = []
             input_type_list = []
             for _ in target_list:
+                # Basic Spell Attributes: minimum, maximum, multiplier
+                base_damage = randint(0, 20)
+                output_damage = (caster.magic * 3) + base_damage
+
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
 
             print(input_damage_list, input_type_list)
 
-            self.resolve_aoe_attack(target_list, input_damage_list, input_type_list, damage_text_group)
+            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
 
     def cast_lightning(self, caster, target_list, damage_text_group):
-        # Basic Spell Attributes: minimum, maximum, multiplier
-        base_damage = randint(0, 50)
-        output_damage = (caster.magic * 1) + base_damage
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
@@ -62,8 +60,12 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_damage_list = []
             input_type_list = []
             for _ in target_list:
-                input_damage, input_type = self.spell_attack_resolution(caster, 1, self.hit_resolution())
+                # Basic Spell Attributes: minimum, maximum, multiplier
+                base_damage = randint(0, 50)
+                output_damage = (caster.magic * 1) + base_damage
+
+                input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
 
-            self.resolve_aoe_attack(target_list, input_damage_list, input_type_list, damage_text_group)
+            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
