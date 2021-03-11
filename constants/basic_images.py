@@ -22,6 +22,8 @@ heal_img = image.load("resources/icons/heal.png")
 next_img = image.load("resources/icons/next.jpg")
 ultimate_img = image.load("resources/icons/ultimate.png")
 
+oro_img = image.load("resources/icons/oro.png")
+
 # Victory & Defeat Images:
 victory_img = image.load("resources/icons/victory.png")
 defeat_img = image.load("resources/icons/defeat.png")
