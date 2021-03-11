@@ -15,8 +15,8 @@ from random import randint
 
 class CombatResolver:
     @staticmethod
-    def resolve_attack(caster, target, input_damage, input_type, damage_text_group, multi_strke=False):
-        if not multi_strke:
+    def resolve_attack(caster, target, input_damage, input_type, damage_text_group, multi_strike=False):
+        if not multi_strike:
             constants.globals.action_cooldown = 0
             constants.globals.current_fighter += 1
 
@@ -58,6 +58,7 @@ class CombatResolver:
                 if target.is_dead():
                     target.death()
                     target.death_animation()
+                    constants.globals.clicked = False
                     if caster.has_experience():
                         caster.experience_system.evaluate_kill(caster, target, damage_text_group)
 
@@ -82,7 +83,7 @@ class CombatResolver:
                     caster.cast_attack(self, target, damage_text_group, True)
 
                     constants.globals.number_of_strikes += 1
-                    constants.globals.action_cooldown = 55
+                    constants.globals.action_cooldown = 60
         else:
             constants.globals.number_of_strikes = 0
             constants.globals.ultimate_status = False
