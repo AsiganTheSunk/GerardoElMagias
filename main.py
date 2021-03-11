@@ -44,7 +44,7 @@ display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 # define game variables
 action_wait_time = 90
 game_over = 0
-level = 17
+level = 3
 bosslevel = 1
 update_time = time.get_ticks()
 

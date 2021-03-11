@@ -16,6 +16,7 @@ combat_text_resolver = CombatTextResolver()
 from core.units.animations.animation_db import MeleeBossSet
 from core.units.animations.animation_set import AnimationSet
 
+import constants.globals
 
 class Boss(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
@@ -50,7 +51,10 @@ class Boss(BasicUnit, MeleeSpells):
         return True
 
     def use_healing_potion(self, damage_text_group):
+        constants.globals.action_cooldown = 0
+        constants.globals.current_fighter += 1
         if self.stash.has_healing_potion():
+
             # Activates potion sound
             health_potion_sound.play()
 
