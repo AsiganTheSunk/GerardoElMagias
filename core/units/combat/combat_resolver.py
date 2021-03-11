@@ -64,13 +64,10 @@ class CombatResolver:
         combat_text_resolver.resolve(target, input_damage,  input_type, damage_text_group)
 
     def resolve_aoe_attack(self, caster, target_list, input_damage_list, input_damage_type_list, damage_text_group):
-        constants.globals.action_cooldown = 0
-        constants.globals.current_fighter += 1
-
         for index, target in enumerate(target_list):
             print(index, target.name, len(target_list))
             if target.alive:
-                self.resolve_attack(caster, target, input_damage_list[index], input_damage_type_list[index], damage_text_group)
+                self.resolve_attack(caster, target, input_damage_list[index], input_damage_type_list[index], damage_text_group, True)
             else:
                 pass
 

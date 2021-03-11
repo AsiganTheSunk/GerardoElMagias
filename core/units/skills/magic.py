@@ -47,8 +47,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
 
-            print(input_damage_list, input_type_list)
-
+            # print(input_damage_list, input_type_list)
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
 
     def cast_lightning(self, caster, target_list, damage_text_group):

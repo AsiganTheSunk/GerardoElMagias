@@ -109,6 +109,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
                                                        damage_text_group)
+            print('Turn:', constants.globals.current_fighter)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
