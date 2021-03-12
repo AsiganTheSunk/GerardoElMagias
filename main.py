@@ -41,11 +41,6 @@ fps = 60
 screen = display.set_mode((screen_width, screen_height))
 display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 
-# define game variables
-action_wait_time = 90
-game_over = 0
-level = 0
-bosslevel = 1
 update_time = time.get_ticks()
 
 # Item Buttons:
@@ -170,13 +165,15 @@ hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, sc
 enemy_list = []
 
 runreset = True
-runshop = False
-total_fighters = 0
+action_wait_time = 90
+level = 6
+bosslevel = 2
+
 
 while constants.globals.run:
     while runreset:
         level += 1
-        game_over = 0
+        constants.globals.game_over = 0
         number_of_strikes = 0
         animation_cooldown = 0
         constants.globals.action_cooldown = 0
@@ -217,7 +214,7 @@ while constants.globals.run:
         loot = False
 
         setup_battle(enemy_list, hero_player)
-        # draw_debug_panel(current_fighter, total_fighters)
+
 
         if kill_button.draw():
             for target_unit in enemy_list:
@@ -229,7 +226,7 @@ while constants.globals.run:
         if mana_potion_button.draw():
             mana_potion = True
         if spellbook_button.draw():
-            constants.globals.spell_book_open = True
+            constants.globals.game_over = 2
 
         if hero_player.current_fury == 100:
             if ultimate_button.draw() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
@@ -239,7 +236,7 @@ while constants.globals.run:
                 hero_player.reset_fury()
                 constants.globals.action_cooldown = -25
 
-        if game_over == 0:
+        if constants.globals.game_over == 0:
             # make sure mouse is visible
             mouse.set_visible(True)
             pos = mouse.get_pos()
@@ -270,15 +267,12 @@ while constants.globals.run:
                         if mana_potion:
                             hero_player.use_mana_potion(damage_text_group)
 
-                        if constants.globals.spell_book_open == True:
-                            open_spellbook(hero_player, enemy_list, screen, damage_text_group)
-
                         # Use: Ultimate Spell
                         # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
                         if constants.globals.ultimate_status:
                             hero_player.use_ultimate(enemy_list, damage_text_group)
             else:
-                game_over = -1
+                constants.globals.game_over = -1
 
             # Enemy action
             for count, enemy_unit in enumerate(enemy_list):
@@ -300,12 +294,13 @@ while constants.globals.run:
             if enemy_unit.alive:
                 alive_enemies += 1
         if alive_enemies == 0:
-            game_over = 1
+            constants.globals.game_over = 1
 
         # Gameover Check
-        if game_over != 0:
+        if constants.globals.game_over != 0:
+
             # Condicion de Victoria
-            if game_over == 1:
+            if constants.globals.game_over == 1:
                 if scripted_battle[level]:
                     boss_music.stop()
                     if not mixer.get_busy():
@@ -314,7 +309,7 @@ while constants.globals.run:
                     draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
 
                     if next_button.draw():
-                        game_over = 0
+                        constants.globals.game_over = 0
                         runreset = True
                         constants.globals.runbattle = False
                         victory_music.stop()
@@ -346,9 +341,13 @@ while constants.globals.run:
                                 hero_player.loot(target, damage_text_group)
                             constants.globals.clicked = False
 
-            if game_over == -1:
+            if constants.globals.game_over == -1:
                 screen.blit(defeat_img,(180, 50))
                 draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
+
+            if constants.globals.game_over == 2:
+                open_spellbook(hero_player, enemy_list, screen, damage_text_group)
+
 
         event_control()
 

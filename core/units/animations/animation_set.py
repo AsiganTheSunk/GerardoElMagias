@@ -34,8 +34,8 @@ class AnimationSet:
         # Load: Unit Animation Sequence from Path
         animation_sequence = []
         for index in range(sequence_length):
-            # print(f"resources/{name}/{animation}/{index}.png")
-            img = image.load(f"resources/{name}/{animation.value}/{index}.png")
+            print(f"resources/units/{name}/sprites/{animation}/{index}.png")
+            img = image.load(f"resources/units/{name}/sprites/{animation.value}/{index}.png")
             img = transform.scale(img, (img.get_width() * 2, img.get_height() * 2))
             animation_sequence.append(img)
         return animation_sequence
