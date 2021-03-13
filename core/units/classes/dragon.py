@@ -58,6 +58,31 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
+    def use_firestorm(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        print('Turn:', constants.globals.current_fighter)
+        if self.reduce_mana(15):
+            constants.globals.action_cooldown = -30
+            constants.globals.current_fighter += 1
+
+            # Pre Save State for Enemy List: target_list
+            pre_target_list = get_alive_targets_status(target_list)
+
+            # Retrieve State for Enemy List: target_list
+            self.cast_firestorm(self, target_list, damage_text_group)
+
+            # Post Save State for Enemy List: target_list
+            pos_target_list = get_alive_targets_status(target_list)
+
+            # Evaluate Kills
+            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
+                                                       damage_text_group)
+            print('Turn:', constants.globals.current_fighter)
+            return True
+
+        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
+        return False
+
 
     def death_animation(self):
         # Activates: Death Animation
@@ -85,11 +110,10 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         self.animation_set.reset_frame_index()
 
 
-
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 0.7)
+        health_trigger = self.current_hp <= round(self.max_hp * 1)
         if health_trigger:
-            i = randint(1,2)
+            i = randint(1, 2)
             if i == 1:
                 self.attack(target, damage_text_group)
             elif i == 2:

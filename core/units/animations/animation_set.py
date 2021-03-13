@@ -55,7 +55,7 @@ class AnimationSet:
         # Reset Animations to Idle unless Death happens
         if self.frame_index >= len(self.animation_list[self.action]):
             if self.action == 1:
-                self.frame_index = 9
+                self.frame_index = len(self.animation_list[1]) - 1
             else:
                 self.idle_animation()
 
