@@ -11,7 +11,8 @@ __email__ = ""
 __status__ = "Development"
 
 # Pygame Imports:
-from pygame import time, display, sprite, mouse, quit
+from pygame import time, display, sprite, mouse, quit, init
+init()
 
 # Game Engine Imports:
 from interface.basic_components import button
@@ -33,7 +34,7 @@ from event_control import event_control
 
 from interface.composed_component.spellbook import open_spellbook
 
-init()
+
 mixer.pre_init(44100, -16, 2, 4096)
 clock = time.Clock()
 fps = 60
