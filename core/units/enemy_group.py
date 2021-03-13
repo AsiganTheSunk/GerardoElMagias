@@ -42,15 +42,15 @@ class EnemyGroup:
         for index in range(group_size):
             if index == 0:
                 _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_enemy_stats(level)
-                tmp.append(Bandit(500, 555, f"Enemy", _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_0[0], ENEMY_POS_0[1]))
+                tmp.append(Bandit(500, 555, f"Bandit", _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_0[0], ENEMY_POS_0[1]))
             elif index == 1:
                 _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_enemy_stats(level)
-                tmp.append(Bandit(600, 600, f"Enemy", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_1[0], ENEMY_POS_1[1]))
+                tmp.append(Bandit(600, 600, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_1[0], ENEMY_POS_1[1]))
             elif index == 2:
                 _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_enemy_stats(level)
-                tmp.append(Bandit(700, 555, f"Enemy", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_2[0], ENEMY_POS_2[1]))
+                tmp.append(Bandit(700, 555, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_2[0], ENEMY_POS_2[1]))
             elif index == 3:
                 _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_enemy_stats(level)
-                tmp.append(Bandit(800, 600, f"Enemy", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_3[0], ENEMY_POS_3[1]))
+                tmp.append(Bandit(800, 600, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_3[0], ENEMY_POS_3[1]))
 
         return tmp

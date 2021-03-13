@@ -5,12 +5,14 @@ action_cooldown = 0
 current_fighter = 1
 
 number_of_strikes = 0
-spell_book_open = False
+
 
 action_wait_time = 90
 ultimate_status = False
+
+game_over = 0
+
+
 run = True
-
 runbattle = False
-
 clicked = False

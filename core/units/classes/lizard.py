@@ -1,19 +1,20 @@
 from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
+import constants.globals
 
-# Text Import
-from random import randint
+global ulti_atacks
+ulti_atacks = 1
 
 # Skill Imports
 from core.units.skills.melee import MeleeSpells
 
 # Animation Imports
-from core.units.animations.animation_db import MeleeBanditSet
+from core.units.animations.animation_db import LizardSet
 from core.units.animations.animation_set import AnimationSet
 
 
-class Bandit(BasicUnit, MeleeSpells):
+class Lizard(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
@@ -22,7 +23,9 @@ class Bandit(BasicUnit, MeleeSpells):
         # Bandit Loot
         self.looted_status = False
         self.loot_pool = LootPool()
-        self.animation_set = AnimationSet(x, y, name, MeleeBanditSet)
+        self.animation_set = AnimationSet(x, y, name, LizardSet)
+        self.current_fury = 0
+        self.fury_status = True
 
     def is_looted(self):
         return self.looted_status
@@ -34,14 +37,6 @@ class Bandit(BasicUnit, MeleeSpells):
         self.melee_attack_animation()
         self.cast_attack(self, target, damage_text_group)
         return True
-
-    def strong_attack(self, target, damage_text_group):
-        self.melee_attack_animation()
-        self.cast_strong_attack(self, target, damage_text_group)
-        return True
-
-    def action(self, target, damage_text_group):
-       self.attack(target, damage_text_group)
 
     def death_animation(self):
         # Activates: Death Animation
@@ -67,3 +62,23 @@ class Bandit(BasicUnit, MeleeSpells):
         # Activates: Miss Animation
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
+
+
+
+    def action(self, target, damage_text_group):
+        global ulti_atacks
+        if self.current_fury >= 40:
+
+            if ulti_atacks < 3:
+                self.attack(target, damage_text_group)
+                constants.globals.current_fighter -= 1
+                ulti_atacks += 1
+                constants.globals.action_cooldown = 70
+            else:
+                self.attack(target, damage_text_group)
+                ulti_atacks = 1
+                self.current_fury = 1
+
+
+        else:
+            self.attack(target, damage_text_group)
