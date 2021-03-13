@@ -123,7 +123,7 @@ def draw_panel():
         draw_text(f" The Boss HP: {enemy_list[0].current_hp}", default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
     else:
         for index, enemy_fighter in enumerate(enemy_list):
-            draw_text(f"Bandit {index + 1} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
+            draw_text(f"{enemy_fighter.name} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
                       tmp[index][1])
 
 
@@ -189,17 +189,14 @@ while constants.globals.run:
             boss_music.play()
 
         else:
+            enemy_group = EnemyGroup()
+            enemy_list = enemy_group.generate_enemy(level, bosslevel)
+            total_fighters = len(enemy_list) + 1
             if level <= 7:
-                enemy_group = EnemyGroup()
-                enemy_list = enemy_group.generate_enemy(level)
-                total_fighters = len(enemy_list) + 1
                 if not mixer.get_busy():
                     battle_music.play()
 
             if level > 7:
-                enemy_group = EnemyGroup()
-                enemy_list = enemy_group.generate_enemy(level)
-                total_fighters = len(enemy_list) + 1
                 if not mixer.get_busy():
                     castle_music.play()
 
