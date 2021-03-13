@@ -167,8 +167,8 @@ enemy_list = []
 
 runreset = True
 action_wait_time = 90
-level = 6
-bosslevel = 2
+level = 0
+bosslevel = 1
 
 
 while constants.globals.run:
