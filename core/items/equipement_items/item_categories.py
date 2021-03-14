@@ -61,9 +61,10 @@ class ArmorType(Enum):
     LEATHER = 'Cuero'
     CHAIN_MAIL = 'Cota de Malla'
     PLATE = 'Placas'
-    SKIN = 'Piel'
+    BARLOG_SKIN = 'Piel de Barlog'
+    INFERNAL_FORGED = 'Coraza forjada en el infierno'
 
 
 class ArmorSubType(Enum):
-    INFERNAL_FORGED = 'En el Infierno'
-    BALROG = 'de Balrog'
+    LIGHT = 'Ligera'
+    HEAVY = 'Pesada'

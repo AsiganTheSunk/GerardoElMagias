@@ -182,7 +182,7 @@ while constants.globals.run:
         constants.globals.ultimate_status = False 
 
         if scripted_battle[level]:
-            mixer.fadeout(1)
+            mixer.fadeout(100)
             enemy_list = scripted_enemy(bosslevel)
             total_fighters = len(enemy_list) + 1
             bosslevel += 1
