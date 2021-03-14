@@ -13,7 +13,6 @@ __status__ = "Development"
 # Pygame Imports:
 from pygame import time, display, sprite, mouse, quit, init
 init()
-
 # Game Engine Imports:
 from interface.basic_components import button
 from core.units.classes.player import HeroPlayer
@@ -29,10 +28,9 @@ from core.game.battle.scripted_enemies import scripted_enemy
 # Python Imports:
 from constants.sound import *
 import constants.globals
-
 from event_control import event_control
-
 from interface.composed_component.spellbook import open_spellbook
+from interface.composed_component.player_interface_panel import StageBackground, PlayerInterfaceText, PlayerInterfacePanel
 
 
 mixer.pre_init(44100, -16, 2, 4096)
@@ -45,101 +43,42 @@ display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 update_time = time.get_ticks()
 
 # Item Buttons:
-potion_button = button.Button(screen, 110, screen_height - bottom_panel + 75, health_potion_img, 64, 64)
-mana_potion_button = button.Button(screen, 220, screen_height - bottom_panel + 75, mana_potion_img, 60, 60)
-spellbook_button = button.Button(screen, 0, 695, spellbook_img, 100, 100)
+# potion_button = button.Button(screen, 110, screen_height - panel_height + 75, health_potion_image, 64, 64)
+# mana_potion_button = button.Button(screen, 220, screen_height - panel_height + 75, mana_potion_image, 60, 60)
+# spellbook_button = button.Button(screen, 0, 695, spellbook_image, 100, 100)
 
-lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
-firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
-heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
+lightning_spell_button = button.Button(screen, 150, 220, lightning_image, 150, 150)
+firestorm_spell_button = button.Button(screen, 165, 410, firestorm_image, 110, 110)
+heal_spell_button = button.Button(screen, 500, 220, skill_heal_image, 130, 130)
 
 # Control Buttons:
-restart_button = button.Button(screen, 400, 120, restart_img, 100, 100)
-next_button = button.Button(screen, 800, 10, next_img, 80, 80)
+restart_button = button.Button(screen, 400, 120, restart_image, 100, 100)
+next_button = button.Button(screen, 800, 10, next_button_image, 80, 80)
 
 # Ultimate Button
-ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
+ultimate_button = button.Button(screen, 400, 400, ultimate_image, 50, 50)
 
 # Kill Button
 kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
 
-
-# create function for drawing text
-def draw_text(text, font, text_col, x, y):
-    img = font.render(text, True, text_col)
-    screen.blit(img, (x, y))
-
-
-# functions for drawing backgrounds
-def draw_bg_forest():
-    screen.blit(background_forest, (0, 0))
+# Stage Background
+stage_background = StageBackground(screen)
+player_interface_panel = PlayerInterfacePanel(screen, screen_width, screen_height, 0, panel_height)
+player_interface_text = PlayerInterfaceText(screen, screen_width, screen_height, 0, panel_height)
 
 
-def draw_bg_castle():
-    screen.blit(background_castle, (0, 0))
-
-
-def draw_stage():
-    draw_text(f"{hero_player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
-    draw_text(f"LVL: {hero_player.level}", default_font, WHITE_COLOR, 50, 100)
-    draw_text(f"Exp: {hero_player.experience} / {hero_player.exp_level_break} ", default_font, WHITE_COLOR, 50, 125)
-    draw_text(f"STR: {hero_player.strength}", default_font, WHITE_COLOR, 50, 175)
-    draw_text(f"DEX: {hero_player.dexterity}", default_font, WHITE_COLOR, 50, 200)
-    draw_text(f"MAG: {hero_player.magic}", default_font, WHITE_COLOR, 50, 225)
-    if level <= 7:
-        draw_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 310, 25)
-    else:
-        draw_text(f"THE CASTLE: STAGE {level - 7}", default_font, RED_COLOR, 310, 25)
-
-
-def draw_debug_panel(_current_fighter, _total_fighters):
-    draw_text(f"Total fighters: {_total_fighters}", default_font, YELLOW_COLOR, 600, 100)
-    draw_text(f"Current fighter: {_current_fighter}", default_font, YELLOW_COLOR, 600, 125)
-
-
-# function for drawing panel
-def draw_panel():
-    # draw FF panel
-    screen.blit(panel_img, (0, screen_height - bottom_panel))
-    # show hero stats
-    draw_text(f"  HP: {hero_player.current_hp} / {hero_player.max_hp}      "
-              f"MP: {hero_player.current_mp} / {hero_player.max_mp}",
-              default_font, WHITE_COLOR, 99, screen_height - bottom_panel + 10)
-
-    # show number of pots
-    draw_text(f"{hero_player.stash.healing_potions}", default_font, WHITE_COLOR, 100, screen_height - bottom_panel + 85)
-    # show number of lightnings
-    draw_text(f"{hero_player.stash.mana_potions}", default_font, WHITE_COLOR, 210, screen_height - bottom_panel + 85)
-
-    # draw name and health of enemies
-    ENEMY_TEXT_POS_0 = [480, screen_height - bottom_panel + 5]
-    ENEMY_TEXT_POS_1 = [480, screen_height - bottom_panel + 65]
-    ENEMY_TEXT_POS_2 = [700, screen_height - bottom_panel + 5]
-    ENEMY_TEXT_POS_3 = [700, screen_height - bottom_panel + 65]
-
-    tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
-
-    if scripted_battle[level]:
-        draw_text(f" The Boss HP: {enemy_list[0].current_hp}", default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
-    else:
-        for index, enemy_fighter in enumerate(enemy_list):
-            draw_text(f"{enemy_fighter.name} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
-                      tmp[index][1])
-
-
-def setup_battle(target_list, hero):
+def setup_battle(target_list, hero, enemy_list):
     clock.tick(fps)
 
     # draw backgrounds
-    if level <=7:
-        draw_bg_forest()
-    if level > 7:
-        draw_bg_castle()
-
+    stage_background.set_stage_background(level)
+    player_interface_panel.display_panel_background()
     # draw panel
-    draw_stage()
-    draw_panel()
-    screen.blit(oro_img, (20, 20))
+    player_interface_text.display_player_information(hero)
+    player_interface_text.display_player_bottom_panel_information(hero)
+
+    player_interface_text.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
+    screen.blit(gold_image, (20, 20))
 
     # damage text
     damage_text_group.update()
@@ -162,7 +101,7 @@ def setup_battle(target_list, hero):
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
 
 damage_text_group = sprite.Group()
-hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - bottom_panel + 50, 290, screen_height - bottom_panel + 50, 90, 510)
+hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - panel_height + 50, 290, screen_height - panel_height + 50, 90, 510)
 enemy_list = []
 
 runreset = True
@@ -211,7 +150,7 @@ while constants.globals.run:
         target = None
         loot = False
 
-        setup_battle(enemy_list, hero_player)
+        setup_battle(enemy_list, hero_player, enemy_list)
 
 
         if kill_button.draw():
@@ -219,11 +158,11 @@ while constants.globals.run:
                 target_unit.death()
                 target_unit.death_animation()
 
-        if potion_button.draw():
+        if player_interface_panel.display_health_potion():
             potion = True
-        if mana_potion_button.draw():
+        if player_interface_panel.display_mana_potion():
             mana_potion = True
-        if spellbook_button.draw():
+        if player_interface_panel.display_spell_book():
             constants.globals.game_over = 2
 
         if hero_player.current_fury == 100:
@@ -243,7 +182,7 @@ while constants.globals.run:
                     # hide mouse
                     mouse.set_visible(False)
                     # show icon
-                    screen.blit(sword_img, pos)
+                    screen.blit(sword_image, pos)
                     if constants.globals.clicked and enemy_unit.alive:
                         attack = True
                         target = enemy_list[count]
@@ -303,8 +242,9 @@ while constants.globals.run:
                     boss_music.stop()
                     if not mixer.get_busy():
                         victory_music.play()
-                    screen.blit(victory_img, (180, 50))
-                    draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+                    screen.blit(victory_banner_image, (180, 50))
+                    pass
+                    # draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
 
                     if next_button.draw():
                         constants.globals.game_over = 0
@@ -312,9 +252,10 @@ while constants.globals.run:
                         constants.globals.runbattle = False
                         victory_music.stop()
                 else:
-                    draw_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
-                    draw_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
-                    draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+                    pass
+                    # draw_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
+                    # draw_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
+                    # draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
 
                     if next_button.draw():
                         runreset = True
@@ -328,7 +269,7 @@ while constants.globals.run:
                         # hide mouse
                         mouse.set_visible(False)
                         # show icon
-                        screen.blit(loot_img, pos)
+                        screen.blit(loot_image, pos)
                         if constants.globals.clicked:
                             target = enemy_list[count]
 
@@ -340,8 +281,8 @@ while constants.globals.run:
                             constants.globals.clicked = False
 
             if constants.globals.game_over == -1:
-                screen.blit(defeat_img,(180, 50))
-                draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
+                screen.blit(defeat_banner_image, (180, 50))
+                # draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
 
             if constants.globals.game_over == 2:
                 open_spellbook(hero_player, enemy_list, screen, damage_text_group)

@@ -11,11 +11,11 @@ damage_text = DamageText()
 
 
 def open_spellbook(caster, target, screen, damage_text_group):
-    screen.blit(shop_image, (120, 190))
-    next_button = button.Button(screen, 800, 10, next_img, 80, 80)
-    lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
-    firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
-    heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
+    screen.blit(background_shop_image, (120, 190))
+    next_button = button.Button(screen, 800, 10, next_button_image, 80, 80)
+    lightning_spell_button = button.Button(screen, 150, 220, lightning_image, 150, 150)
+    firestorm_spell_button = button.Button(screen, 165, 410, firestorm_image, 110, 110)
+    heal_spell_button = button.Button(screen, 500, 220, skill_heal_image, 130, 130)
 
     if next_button.draw():
         constants.globals.game_over = 0
