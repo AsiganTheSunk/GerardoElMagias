@@ -5,10 +5,10 @@ class BackPack:
 
     def add_item(self, item):
         if len(self.backpack_list) > self.max_slots:
-            print('Max Item Reached')
             return False
         else:
             self.backpack_list.append(item)
+            return True
 
     def remove_item(self, item):
         for index, tmp_item in enumerate(self.backpack_list):
@@ -17,13 +17,15 @@ class BackPack:
                 return True
         return False
 
+    def get_list_item(self):
+        return self.backpack_list
+
     def list_items(self):
+        print('=========' * 10)
         if self.backpack_list:
             for index, tmp_item in enumerate(self.backpack_list):
-                print('========' * 10)
-                print(f'backpack index {index}\n', tmp_item)
-                print('========' * 10)
+                print(f'Index {index}\n', tmp_item)
+                print('=========' * 10)
         else:
-            print('========' * 10)
-            print('EMPTY')
-            print('========' * 10)
+            print(f'Index 0\n', 'Empty')
+            print('=========' * 10)

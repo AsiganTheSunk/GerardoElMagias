@@ -1,5 +1,5 @@
 from core.items.equipement_items.item_categories import *
-
+from core.items.generated_item import GeneratedItem
 
 class EquipmentSet:
     def __init__(self):
@@ -54,73 +54,32 @@ class EquipmentSet:
         elif slot_index == 14:
             return EquipmentSlotType.DUAL_HAND
 
-    @staticmethod
-    def get_index_from_type(item):
-        if item.item_slot_type is EquipmentSlotType.HEAD:
-            return 0
-        elif item.item_slot_type is EquipmentSlotType.SHOULDERS:
-            return 1
-        elif item.item_slot_type is EquipmentSlotType.CAPE:
-            return 2
-        elif item.item_slot_type is EquipmentSlotType.GLOVES:
-            return 3
-        elif item.item_slot_type is EquipmentSlotType.BRACERS:
-            return 4
-        elif item.item_slot_type is EquipmentSlotType.BODY:
-            return 5
-        elif item.item_slot_type is EquipmentSlotType.PANTS:
-            return 6
-        elif item.item_slot_type is EquipmentSlotType.FEET:
-            return 7
-        elif item.item_slot_type is EquipmentSlotType.BELT:
-            return 8
-        elif item.item_slot_type is EquipmentSlotType.MAIN_HAND:
-            return 9
-        elif item.item_slot_type is EquipmentSlotType.OFF_HAND:
-            return 10
-        elif item.item_slot_type is EquipmentSlotType.RING:
-            return 11
-        elif item.item_slot_type is EquipmentSlotType.RING:
-            # This is never going to run, in the current state of the equipment set
-            pass
-        elif item.item_slot_type is EquipmentSlotType.AMULET:
-            return 13
-        elif item.item_slot_type is EquipmentSlotType.DUAL_HAND:
-            return 14
-
     def get_item_from_slot(self, slot_index):
         return self.equipped_items[slot_index][self.get_type_from_index(slot_index)]
 
-    def set_item_slot(self, item, slot_index=None):
-        if item is None:
+    def set_item_slot(self, item, slot_index):
+        if item is None or slot_index is None:
             return False
-        elif slot_index is None:
-            self.equipped_items[self.get_index_from_type(item)].update({item.item_slot_type: item})
-            return True
-        else:
-            self.equipped_items[slot_index].update({self.get_type_from_index(slot_index): item})
-            return True
+        self.equipped_items[slot_index].update({self.get_type_from_index(slot_index): item})
+        return True
 
     def reset_slot(self, slot_index):
         return self.equipped_items[slot_index].update({self.get_type_from_index(slot_index): None})
 
-    def is_empty_slot(self, item, slot_index=None):
-        if slot_index is None:
-            return self.equipped_items[self.get_index_from_type(item)][item.item_slot_type] is None
-        else:
-            return self.equipped_items[slot_index][self.get_type_from_index(slot_index)] is None
+    def is_empty_slot(self, slot_index):
+        return self.equipped_items[slot_index][self.get_type_from_index(slot_index)] is None
 
-    def resolve_off_hand_main_hand_equipment_conflicts(self, item, backpack):
-        if not self.is_empty_slot(None, 14):
+    def resolve_off_hand_main_hand_equipment_conflicts(self, item, backpack, slot_index):
+        if not self.is_empty_slot(14):
             previous_item = self.get_item_from_slot(14)
             backpack.add_item(previous_item)
             self.reset_slot(14)
 
         backpack.remove_item(item)
-        self.set_item_slot(item)
+        self.set_item_slot(item, slot_index)
         return True
 
-    def resolve_dual_equipment_conflicts(self, item, backpack):
+    def resolve_dual_equipment_conflicts(self, item, backpack, slot_index):
         if self.equipped_items[9][EquipmentSlotType.MAIN_HAND] is not None:
             previous_item = self.get_item_from_slot(9)
             backpack.add_item(previous_item)
@@ -132,7 +91,7 @@ class EquipmentSet:
             self.reset_slot(10)
 
         backpack.remove_item(item)
-        self.set_item_slot(item)
+        self.set_item_slot(item, slot_index)
         return True
 
     def resolve_ring_equipment_conflicts(self, item, backpack):
@@ -157,83 +116,87 @@ class EquipmentSet:
 
     def resolve_equipment_conflicts(self, item, backpack, slot_index=None):
         # ItemSlotType: If Ring is Detected
-        if item.item_slot_type is EquipmentSlotType.RING:
+        if item.item_slot_type is EquipmentSlotType.RING and slot_index is None:
             return self.resolve_ring_equipment_conflicts(item, backpack)
 
-        elif item.item_slot_type is EquipmentSlotType.RING and slot_index is not None:
+        elif item.item_slot_type is EquipmentSlotType.RING:
             previous_item = self.get_item_from_slot(slot_index)
             backpack.add_item(previous_item)
             backpack.remove_item(item)
-            self.set_item_slot(item)
+            self.set_item_slot(item, slot_index)
             return True
 
         # ItemSlotType: If Dual is Detected and Main Hand or Off Hand is not empty
         elif item.item_slot_type is EquipmentSlotType.MAIN_HAND or item.item_slot_type is EquipmentSlotType.OFF_HAND:
-            return self.resolve_off_hand_main_hand_equipment_conflicts(item, backpack)
+            return self.resolve_off_hand_main_hand_equipment_conflicts(item, backpack, slot_index)
 
         # ItemSlotType: If Main Hand or Off Hand abd Dual is Detected
         elif item.item_slot_type is EquipmentSlotType.DUAL_HAND:
-            return self.resolve_dual_equipment_conflicts(item, backpack)
+            return self.resolve_dual_equipment_conflicts(item, backpack, slot_index)
 
         else:
             # ItemSlotType: Other Items
-            previous_item = self.get_item_from_slot(self.get_index_from_type(item))
+            previous_item = self.get_item_from_slot(slot_index)
             backpack.add_item(previous_item)
             backpack.remove_item(item)
-            self.set_item_slot(item)
+            self.set_item_slot(item, slot_index)
             return True
 
-    def equip(self, item, backpack, slot_index=None):
-        if item is not None:
-            # Not Empty Slot and SlotIndex is None
-            if not self.is_empty_slot(item) and slot_index is None:
-                self.resolve_equipment_conflicts(item, backpack)
-                return True
-
-            # Not Empty Slot and Slot Index is not None
-            elif not self.is_empty_slot(item) and slot_index is not None:
+    def equip(self, item, backpack, slot_index):
+        if item is None or slot_index is None:
+            return False
+        else:
+            # Not Empty Slot
+            if not self.is_empty_slot(slot_index):
                 self.resolve_equipment_conflicts(item, backpack, slot_index)
                 return True
 
-            # Empty Slot and Slot Index is not None
-            elif self.is_empty_slot(item) and slot_index is not None:
-                backpack.remove_item(item)
-                self.set_item_slot(item, slot_index)
-                return True
-
-            # Empty Slot and Slot Index is None
-            elif self.is_empty_slot(item) and slot_index is None:
+            # Empty Slot
+            elif self.is_empty_slot(slot_index):
                 if item.item_slot_type is EquipmentSlotType.MAIN_HAND or \
                         item.item_slot_type is EquipmentSlotType.OFF_HAND or \
-                        item.item_slot_type is EquipmentSlotType.RING or \
                         item.item_slot_type is EquipmentSlotType.DUAL_HAND:
-                    self.resolve_equipment_conflicts(item, backpack)
-                    return True
-
+                    return self.resolve_equipment_conflicts(item, backpack, slot_index)
                 else:
                     backpack.remove_item(item)
-                    self.set_item_slot(item)
+                    self.set_item_slot(item, slot_index)
                     return True
-        return False
 
     def un_equip(self, backpack, slot_index):
-        if self.is_empty_slot(None, slot_index):
+        if self.is_empty_slot(slot_index):
             return False
-        elif not self.is_empty_slot(None, slot_index):
+        elif not self.is_empty_slot(slot_index):
             previous_item = self.get_item_from_slot(slot_index)
             backpack.add_item(previous_item)
             self.reset_slot(slot_index)
             return True
 
     def list_equipment(self):
-        for index, item in enumerate(self.equipped_items):
-            print(f'slot: {index}', item)
-
-    def gather_bonus(self):
-        pass
+        for equipment_index, equipment_items in enumerate(self.equipped_items):
+            current_equipment_item = equipment_items[self.get_type_from_index(equipment_index)]
+            if current_equipment_item is not None:
+                print(current_equipment_item)
 
     def get_stats(self):
-        pass
+        # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
+        total_strength = 0
+        total_dexterity = 0
+        total_magic = 0
 
-    def get_skill_modifiers(self):
-        pass
+        # Basic Attribute Resource: Fury, Health, Mana
+        total_max_fury = 0
+        total_max_hp = 0
+        total_max_mp = 0
+
+        for equipment_index, equipment_items in enumerate(self.equipped_items):
+            current_equipment_item = equipment_items[self.get_type_from_index(equipment_index)]
+            if current_equipment_item is not None:
+                total_strength += current_equipment_item.strength
+                total_dexterity += current_equipment_item.dexterity
+                total_magic += current_equipment_item.magic
+
+                total_max_hp += current_equipment_item.max_hp
+                total_max_mp += current_equipment_item.max_mp
+                total_max_fury += current_equipment_item.max_fury
+
+        return total_strength, total_dexterity, total_magic, total_max_hp, total_max_mp, total_max_fury
