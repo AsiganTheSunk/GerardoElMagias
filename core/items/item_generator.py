@@ -101,12 +101,3 @@ class ItemGenerator:
                         equipment_prefix_list.append(prefix_item)
                 final_equipment_prefix_list.append(choice(equipment_prefix_list))
         return final_equipment_prefix_list
-
-
-# level = randint(1, 30)
-# base_mf = 0
-#
-#
-# item_generator = ItemGenerator()
-# dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
-# print(dropped_item)

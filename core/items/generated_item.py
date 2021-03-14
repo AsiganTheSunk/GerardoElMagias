@@ -36,6 +36,7 @@ class GeneratedItem:
                f'Max Mana: {self.max_mp} \n' \
                f'Max Fury: {self.max_fury} \n' \
 
+
     def get_stats(self):
         return self.strength, self.dexterity, self.magic, self.max_hp, self.max_mp, self.max_fury
 

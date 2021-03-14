@@ -1,6 +1,24 @@
 from enum import Enum
 
 
+# class EquipmentSlotType(Enum):
+#     HEAD = 0
+#     SHOULDERS = 1
+#     CAPE = 2
+#     GLOVES = 3
+#     BRACERS = 4
+#     BODY = 5
+#     PANTS = 6
+#     FEET = 7
+#     BELT = 8
+#     MAIN_HAND = 9
+#     OFF_HAND = 10
+#     RING_0 = 11
+#     RING_1 = 12
+#     AMULET = 13
+#     DUAL_HAND = 14
+
+
 class EquipmentSlotType(Enum):
     BODY = 'Pechera'
     PANTS = 'Pantalones'
@@ -15,7 +33,7 @@ class EquipmentSlotType(Enum):
     AMULET = 'Amuleto'
     RING = 'Anillo'
     FEET = 'Pies'
-    DUAL = 'Ambas Manos'
+    DUAL_HAND = 'Ambas Manos'
 
 
 class ItemRaritySubType(Enum):

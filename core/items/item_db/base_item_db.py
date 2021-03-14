@@ -40,7 +40,7 @@ ITEM_POOL = {
         MeleeWeapon("Alabarda", "Lanza", 12, 5, 11, EquipmentSlotType.MAIN_HAND),
         MeleeWeapon("Gladius", "Espada", 14,  8, 12, EquipmentSlotType.MAIN_HAND),
         MeleeWeapon("Partisana", "Lanza", 14, 5, 1, EquipmentSlotType.MAIN_HAND),
-        MeleeWeapon("Mandoble", "Espada", 16, 9, 13, EquipmentSlotType.MAIN_HAND),
+        MeleeWeapon("Mandoble", "Espada", 16, 9, 13, EquipmentSlotType.DUAL_HAND),
         MeleeWeapon("Decapitador", "Hacha", 16, 6, 15, EquipmentSlotType.MAIN_HAND),
         MeleeWeapon("Espada forjada en el infierno", "Espada", 25, 12, 18, EquipmentSlotType.MAIN_HAND)
     ],
