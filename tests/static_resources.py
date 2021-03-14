@@ -21,6 +21,8 @@ static_suffix = [Affix('de Vida', 1, AttributeType.HEALTH, 5, 15,
 # Static Items
 static_amulet = GeneratedItem(Amulet("Amulet", 1, EquipmentSlotType.AMULET),
                               EquipmentItemType.AMULET, ItemRarity.MAGICAL, static_prefix, static_suffix)
+static_amulet2 = GeneratedItem(Amulet("Amulet", 1, EquipmentSlotType.AMULET),
+                              EquipmentItemType.AMULET, ItemRarity.MAGICAL, static_prefix1, static_suffix)
 static_body = GeneratedItem(Armor('Harapos', 1, 1, EquipmentSlotType.BODY),
                             EquipmentItemType.ARMOR, ItemRarity.MAGICAL, static_prefix, static_suffix)
 static_dual = GeneratedItem(MeleeWeapon("Mandoble", "Espada", 16, 9, 13, EquipmentSlotType.DUAL_HAND),
