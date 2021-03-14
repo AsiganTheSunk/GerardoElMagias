@@ -1,104 +1,164 @@
 from constants.game_windows import *
 from random import randint
 from core.units.classes.melee_bandit import Bandit
-from core.units.classes.lizard import Lizard
+from enum import Enum
+from random import choice
 from core.units.classes.bone_wizard import BoneWizard
+from core.units.classes.lizard import Lizard
+from constants.game_windows import *
 
 
-class EnemyGroup:
-    def __init__(self):
-        self.FST_COLUMN = 480
-        self.SND_COLUMN = 700
+class EnemySetGenerator:
+    @staticmethod
+    def generate_set(group_size, enemy_pool):
+        # enemy_pool = [EnemyType.BANDIT]
+        tmp = []
+        for i in range(group_size):
+            tmp.append(choice(enemy_pool))
+        return tmp
 
+
+
+    def get_enemy_set(self, boss_level, group_size):
+        if boss_level <= 2:
+            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.LIZARD])
+        elif boss_level >= 3:
+            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.BONE_WIZARD])
+
+
+
+class EnemyType(Enum):
+    BANDIT = "Bandit"
+    THE_BOSS = "The Boss"
+    LIZARD = "Lizard"
+    DRAGON = "Dragon"
+    BONE_WIZARD = "BoneWizard"
+
+
+class EnemyStatsGenerator:
     @staticmethod
     def generate_bandit_stats(level):
         randomlevel = level + randint(0, 2)
         maxhp = randomlevel * 9
         maxmp = randomlevel * 4
-        str = 8 + round(randomlevel/2)
-        dex = 7 + round(randomlevel/2)
+        str = 8 + round(randomlevel / 2)
+        dex = 7 + round(randomlevel / 2)
         mag = 5 + randomlevel
         return randomlevel, maxhp, maxmp, str, dex, mag
 
-
+    @staticmethod
     def generate_lizard_stats(level):
         randomlevel = level + randint(0, 2)
         maxhp = randomlevel * 9
         maxmp = randomlevel * 4
-        str = 8 + round(randomlevel/2)
-        dex = 7 + round(randomlevel/2)
+        str = 8 + round(randomlevel / 2)
+        dex = 7 + round(randomlevel / 2)
+        mag = 5 + randomlevel
+        return randomlevel, maxhp, maxmp, str, dex, mag
+
+    @staticmethod
+    def generate_bone_wizard_stats(level):
+        randomlevel = level + randint(0, 2)
+        maxhp = randomlevel * 9
+        maxmp = randomlevel * 4
+        str = 8 + round(randomlevel / 2)
+        dex = 7 + round(randomlevel / 2)
         mag = 5 + randomlevel
         return randomlevel, maxhp, maxmp, str, dex, mag
 
 
-    def generate_enemy(self, level):
-        group_size = 0
+class EnemyPositionsGenerator:
+    @staticmethod
+    def generate_forest_enemy_positions():
+        return [(500, 555), (600, 600), (700, 555), (800, 600)]
+
+    @staticmethod
+    def generate_castle_enemy_positions():
+        return [(500, 570), (700, 570), (600, 500), (800, 500)]
+
+    def get_enemy_positions(self, boss_level):
+        if boss_level <= 2:
+            return self.generate_forest_enemy_positions()
+        elif boss_level >= 3:
+            return self.generate_castle_enemy_positions()
+
+
+
+
+
+
+
+
+class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
+    def __init__(self):
+        EnemyStatsGenerator.__init__(self)
+        EnemyPositionsGenerator.__init__(self)
+        EnemySetGenerator.__init__(self)
+
+    @staticmethod
+    def generate_group_size(level):
         if level < 4:
-            group_size = randint(1, 2)
+           return randint(1, 2)
         elif 4 <= level < 7:
-            group_size = randint(1, 3)
+            return randint(1, 3)
         elif 7 <= level < 10:
-            group_size = randint(1, 4)
+            return randint(1, 4)
         elif 10 <= level < 14:
-            group_size = randint(2, 4)
+            return randint(2, 4)
         elif 14 <= level < 18:
-            group_size = randint(3, 4)
+            return randint(3, 4)
         elif level >= 18:
-            group_size = 4
+            return 4
 
-        tmp = []
-        ENEMY_POS_0 = [self.FST_COLUMN, screen_height - bottom_panel + 40]
-        ENEMY_POS_1 = [self.FST_COLUMN, screen_height - bottom_panel + 100]
-        ENEMY_POS_2 = [self.SND_COLUMN, screen_height - bottom_panel + 40]
-        ENEMY_POS_3 = [self.SND_COLUMN, screen_height - bottom_panel + 100]
+    @staticmethod
+    def get_enemy_healthbar_positions():
+        return [
+            (480, screen_height - bottom_panel + 40),
+            (480, screen_height - bottom_panel + 100),
+            (700, screen_height - bottom_panel + 40),
+            (700, screen_height - bottom_panel + 100)
+        ]
 
+
+    def get_enemy (self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
+        if enemy_type is EnemyType.BANDIT:
+            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
+            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, enemy_healthbar_x, enemy_healthbar_y)
+
+        elif enemy_type is EnemyType.LIZARD:
+            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_lizard_stats(level)
+            return Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex, _mag,
+                          enemy_healthbar_x, enemy_healthbar_y)
+
+        elif enemy_type is EnemyType.BONE_WIZARD:
+            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bone_wizard_stats(level)
+            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex, _mag,
+                          enemy_healthbar_x, enemy_healthbar_y)
+
+
+
+
+
+    def generate_enemy(self, level, boss_level):
+        enemy_group = []
+        group_size = self.generate_group_size(level)
+        enemy_set = self.get_enemy_set(boss_level, group_size)
+        enemy_positions = self.get_enemy_positions(boss_level)
+        enemy_healthbar_positions = self.get_enemy_healthbar_positions()
         for index in range(group_size):
-            if index == 0:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(500, 555, f"Bandit", _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_0[0], ENEMY_POS_0[1]))
-            elif index == 1:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(600, 600, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_1[0], ENEMY_POS_1[1]))
-            elif index == 2:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(700, 555, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_2[0], ENEMY_POS_2[1]))
-            elif index == 3:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(800, 600, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_3[0], ENEMY_POS_3[1]))
-
-        return tmp
+            enemy_pos_x, enemy_pos_y = enemy_positions[index]
+            enemy_healthbar_x, enemy_healthbar_y = enemy_healthbar_positions[index]
+            current_enemy = self.get_enemy(enemy_set[index], level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y)
+            enemy_group.append(current_enemy)
+        return enemy_group
 
 
-    def generate_enemy2(self, level):
-        group_size = 0
-        if 7 <= level < 10:
-            group_size = randint(3, 4)
-        elif 10 <= level < 14:
-            group_size = randint(3, 4)
-        elif 14 <= level < 18:
-            group_size = randint(3, 4)
-        elif level >= 18:
-            group_size = 4
 
-        tmp = []
-        ENEMY_POS_0 = [self.FST_COLUMN, screen_height - bottom_panel + 40]
-        ENEMY_POS_1 = [self.FST_COLUMN, screen_height - bottom_panel + 100]
-        ENEMY_POS_2 = [self.SND_COLUMN, screen_height - bottom_panel + 40]
-        ENEMY_POS_3 = [self.SND_COLUMN, screen_height - bottom_panel + 100]
 
-        for index in range(group_size):
-            if index == 0:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(500, 570, f"Bandit", _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_0[0], ENEMY_POS_0[1]))
-            elif index == 1:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(Bandit(700, 570, f"Bandit", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_1[0], ENEMY_POS_1[1]))
-            elif index == 2:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(BoneWizard(600, 500, f"BoneWizard", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_2[0], ENEMY_POS_2[1]))
-            elif index == 3:
-                _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-                tmp.append(BoneWizard(800, 500, f"BoneWizard", _randomlevel, _maxhp, _maxmp, _str, _dex, _mag, ENEMY_POS_3[0], ENEMY_POS_3[1]))
 
-        return tmp
+
+
+
+
+
 

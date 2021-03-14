@@ -24,7 +24,7 @@ class Lizard(BasicUnit, MeleeSpells):
         self.looted_status = False
         self.loot_pool = LootPool()
         self.animation_set = AnimationSet(x, y, name, LizardSet)
-        self.current_fury = 0
+        self.current_fury = 1
         self.fury_status = True
 
     def is_looted(self):
@@ -69,6 +69,7 @@ class Lizard(BasicUnit, MeleeSpells):
         global ulti_atacks
         if self.current_fury >= 40:
             if ulti_atacks < 3:
+
                 self.attack(target, damage_text_group)
                 constants.globals.current_fighter -= 1
                 ulti_atacks += 1
