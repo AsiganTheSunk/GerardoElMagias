@@ -37,7 +37,7 @@ class EnemyType(Enum):
 
 class EnemyStatsGenerator:
     @staticmethod
-    def generate_enemy_stats(level):
+    def generate_bandit_stats(level):
         randomlevel = level + randint(0, 2)
         maxhp = randomlevel * 9
         maxmp = randomlevel * 4
