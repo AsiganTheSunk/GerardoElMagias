@@ -9,6 +9,8 @@ import pygame as pg
 # (self, surface, x, y, image, size_x, size_y)
 
 
+
+
 class PlayerInterfacePanel:
     def __init__(self, surface, width, height, panel_width, panel_height):
         self.surface = surface
@@ -35,6 +37,7 @@ class PlayerInterfacePanel:
         # Mouse Pointer:
         # self.mouse_pointer =
 
+        self.restart_button = Button(self.surface, 400, 120, restart_image, 100, 100)
         self.next_button = Button(self.surface, 800, 10, next_button_image, 80, 80)
 
         # Gold Icon:
@@ -42,6 +45,15 @@ class PlayerInterfacePanel:
 
         # Panel Background
         self.panel_background_image = panel_image
+
+    def display_next_button(self):
+        return self.next_button.draw()
+
+    def display_restart_button(self):
+        return self.restart_button.draw()
+
+    def display_ultimate(self):
+        return self.ultimate_button.draw()
 
     def display_mana_potion(self):
         return self.mana_potion_button.draw()
@@ -128,6 +140,17 @@ class PlayerInterfaceText:
         self.display_text(f"Agilidad: {player.dexterity}", default_font, WHITE_COLOR, 50, 200)
         self.display_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 50, 225)
 
+    def display_next_battle_message(self):
+        self.display_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+
+    def display_victory_message(self):
+        self.display_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
+        self.display_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
+        self.display_next_battle_message()
+
+    def display_defeat_message(self):
+        self.display_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
+
     def display_stage_information(self, level):
         if level <= 7:
             self.display_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 310, 25)
@@ -167,3 +190,41 @@ class PlayerInterfaceText:
             for index, enemy_fighter in enumerate(enemy_list):
                 self.display_text(f"{enemy_fighter.name} HP: {enemy_fighter.current_hp}",
                                   default_font, WHITE_COLOR, tmp[index][0], tmp[index][1])
+
+
+class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
+    def __init__(self, surface, width, height, panel_width, panel_height, clock, fps):
+        StageBackground.__init__(self, surface)
+        PlayerInterfacePanel.__init__(self, surface, width, height, panel_width, panel_height)
+        PlayerInterfaceText.__init__(self, surface, width, height, panel_width, panel_height)
+        self.clock = clock
+        self.fps = fps
+
+    def update(self, level, hero, enemy_list, scripted_battle, damage_text_group):
+        self.clock.tick(self.fps)
+
+        # draw backgrounds
+        self.set_stage_background(level)
+        self.display_panel_background()
+        # draw panel
+        self.display_player_information(hero)
+        self.display_player_bottom_panel_information(hero)
+
+        self.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
+        # screen.blit(gold_image, (20, 20))
+
+        # damage text
+        damage_text_group.update()
+        damage_text_group.draw(self.surface)
+
+        # draw fighters
+        hero.animation_set.update()
+        hero.animation_set.draw(self.surface)
+        hero.health_bar.draw(hero.current_hp, hero.max_hp, self.surface)
+        hero.mana_bar.draw(hero.current_mp, hero.max_mp, self.surface)
+        hero.fury_bar.draw(hero.current_fury, hero.max_fury, self.surface)
+
+        for unit in enemy_list:
+            unit.animation_set.update()
+            unit.animation_set.draw(self.surface)
+            unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)

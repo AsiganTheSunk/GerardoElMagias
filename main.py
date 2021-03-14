@@ -30,7 +30,7 @@ from constants.sound import *
 import constants.globals
 from event_control import event_control
 from interface.composed_component.spellbook import open_spellbook
-from interface.composed_component.player_interface_panel import StageBackground, PlayerInterfaceText, PlayerInterfacePanel
+from interface.composed_component.player_interface_panel import StageDrawer
 
 
 mixer.pre_init(44100, -16, 2, 4096)
@@ -42,60 +42,8 @@ display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 
 update_time = time.get_ticks()
 
-# Item Buttons:
-# potion_button = button.Button(screen, 110, screen_height - panel_height + 75, health_potion_image, 64, 64)
-# mana_potion_button = button.Button(screen, 220, screen_height - panel_height + 75, mana_potion_image, 60, 60)
-# spellbook_button = button.Button(screen, 0, 695, spellbook_image, 100, 100)
-
-lightning_spell_button = button.Button(screen, 150, 220, lightning_image, 150, 150)
-firestorm_spell_button = button.Button(screen, 165, 410, firestorm_image, 110, 110)
-heal_spell_button = button.Button(screen, 500, 220, skill_heal_image, 130, 130)
-
-# Control Buttons:
-restart_button = button.Button(screen, 400, 120, restart_image, 100, 100)
-next_button = button.Button(screen, 800, 10, next_button_image, 80, 80)
-
-# Ultimate Button
-ultimate_button = button.Button(screen, 400, 400, ultimate_image, 50, 50)
-
-# Kill Button
-kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
-
-# Stage Background
-stage_background = StageBackground(screen)
-player_interface_panel = PlayerInterfacePanel(screen, screen_width, screen_height, 0, panel_height)
-player_interface_text = PlayerInterfaceText(screen, screen_width, screen_height, 0, panel_height)
-
-
-def setup_battle(target_list, hero, enemy_list):
-    clock.tick(fps)
-
-    # draw backgrounds
-    stage_background.set_stage_background(level)
-    player_interface_panel.display_panel_background()
-    # draw panel
-    player_interface_text.display_player_information(hero)
-    player_interface_text.display_player_bottom_panel_information(hero)
-
-    player_interface_text.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
-    screen.blit(gold_image, (20, 20))
-
-    # damage text
-    damage_text_group.update()
-    damage_text_group.draw(screen)
-
-    # draw fighters
-    hero.animation_set.update()
-    hero.animation_set.draw(screen)
-    hero.health_bar.draw(hero.current_hp, hero.max_hp, screen)
-    hero.mana_bar.draw(hero.current_mp, hero.max_mp, screen)
-    hero.fury_bar.draw(hero.current_fury, hero.max_fury, screen)
-
-    for target_unit in target_list:
-        target_unit.animation_set.update()
-        target_unit.animation_set.draw(screen)
-        target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
-
+# Stage Drawer
+stage_drawer = StageDrawer(screen, screen_width, screen_height, 0, panel_height, clock, fps)
 
 # fst True es un filler que no se lee nunca
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
@@ -150,23 +98,22 @@ while constants.globals.run:
         target = None
         loot = False
 
-        setup_battle(enemy_list, hero_player, enemy_list)
+        stage_drawer.update(level, hero_player, enemy_list, scripted_battle, damage_text_group)
 
-
-        if kill_button.draw():
+        if stage_drawer.display_kill_all():
             for target_unit in enemy_list:
                 target_unit.death()
                 target_unit.death_animation()
 
-        if player_interface_panel.display_health_potion():
+        if stage_drawer.display_health_potion():
             potion = True
-        if player_interface_panel.display_mana_potion():
+        if stage_drawer.display_mana_potion():
             mana_potion = True
-        if player_interface_panel.display_spell_book():
+        if stage_drawer.display_spell_book():
             constants.globals.game_over = 2
 
         if hero_player.current_fury == 100:
-            if ultimate_button.draw() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
+            if stage_drawer.display_ultimate() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
                 # Todo: activar animacion pre-ulti
                 constants.globals.ultimate_status = True
                 ultimate_sound.play()
@@ -243,21 +190,16 @@ while constants.globals.run:
                     if not mixer.get_busy():
                         victory_music.play()
                     screen.blit(victory_banner_image, (180, 50))
-                    pass
-                    # draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+                    stage_drawer.display_next_battle_message()
 
-                    if next_button.draw():
+                    if stage_drawer.display_next_button():
                         constants.globals.game_over = 0
                         runreset = True
                         constants.globals.runbattle = False
                         victory_music.stop()
                 else:
-                    pass
-                    # draw_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
-                    # draw_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
-                    # draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
-
-                    if next_button.draw():
+                    stage_drawer.display_victory_message()
+                    if stage_drawer.display_next_button():
                         runreset = True
                         constants.globals.runbattle = False
 
@@ -282,7 +224,7 @@ while constants.globals.run:
 
             if constants.globals.game_over == -1:
                 screen.blit(defeat_banner_image, (180, 50))
-                # draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
+                stage_drawer.display_defeat_message()
 
             if constants.globals.game_over == 2:
                 open_spellbook(hero_player, enemy_list, screen, damage_text_group)
