@@ -13,42 +13,36 @@ __status__ = "Development"
 # Pygame Imports:
 from pygame import time, display, sprite, mouse, quit, init
 init()
+
 # Game Engine Imports:
-from interface.basic_components import button
 from core.units.classes.player import HeroPlayer
 from core.units.enemy_group import EnemyGroup
 
-# Game Engine Constants Imports
-from constants.basic_colors import *
-from constants.game_windows import *
-from constants.basic_images import *
-from constants.basic_fonts import *
+# Game Engine Constants Imports:
+from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
+from constants.game_windows import screen_height, screen_width, panel_height
 from core.game.battle.scripted_enemies import scripted_enemy
 
-# Python Imports:
-from constants.sound import *
-import constants.globals
-from event_control import event_control
-from interface.composed_component.spellbook import open_spellbook
+# Game Drawable Instance Imports:
+from interface.composed_component.spell_book import open_spell_book
 from interface.composed_component.player_interface_panel import StageDrawer
 
+# Game Control Imports:
+import constants.globals
+from event_control import event_control
 
-mixer.pre_init(44100, -16, 2, 4096)
-clock = time.Clock()
-fps = 60
+# InitGame Import:
+from game_attributes import GameAttributes
 
-screen = display.set_mode((screen_width, screen_height))
-display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
+# Initializing InitGame & Stage Drawer
+game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
+stage_drawer = StageDrawer(game_attributes.surface, screen_width, screen_height, 0, panel_height,
+                           game_attributes.clock, game_attributes.fps)
 
-update_time = time.get_ticks()
-
-# Stage Drawer
-stage_drawer = StageDrawer(screen, screen_width, screen_height, 0, panel_height, clock, fps)
+stage_drawer.display_caption()
 
 # fst True es un filler que no se lee nunca
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
-
-damage_text_group = sprite.Group()
 hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - panel_height + 50, 290, screen_height - panel_height + 50, 90, 510)
 enemy_list = []
 
@@ -56,6 +50,7 @@ runreset = True
 action_wait_time = 90
 level = 0
 bosslevel = 1
+total_fighters = 0
 
 
 while constants.globals.run:
@@ -69,7 +64,7 @@ while constants.globals.run:
         constants.globals.ultimate_status = False 
 
         if scripted_battle[level]:
-            mixer.fadeout(1)
+            game_attributes.sound_mixer.fadeout(1)
             enemy_list = scripted_enemy(bosslevel)
             total_fighters = len(enemy_list) + 1
             bosslevel += 1
@@ -80,11 +75,11 @@ while constants.globals.run:
             enemy_list = enemy_group.generate_enemy(level, bosslevel)
             total_fighters = len(enemy_list) + 1
             if level <= 7:
-                if not mixer.get_busy():
+                if not game_attributes.sound_mixer.get_busy():
                     battle_music.play()
 
             if level > 7:
-                if not mixer.get_busy():
+                if not game_attributes.sound_mixer.get_busy():
                     castle_music.play()
 
         runreset = False
@@ -98,7 +93,7 @@ while constants.globals.run:
         target = None
         loot = False
 
-        stage_drawer.update(level, hero_player, enemy_list, scripted_battle, damage_text_group)
+        stage_drawer.update(level, hero_player, enemy_list, scripted_battle, game_attributes.text_sprite)
 
         if stage_drawer.display_kill_all():
             for target_unit in enemy_list:
@@ -129,7 +124,7 @@ while constants.globals.run:
                     # hide mouse
                     mouse.set_visible(False)
                     # show icon
-                    screen.blit(sword_image, pos)
+                    stage_drawer.display_sword_mouse(pos)
                     if constants.globals.clicked and enemy_unit.alive:
                         attack = True
                         target = enemy_list[count]
@@ -141,20 +136,20 @@ while constants.globals.run:
                     if constants.globals.action_cooldown >= action_wait_time:
                         # Use: Melee Attack
                         if attack and target is not None:
-                            hero_player.attack(target, damage_text_group)
+                            hero_player.attack(target, game_attributes.text_sprite)
 
                         # Use: Healing Potion
                         if potion:
-                            hero_player.use_healing_potion(damage_text_group)
+                            hero_player.use_healing_potion(game_attributes.text_sprite)
 
                         # Use: Mana Potion
                         if mana_potion:
-                            hero_player.use_mana_potion(damage_text_group)
+                            hero_player.use_mana_potion(game_attributes.text_sprite)
 
                         # Use: Ultimate Spell
                         # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
                         if constants.globals.ultimate_status:
-                            hero_player.use_ultimate(enemy_list, damage_text_group)
+                            hero_player.use_ultimate(enemy_list, game_attributes.text_sprite)
             else:
                 constants.globals.game_over = -1
 
@@ -164,7 +159,7 @@ while constants.globals.run:
                     if enemy_unit.alive:
                         constants.globals.action_cooldown += 1
                         if constants.globals.action_cooldown >= action_wait_time:
-                            enemy_unit.action(hero_player, damage_text_group)
+                            enemy_unit.action(hero_player, game_attributes.text_sprite)
                     else:
                         constants.globals.current_fighter += 1
 
@@ -187,10 +182,9 @@ while constants.globals.run:
             if constants.globals.game_over == 1:
                 if scripted_battle[level]:
                     boss_music.stop()
-                    if not mixer.get_busy():
+                    if not game_attributes.sound_mixer.get_busy():
                         victory_music.play()
-                    screen.blit(victory_banner_image, (180, 50))
-                    stage_drawer.display_next_battle_message()
+                        stage_drawer.display_victory()
 
                     if stage_drawer.display_next_button():
                         constants.globals.game_over = 0
@@ -211,27 +205,24 @@ while constants.globals.run:
                         # hide mouse
                         mouse.set_visible(False)
                         # show icon
-                        screen.blit(loot_image, pos)
+                        stage_drawer.display_bag_mouse(pos)
                         if constants.globals.clicked:
                             target = enemy_list[count]
 
                             # Todo: Create a proper function
                             if scripted_battle[level]:
-                                hero_player.loot_boss(target, damage_text_group)
+                                hero_player.loot_boss(target, game_attributes.text_sprite)
                             else:
-                                hero_player.loot(target, damage_text_group)
+                                hero_player.loot(target, game_attributes.text_sprite)
                             constants.globals.clicked = False
 
             if constants.globals.game_over == -1:
-                screen.blit(defeat_banner_image, (180, 50))
-                stage_drawer.display_defeat_message()
+                stage_drawer.display_defeat()
 
             if constants.globals.game_over == 2:
-                open_spellbook(hero_player, enemy_list, screen, damage_text_group)
-
+                open_spell_book(hero_player, enemy_list, game_attributes.surface, game_attributes.text_sprite)
 
         event_control()
-
         display.update()
 
 quit()

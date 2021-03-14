@@ -2,15 +2,15 @@ from pygame import display
 import constants.globals
 from core.text.combat_text_resolver import CombatTextResolver
 from core.text.damage_text import DamageText
-from constants.basic_images import *
+from constants.basic_images import lightning_image, firestorm_image, next_button_image, background_shop_image, skill_heal_image
 from interface.basic_components import button
-from constants.sound import *
+from constants.sound import lightning_spell_1_sound, firestorm_spell_1_sound, heal_spell_1_sound
 
 combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()
 
 
-def open_spellbook(caster, target, screen, damage_text_group):
+def open_spell_book(caster, target, screen, damage_text_group):
     screen.blit(background_shop_image, (120, 190))
     next_button = button.Button(screen, 800, 10, next_button_image, 80, 80)
     lightning_spell_button = button.Button(screen, 150, 220, lightning_image, 150, 150)

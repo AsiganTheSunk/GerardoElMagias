@@ -1,15 +1,11 @@
 from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
-    background_forest, background_castle, panel_image
+    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, defeat_banner_image
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font
-import pygame as pg
-# (self, surface, x, y, image, size_x, size_y)
-
-
-
+from pygame import Color, Rect, display, draw, transform, Surface
 
 class PlayerInterfacePanel:
     def __init__(self, surface, width, height, panel_width, panel_height):
@@ -35,16 +31,35 @@ class PlayerInterfacePanel:
         self.kill_all_button = Button(self.surface, 40, 260, skull_image, 60, 60)
 
         # Mouse Pointer:
-        # self.mouse_pointer =
+        self.mouse_pointer_image = sword_image
+        self.loot_pointer_image = loot_image
 
         self.restart_button = Button(self.surface, 400, 120, restart_image, 100, 100)
         self.next_button = Button(self.surface, 800, 10, next_button_image, 80, 80)
 
         # Gold Icon:
-        self.surface.blit(gold_image, (20, 20))
+        self.gold_image = gold_image
 
         # Panel Background
         self.panel_background_image = panel_image
+
+        self.victory_banner_image = victory_banner_image
+        self.defeat_banner_image = defeat_banner_image
+
+    def display_bag_mouse(self, position_x_y):
+        self.surface.blit(loot_image, position_x_y)
+
+    def display_defeat_banner(self):
+        self.surface.blit(defeat_banner_image, (180, 50))
+
+    def display_victory_banner(self):
+        self.surface.blit(self.victory_banner_image, (180, 50))
+
+    def display_sword_mouse(self, position_x_y):
+        self.surface.blit(self.mouse_pointer_image, position_x_y)
+
+    def display_gold_icon(self):
+        self.surface.blit(gold_image, (20, 20))
 
     def display_next_button(self):
         return self.next_button.draw()
@@ -72,33 +87,34 @@ class PlayerInterfacePanel:
     @staticmethod
     def gradientRect(window, left_colour, right_colour, target_rect):
         """ Draw a horizontal-gradient filled rectangle covering <target_rect> """
-        colour_rect = pg.Surface((2, 2))  # tiny! 2x2 bitmap
-        pg.draw.line(colour_rect, left_colour, (0, 0), (0, 1))  # left colour line
-        pg.draw.line(colour_rect, right_colour, (1, 0), (1, 1))  # right colour line
-        colour_rect = pg.transform.smoothscale(colour_rect, (target_rect.width, target_rect.height))  # stretch!
+        colour_rect = Surface((2, 2))  # tiny! 2x2 bitmap
+        draw.line(colour_rect, left_colour, (0, 0), (0, 1))  # left colour line
+        draw.line(colour_rect, right_colour, (1, 0), (1, 1))  # right colour line
+        colour_rect = transform.smoothscale(colour_rect, (target_rect.width, target_rect.height))  # stretch!
         window.blit(colour_rect, target_rect)  # paint it
 
     def display_panel_background(self):
-        w, h = pg.display.get_surface().get_size()
-        self.gradientRect(self.surface, pg.Color("SteelBlue"), pg.Color("RoyalBlue"), pg.Rect(2, h / 2 + self.panel_height, w-4, self.panel_height))
+        w, h = display.get_surface().get_size()
+        self.gradientRect(self.surface, Color("SteelBlue"), Color("RoyalBlue"),
+                          Rect(2, h / 2 + self.panel_height, w-4, self.panel_height))
 
-        rect = pg.Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("DimGray"), rect, 3)
+        rect = Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
+        draw.rect(self.surface, Color("DimGray"), rect, 3)
 
-        rect = pg.Rect(1, h / 2 + self.panel_height + 1, w/6, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("DimGray"), rect, 3)
+        rect = Rect(1, h / 2 + self.panel_height + 1, w/5, self.panel_height)
+        draw.rect(self.surface, Color("DimGray"), rect, 3)
 
-        rect = pg.Rect(w - w/2+2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("DimGray"), rect, 3)
+        rect = Rect(w - w/2+2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
+        draw.rect(self.surface, Color("DimGray"), rect, 3)
 
-        rect = pg.Rect(w - w/2+2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("Black"), rect, 1)
+        rect = Rect(w - w/2+2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
+        draw.rect(self.surface, Color("Black"), rect, 1)
 
-        rect = pg.Rect(1, h / 2 + self.panel_height + 1, w/6, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("Black"), rect, 1)
+        rect = Rect(1, h / 2 + self.panel_height + 1, w/5, self.panel_height)
+        draw.rect(self.surface, Color("Black"), rect, 1)
 
-        rect = pg.Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
-        pg.draw.rect(self.surface, pg.Color("Black"), rect, 1)
+        rect = Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
+        draw.rect(self.surface, Color("Black"), rect, 1)
 
 
 class StageBackground:
@@ -132,13 +148,14 @@ class PlayerInterfaceText:
         font_surface = font.render(text, True, color)
         self.surface.blit(font_surface, (x, y))
 
-    def display_player_information(self, player):
+    def display_player_information(self, level, player):
         self.display_text(f"{player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
         self.display_text(f"Nivel: {player.level}", default_font, WHITE_COLOR, 50, 100)
         self.display_text(f"Experiencia: [ {player.experience}/{player.exp_level_break} ]", default_font, WHITE_COLOR, 50, 125)
         self.display_text(f"Fuerza: {player.strength}", default_font, WHITE_COLOR, 50, 175)
         self.display_text(f"Agilidad: {player.dexterity}", default_font, WHITE_COLOR, 50, 200)
         self.display_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 50, 225)
+        self.display_stage_information(level)
 
     def display_next_battle_message(self):
         self.display_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
@@ -200,6 +217,17 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
         self.clock = clock
         self.fps = fps
 
+    def display_caption(self):
+        display.set_caption("Las Trepidantes Aventuras de Gerardo EL MAGIAS")
+
+    def display_victory(self):
+        self.display_victory_banner()
+        self.display_victory_message()
+
+    def display_defeat(self):
+        self.display_defeat_banner()
+        self.display_defeat_message()
+
     def update(self, level, hero, enemy_list, scripted_battle, damage_text_group):
         self.clock.tick(self.fps)
 
@@ -207,11 +235,11 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
         self.set_stage_background(level)
         self.display_panel_background()
         # draw panel
-        self.display_player_information(hero)
+        self.display_player_information(level, hero)
         self.display_player_bottom_panel_information(hero)
 
         self.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
-        # screen.blit(gold_image, (20, 20))
+        self.display_gold_icon()
 
         # damage text
         damage_text_group.update()
