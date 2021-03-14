@@ -68,3 +68,12 @@ class MagicSpells(CombatFormulas, CombatResolver):
                 input_type_list.append(input_type)
 
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
+
+
+    def cast_shadowbolt(self, caster, target, damage_text_group):
+        # Calculate Basic Damage: Based on Strength
+        base_damage = randint(0, 5)
+        output_damage = (caster.magic) + base_damage
+
+        input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
+        self.resolve_attack(caster, target, input_damage, input_type, damage_text_group)

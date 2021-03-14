@@ -21,9 +21,9 @@ class EnemySetGenerator:
 
     def get_enemy_set(self, boss_level, group_size):
         if boss_level <= 2:
-            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.LIZARD])
+            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.BANDIT])
         elif boss_level >= 3:
-            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.BONE_WIZARD])
+            return self.generate_set(group_size, [EnemyType.BONE_WIZARD, EnemyType.BONE_WIZARD])
 
 
 
@@ -42,28 +42,28 @@ class EnemyStatsGenerator:
         maxhp = randomlevel * 9
         maxmp = randomlevel * 4
         str = 8 + round(randomlevel / 2)
-        dex = 7 + round(randomlevel / 2)
-        mag = 5 + randomlevel
+        dex = 6 + round(randomlevel / 2)
+        mag = 1 + round(randomlevel / 2)
         return randomlevel, maxhp, maxmp, str, dex, mag
 
     @staticmethod
     def generate_lizard_stats(level):
         randomlevel = level + randint(0, 2)
-        maxhp = randomlevel * 9
+        maxhp = randomlevel * 11
         maxmp = randomlevel * 4
-        str = 8 + round(randomlevel / 2)
-        dex = 7 + round(randomlevel / 2)
-        mag = 5 + randomlevel
+        str = 5 + round(randomlevel / 2)
+        dex = 1 + round(randomlevel / 2)
+        mag = 5 + round(randomlevel / 2)
         return randomlevel, maxhp, maxmp, str, dex, mag
 
     @staticmethod
     def generate_bone_wizard_stats(level):
-        randomlevel = level + randint(0, 2)
-        maxhp = randomlevel * 9
-        maxmp = randomlevel * 4
-        str = 8 + round(randomlevel / 2)
-        dex = 7 + round(randomlevel / 2)
-        mag = 5 + randomlevel
+        randomlevel = level + randint(0, 3)
+        maxhp = randomlevel * 6
+        maxmp = randomlevel * 7
+        str = 2 + round(randomlevel / 2)
+        dex = 0 + round(randomlevel / 2)
+        mag = 10 + randomlevel
         return randomlevel, maxhp, maxmp, str, dex, mag
 
 
@@ -81,11 +81,6 @@ class EnemyPositionsGenerator:
             return self.generate_forest_enemy_positions()
         elif boss_level >= 3:
             return self.generate_castle_enemy_positions()
-
-
-
-
-
 
 
 

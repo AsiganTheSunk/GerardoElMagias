@@ -1,22 +1,27 @@
 from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
+from core.text.damage_text import DamageText
 
 # Text Import
 from random import randint
 
 # Skill Imports
 from core.units.skills.melee import MeleeSpells
+from core.units.skills.magic import MagicSpells
 
 # Animation Imports
 from core.units.animations.animation_db import BoneWizardSet
 from core.units.animations.animation_set import AnimationSet
 
 
-class BoneWizard(BasicUnit, MeleeSpells):
+damage_text = DamageText()
+
+class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
+        MagicSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
@@ -35,13 +40,6 @@ class BoneWizard(BasicUnit, MeleeSpells):
         self.cast_attack(self, target, damage_text_group)
         return True
 
-    def strong_attack(self, target, damage_text_group):
-        self.melee_attack_animation()
-        self.cast_strong_attack(self, target, damage_text_group)
-        return True
-
-    def action(self, target, damage_text_group):
-       self.attack(target, damage_text_group)
 
     def death_animation(self):
         # Activates: Death Animation
@@ -67,3 +65,26 @@ class BoneWizard(BasicUnit, MeleeSpells):
         # Activates: Miss Animation
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
+
+    def shadowbolt_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 6
+        self.animation_set.reset_frame_index()
+
+
+    def use_shadowbolt(self, target, damage_text_group):
+        self.shadowbolt_animation()
+        damage_text.cast(self, "SHADOWBOLT", damage_text_group)
+        self.cast_shadowbolt(self, target, damage_text_group)
+        return True
+
+
+    def action(self, target, damage_text_group):
+        i = randint(1,2)
+        if i == 1:
+            self.use_shadowbolt(target, damage_text_group)
+        if i == 2:
+            self.attack(target, damage_text_group)
+
+
+
