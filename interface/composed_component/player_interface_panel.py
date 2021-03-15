@@ -1,11 +1,13 @@
 from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
-    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, defeat_banner_image
+    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
+    defeat_banner_image
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
-from constants.basic_fonts import default_font
+from constants.basic_fonts import default_font, interface_font
 from pygame import Color, Rect, display, draw, transform, Surface
+
 
 class PlayerInterfacePanel:
     def __init__(self, surface, width, height, panel_width, panel_height):
@@ -22,10 +24,10 @@ class PlayerInterfacePanel:
             Button(self.surface, 85, self.height - self.panel_height + 150, mana_potion_image, 60, 60)
 
         # SpellBook Button:
-        self.spell_book_button = Button(self.surface, 0, 695, spellbook_image, 100, 100)
+        self.spell_book_button = Button(self.surface, 45, 695, spellbook_image, 100, 100)
 
         # Skill Buttons:
-        self.ultimate_button = Button(self.surface, 400, 120, ultimate_image, 100, 100)
+        self.ultimate_button = Button(self.surface, 400, 120, ultimate_image, 50, 50)
 
         # Kill All Button:
         self.kill_all_button = Button(self.surface, 40, 260, skull_image, 60, 60)
@@ -180,10 +182,13 @@ class PlayerInterfaceText:
 
     def display_player_bottom_panel_information(self, player):
         # show hero stats
-        self.display_text(f"  HP: {player.current_hp} / {player.max_hp}      "
-                  f"MP: {player.current_mp} / {player.max_mp}",
-                  default_font, WHITE_COLOR, 99, self.height - self.panel_height + 10)
+        self.display_text(f"  HP: {player.current_hp} / {player.max_hp}",
+                          interface_font, WHITE_COLOR, 350, self.height - self.panel_height + 18)
+        self.display_text(f"MP: {player.current_mp} / {player.max_mp}",
+                          interface_font, WHITE_COLOR, 360, self.height - self.panel_height + 38)
 
+        self.display_text(f"FP: {player.current_fury} / {player.max_fury}",
+                          interface_font, WHITE_COLOR, 360, self.height - self.panel_height + 58)
         # show number of pots
         self.display_text(f"x{player.stash.healing_potions}", default_font, WHITE_COLOR, 60,
                   self.height - self.panel_height + 170)

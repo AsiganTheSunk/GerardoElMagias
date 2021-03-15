@@ -14,5 +14,5 @@ class ManaBar:
         self.mp = mp
         self.max_mp = max_mp
         ratio = self.mp / self.max_mp
-        draw.rect(screen, GRAY_COLOR, (self.x, self.y, 130, 10))
-        draw.rect(screen, BLUE_COLOR, (self.x, self.y, 130 * ratio, 10))
+        draw.rect(screen, GRAY_COLOR, (self.x, self.y, 160, 15))
+        draw.rect(screen, BLUE_COLOR, (self.x, self.y, 160 * ratio, 15))

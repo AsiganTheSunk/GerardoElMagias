@@ -43,7 +43,10 @@ stage_drawer.display_caption()
 
 # fst True es un filler que no se lee nunca
 scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
-hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - panel_height + 50, 290, screen_height - panel_height + 50, 90, 510)
+hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1,
+                         190, screen_height - panel_height + 20,
+                         190, screen_height - panel_height + 40,
+                         190, screen_height - panel_height + 40)
 enemy_list = []
 
 runreset = True
@@ -184,7 +187,7 @@ while constants.globals.run:
                     boss_music.stop()
                     if not game_attributes.sound_mixer.get_busy():
                         victory_music.play()
-                        stage_drawer.display_victory()
+                    stage_drawer.display_victory()
 
                     if stage_drawer.display_next_button():
                         constants.globals.game_over = 0

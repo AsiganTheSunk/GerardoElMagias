@@ -15,6 +15,5 @@ class HealthBar:
         self.max_hp = max_hp
         self.current_hp = hp
         ratio = self.current_hp / self.max_hp
-        draw.rect(screen, GRAY_COLOR, (self.x, self.y, 130, 10))
-        draw.rect(screen, GREEN_COLOR, (self.x, self.y, 130 * ratio, 10))
-
+        draw.rect(screen, GRAY_COLOR, (self.x, self.y, 160, 15))
+        draw.rect(screen, GREEN_COLOR, (self.x, self.y, 160 * ratio, 15))

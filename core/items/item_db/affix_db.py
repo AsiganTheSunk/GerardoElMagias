@@ -34,7 +34,7 @@ SUFFIX_ATTRIBUTE_POOL = [
           [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
     Affix('del Titan', 10, AttributeType.HEALTH, 16, 30,
           [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
-    Affix('del Matusalén', 20, AttributeType.HEALTH, 31, 50,
+    Affix('de Matusalén', 20, AttributeType.HEALTH, 31, 50,
           [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
 
     # Mana Prefix: Name, Item Level, Attribute Type, Minimum Attribute, Maximum Attribute, Allowed Item Type

@@ -36,6 +36,19 @@ class GeneratedItem:
                f'Max Fury: {self.max_fury} \n' \
 
 
+    def get_item_name(self):
+        composed_item_name = ''
+        composed_item_name += self.base_item.name + ' '
+        if self.item_prefix_list:
+            for index, prefix_item in enumerate(self.item_prefix_list):
+                composed_item_name += f'{prefix_item.name} '
+
+        if self.item_suffix_list:
+            for index, suffix_item in enumerate(self.item_suffix_list):
+                composed_item_name += f'{suffix_item.name} '
+
+        return composed_item_name
+
     def set_stats(self, attribute_type, attribute_value):
         if attribute_type == AttributeType.STRENGTH.value:
             self.strength = self.strength + attribute_value

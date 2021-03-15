@@ -5,11 +5,14 @@ from core.items.equipement_items.item_types import *
 from core.items.affix_system.affix_type import *
 from core.items.affix_system.affix_category import *
 
-from core.items.item_db.base_item_db import *
+from core.items.item_db.base_item_db import ITEM_POOL
 from core.items.item_db.affix_db import *
 from core.items.generated_item import GeneratedItem
 
 class ItemGenerator:
+    def __init__(self):
+        self.item_pool = ITEM_POOL
+
     @staticmethod
     def roll_item_type():
         return choice(list(EquipmentItemType))
@@ -60,10 +63,10 @@ class ItemGenerator:
         if item_rarity is ItemRarity.UNIQUE:
             return 0, 0
 
-    def get_item(self, item_level, item_pool, magic_find):
+    def get_item(self, item_level, magic_find):
         equipment_item_type = self.roll_item_type()
         equipment_rarity_type = self.get_rarity(magic_find)
-        equipment_base_item = self.get_base_item(equipment_item_type, item_level, item_pool)
+        equipment_base_item = self.get_base_item(equipment_item_type, item_level, self.item_pool)
         equipment_prefix_list, equipment_suffix_list = self.get_affixes(item_level, equipment_item_type, equipment_rarity_type)
         return GeneratedItem(equipment_base_item, equipment_item_type, equipment_rarity_type, equipment_prefix_list, equipment_suffix_list)
 
@@ -102,10 +105,10 @@ class ItemGenerator:
         return final_equipment_prefix_list
 
 
-level = randint(1, 30)
-base_mf = 0
-
-
-item_generator = ItemGenerator()
-dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
-print(dropped_item)
+# level = randint(1, 30)
+# base_mf = 0
+#
+#
+# item_generator = ItemGenerator()
+# dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
+# print(dropped_item)
