@@ -111,14 +111,14 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 1)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.67)
         if health_trigger:
             i = randint(1, 2)
             if i == 1:
                 self.attack(target, damage_text_group)
             elif i == 2:
                 self.use_heal(damage_text_group)
-            elif i == 3:
-                self.use_firestorm(target, damage_text_group)
+           # elif i == 3:
+           #    self.use_firestorm(target, damage_text_group)
         else:
             self.attack(target, damage_text_group)

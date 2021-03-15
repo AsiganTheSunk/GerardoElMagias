@@ -182,7 +182,7 @@ while constants.globals.run:
         constants.globals.ultimate_status = False 
 
         if scripted_battle[level]:
-            mixer.fadeout(1)
+            mixer.fadeout(100)
             enemy_list = scripted_enemy(bosslevel)
             total_fighters = len(enemy_list) + 1
             bosslevel += 1
@@ -333,7 +333,7 @@ while constants.globals.run:
                             target = enemy_list[count]
 
                             # Todo: Create a proper function
-                            if scripted_battle[level]:
+                            if target.name == "The Boss":
                                 hero_player.loot_boss(target, damage_text_group)
                             else:
                                 hero_player.loot(target, damage_text_group)

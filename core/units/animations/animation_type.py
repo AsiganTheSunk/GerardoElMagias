@@ -8,3 +8,5 @@ class AnimationType(Enum):
     DEATH = 'Death'
     BLOCK = 'Block'
     MISS = 'Miss'
+    SHADOWBOLT = "Shadowbolt"
+

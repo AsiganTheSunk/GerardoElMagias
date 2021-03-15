@@ -54,11 +54,13 @@ DragonSet = [
 ]
 
 BoneWizardSet = [
-    # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss
-    AnimationResource(AnimationType.IDLE, 3),
-    AnimationResource(AnimationType.DEATH, 1),
-    AnimationResource(AnimationType.ATTACK, 11),
-    AnimationResource(AnimationType.HURT, 5),
+    # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Shadowbolt
+    AnimationResource(AnimationType.IDLE, 5),
+    AnimationResource(AnimationType.DEATH, 10),
+    AnimationResource(AnimationType.ATTACK, 7),
+    AnimationResource(AnimationType.HURT, 3),
     AnimationResource(AnimationType.BLOCK, 5),
     AnimationResource(AnimationType.MISS, 5),
+    AnimationResource(AnimationType.SHADOWBOLT, 11),
+
 ]
