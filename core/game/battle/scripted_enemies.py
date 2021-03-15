@@ -2,6 +2,7 @@ from core.units.classes.melee_bandit import Bandit
 from core.units.classes.melee_boss import Boss
 from core.units.classes.dragon import Dragon
 from core.units.classes.lizard import Lizard
+from core.units.classes.djinn import Djinn
 from constants.game_windows import *
 from core.units.enemy_group import EnemyGroup
 enemy_group = EnemyGroup()
