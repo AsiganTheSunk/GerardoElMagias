@@ -1,7 +1,6 @@
 from core.units.skills.melee import MeleeSpells
 
 from core.units.skills.magic import MagicSpells
-from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 from core.units.resources.stash import Stash
@@ -30,7 +29,6 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         # Bandit Loot
         self.looted_status = False
         self.try_to_consume_health_potion = False
-        self.loot_pool = LootPool()
         self.animation_set = AnimationSet(x, y, name, DragonSet)
 
 

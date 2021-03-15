@@ -213,10 +213,11 @@ while constants.globals.run:
                             target = enemy_list[count]
 
                             # Todo: Create a proper function
-                            if scripted_battle[level]:
-                                hero_player.loot_boss(target, game_attributes.text_sprite)
-                            else:
-                                hero_player.loot(target, game_attributes.text_sprite)
+                            hero_player.loot(target, game_attributes.text_sprite)
+                            # if scripted_battle[level]:
+                            #     hero_player.roll_loot(target, game_attributes.text_sprite)
+                            # else:
+                            #     hero_player.loot(target, game_attributes.text_sprite)
                             constants.globals.clicked = False
 
             if constants.globals.game_over == -1:
