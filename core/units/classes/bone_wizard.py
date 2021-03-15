@@ -1,4 +1,3 @@
-from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 from core.text.damage_text import DamageText
@@ -26,7 +25,6 @@ class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
         self.looted_status = False
-        self.loot_pool = LootPool()
         self.animation_set = AnimationSet(x, y, name, BoneWizardSet)
 
     def is_looted(self):

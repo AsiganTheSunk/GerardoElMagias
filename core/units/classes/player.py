@@ -67,16 +67,18 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
         self.fury_status = True
         self.experience_status = True
 
+        self.loot_pool = LootPool()
+
     def attack(self, target, damage_text_group):
         self.melee_attack_animation()
         self.cast_attack(self, target, damage_text_group)
         return True
 
     def loot(self, target, damage_text_group):
-        target.loot_pool.get_loot(self, target, damage_text_group)
+        self.loot_pool.loot(self, target, damage_text_group)
 
-    def loot_boss(self, target, damage_text_group):
-        target.loot_pool.get_loot_boss(self, target, damage_text_group)
+    # def loot_boss(self, target, damage_text_group):
+    #     target.loot_pool.roll_boss_loot(self, target, damage_text_group)
 
     def use_ultimate(self, target_list, damage_text_group):
         self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
