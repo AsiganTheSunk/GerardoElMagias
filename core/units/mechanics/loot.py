@@ -2,6 +2,7 @@ from random import randint
 from core.text.damage_text import DamageText
 from constants.sound import *
 
+from core.items.item_generator import ItemGenerator
 
 # Init: Damage Text
 damage_text = DamageText()
@@ -56,17 +57,22 @@ class LootPool:
 
     @staticmethod
     def get_loot_boss(hero_player, target, damage_text_group):
-        loot_chance = randint(0, 2)
+        loot_chance = randint(0, 0)
         if not target.is_looted():
             drum_roll_sound.play()
+            item_generator = ItemGenerator()
             if loot_chance == 0:
-                damage_text.heal(target, f' Espada de Yisus ', damage_text_group)
+                generated_item = item_generator.get_item(30, 1000)
+                new_item = generated_item.get_item_name()
+                print(new_item)
+                # damage_text.heal(target, f' Espada de Yisus ', damage_text_group)
+                damage_text.heal(target, f'{new_item}', damage_text_group)
 
-            elif loot_chance == 1:
-                damage_text.heal(target, f' Escudo de Yisus! ', damage_text_group)
-
-            elif loot_chance == 2:
-                damage_text.heal(target, f' Armadura de Yisus ', damage_text_group)
+            # elif loot_chance == 1:
+            #     damage_text.heal(target, f' Escudo de Yisus! ', damage_text_group)
+            #
+            # elif loot_chance == 2:
+            #     damage_text.heal(target, f' Armadura de Yisus ', damage_text_group)
 
             target.update_looted_status()
 

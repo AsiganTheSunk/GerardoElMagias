@@ -108,10 +108,10 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
     @staticmethod
     def get_enemy_healthbar_positions():
         return [
-            (480, screen_height - bottom_panel + 40),
-            (480, screen_height - bottom_panel + 100),
-            (700, screen_height - bottom_panel + 40),
-            (700, screen_height - bottom_panel + 100)
+            (480, screen_height - panel_height + 40),
+            (480, screen_height - panel_height + 100),
+            (700, screen_height - panel_height + 40),
+            (700, screen_height - panel_height + 100)
         ]
 
 
