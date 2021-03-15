@@ -74,10 +74,13 @@ class BasicUnit:
 
     def gain_fury(self, input_damage):
         fury_amount = round(input_damage * 1.4)
-        if self.current_fury + fury_amount >= 100:
-            self.current_fury = 100
+        if self.current_fury + fury_amount >= self.max_fury:
+            self.current_fury = self.max_fury
+            gained_fury = self.max_fury - self.current_fury
+            return gained_fury
         else:
             self.current_fury += fury_amount
+            return fury_amount
 
     def is_dead(self):
         return self.current_hp < 1
@@ -85,24 +88,3 @@ class BasicUnit:
     def death(self):
         self.current_hp = 0
         self.alive = False
-
-    # def melee_attack(self):
-    #     self.unit_animation.melee_attack_animation()
-    #
-    # def block(self):
-    #     self.unit_animation.block_animation()
-    #
-    # def hurt(self):
-    #     self.unit_animation.hurt_animation()
-    #
-    # def miss(self):
-    #     self.unit_animation.miss_animation()
-    #
-    # def idle(self):
-    #     self.unit_animation.idle_animation()
-    #
-    # def update(self):
-    #     self.unit_animation.update()
-    #
-    # def draw(self, screen):
-    #     self.unit_animation.draw(screen)

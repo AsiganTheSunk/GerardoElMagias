@@ -35,5 +35,3 @@ class Stash:
 
     def consume_gold(self, item_number):
         self.gold -= item_number
-
-

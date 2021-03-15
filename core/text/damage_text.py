@@ -2,7 +2,7 @@
 
 from constants.basic_colors import *
 from core.text.combat_text_types import CombatTextTypes
-
+from pygame import Color
 
 class DamageText:
     @staticmethod
