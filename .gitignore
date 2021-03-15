@@ -6,3 +6,5 @@ constants/__pycache__/
 *.pyc
 
 core/units/mechanics/__pycache__/
+
+/venv
