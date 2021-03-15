@@ -2,6 +2,7 @@ from core.units.classes.melee_bandit import Bandit
 from core.units.classes.melee_boss import Boss
 from core.units.classes.dragon import Dragon
 from core.units.classes.lizard import Lizard
+from core.units.classes.djinn import Djinn
 from constants.game_windows import *
 from core.units.enemy_group import EnemyGroup
 enemy_group = EnemyGroup()
@@ -9,7 +10,7 @@ enemy_group = EnemyGroup()
 def scripted_enemy(boss_level):
     tmp = []
     if boss_level == 1:
-        tmp.append(Boss(500, 555, "The Boss", 10, 190, 50, 17, 3, 10, 490, (screen_height - bottom_panel + 40)))
+        tmp.append(Djinn(500, 555, "Djinn", 10, 190, 50, 17, 3, 10, 490, (screen_height - bottom_panel + 40)))
 
     elif boss_level == 2:
         tmp.append(Boss(700, 575, "The Boss", 14, 214, 50, 20, 5, 11, 490, (screen_height - bottom_panel + 40)))
