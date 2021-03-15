@@ -7,4 +7,8 @@ constants/__pycache__/
 
 core/units/mechanics/__pycache__/
 
-/venv
+.pycrunch-config.yaml
+
+setup.py
+
+venv/

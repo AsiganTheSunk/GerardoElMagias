@@ -8,6 +8,7 @@ class GeneratedItem:
         self.item_rarity = item_rarity
         self.item_prefix_list = item_prefix_list
         self.item_suffix_list = item_suffix_list
+        self.item_slot_type = self.base_item.item_slot_type
 
         # Basic Attribute Resource: Fury, Health, Mana
         self.max_fury = 0
@@ -35,6 +36,9 @@ class GeneratedItem:
                f'Max Mana: {self.max_mp} \n' \
                f'Max Fury: {self.max_fury} \n' \
 
+
+    def get_stats(self):
+        return self.strength, self.dexterity, self.magic, self.max_hp, self.max_mp, self.max_fury
 
     def set_stats(self, attribute_type, attribute_value):
         if attribute_type == AttributeType.STRENGTH.value:
@@ -78,13 +82,13 @@ class GeneratedItem:
 
     def unpack_item_data(self):
         if self.item_type == EquipmentItemType.ARMOR:
-            return f'Base Item: {self.base_item.name}, {self.base_item.armor}\n'
+            return f'Base Item: {self.base_item.name}, {self.base_item.armor}, {self.base_item.item_slot_type}\n'
         if self.item_type == EquipmentItemType.WEAPON:
             return f'Base Item: {self.base_item.name}, {self.base_item.weapon_subclass}, ' \
-                   f'{self.base_item.minimum_damage}, {self.base_item.maximum_damage}\n'
+                   f'{self.base_item.minimum_damage}, {self.base_item.maximum_damage}, {self.base_item.item_slot_type}\n'
         if self.item_type == EquipmentItemType.SHIELD:
-            return f'Base Item: {self.base_item.name}, {self.base_item.block_chance}\n'
+            return f'Base Item: {self.base_item.name}, {self.base_item.block_chance}, {self.base_item.item_slot_type}\n'
         if self.item_type == EquipmentItemType.RING:
-            return f'Base Item: {self.base_item.name}\n'
+            return f'Base Item: {self.base_item.name}, {self.base_item.item_slot_type}\n'
         if self.item_type == EquipmentItemType.AMULET:
-            return f'Base Item: {self.base_item.name}\n'
+            return f'Base Item: {self.base_item.name}, {self.base_item.item_slot_type}\n'
