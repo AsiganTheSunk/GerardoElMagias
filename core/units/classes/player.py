@@ -31,6 +31,9 @@ from core.units.combat.combat_resolver import CombatResolver
 from core.units.animations.animation_db import HeroSet
 from core.units.animations.animation_set import AnimationSet
 
+# Consumable Items
+from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION, REJUVENATION_POTION, FURY_POTION
+
 import constants.globals
 
 combat_resolver = CombatResolver()
@@ -87,7 +90,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             self.cast_heal(self, self, damage_text_group)
             return True
 
-        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
+        self.no_action_error('Mana', damage_text_group)
         return False
 
     def use_firestorm(self, target_list, damage_text_group):
@@ -109,10 +112,9 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
                                                        damage_text_group)
-            print('Turn:', constants.globals.current_fighter)
             return True
 
-        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
+        self.no_action_error('Mana', damage_text_group)
         return False
 
     def use_lightning(self, target_list, damage_text_group):
@@ -132,7 +134,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
                                                        damage_text_group)
             return True
 
-        damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
+        self.no_action_error('Mana', damage_text_group)
         return False
 
     def use_healing_potion(self, damage_text_group):
@@ -140,21 +142,11 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             constants.globals.action_cooldown = 0
             constants.globals.current_fighter += 1
 
-            health_potion_sound.play()
-
-            base_health = 40
-            health_interval = randint(0, 10)
-            base_health_multiplier = (self.level * 4)
-            health_recover = base_health + health_interval + base_health_multiplier
-
             self.stash.consume_healing_potion()
-            gained_health = self.gain_health(health_recover)
-
-            damage_text.heal(self, str(gained_health), damage_text_group)
+            HEALTH_POTION.consume(self, damage_text_group)
             return True
 
-        damage_text.warning(self, 'No Healing Potions', damage_text_group)
-        error_sound.play()
+        self.no_action_error(REJUVENATION_POTION.name, damage_text_group)
         return False
 
     def use_mana_potion(self, damage_text_group):
@@ -162,20 +154,11 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             constants.globals.action_cooldown = 0
             constants.globals.current_fighter += 1
 
-            health_potion_sound.play()
-            base_mana = 15
-            mana_interval = randint(0, 5)
-            base_mana_multiplier = (self.level * 2)
-            mana_recover = base_mana + mana_interval + base_mana_multiplier
-
             self.stash.consume_mana_potion()
-            gained_mana = self.gain_mana(mana_recover)
-
-            damage_text.mana(self, str(gained_mana), damage_text_group)
+            MANA_POTION.consume(self, damage_text_group)
             return True
 
-        damage_text.warning(self, 'No Mana Potions', damage_text_group)
-        error_sound.play()
+        self.no_action_error(MANA_POTION.name, damage_text_group)
         return False
 
     def death_animation(self):
@@ -202,3 +185,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
         # Activates: Miss Animation
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
+
+    def no_action_error(self, name, text_sprite):
+        damage_text.warning(self, f' No {name} !', text_sprite)
+        error_sound.play()
