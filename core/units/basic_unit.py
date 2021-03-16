@@ -33,6 +33,8 @@ class BasicUnit:
         self.experience_status = False
         self.ultimate_status = False
 
+        self.next_action = None
+
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
             self.current_hp = 0
@@ -87,6 +89,16 @@ class BasicUnit:
         self.current_hp = 0
         self.alive = False
 
+    def run_next_action(self, damage_text_group):
+        if self.next_action and self.next_action[0] == 'attack':
+            target = self.next_action[1]
+            self.attack(target, damage_text_group)
+        if self.next_action and self.next_action[0] == 'use' and self.next_action[
+            1] == 'healing_potion':
+            self.use_healing_potion(damage_text_group)
+        if self.next_action and self.next_action[0] == 'use' and self.next_action[
+            1] == 'mana_potion':
+            self.use_mana_potion(damage_text_group)
     # def melee_attack(self):
     #     self.unit_animation.melee_attack_animation()
     #
