@@ -41,7 +41,6 @@ combat_formulas = CombatFormulas()
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
-
 class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
@@ -83,7 +82,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
-            constants.globals.current_fighter += 1
             self.cast_heal(self, self, damage_text_group)
             return True
 
@@ -92,11 +90,8 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
 
     def use_firestorm(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
-        print('Turn:', constants.globals.current_fighter)
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
-            constants.globals.current_fighter += 1
-
             # Pre Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
@@ -109,7 +104,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
                                                        damage_text_group)
-            print('Turn:', constants.globals.current_fighter)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
@@ -119,7 +113,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
-            constants.globals.current_fighter += 1
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
@@ -138,7 +131,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
     def use_healing_potion(self, damage_text_group):
         if self.stash.has_healing_potion():
             constants.globals.action_cooldown = 0
-            constants.globals.current_fighter += 1
 
             health_potion_sound.play()
 
@@ -160,8 +152,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
     def use_mana_potion(self, damage_text_group):
         if self.stash.has_mana_potion():
             constants.globals.action_cooldown = 0
-            constants.globals.current_fighter += 1
-
             health_potion_sound.play()
             base_mana = 15
             mana_interval = randint(0, 5)

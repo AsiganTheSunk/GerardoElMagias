@@ -52,7 +52,6 @@ class Boss(BasicUnit, MeleeSpells):
 
     def use_healing_potion(self, damage_text_group):
         constants.globals.action_cooldown = 0
-        constants.globals.current_fighter += 1
         if self.stash.has_healing_potion():
 
             # Activates potion sound

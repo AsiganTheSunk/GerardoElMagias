@@ -71,7 +71,6 @@ class Lizard(BasicUnit, MeleeSpells):
             if ulti_atacks < 3:
 
                 self.attack(target, damage_text_group)
-                constants.globals.current_fighter -= 1
                 ulti_atacks += 1
                 constants.globals.action_cooldown = 70
             else:

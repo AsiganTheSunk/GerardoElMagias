@@ -31,6 +31,7 @@ class BasicUnit:
         self.alive = True
         self.fury_status = False
         self.experience_status = False
+        self.ultimate_status = False
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
