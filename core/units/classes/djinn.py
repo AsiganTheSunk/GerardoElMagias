@@ -1,20 +1,22 @@
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 
-global ulti_atacks
-ulti_atacks = 1
-
 # Skill Imports
 from core.units.skills.melee import MeleeSpells
+from core.units.skills.magic import MagicSpells
 
 # Animation Imports
 from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 
+from random import randint
+import constants.globals
 
-class Djinn(BasicUnit, MeleeSpells):
+
+class Djinn(BasicUnit, MeleeSpells, MagicSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
+        MagicSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
@@ -22,7 +24,9 @@ class Djinn(BasicUnit, MeleeSpells):
         self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Djinn'))
         self.current_fury = 1
         self.fury_status = True
-        self.power_of_two_base = 0
+        self.power_of_two_exponent = 0
+        self.animation_set.action = 6
+
 
     def is_looted(self):
         return self.looted_status
@@ -35,9 +39,17 @@ class Djinn(BasicUnit, MeleeSpells):
         self.cast_attack(self, target, damage_text_group)
         return True
 
-    def power_of_two_attack(self, target, damage_text_group, base):
-        self.cast_power_of_two_attack
-        self.power_of_two_base += 1
+    def power_of_two_attack(self, target, damage_text_group):
+        exponent = self.power_of_two_exponent
+        self.cast_power_of_two_attack(target, damage_text_group, exponent)
+        self.power_of_two_exponent += 1
+
+    def use_heal(self, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(12):
+            constants.globals.action_cooldown = -30
+            self.cast_heal(self, self, damage_text_group)
+            return True
 
     def death_animation(self):
         # Activates: Death Animation
@@ -67,4 +79,13 @@ class Djinn(BasicUnit, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        self.attack(target, damage_text_group)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.7)
+        if health_trigger:
+            i = randint(1, 2)
+            if i == 1:
+                self.use_heal(damage_text_group)
+            if i == 2:
+                self.power_of_two_attack(target, damage_text_group)
+
+        else:
+            self.power_of_two_attack(target, damage_text_group)

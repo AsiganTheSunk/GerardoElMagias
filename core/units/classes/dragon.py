@@ -93,7 +93,7 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 1)
+        health_trigger = self.current_hp <= round(self.max_hp * 75)
         if health_trigger:
             i = randint(1, 3)
             if i == 1:

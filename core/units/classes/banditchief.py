@@ -17,7 +17,7 @@ from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 
 
-class Boss(BasicUnit, MeleeSpells):
+class BanditChief(BasicUnit, MeleeSpells):
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
@@ -27,7 +27,7 @@ class Boss(BasicUnit, MeleeSpells):
         self.looted_status = False
         self.try_to_consume_health_potion = False
 
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('The Boss'))
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('BanditChief'))
 
     def update_try_to_consume_health_potion(self):
         self.try_to_consume_health_potion = True
@@ -69,17 +69,6 @@ class Boss(BasicUnit, MeleeSpells):
         damage_text.warning(self, 'No Healing Potions', damage_text_group)
         return False
 
-    def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 0.3)
-
-        if self.stash.has_healing_potion() and health_trigger:
-            self.use_healing_potion(damage_text_group)
-        elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
-            self.use_healing_potion(damage_text_group)
-            self.update_try_to_consume_health_potion()
-        else:
-            # Attack
-            self.attack(target, damage_text_group)
 
     def death_animation(self):
         # Activates: Death Animation
@@ -105,3 +94,14 @@ class Boss(BasicUnit, MeleeSpells):
         # Activates: Miss Animation
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
+
+    def action(self, target, damage_text_group):
+        health_trigger = self.current_hp <= round(self.max_hp * 0.4)
+        if self.stash.has_healing_potion() and health_trigger:
+            self.use_healing_potion(damage_text_group)
+        elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
+            self.use_healing_potion(damage_text_group)
+            self.update_try_to_consume_health_potion()
+        else:
+            # Attack
+            self.attack(target, damage_text_group)

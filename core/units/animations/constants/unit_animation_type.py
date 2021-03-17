@@ -9,6 +9,7 @@ class UnitAnimationType(Enum):
     BLOCK = 'Block'
     MISS = 'Miss'
     SHADOWBOLT = "Shadowbolt"
+    MATERIALIZE = "Materialize"
 
 
 class SkillAnimationType(Enum):

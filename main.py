@@ -84,7 +84,11 @@ while constants.globals.run:
         else:
             damage_text.warning(hero_player, 'No Healing Potions', game_attributes.text_sprite)
     if stage_drawer.display_mana_potion() and hero_player.stash.mana_potions > 0:
-        hero_player.next_action = ['use', 'mana_potion']
+        if hero_player.stash.healing_potions > 0:
+            hero_player.next_action = ['use', 'mana_potion']
+        else:
+            damage_text.warning(hero_player, 'No Mana Potions', game_attributes.text_sprite)
+
     if stage_drawer.display_spell_book():
         battle_master.game_mode = GameModes.SPELLBOOK
     if battle_master.game_mode == GameModes.SPELLBOOK:

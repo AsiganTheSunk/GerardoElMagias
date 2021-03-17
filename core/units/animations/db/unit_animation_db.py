@@ -5,7 +5,7 @@ from enum import Enum
 
 class UnitType(Enum):
     BANDIT = 'Bandit'
-    THE_BOSS = 'The Boss'
+    BANDIT_CHIEF = 'BanditChief'
     LIZARD = 'Lizard'
     DRAGON = 'Dragon'
     BONE_WIZARD = 'BoneWizard'
@@ -37,7 +37,7 @@ UNIT_ANIMATION_SETS = {
         AnimationResource(UnitAnimationType.MISS, 5)
     ],
 
-    UnitType.THE_BOSS: [
+    UnitType.BANDIT_CHIEF: [
         # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss
         AnimationResource(UnitAnimationType.IDLE, 8),
         AnimationResource(UnitAnimationType.DEATH, 10),
@@ -79,23 +79,25 @@ UNIT_ANIMATION_SETS = {
     ],
 
     UnitType.BONE_WIZARD: [
-        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Shadowbolt
+        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Materialize, 7: Shadowbolt
         AnimationResource(UnitAnimationType.IDLE, 5),
         AnimationResource(UnitAnimationType.DEATH, 10),
         AnimationResource(UnitAnimationType.ATTACK, 7),
         AnimationResource(UnitAnimationType.HURT, 3),
         AnimationResource(UnitAnimationType.BLOCK, 5),
         AnimationResource(UnitAnimationType.MISS, 5),
+        AnimationResource(UnitAnimationType.MATERIALIZE, 10),
         AnimationResource(UnitAnimationType.SHADOWBOLT, 11)
     ],
 
     UnitType.DJINN: [
-        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Shadowbolt
+        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Materialize
         AnimationResource(UnitAnimationType.IDLE, 3),
         AnimationResource(UnitAnimationType.DEATH, 6),
         AnimationResource(UnitAnimationType.ATTACK, 4),
         AnimationResource(UnitAnimationType.HURT, 4),
         AnimationResource(UnitAnimationType.BLOCK, 4),
-        AnimationResource(UnitAnimationType.MISS, 4)
+        AnimationResource(UnitAnimationType.MISS, 8),
+        AnimationResource(UnitAnimationType.MATERIALIZE, 5)
     ]
 }
