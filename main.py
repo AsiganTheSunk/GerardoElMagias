@@ -69,7 +69,7 @@ while constants.globals.run:
     while runreset:
         level += 1
         constants.globals.game_over = 0
-        number_of_strikes = 0
+        constants.globals.number_of_strikes = 0
         animation_cooldown = 0
         constants.globals.action_cooldown = 0
         constants.globals.current_fighter = 1
