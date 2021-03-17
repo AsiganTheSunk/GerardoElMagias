@@ -110,24 +110,3 @@ class BasicUnit:
                 self.next_action[0] == 'use' and \
                 self.next_action[1] == 'mana_potion':
             self.use_mana_potion(text_sprite)
-
-    # def melee_attack(self):
-    #     self.unit_animation.melee_attack_animation()
-    #
-    # def block(self):
-    #     self.unit_animation.block_animation()
-    #
-    # def hurt(self):
-    #     self.unit_animation.hurt_animation()
-    #
-    # def miss(self):
-    #     self.unit_animation.miss_animation()
-    #
-    # def idle(self):
-    #     self.unit_animation.idle_animation()
-    #
-    # def update(self):
-    #     self.unit_animation.update()
-    #
-    # def draw(self, screen):
-    #     self.unit_animation.draw(screen)
