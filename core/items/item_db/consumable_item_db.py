@@ -11,6 +11,7 @@ FURY_POTION = ConsumableItem('Fury Potion', RecoveredStat.FURY, 20, 5, None, hea
 # Mixed Potions
 REJUVENATION_POTION = MixedConsumableItem('Rejuvenation Potion', [HEALTH_POTION, MANA_POTION], health_potion_sound)
 
+
 # Basic Consumables
 BREAD = ConsumableItem('Bread', RecoveredStat.HEALTH, 30, None, None, eat_sound)
 DRINK = ConsumableItem('Drink', RecoveredStat.MANA, 10, None, None, drink_sound)

@@ -25,6 +25,7 @@ from core.units.enemy_group import EnemyGroup
 from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
 from constants.game_windows import screen_height, screen_width, panel_height
 from core.game.battle.scripted_enemies import scripted_enemy
+from core.units.animations.animation_manager import AnimationMaster
 
 
 # Game Drawable Instance Imports:
