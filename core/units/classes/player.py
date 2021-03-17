@@ -74,9 +74,6 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
     def loot(self, target, damage_text_group):
         self.loot_pool.loot(self, target, damage_text_group)
 
-    # def loot_boss(self, target, damage_text_group):
-    #     target.loot_pool.roll_boss_loot(self, target, damage_text_group)
-
     def use_ultimate(self, target_list, damage_text_group):
         self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
         return True

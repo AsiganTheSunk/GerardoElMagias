@@ -112,7 +112,7 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
             (700, screen_height - panel_height + 100)
         ]
 
-    def get_enemy (self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
+    def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
         if enemy_type is UnitType.BANDIT:
             _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
             return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag,

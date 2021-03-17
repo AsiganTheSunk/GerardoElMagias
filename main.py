@@ -15,11 +15,12 @@ environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 # Pygame Imports:
 from pygame import time, display, mouse, quit, init
+
 init()
 
 # Game Engine Constants Imports:
 from constants.game_windows import screen_height, screen_width, panel_height
-from constants.sound import  boss_music, victory_music, battle_music, ultimate_sound, castle_music
+from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
 import constants.globals
 
 # Game Drawable Instance Imports:
@@ -60,18 +61,15 @@ while constants.globals.run:
         run_reset = False
         constants.globals.number_of_strikes = 0
 
-        # reset action variables
-    loot = False
     stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters,
                         battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
 
-    if battle_master.level <= 7:
-        if not game_attributes.sound_mixer.get_busy():
-            battle_music.play()
-
-    if battle_master.level > 7:
-        if not game_attributes.sound_mixer.get_busy():
-            castle_music.play()
+    # if battle_master.level <= 7:
+    #     if not game_attributes.sound_mixer.get_busy():
+    #         battle_music.play()
+    # elif battle_master.level > 7:
+    #     if not game_attributes.sound_mixer.get_busy():
+    #         castle_music.play()
 
     if stage_drawer.display_kill_all():
         for target_unit in battle_master.enemy_fighters:
@@ -110,15 +108,14 @@ while constants.globals.run:
 
         if constants.globals.action_cooldown >= action_wait_time:
             battle_master.run_fighter_action(game_attributes.text_sprite)
-            # Check if all enemies are dead for win condition
 
-    alive_enemies = len(battle_master.get_alive_enemies())
-    if alive_enemies == 0:
+    # Check if all enemies are dead for win condition
+    if len(battle_master.get_alive_enemies()) == 0:
         battle_master.game_mode = GameModes.VICTORY
 
-        # Gameover Check
+    # GameOver Check
     if battle_master.game_mode != GameModes.BATTLE:
-        # Condicion de Victoria
+        # Victory Check
         if battle_master.game_mode == GameModes.VICTORY:
             if battle_master.is_boss_level(battle_master.level):
                 boss_music.stop()
@@ -129,11 +126,9 @@ while constants.globals.run:
             if stage_drawer.display_next_button():
                 if battle_master.is_boss_level(battle_master.level):
                     victory_music.stop()
-
                 run_reset = True
                 battle_master.next_level()
 
-                # LOOT PHASE
             mouse.set_visible(True)
             pos = mouse.get_pos()
 
@@ -144,12 +139,7 @@ while constants.globals.run:
                     # show icon
                     stage_drawer.display_bag_mouse(pos)
                     if constants.globals.clicked:
-
-                        # Todo: Create a proper function
-                        if battle_master.is_boss_level(battle_master.level):
-                            hero_player.loot_boss(enemy_unit, game_attributes.text_sprite)
-                        else:
-                            hero_player.loot(enemy_unit, game_attributes.text_sprite)
+                        hero_player.loot(enemy_unit, game_attributes.text_sprite)
                         constants.globals.clicked = False
 
         if battle_master.game_mode == GameModes.DEFEAT:
@@ -159,7 +149,6 @@ while constants.globals.run:
     hero_player.next_action = None
 
     event_control()
-
     display.update()
 
 quit()
