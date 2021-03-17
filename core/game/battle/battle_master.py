@@ -10,25 +10,28 @@ class BattleMaster:
     def __init__(self, animation_master):
         self.queue = []
         self.level = 1
+        self.boss_levels = [4, 7, 11, 15, 19, 20]
+        self.boss_level = 1
         self.animation_master = animation_master
         self.friendly_fighters = [self.create_hero()]
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.friendly_fighters[0]
         self.game_mode = GameModes.BATTLE
 
+
+
     def create_enemies(self):
         enemy_fighters = []
         boss_level = 1
-        if self.is_boss_level(self.level):
+        if self.is_boss_level():
             enemy_fighters = [scripted_enemy(boss_level, self.animation_master)]
         else:
             enemy_group = EnemyGroup(self.animation_master)
             enemy_fighters = enemy_group.generate_enemy(self.level, boss_level)
         return enemy_fighters
 
-    def is_boss_level(self, level):
-        boss_levels = [4, 7, 11, 15, 19, 20]
-        return level in boss_levels
+    def is_boss_level(self):
+        return self.level in self.boss_levels
 
     def create_hero(self):
         return HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 190, screen_height - panel_height + 20,
@@ -52,12 +55,21 @@ class BattleMaster:
             self.move_to_next_fighter()
 
     def next_level(self):
+
         self.level += 1
+        if self.is_boss_level():
+            self.boss_level += 1
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.get_hero()
 
+        print('Current Level', self.level)
+        print('Current Boss Level', self.boss_level)
+
     def get_alive_enemies(self):
         return list(filter(lambda enemy: enemy.alive, self.enemy_fighters))
+
+    def are_enemies_alive(self):
+        return len(self.get_alive_enemies()) == 0
 
     def run_fighter_action(self, damage_text_group):
         hero_player = self.get_hero()

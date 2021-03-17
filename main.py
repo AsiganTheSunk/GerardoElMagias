@@ -60,9 +60,7 @@ while constants.globals.run:
         constants.globals.action_cooldown = 0
         run_reset = False
         constants.globals.number_of_strikes = 0
-
-    stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters,
-                        battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
+        hero_player.ultimate_status = False
 
     # if battle_master.level <= 7:
     #     if not game_attributes.sound_mixer.get_busy():
@@ -70,6 +68,9 @@ while constants.globals.run:
     # elif battle_master.level > 7:
     #     if not game_attributes.sound_mixer.get_busy():
     #         castle_music.play()
+
+    stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters,
+                        battle_master.is_boss_level(), game_attributes.text_sprite)
 
     if stage_drawer.display_kill_all():
         for target_unit in battle_master.enemy_fighters:
@@ -83,7 +84,8 @@ while constants.globals.run:
     if stage_drawer.display_spell_book():
         battle_master.game_mode = GameModes.SPELLBOOK
     if battle_master.game_mode == GameModes.SPELLBOOK:
-        open_spell_book(hero_player, battle_master.enemy_fighters, game_attributes.surface, game_attributes.text_sprite)
+        open_spell_book(hero_player, battle_master.enemy_fighters, game_attributes.surface,
+                        game_attributes.text_sprite, battle_master)
 
     if hero_player.has_full_fury() and stage_drawer.display_ultimate():
         if battle_master.current_fighter == hero_player and constants.globals.action_cooldown >= action_wait_time:
@@ -110,21 +112,21 @@ while constants.globals.run:
             battle_master.run_fighter_action(game_attributes.text_sprite)
 
     # Check if all enemies are dead for win condition
-    if len(battle_master.get_alive_enemies()) == 0:
+    if battle_master.are_enemies_alive():
         battle_master.game_mode = GameModes.VICTORY
 
     # GameOver Check
     if battle_master.game_mode != GameModes.BATTLE:
         # Victory Check
         if battle_master.game_mode == GameModes.VICTORY:
-            if battle_master.is_boss_level(battle_master.level):
+            if battle_master.is_boss_level():
                 boss_music.stop()
                 if not game_attributes.sound_mixer.get_busy():
                     victory_music.play()
                 stage_drawer.display_victory()
 
             if stage_drawer.display_next_button():
-                if battle_master.is_boss_level(battle_master.level):
+                if battle_master.is_boss_level():
                     victory_music.stop()
                 run_reset = True
                 battle_master.next_level()
