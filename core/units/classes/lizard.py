@@ -9,19 +9,18 @@ ulti_atacks = 1
 from core.units.skills.melee import MeleeSpells
 
 # Animation Imports
-from core.units.animations.animation_db import LizardSet
-from core.units.animations.animation_set import AnimationSet
+from units.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Lizard(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
+    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
         self.looted_status = False
-        self.animation_set = AnimationSet(x, y, name, LizardSet)
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Lizard'))
         self.current_fury = 1
         self.fury_status = True
 
@@ -69,7 +68,6 @@ class Lizard(BasicUnit, MeleeSpells):
             if ulti_atacks < 3:
 
                 self.attack(target, damage_text_group)
-                constants.globals.current_fighter -= 1
                 ulti_atacks += 1
                 constants.globals.action_cooldown = 70
             else:

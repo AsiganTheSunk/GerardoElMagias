@@ -6,7 +6,20 @@ from constants.basic_images import skull_image, spellbook_image, \
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font, interface_font
-from pygame import Color, Rect, display, draw, transform, Surface
+from pygame import Color, Rect, display, draw, transform, Surface, mask
+
+
+class LootPointer:
+    def __init__(self):
+        self.loot_pointer_image = loot_image
+        self.mask = self.mask = mask.from_surface(self.loot_pointer_image)
+
+
+class MousePointer:
+    def __init__(self):
+        # Mouse Pointer:
+        self.mouse_pointer_image = sword_image
+        self.mask = mask.from_surface(self.mouse_pointer_image)
 
 
 class PlayerInterfacePanel:
@@ -33,8 +46,11 @@ class PlayerInterfacePanel:
         self.kill_all_button = Button(self.surface, 40, 260, skull_image, 60, 60)
 
         # Mouse Pointer:
-        self.mouse_pointer_image = sword_image
-        self.loot_pointer_image = loot_image
+        # self.sword_pointer = MousePointer()
+        # self.loot_pointer = LootPointer()
+
+        self.sword_pointer = sword_image
+        self.loot_pointer = loot_image
 
         self.restart_button = Button(self.surface, 400, 120, restart_image, 100, 100)
         self.next_button = Button(self.surface, 800, 10, next_button_image, 80, 80)
@@ -49,7 +65,7 @@ class PlayerInterfacePanel:
         self.defeat_banner_image = defeat_banner_image
 
     def display_bag_mouse(self, position_x_y):
-        self.surface.blit(loot_image, position_x_y)
+        self.surface.blit(self.loot_pointer, position_x_y)
 
     def display_defeat_banner(self):
         self.surface.blit(defeat_banner_image, (180, 50))
@@ -58,7 +74,7 @@ class PlayerInterfacePanel:
         self.surface.blit(self.victory_banner_image, (180, 50))
 
     def display_sword_mouse(self, position_x_y):
-        self.surface.blit(self.mouse_pointer_image, position_x_y)
+        self.surface.blit(self.sword_pointer, position_x_y)
 
     def display_gold_icon(self):
         self.surface.blit(gold_image, (20, 20))
@@ -205,7 +221,7 @@ class PlayerInterfaceText:
 
         tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
 
-        if scripted_battle[level]:
+        if scripted_battle:
             self.display_text(f" The Boss HP: {enemy_list[0].current_hp}",
                               default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
         else:
@@ -252,12 +268,12 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
 
         # draw fighters
         hero.animation_set.update()
-        hero.animation_set.draw(self.surface)
+        hero.animation_set.draw()
         hero.health_bar.draw(hero.current_hp, hero.max_hp, self.surface)
         hero.mana_bar.draw(hero.current_mp, hero.max_mp, self.surface)
         hero.fury_bar.draw(hero.current_fury, hero.max_fury, self.surface)
 
         for unit in enemy_list:
             unit.animation_set.update()
-            unit.animation_set.draw(self.surface)
+            unit.animation_set.draw()
             unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)

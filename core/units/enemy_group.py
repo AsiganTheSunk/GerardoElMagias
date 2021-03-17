@@ -1,4 +1,3 @@
-from constants.game_windows import *
 from random import randint
 from core.units.classes.melee_bandit import Bandit
 from enum import Enum
@@ -17,22 +16,21 @@ class EnemySetGenerator:
             tmp.append(choice(enemy_pool))
         return tmp
 
-
-
     def get_enemy_set(self, boss_level, group_size):
-        if boss_level <= 2:
-            return self.generate_set(group_size, [EnemyType.BANDIT, EnemyType.BANDIT])
-        elif boss_level >= 3:
-            return self.generate_set(group_size, [EnemyType.BONE_WIZARD, EnemyType.BONE_WIZARD])
+        if boss_level < 2:
+            return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
+        elif boss_level >= 2:
+            return self.generate_set(group_size, [UnitType.BONE_WIZARD, UnitType.BONE_WIZARD])
 
 
-
-class EnemyType(Enum):
-    BANDIT = "Bandit"
-    THE_BOSS = "The Boss"
-    LIZARD = "Lizard"
-    DRAGON = "Dragon"
-    BONE_WIZARD = "BoneWizard"
+class UnitType(Enum):
+    BANDIT = 'Bandit'
+    THE_BOSS = 'The Boss'
+    LIZARD = 'Lizard'
+    DRAGON = 'Dragon'
+    BONE_WIZARD = 'BoneWizard'
+    HERO = 'Hero'
+    DJINN = 'Djinn'
 
 
 class EnemyStatsGenerator:
@@ -77,15 +75,15 @@ class EnemyPositionsGenerator:
         return [(500, 570), (700, 570), (600, 500), (800, 500)]
 
     def get_enemy_positions(self, boss_level):
-        if boss_level <= 2:
+        if boss_level < 2:
             return self.generate_forest_enemy_positions()
-        elif boss_level >= 3:
+        elif boss_level >= 2:
             return self.generate_castle_enemy_positions()
 
 
-
 class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
-    def __init__(self):
+    def __init__(self, animation_master):
+        self.animation_master = animation_master
         EnemyStatsGenerator.__init__(self)
         EnemyPositionsGenerator.__init__(self)
         EnemySetGenerator.__init__(self)
@@ -114,25 +112,21 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
             (700, screen_height - panel_height + 100)
         ]
 
-
-    def get_enemy (self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
-        if enemy_type is EnemyType.BANDIT:
+    def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
+        if enemy_type is UnitType.BANDIT:
             _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag, enemy_healthbar_x, enemy_healthbar_y)
+            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag,
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
-        elif enemy_type is EnemyType.LIZARD:
+        elif enemy_type is UnitType.LIZARD:
             _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_lizard_stats(level)
             return Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex, _mag,
-                          enemy_healthbar_x, enemy_healthbar_y)
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
-        elif enemy_type is EnemyType.BONE_WIZARD:
+        elif enemy_type is UnitType.BONE_WIZARD:
             _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bone_wizard_stats(level)
-            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex, _mag,
-                          enemy_healthbar_x, enemy_healthbar_y)
-
-
-
-
+            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex,
+                              _mag, enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
     def generate_enemy(self, level, boss_level):
         enemy_group = []
@@ -145,14 +139,8 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
             enemy_healthbar_x, enemy_healthbar_y = enemy_healthbar_positions[index]
             current_enemy = self.get_enemy(enemy_set[index], level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y)
             enemy_group.append(current_enemy)
+
         return enemy_group
-
-
-
-
-
-
-
 
 
 

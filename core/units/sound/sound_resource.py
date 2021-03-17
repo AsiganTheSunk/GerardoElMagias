@@ -1,4 +1,5 @@
 class SoundResource:
-    def __init__(self, sound_type, volume):
-        self.sound_type = sound_type
+    def __init__(self, sound_name, file_extension, volume):
+        self.sound_name = sound_name
+        self.file_extension = file_extension
         self.volume = volume

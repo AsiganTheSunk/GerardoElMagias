@@ -1,6 +1,6 @@
 from pygame import mixer
 
-#MUSIC
+# MUSIC
 boss_music = mixer.Sound("resources/music/boss.mp3")
 boss_music.set_volume(0.07)
 
@@ -17,11 +17,13 @@ castle_music.set_volume(0.1)
 # SPELL SOUNDS
 lightning_spell_1_sound = mixer.Sound("resources/sound/spells/lightning_spell_1.wav")
 lightning_spell_1_sound.set_volume(0.1)
+
 lightning_spell_2_sound = mixer.Sound("resources/sound/spells/lightning_spell_2.wav")
 lightning_spell_2_sound.set_volume(0.1)
 
 firestorm_spell_1_sound = mixer.Sound("resources/sound/spells/firestorm_spell_1.wav")
 firestorm_spell_1_sound.set_volume(0.1)
+
 firestorm_spell_2_sound = mixer.Sound("resources/sound/spells/firestorm_spell_2.wav")
 firestorm_spell_2_sound.set_volume(0.1)
 
@@ -48,8 +50,7 @@ critical_hit_sound.set_volume(0.07)
 ultimate_sound = mixer.Sound("resources/sound/attacks/ultimate.wav")
 ultimate_sound.set_volume(0.10)
 
-
-#ITEM SOUNDS
+# ITEM SOUNDS
 health_potion_sound = mixer.Sound("resources/sound/items/health_potion.wav")
 health_potion_sound.set_volume(0.15)
 
@@ -70,6 +71,3 @@ error_sound.set_volume(0.12)
 
 drum_roll_sound = mixer.Sound("resources/sound/items/drum_roll.wav")
 drum_roll_sound.set_volume(0.10)
-
-
-

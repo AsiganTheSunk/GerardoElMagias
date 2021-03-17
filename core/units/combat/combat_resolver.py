@@ -19,7 +19,6 @@ class CombatResolver:
     def resolve_attack(caster, target, input_damage, input_type, damage_text_group, multi_strike=False):
         if not multi_strike:
             constants.globals.action_cooldown = 0
-            constants.globals.current_fighter += 1
 
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
@@ -87,7 +86,6 @@ class CombatResolver:
                     constants.globals.action_cooldown = 60
         else:
             constants.globals.number_of_strikes = 0
-            constants.globals.ultimate_status = False
-            constants.globals.current_fighter += 1
+            caster.ultimate_status = False
             # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             constants.globals.action_cooldown = -40

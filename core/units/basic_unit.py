@@ -31,6 +31,9 @@ class BasicUnit:
         self.alive = True
         self.fury_status = False
         self.experience_status = False
+        self.ultimate_status = False
+
+        self.next_action = None
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
@@ -47,6 +50,9 @@ class BasicUnit:
 
     def has_experience(self):
         return self.experience_status
+
+    def has_full_fury(self):
+        return self.current_fury == self.max_fury
 
     def has_fury(self):
         return self.fury_status
@@ -88,3 +94,19 @@ class BasicUnit:
     def death(self):
         self.current_hp = 0
         self.alive = False
+
+    def run_next_action(self, text_sprite):
+        if self.next_action and \
+                self.next_action[0] == 'attack':
+            target = self.next_action[1]
+
+            self.attack(target, text_sprite)
+        if self.next_action and \
+                self.next_action[0] == 'use' \
+                and self.next_action[1] == 'healing_potion':
+
+            self.use_healing_potion(text_sprite)
+        if self.next_action and \
+                self.next_action[0] == 'use' and \
+                self.next_action[1] == 'mana_potion':
+            self.use_mana_potion(text_sprite)

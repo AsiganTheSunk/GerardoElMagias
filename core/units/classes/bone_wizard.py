@@ -10,14 +10,14 @@ from core.units.skills.melee import MeleeSpells
 from core.units.skills.magic import MagicSpells
 
 # Animation Imports
-from core.units.animations.animation_db import BoneWizardSet
-from core.units.animations.animation_set import AnimationSet
+from units.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 damage_text = DamageText()
 
+
 class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
+    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
@@ -25,7 +25,7 @@ class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
         self.looted_status = False
-        self.animation_set = AnimationSet(x, y, name, BoneWizardSet)
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('BoneWizard'))
 
     def is_looted(self):
         return self.looted_status
@@ -69,16 +69,14 @@ class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
         self.animation_set.action = 6
         self.animation_set.reset_frame_index()
 
-
     def use_shadowbolt(self, target, damage_text_group):
         self.shadowbolt_animation()
         damage_text.cast(self, "SHADOWBOLT", damage_text_group)
         self.cast_shadowbolt(self, target, damage_text_group)
         return True
 
-
     def action(self, target, damage_text_group):
-        i = randint(1,2)
+        i = randint(1, 2)
         if i == 1:
             self.use_shadowbolt(target, damage_text_group)
         if i == 2:
