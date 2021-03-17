@@ -147,7 +147,7 @@ while constants.globals.run:
         if battle_master.game_mode == GameModes.DEFEAT:
             stage_drawer.display_defeat()
 
-    constants.globals.action_cooldown += 2
+    constants.globals.action_cooldown += 1
     hero_player.next_action = None
 
     event_control()

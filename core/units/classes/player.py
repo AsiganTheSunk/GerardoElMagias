@@ -26,7 +26,7 @@ from core.units.combat.combat_formulas import CombatFormulas
 from core.units.combat.combat_resolver import CombatResolver
 
 # Animation Imports
-from units.animations.sets.unit_animation_set import UnitAnimationSet
+from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
 from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION, REJUVENATION_POTION
