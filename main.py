@@ -10,6 +10,9 @@ __maintainer__ = "Father Karras and AsiganTheSunk"
 __email__ = ""
 __status__ = "Development"
 
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
 # Pygame Imports:
 from pygame import time, display, sprite, mouse, quit, init
 init()
@@ -22,6 +25,7 @@ from core.units.enemy_group import EnemyGroup
 from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
 from constants.game_windows import screen_height, screen_width, panel_height
 from core.game.battle.scripted_enemies import scripted_enemy
+from core.units.animations.animation_manager import AnimationMaster
 
 # Game Drawable Instance Imports:
 from interface.composed_component.spell_book import open_spell_book
@@ -34,8 +38,13 @@ from event_control import event_control
 # InitGame Import:
 from game_attributes import GameAttributes
 
+from core.units.sound.sound_master import SoundMaster
+
+sound_master = SoundMaster()
+
 # Initializing InitGame & Stage Drawer
 game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
+animation_master = AnimationMaster(game_attributes.surface)
 stage_drawer = StageDrawer(game_attributes.surface, screen_width, screen_height, 0, panel_height,
                            game_attributes.clock, game_attributes.fps)
 
@@ -46,7 +55,7 @@ scripted_battle = [True, False, False, False, True, False, False, True, False, F
 hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1,
                          190, screen_height - panel_height + 20,
                          190, screen_height - panel_height + 40,
-                         190, screen_height - panel_height + 40)
+                         190, screen_height - panel_height + 40, animation_master)
 enemy_list = []
 
 runreset = True
@@ -68,13 +77,13 @@ while constants.globals.run:
 
         if scripted_battle[level]:
             game_attributes.sound_mixer.fadeout(1)
-            enemy_list = scripted_enemy(bosslevel)
+            enemy_list = scripted_enemy(bosslevel, animation_master)
             total_fighters = len(enemy_list) + 1
             bosslevel += 1
             boss_music.play()
 
         else:
-            enemy_group = EnemyGroup()
+            enemy_group = EnemyGroup(animation_master)
             enemy_list = enemy_group.generate_enemy(level, bosslevel)
             total_fighters = len(enemy_list) + 1
             if level <= 7:
@@ -204,6 +213,8 @@ while constants.globals.run:
                 mouse.set_visible(True)
                 pos = mouse.get_pos()
                 for count, enemy_unit in enumerate(enemy_list):
+                    # if sprite.spritecollide(enemy_unit.animation_set.image,
+                    #                         stage_drawer.sword_pointer.mouse_pointer_image, False, sprite.collide_mask):
                     if enemy_unit.animation_set.rect.collidepoint(pos):
                         # hide mouse
                         mouse.set_visible(False)
@@ -214,10 +225,6 @@ while constants.globals.run:
 
                             # Todo: Create a proper function
                             hero_player.loot(target, game_attributes.text_sprite)
-                            # if scripted_battle[level]:
-                            #     hero_player.roll_loot(target, game_attributes.text_sprite)
-                            # else:
-                            #     hero_player.loot(target, game_attributes.text_sprite)
                             constants.globals.clicked = False
 
             if constants.globals.game_over == -1:

@@ -1,5 +1,5 @@
 from pygame import draw
-from constants.basic_colors import *
+from constants.basic_colors import GRAY_COLOR, GREEN_COLOR
 
 
 class HealthBar:

@@ -11,14 +11,14 @@ from constants.sound import *
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
-# Animation Imports
-from core.units.animations.animation_db import MeleeBossSet
-from core.units.animations.animation_set import AnimationSet
 
+# Animation Imports
+from units.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 
+
 class Boss(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y):
+    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
@@ -27,7 +27,7 @@ class Boss(BasicUnit, MeleeSpells):
         self.looted_status = False
         self.try_to_consume_health_potion = False
 
-        self.animation_set = AnimationSet(x, y, name, MeleeBossSet)
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('The Boss'))
 
     def update_try_to_consume_health_potion(self):
         self.try_to_consume_health_potion = True

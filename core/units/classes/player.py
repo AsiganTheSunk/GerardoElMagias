@@ -9,7 +9,6 @@ from core.units.resources.fury_bar import FuryBar
 from core.units.mechanics.experience import ExperienceSystem
 
 from core.units.combat.utils import get_alive_targets_status
-from random import randint
 from core.text.combat_text_resolver import CombatTextResolver
 from core.text.damage_text import DamageText
 
@@ -21,18 +20,16 @@ from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 
 # Text Import
-from random import randint
 
 # Combat Imports
 from core.units.combat.combat_formulas import CombatFormulas
 from core.units.combat.combat_resolver import CombatResolver
 
 # Animation Imports
-from core.units.animations.animation_db import HeroSet
-from core.units.animations.animation_set import AnimationSet
+from units.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
-from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION, REJUVENATION_POTION, FURY_POTION
+from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION, REJUVENATION_POTION
 
 import constants.globals
 
@@ -45,14 +42,14 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y):
+class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
+    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
         BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
         FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 
-        self.animation_set = AnimationSet(x, y, name, HeroSet)
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Hero'))
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
@@ -148,7 +145,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, AnimationSet):
             HEALTH_POTION.consume(self, damage_text_group)
             return True
 
-        self.no_action_error(REJUVENATION_POTION.name, damage_text_group)
+        self.no_action_error(HEALTH_POTION.name, damage_text_group)
         return False
 
     def use_mana_potion(self, damage_text_group):
