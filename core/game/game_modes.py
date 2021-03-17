@@ -1,4 +1,6 @@
 from enum import Enum
+
+
 class GameModes(Enum):
     BATTLE = 0
     VICTORY = 1

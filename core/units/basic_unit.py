@@ -95,16 +95,22 @@ class BasicUnit:
         self.current_hp = 0
         self.alive = False
 
-    def run_next_action(self, damage_text_group):
-        if self.next_action and self.next_action[0] == 'attack':
+    def run_next_action(self, text_sprite):
+        if self.next_action and \
+                self.next_action[0] == 'attack':
             target = self.next_action[1]
-            self.attack(target, damage_text_group)
-        if self.next_action and self.next_action[0] == 'use' and self.next_action[
-            1] == 'healing_potion':
-            self.use_healing_potion(damage_text_group)
-        if self.next_action and self.next_action[0] == 'use' and self.next_action[
-            1] == 'mana_potion':
-            self.use_mana_potion(damage_text_group)
+
+            self.attack(target, text_sprite)
+        if self.next_action and \
+                self.next_action[0] == 'use' \
+                and self.next_action[1] == 'healing_potion':
+
+            self.use_healing_potion(text_sprite)
+        if self.next_action and \
+                self.next_action[0] == 'use' and \
+                self.next_action[1] == 'mana_potion':
+            self.use_mana_potion(text_sprite)
+
     # def melee_attack(self):
     #     self.unit_animation.melee_attack_animation()
     #

@@ -14,19 +14,13 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 # Pygame Imports:
-from pygame import time, display, sprite, mouse, quit, init
+from pygame import time, display, mouse, quit, init
 init()
 
-# Game Engine Imports:
-from core.units.classes.player import HeroPlayer
-from core.units.enemy_group import EnemyGroup
-
 # Game Engine Constants Imports:
-from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
 from constants.game_windows import screen_height, screen_width, panel_height
-from core.game.battle.scripted_enemies import scripted_enemy
-from core.units.animations.animation_manager import AnimationMaster
-
+from constants.sound import  boss_music, victory_music, battle_music, ultimate_sound, castle_music
+import constants.globals
 
 # Game Drawable Instance Imports:
 from interface.composed_component.spell_book import open_spell_book
@@ -35,52 +29,49 @@ from interface.composed_component.player_interface_panel import StageDrawer
 # Game Control Imports:
 import constants.globals
 
+# Master Game Engine Imports
 from core.units.sound.sound_master import SoundMaster
 from core.units.animations.animation_manager import AnimationMaster
-
-# Game Engine Imports:
-from interface.basic_components import button
 from core.game.battle.battle_master import BattleMaster
 from core.game.game_modes import GameModes
 from game_attributes import GameAttributes
-# Game Engine Constants Imports
-from constants.game_windows import *
 
-
-# Python Imports:
-from constants.sound import *
-import constants.globals
-
+# Game Event Control Import:
 from event_control import event_control
-
-# from interface.composed_component.spellbook import open_spellbook
-
-sound_master = SoundMaster()
 
 # Initializing InitGame & Stage Drawer
 game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
 animation_master = AnimationMaster(game_attributes.surface)
+sound_master = SoundMaster()
 stage_drawer = StageDrawer(game_attributes.surface, screen_width, screen_height, 0, panel_height,
                            game_attributes.clock, game_attributes.fps)
 
 stage_drawer.display_caption()
 battle_master = BattleMaster(animation_master)
-damage_text_group = sprite.Group()
 hero_player = battle_master.get_hero()
 
-runreset = True
+run_reset = True
 action_wait_time = 90
 
 while constants.globals.run:
-    if runreset:
+    if run_reset:
         battle_master.game_mode = GameModes.BATTLE
         constants.globals.action_cooldown = 0
-        runreset = False
+        run_reset = False
         constants.globals.number_of_strikes = 0
 
         # reset action variables
     loot = False
-    stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters, battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
+    stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters,
+                        battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
+
+    if battle_master.level <= 7:
+        if not game_attributes.sound_mixer.get_busy():
+            battle_music.play()
+
+    if battle_master.level > 7:
+        if not game_attributes.sound_mixer.get_busy():
+            castle_music.play()
 
     if stage_drawer.display_kill_all():
         for target_unit in battle_master.enemy_fighters:
@@ -92,7 +83,7 @@ while constants.globals.run:
     if stage_drawer.display_mana_potion():
         hero_player.next_action = ['use', 'mana_potion']
     if stage_drawer.display_spell_book():
-        constants.globals.game_over = 2
+        battle_master.game_mode = GameModes.SPELLBOOK
     if battle_master.game_mode == GameModes.SPELLBOOK:
         open_spell_book(hero_player, battle_master.enemy_fighters, game_attributes.surface, game_attributes.text_sprite)
 
@@ -118,7 +109,7 @@ while constants.globals.run:
                     hero_player.next_action = ('attack', enemy_unit)
 
         if constants.globals.action_cooldown >= action_wait_time:
-            battle_master.run_fighter_action(damage_text_group)
+            battle_master.run_fighter_action(game_attributes.text_sprite)
             # Check if all enemies are dead for win condition
 
     alive_enemies = len(battle_master.get_alive_enemies())
@@ -138,7 +129,8 @@ while constants.globals.run:
             if stage_drawer.display_next_button():
                 if battle_master.is_boss_level(battle_master.level):
                     victory_music.stop()
-                runreset = True
+
+                run_reset = True
                 battle_master.next_level()
 
                 # LOOT PHASE
@@ -155,9 +147,9 @@ while constants.globals.run:
 
                         # Todo: Create a proper function
                         if battle_master.is_boss_level(battle_master.level):
-                            hero_player.loot_boss(enemy_unit, damage_text_group)
+                            hero_player.loot_boss(enemy_unit, game_attributes.text_sprite)
                         else:
-                            hero_player.loot(enemy_unit, damage_text_group)
+                            hero_player.loot(enemy_unit, game_attributes.text_sprite)
                         constants.globals.clicked = False
 
         if battle_master.game_mode == GameModes.DEFEAT:
