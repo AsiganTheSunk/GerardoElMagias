@@ -42,12 +42,10 @@ from core.units.animations.animation_manager import AnimationMaster
 from interface.basic_components import button
 from core.game.battle.battle_master import BattleMaster
 from core.game.game_modes import GameModes
-
+from game_attributes import GameAttributes
 # Game Engine Constants Imports
-from constants.basic_colors import *
 from constants.game_windows import *
-from constants.basic_images import *
-from constants.basic_fonts import *
+
 
 # Python Imports:
 from constants.sound import *
@@ -55,7 +53,7 @@ import constants.globals
 
 from event_control import event_control
 
-from interface.composed_component.spellbook import open_spellbook
+# from interface.composed_component.spellbook import open_spellbook
 
 sound_master = SoundMaster()
 
@@ -66,7 +64,7 @@ stage_drawer = StageDrawer(game_attributes.surface, screen_width, screen_height,
                            game_attributes.clock, game_attributes.fps)
 
 stage_drawer.display_caption()
-battle_master = BattleMaster()
+battle_master = BattleMaster(animation_master)
 damage_text_group = sprite.Group()
 hero_player = battle_master.get_hero()
 
@@ -82,7 +80,7 @@ while constants.globals.run:
 
         # reset action variables
     loot = False
-    stage_drawer.update(battle_master.level, battle_master.friendly_fighters, battle_master.enemy_fighters, battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
+    stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters, battle_master.is_boss_level(battle_master.level), game_attributes.text_sprite)
 
     if stage_drawer.display_kill_all():
         for target_unit in battle_master.enemy_fighters:
@@ -98,7 +96,7 @@ while constants.globals.run:
     if battle_master.game_mode == GameModes.SPELLBOOK:
         open_spell_book(hero_player, battle_master.enemy_fighters, game_attributes.surface, game_attributes.text_sprite)
 
-    if hero_player.current_fury == 100 and stage_drawer.display_ultimate():
+    if hero_player.has_full_fury() and stage_drawer.display_ultimate():
         if battle_master.current_fighter == hero_player and constants.globals.action_cooldown >= action_wait_time:
             # Todo: activar animacion pre-ulti
             hero_player.ultimate_status = True
@@ -129,7 +127,6 @@ while constants.globals.run:
 
         # Gameover Check
     if battle_master.game_mode != GameModes.BATTLE:
-
         # Condicion de Victoria
         if battle_master.game_mode == GameModes.VICTORY:
             if battle_master.is_boss_level(battle_master.level):

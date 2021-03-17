@@ -51,6 +51,9 @@ class BasicUnit:
     def has_experience(self):
         return self.experience_status
 
+    def has_full_fury(self):
+        return self.current_fury == self.max_fury
+
     def has_fury(self):
         return self.fury_status
 

@@ -21,6 +21,7 @@ class MousePointer:
         self.mouse_pointer_image = sword_image
         self.mask = mask.from_surface(self.mouse_pointer_image)
 
+
 class PlayerInterfacePanel:
     def __init__(self, surface, width, height, panel_width, panel_height):
         self.surface = surface
@@ -220,7 +221,7 @@ class PlayerInterfaceText:
 
         tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
 
-        if scripted_battle[level]:
+        if scripted_battle:
             self.display_text(f" The Boss HP: {enemy_list[0].current_hp}",
                               default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
         else:

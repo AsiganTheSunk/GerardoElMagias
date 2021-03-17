@@ -1,26 +1,28 @@
 from core.game.battle.scripted_enemies import scripted_enemy
-from constants.game_windows import screen_height, bottom_panel
+from constants.game_windows import screen_height, panel_height
 from core.units.classes.player import HeroPlayer
 from core.units.enemy_group import EnemyGroup
 
 from core.game.game_modes import GameModes
 
 class BattleMaster:
-	def __init__(self):
+	def __init__(self, animation_master):
 		self.queue = []
 		self.level = 1
+		self.animation_master = animation_master
 		self.friendly_fighters = [self.create_hero()]
 		self.enemy_fighters = self.create_enemies()
 		self.current_fighter = self.friendly_fighters[0]
 		self.game_mode = GameModes.BATTLE
 
+
 	def create_enemies(self):
 		enemy_fighters = []
 		boss_level = 1
 		if self.is_boss_level(self.level):
-			enemy_fighters = [scripted_enemy(boss_level)]
+			enemy_fighters = [scripted_enemy(boss_level, self.animation_master)]
 		else:
-			enemy_group = EnemyGroup()
+			enemy_group = EnemyGroup(self.animation_master)
 			enemy_fighters = enemy_group.generate_enemy(self.level, boss_level)
 		return enemy_fighters
 			
@@ -29,7 +31,7 @@ class BattleMaster:
 		return level in boss_levels
 
 	def create_hero(self):
-		return HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - bottom_panel + 50, 290, screen_height - bottom_panel + 50, 90, 510)
+		return HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 115, screen_height - panel_height + 50, 290, screen_height - panel_height + 50, 90, 510, self.animation_master)
 	
 	def get_hero(self):
 		return self.friendly_fighters[0]
