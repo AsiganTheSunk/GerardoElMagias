@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AnimationType(Enum):
+class UnitAnimationType(Enum):
     IDLE = 'Idle'
     ATTACK = 'Attack'
     HURT = 'Hurt'
@@ -10,3 +10,8 @@ class AnimationType(Enum):
     MISS = 'Miss'
     SHADOWBOLT = "Shadowbolt"
 
+
+class SkillAnimationType(Enum):
+    PRE_CAST = 'PreCast'
+    CAST = 'Cast'
+    POST_CAST = 'PostCast'

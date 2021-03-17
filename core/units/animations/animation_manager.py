@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from pygame import image, transform
-from core.units.animations.db.unit_animation_db import UNIT_ANIMATION_SETS
+from core.units.animations.db.unit_animation_db import UNIT_ANIMATION_SETS, SKILL_ANIMATION_SETS
 from enum import Enum
 
 
@@ -16,7 +16,7 @@ class AnimationMaster:
         self.surface = surface
         self.environment_animation_sets = []
         self.unit_animation_sets = self.load_resource_sets(UNIT_ANIMATION_SETS, AnimationResourceClass.UNITS.value)
-        self.skill_animation_sets = []
+        # self.skill_animation_sets = self.load_resource_sets(SKILL_ANIMATION_SETS, AnimationResourceClass.SKILLS.value)
 
     def get_unit_resource_animation_set(self, resource_type):
         return self.unit_animation_sets[resource_type]
