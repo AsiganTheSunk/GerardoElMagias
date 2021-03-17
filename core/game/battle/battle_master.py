@@ -59,9 +59,6 @@ class BattleMaster:
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.get_hero()
 
-        print('Current Level', self.level)
-        print('Current Boss Level', self.boss_level)
-
     def get_alive_enemies(self):
         return list(filter(lambda enemy: enemy.alive, self.enemy_fighters))
 
