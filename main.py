@@ -4,7 +4,7 @@
 __author__ = "Father Karras and AsiganTheSunk"
 __copyright__ = "Copyright 2021, Gerardo El Magias"
 
-__credits__ = ["Father Karras", "AsiganTheSunk"]
+__credits__ = ["Father Karras", "AsiganTheSunk", "GRAN CALAVERA", "Señor Pechuza"]
 __version__ = "0.1a"
 __maintainer__ = "Father Karras and AsiganTheSunk"
 __email__ = ""
@@ -12,221 +12,260 @@ __status__ = "Development"
 
 # Pygame Imports:
 from pygame import time, display, sprite, mouse, quit, init
+
 init()
 
 # Game Engine Imports:
-from core.units.classes.player import HeroPlayer
-from core.units.enemy_group import EnemyGroup
+from interface.basic_components import button
+from core.game.battle.battle_master import BattleMaster
+from core.game.game_modes import GameModes
 
-# Game Engine Constants Imports:
-from constants.sound import boss_music, victory_music, battle_music, ultimate_sound, castle_music
-from constants.game_windows import screen_height, screen_width, panel_height
-from core.game.battle.scripted_enemies import scripted_enemy
+# Game Engine Constants Imports
+from constants.basic_colors import *
+from constants.game_windows import *
+from constants.basic_images import *
+from constants.basic_fonts import *
 
-# Game Drawable Instance Imports:
-from interface.composed_component.spell_book import open_spell_book
-from interface.composed_component.player_interface_panel import StageDrawer
-
-# Game Control Imports:
+# Python Imports:
+from constants.sound import *
 import constants.globals
+
 from event_control import event_control
 
-# InitGame Import:
-from game_attributes import GameAttributes
+from interface.composed_component.spellbook import open_spellbook
 
-# Initializing InitGame & Stage Drawer
-game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
-stage_drawer = StageDrawer(game_attributes.surface, screen_width, screen_height, 0, panel_height,
-                           game_attributes.clock, game_attributes.fps)
+mixer.pre_init(44100, -16, 2, 4096)
+clock = time.Clock()
+fps = 60
 
-stage_drawer.display_caption()
+screen = display.set_mode((screen_width, screen_height))
+display.set_caption("Las trepidantes aventuras de Gerardo EL MAGIAS")
 
-# fst True es un filler que no se lee nunca
-scripted_battle = [True, False, False, False, True, False, False, True, False, False, False, True, False, False, False, True, False, False, False, True, True]
-hero_player = HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1,
-                         190, screen_height - panel_height + 20,
-                         190, screen_height - panel_height + 40,
-                         190, screen_height - panel_height + 40)
-enemy_list = []
+update_time = time.get_ticks()
+
+# Item Buttons:
+potion_button = button.Button(screen, 110, screen_height - bottom_panel + 75, health_potion_img, 64, 64)
+mana_potion_button = button.Button(screen, 220, screen_height - bottom_panel + 75, mana_potion_img, 60, 60)
+spellbook_button = button.Button(screen, 0, 695, spellbook_img, 100, 100)
+
+lightning_spell_button = button.Button(screen, 150, 220, lightning_img, 150, 150)
+firestorm_spell_button = button.Button(screen, 165, 410, firestorm_img, 110, 110)
+heal_spell_button = button.Button(screen, 500, 220, heal_img, 130, 130)
+
+# Control Buttons:
+restart_button = button.Button(screen, 400, 120, restart_img, 100, 100)
+next_button = button.Button(screen, 800, 10, next_img, 80, 80)
+
+# Ultimate Button
+ultimate_button = button.Button(screen, 400, 400, ultimate_img, 50, 50)
+
+# Kill Button
+kill_button = button.Button(screen, 40, 260, skull_image, 60, 60)
+
+
+# create function for drawing text
+def draw_text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x, y))
+
+
+# functions for drawing backgrounds
+def draw_bg_forest():
+    screen.blit(background_forest, (0, 0))
+
+
+def draw_bg_castle():
+    screen.blit(background_castle, (0, 0))
+
+
+def draw_stage():
+    draw_text(f"{hero_player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
+    draw_text(f"LVL: {hero_player.level}", default_font, WHITE_COLOR, 50, 100)
+    draw_text(f"Exp: {hero_player.experience} / {hero_player.exp_level_break} ", default_font, WHITE_COLOR, 50, 125)
+    draw_text(f"STR: {hero_player.strength}", default_font, WHITE_COLOR, 50, 175)
+    draw_text(f"DEX: {hero_player.dexterity}", default_font, WHITE_COLOR, 50, 200)
+    draw_text(f"MAG: {hero_player.magic}", default_font, WHITE_COLOR, 50, 225)
+    if battle_master.level <= 7:
+        draw_text(f"THE WOODS: STAGE {battle_master.level}", default_font, RED_COLOR, 310, 25)
+    else:
+        draw_text(f"THE CASTLE: STAGE {battle_master.level - 7}", default_font, RED_COLOR, 310, 25)
+
+
+def draw_debug_panel(_current_fighter, _total_fighters):
+    draw_text(f"Total fighters: {_total_fighters}", default_font, YELLOW_COLOR, 600, 100)
+    draw_text(f"Current fighter: {_current_fighter}", default_font, YELLOW_COLOR, 600, 125)
+
+
+# function for drawing panel
+def draw_panel():
+    # draw FF panel
+    screen.blit(panel_img, (0, screen_height - bottom_panel))
+    # show hero stats
+    draw_text(f"  HP: {hero_player.current_hp} / {hero_player.max_hp}      "
+              f"MP: {hero_player.current_mp} / {hero_player.max_mp}",
+              default_font, WHITE_COLOR, 99, screen_height - bottom_panel + 10)
+
+    # show number of pots
+    draw_text(f"{hero_player.stash.healing_potions}", default_font, WHITE_COLOR, 100, screen_height - bottom_panel + 85)
+    # show number of lightnings
+    draw_text(f"{hero_player.stash.mana_potions}", default_font, WHITE_COLOR, 210, screen_height - bottom_panel + 85)
+
+    # draw name and health of enemies
+    ENEMY_TEXT_POS_0 = [480, screen_height - bottom_panel + 5]
+    ENEMY_TEXT_POS_1 = [480, screen_height - bottom_panel + 65]
+    ENEMY_TEXT_POS_2 = [700, screen_height - bottom_panel + 5]
+    ENEMY_TEXT_POS_3 = [700, screen_height - bottom_panel + 65]
+
+    tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
+
+    if battle_master.is_boss_level(battle_master.level):
+        draw_text(f" The Boss HP: {battle_master.enemy_fighters[0].current_hp}", default_font, WHITE_COLOR, tmp[0][0],
+                  tmp[0][1])
+    else:
+        for index, enemy_fighter in enumerate(battle_master.enemy_fighters):
+            draw_text(f"{enemy_fighter.name} HP: {enemy_fighter.current_hp}", default_font, WHITE_COLOR, tmp[index][0],
+                      tmp[index][1])
+
+
+def setup_battle(enemies, friendlies):
+    hero = friendlies[0]
+    clock.tick(fps)
+
+    # draw backgrounds
+    if battle_master.level <= 7:
+        draw_bg_forest()
+    if battle_master.level > 7:
+        draw_bg_castle()
+
+        # draw panel
+    draw_stage()
+    draw_panel()
+    screen.blit(oro_img, (20, 20))
+
+    # damage text
+    damage_text_group.update()
+    damage_text_group.draw(screen)
+
+    # draw fighters
+    hero.animation_set.update()
+    hero.animation_set.draw(screen)
+    hero.health_bar.draw(hero.current_hp, hero.max_hp, screen)
+    hero.mana_bar.draw(hero.current_mp, hero.max_mp, screen)
+    hero.fury_bar.draw(hero.current_fury, hero.max_fury, screen)
+
+    for target_unit in enemies:
+        target_unit.animation_set.update()
+        target_unit.animation_set.draw(screen)
+        target_unit.health_bar.draw(target_unit.current_hp, target_unit.max_hp, screen)
+
+
+battle_master = BattleMaster()
+damage_text_group = sprite.Group()
+hero_player = battle_master.get_hero()
 
 runreset = True
 action_wait_time = 90
-level = 0
-bosslevel = 1
-total_fighters = 0
-
-
 while constants.globals.run:
-    while runreset:
-        level += 1
-        constants.globals.game_over = 0
-        number_of_strikes = 0
-        animation_cooldown = 0
+    if runreset:
+        battle_master.game_mode = GameModes.BATTLE
         constants.globals.action_cooldown = 0
-        constants.globals.current_fighter = 1
-        constants.globals.ultimate_status = False 
-
-        if scripted_battle[level]:
-            game_attributes.sound_mixer.fadeout(1)
-            enemy_list = scripted_enemy(bosslevel)
-            total_fighters = len(enemy_list) + 1
-            bosslevel += 1
-            boss_music.play()
-
-        else:
-            enemy_group = EnemyGroup()
-            enemy_list = enemy_group.generate_enemy(level, bosslevel)
-            total_fighters = len(enemy_list) + 1
-            if level <= 7:
-                if not game_attributes.sound_mixer.get_busy():
-                    battle_music.play()
-
-            if level > 7:
-                if not game_attributes.sound_mixer.get_busy():
-                    castle_music.play()
-
         runreset = False
-        constants.globals.runbattle = True
+        constants.globals.number_of_strikes = 0
 
-    while constants.globals.runbattle:
         # reset action variables
-        attack = False
-        mana_potion = False
-        potion = False
-        target = None
-        loot = False
+    loot = False
 
-        stage_drawer.update(level, hero_player, enemy_list, scripted_battle, game_attributes.text_sprite)
+    setup_battle(battle_master.enemy_fighters, battle_master.friendly_fighters)
 
-        if stage_drawer.display_kill_all():
-            for target_unit in enemy_list:
-                target_unit.death()
-                target_unit.death_animation()
+    if kill_button.draw():
+        for target_unit in battle_master.enemy_fighters:
+            target_unit.death()
+            target_unit.death_animation()
 
-        if stage_drawer.display_health_potion():
-            potion = True
-        if stage_drawer.display_mana_potion():
-            mana_potion = True
-        if stage_drawer.display_spell_book():
-            constants.globals.game_over = 2
+    if potion_button.draw():
+        hero_player.next_action = ['use', 'healing_potion']
+    if mana_potion_button.draw():
+        hero_player.next_action = ['use', 'mana_potion']
+    if spellbook_button.draw():
+        battle_master.game_mode = GameModes.SPELLBOOK
+    if battle_master.game_mode == GameModes.SPELLBOOK:
+        open_spellbook(hero_player, battle_master.enemy_fighters, screen, damage_text_group,
+                       battle_master)  # esto es to cutre
+    if hero_player.current_fury == 100 and ultimate_button.draw():
+        if battle_master.current_fighter == hero_player and constants.globals.action_cooldown >= action_wait_time:
+            # Todo: activar animacion pre-ulti
+            hero_player.ultimate_status = True
+            ultimate_sound.play()
+            hero_player.reset_fury()
+            constants.globals.action_cooldown = -25
 
-        if hero_player.current_fury == 100:
-            if stage_drawer.display_ultimate() and constants.globals.current_fighter == 1 and constants.globals.action_cooldown >= action_wait_time:
-                # Todo: activar animacion pre-ulti
-                constants.globals.ultimate_status = True
-                ultimate_sound.play()
-                hero_player.reset_fury()
-                constants.globals.action_cooldown = -25
+    if battle_master.game_mode == GameModes.BATTLE:
+        # make sure mouse is visible
+        mouse.set_visible(True)
+        pos = mouse.get_pos()
+        for enemy_unit in battle_master.enemy_fighters:
+            if enemy_unit.animation_set.rect.collidepoint(pos):
+                mouse.set_visible(False)
+                # show icon
+                screen.blit(sword_img, pos)
+                if constants.globals.clicked and enemy_unit.alive:
+                    hero_player.next_action = ('attack', enemy_unit)
+        if constants.globals.action_cooldown >= action_wait_time:
+            battle_master.run_fighter_action(damage_text_group)
+            # Check if all enemies are dead for win condition
+    alive_enemies = len(battle_master.get_alive_enemies())
+    if alive_enemies == 0:
+        battle_master.game_mode = GameModes.VICTORY
 
-        if constants.globals.game_over == 0:
-            # make sure mouse is visible
+        # Gameover Check
+    if battle_master.game_mode != GameModes.BATTLE:
+
+        # Condicion de Victoria
+        if battle_master.game_mode == GameModes.VICTORY:
+            if battle_master.is_boss_level(battle_master.level):
+                boss_music.stop()
+                if not mixer.get_busy():
+                    victory_music.play()
+                screen.blit(victory_img, (180, 50))
+                draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+            else:
+                draw_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
+                draw_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
+                draw_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+
+            if next_button.draw():
+                if battle_master.is_boss_level(battle_master.level):
+                    victory_music.stop()
+                runreset = True
+                battle_master.next_level()
+
+                # LOOT PHASE
             mouse.set_visible(True)
             pos = mouse.get_pos()
-            for count, enemy_unit in enumerate(enemy_list):
+            for enemy_unit in battle_master.enemy_fighters:
                 if enemy_unit.animation_set.rect.collidepoint(pos):
                     # hide mouse
                     mouse.set_visible(False)
                     # show icon
-                    stage_drawer.display_sword_mouse(pos)
-                    if constants.globals.clicked and enemy_unit.alive:
-                        attack = True
-                        target = enemy_list[count]
+                    screen.blit(loot_img, pos)
+                    if constants.globals.clicked:
 
-            # Player Actions
-            if hero_player.alive:
-                if constants.globals.current_fighter == 1:
-                    constants.globals.action_cooldown += 1
-                    if constants.globals.action_cooldown >= action_wait_time:
-                        # Use: Melee Attack
-                        if attack and target is not None:
-                            hero_player.attack(target, game_attributes.text_sprite)
+                        # Todo: Create a proper function
+                        if battle_master.is_boss_level(battle_master.level):
+                            hero_player.loot_boss(enemy_unit, damage_text_group)
+                        else:
+                            hero_player.loot(enemy_unit, damage_text_group)
+                        constants.globals.clicked = False
 
-                        # Use: Healing Potion
-                        if potion:
-                            hero_player.use_healing_potion(game_attributes.text_sprite)
+        if battle_master.game_mode == GameModes.DEFEAT:
+            screen.blit(defeat_img, (180, 50))
+            draw_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
 
-                        # Use: Mana Potion
-                        if mana_potion:
-                            hero_player.use_mana_potion(game_attributes.text_sprite)
+    constants.globals.action_cooldown += 2
+    hero_player.next_action = None
 
-                        # Use: Ultimate Spell
-                        # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
-                        if constants.globals.ultimate_status:
-                            hero_player.use_ultimate(enemy_list, game_attributes.text_sprite)
-            else:
-                constants.globals.game_over = -1
+    event_control()
 
-            # Enemy action
-            for count, enemy_unit in enumerate(enemy_list):
-                if constants.globals.current_fighter == 2 + count:
-                    if enemy_unit.alive:
-                        constants.globals.action_cooldown += 1
-                        if constants.globals.action_cooldown >= action_wait_time:
-                            enemy_unit.action(hero_player, game_attributes.text_sprite)
-                    else:
-                        constants.globals.current_fighter += 1
-
-            # Reset Turn
-            if constants.globals.current_fighter > total_fighters:
-                constants.globals.current_fighter = 1
-
-        # Check if all enemies are dead for win condition
-        alive_enemies = 0
-        for enemy_unit in enemy_list:
-            if enemy_unit.alive:
-                alive_enemies += 1
-        if alive_enemies == 0:
-            constants.globals.game_over = 1
-
-        # Gameover Check
-        if constants.globals.game_over != 0:
-
-            # Condicion de Victoria
-            if constants.globals.game_over == 1:
-                if scripted_battle[level]:
-                    boss_music.stop()
-                    if not game_attributes.sound_mixer.get_busy():
-                        victory_music.play()
-                    stage_drawer.display_victory()
-
-                    if stage_drawer.display_next_button():
-                        constants.globals.game_over = 0
-                        runreset = True
-                        constants.globals.runbattle = False
-                        victory_music.stop()
-                else:
-                    stage_drawer.display_victory_message()
-                    if stage_drawer.display_next_button():
-                        runreset = True
-                        constants.globals.runbattle = False
-
-                # LOOT PHASE
-                mouse.set_visible(True)
-                pos = mouse.get_pos()
-                for count, enemy_unit in enumerate(enemy_list):
-                    if enemy_unit.animation_set.rect.collidepoint(pos):
-                        # hide mouse
-                        mouse.set_visible(False)
-                        # show icon
-                        stage_drawer.display_bag_mouse(pos)
-                        if constants.globals.clicked:
-                            target = enemy_list[count]
-
-                            # Todo: Create a proper function
-                            hero_player.loot(target, game_attributes.text_sprite)
-                            # if scripted_battle[level]:
-                            #     hero_player.roll_loot(target, game_attributes.text_sprite)
-                            # else:
-                            #     hero_player.loot(target, game_attributes.text_sprite)
-                            constants.globals.clicked = False
-
-            if constants.globals.game_over == -1:
-                stage_drawer.display_defeat()
-
-            if constants.globals.game_over == 2:
-                open_spell_book(hero_player, enemy_list, game_attributes.surface, game_attributes.text_sprite)
-
-        event_control()
-        display.update()
+    display.update()
 
 quit()

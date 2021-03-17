@@ -49,7 +49,6 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
-            constants.globals.current_fighter += 1
             self.cast_heal(self, self, damage_text_group)
             return True
 
@@ -58,11 +57,8 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
 
     def use_firestorm(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
-        print('Turn:', constants.globals.current_fighter)
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
-            constants.globals.current_fighter += 1
-
             # Pre Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
@@ -75,7 +71,6 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
                                                        damage_text_group)
-            print('Turn:', constants.globals.current_fighter)
             return True
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)

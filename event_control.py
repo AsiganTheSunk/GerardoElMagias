@@ -1,4 +1,4 @@
-from pygame import event, QUIT, MOUSEBUTTONDOWN
+from pygame import event, QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import constants.globals
 
 
@@ -11,5 +11,5 @@ def event_control():
         if _event.type == MOUSEBUTTONDOWN:
             constants.globals.clicked = True
 
-        else:
+        if _event.type == MOUSEBUTTONUP:
             constants.globals.clicked = False
