@@ -90,3 +90,22 @@ class CombatResolver:
             caster.ultimate_status = False
             # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             constants.globals.action_cooldown = -40
+
+
+
+
+    def resolve_fixed_damage_attack(self, target, input_damage, input_type, damage_text_group):
+        target.hurt_animation()
+        hit_cut_sound.play()
+
+        target.reduce_health(input_damage)
+
+        if target.has_fury():
+            target.gain_fury(input_damage)
+
+        if target.is_dead():
+            target.death()
+            target.death_animation()
+            constants.globals.clicked = False
+
+        combat_text_resolver.resolve(target, input_damage,  input_type, damage_text_group)

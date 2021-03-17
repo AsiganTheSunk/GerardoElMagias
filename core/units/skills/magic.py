@@ -40,8 +40,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = randint(0, 20)
-                output_damage = (caster.magic * 3) + base_damage
+                base_damage = randint(0, 15)
+                output_damage = (caster.magic * 2) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
@@ -60,7 +60,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = randint(0, 50)
+                base_damage = randint(0, 55)
                 output_damage = (caster.magic * 1) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
@@ -72,7 +72,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
     def cast_shadowbolt(self, caster, target, damage_text_group):
         # Calculate Basic Damage: Based on Strength
-        base_damage = randint(0, 5)
+        base_damage = randint(0, 3)
         output_damage = (caster.magic) + base_damage
 
         input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())

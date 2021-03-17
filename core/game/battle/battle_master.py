@@ -31,7 +31,7 @@ class BattleMaster:
         return self.level in self.boss_levels
 
     def create_hero(self):
-        return HeroPlayer(150, 580, "Hero", 1, 90, 30, 12, 9, 8, 2, 1, 1, 190, screen_height - panel_height + 20,
+        return HeroPlayer(150, 580, "Hero", 1, 96, 30, 12, 10, 8, 2, 1, 1, 190, screen_height - panel_height + 20,
                           190, screen_height - panel_height + 40, 190, screen_height - panel_height + 40,
                           self.animation_master)
 
@@ -75,7 +75,9 @@ class BattleMaster:
             # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
             if hero_player.ultimate_status:
                 hero_player.use_ultimate(self.enemy_fighters, damage_text_group)
+
         else:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
             self.move_to_next_fighter()
+

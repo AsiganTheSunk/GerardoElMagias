@@ -77,10 +77,11 @@ while constants.globals.run:
             target_unit.death()
             target_unit.death_animation()
 
-    if stage_drawer.display_health_potion():
+    if stage_drawer.display_health_potion() and hero_player.stash.has_healing_potion():
         hero_player.next_action = ['use', 'healing_potion']
-    if stage_drawer.display_mana_potion():
+    if stage_drawer.display_mana_potion() and hero_player.stash.has_mana_potion():
         hero_player.next_action = ['use', 'mana_potion']
+
     if stage_drawer.display_spell_book():
         battle_master.game_mode = GameModes.SPELLBOOK
     if battle_master.game_mode == GameModes.SPELLBOOK:

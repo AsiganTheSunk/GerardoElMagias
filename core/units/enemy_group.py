@@ -25,7 +25,7 @@ class EnemySetGenerator:
 
 class UnitType(Enum):
     BANDIT = 'Bandit'
-    THE_BOSS = 'The Boss'
+    BANDIT_CHIEF = 'BanditChief'
     LIZARD = 'Lizard'
     DRAGON = 'Dragon'
     BONE_WIZARD = 'BoneWizard'

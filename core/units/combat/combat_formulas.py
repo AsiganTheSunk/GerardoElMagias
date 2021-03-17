@@ -42,3 +42,6 @@ class CombatFormulas:
         if self.spell_critical_chance(hit_resolution, caster.magic):
             return self.critical_hit(output_damage), CombatTypeResolution.CRITICAL_HIT
         return output_damage, CombatTypeResolution.HIT
+
+    def fixed_damage_attack_resolution(self, output_damage):
+        return output_damage, CombatTypeResolution.HIT
