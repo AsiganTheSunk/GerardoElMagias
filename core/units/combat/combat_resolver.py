@@ -75,18 +75,18 @@ class CombatResolver:
     def resolve_multi_attack(self, caster, target_list, multi_strike, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
-        if constants.globals.number_of_strikes < multi_strike:
+        if self.multi_attacks_left >= 0:
             if constants.globals.action_cooldown >= constants.globals.action_wait_time:
                 if len(alive_enemy) > 0:
                     target = alive_enemy[randint(0, len(alive_enemy) - 1)]
                     caster.melee_attack_animation()
                     caster.cast_attack(self, target, damage_text_group, True)
 
-                    constants.globals.number_of_strikes += 1
+                    self.multi_attacks_left -= 1
                     constants.globals.action_cooldown = 60
 
         else:
-            constants.globals.number_of_strikes = 0
+            self.multi_attacks_left = 7
             caster.ultimate_status = False
             # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             constants.globals.action_cooldown = -40

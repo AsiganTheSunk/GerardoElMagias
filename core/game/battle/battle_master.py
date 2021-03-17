@@ -2,6 +2,7 @@ from core.game.battle.scripted_enemies import scripted_enemy
 from constants.game_windows import screen_height, panel_height
 from core.units.classes.player import HeroPlayer
 from core.units.enemy_group import EnemyGroup
+import constants.globals
 
 from core.game.game_modes import GameModes
 
@@ -75,7 +76,10 @@ class BattleMaster:
             # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
             if hero_player.ultimate_status:
                 hero_player.use_ultimate(self.enemy_fighters, damage_text_group)
-
+                if hero_player.multi_attacks_left == 0:
+                    hero_player.ultimate_status = False
+                    constants.globals.action_cooldown = 0
+                    self.move_to_next_fighter()
         else:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)

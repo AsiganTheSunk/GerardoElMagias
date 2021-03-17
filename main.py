@@ -39,8 +39,10 @@ from game_attributes import GameAttributes
 
 # Game Event Control Import:
 from event_control import event_control
+from core.text.damage_text import DamageText
 
 # Initializing InitGame & Stage Drawer
+damage_text = DamageText()
 game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
 animation_master = AnimationMaster(game_attributes.surface)
 sound_master = SoundMaster()
@@ -59,7 +61,6 @@ while constants.globals.run:
         battle_master.game_mode = GameModes.BATTLE
         constants.globals.action_cooldown = 0
         run_reset = False
-        constants.globals.number_of_strikes = 0
         hero_player.ultimate_status = False
 
     # if battle_master.level <= 7:
@@ -77,10 +78,16 @@ while constants.globals.run:
             target_unit.death()
             target_unit.death_animation()
 
-    if stage_drawer.display_health_potion() and hero_player.stash.has_healing_potion():
-        hero_player.next_action = ['use', 'healing_potion']
-    if stage_drawer.display_mana_potion() and hero_player.stash.has_mana_potion():
-        hero_player.next_action = ['use', 'mana_potion']
+    if stage_drawer.display_health_potion():
+        if hero_player.stash.healing_potions > 0:
+            hero_player.next_action = ['use', 'healing_potion']
+        else:
+            damage_text.warning(hero_player, 'No Healing Potions', game_attributes.text_sprite)
+    if stage_drawer.display_mana_potion() and hero_player.stash.mana_potions > 0:
+        if hero_player.stash.healing_potions > 0:
+            hero_player.next_action = ['use', 'mana_potion']
+        else:
+            damage_text.warning(hero_player, 'No Mana Potions', game_attributes.text_sprite)
 
     if stage_drawer.display_spell_book():
         battle_master.game_mode = GameModes.SPELLBOOK

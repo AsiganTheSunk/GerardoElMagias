@@ -32,6 +32,7 @@ class BasicUnit:
         self.fury_status = False
         self.experience_status = False
         self.ultimate_status = False
+        self.multi_attacks_left = 7
 
         self.next_action = None
 
