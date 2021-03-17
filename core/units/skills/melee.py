@@ -32,10 +32,11 @@ class MeleeSpells(CombatFormulas, CombatResolver):
         input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
         self.resolve_attack(caster, target, input_damage, input_type, damage_text_group)
 
-    def cast_power_of_two_attack(self, target, damage_text_group, base):
-        output_damage = base ^ 2
-        input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
-        self.resolve_attack(caster, target, input_damage, input_type, damage_text_group)
+    def cast_power_of_two_attack(self, target, damage_text_group, exponent):
+        output_damage = 2 ** exponent
+        input_damage, input_type = self.fixed_damage_attack_resolution(output_damage)
+        self.resolve_fixed_damage_attack(target, input_damage, input_type, damage_text_group)
+
 
 
 

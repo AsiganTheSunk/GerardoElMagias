@@ -84,6 +84,7 @@ class CombatResolver:
 
                     constants.globals.number_of_strikes += 1
                     constants.globals.action_cooldown = 60
+
         else:
             constants.globals.number_of_strikes = 0
             caster.ultimate_status = False

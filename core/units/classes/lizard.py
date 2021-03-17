@@ -9,7 +9,7 @@ ulti_atacks = 1
 from core.units.skills.melee import MeleeSpells
 
 # Animation Imports
-from units.animations.sets.unit_animation_set import UnitAnimationSet
+from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Lizard(BasicUnit, MeleeSpells):
@@ -66,7 +66,6 @@ class Lizard(BasicUnit, MeleeSpells):
         global ulti_atacks
         if self.current_fury >= 40:
             if ulti_atacks < 3:
-
                 self.attack(target, damage_text_group)
                 ulti_atacks += 1
                 constants.globals.action_cooldown = 70

@@ -1,5 +1,5 @@
-from units.animations.constants.animation_resource import AnimationResource
-from units.animations.constants.unit_animation_type import UnitAnimationType, SkillAnimationType
+from core.units.animations.constants.animation_resource import AnimationResource
+from core.units.animations.constants.unit_animation_type import UnitAnimationType, SkillAnimationType
 from enum import Enum
 
 

@@ -13,7 +13,7 @@ combat_text_resolver = CombatTextResolver()
 
 
 # Animation Imports
-from units.animations.sets.unit_animation_set import UnitAnimationSet
+from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 
 

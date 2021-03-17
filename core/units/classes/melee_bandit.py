@@ -7,7 +7,7 @@ from core.units.resources.health_bar import HealthBar
 from core.units.skills.melee import MeleeSpells
 
 # Animation Imports
-from units.animations.sets.unit_animation_set import UnitAnimationSet
+from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Bandit(BasicUnit, MeleeSpells):

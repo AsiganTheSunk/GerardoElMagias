@@ -10,7 +10,7 @@ from core.units.skills.melee import MeleeSpells
 from core.units.skills.magic import MagicSpells
 
 # Animation Imports
-from units.animations.sets.unit_animation_set import UnitAnimationSet
+from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 damage_text = DamageText()
