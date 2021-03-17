@@ -11,23 +11,20 @@ class BattleMaster:
         self.queue = []
         self.level = 1
         self.boss_levels = [4, 7, 11, 15, 19, 20]
-        self.boss_level = 1
+        self.boss_level = 0
         self.animation_master = animation_master
         self.friendly_fighters = [self.create_hero()]
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.friendly_fighters[0]
         self.game_mode = GameModes.BATTLE
 
-
-
     def create_enemies(self):
         enemy_fighters = []
-        boss_level = 1
         if self.is_boss_level():
-            enemy_fighters = [scripted_enemy(boss_level, self.animation_master)]
+            enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
         else:
             enemy_group = EnemyGroup(self.animation_master)
-            enemy_fighters = enemy_group.generate_enemy(self.level, boss_level)
+            enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
 
     def is_boss_level(self):

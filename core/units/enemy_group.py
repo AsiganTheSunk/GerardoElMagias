@@ -17,9 +17,9 @@ class EnemySetGenerator:
         return tmp
 
     def get_enemy_set(self, boss_level, group_size):
-        if boss_level <= 2:
+        if boss_level < 2:
             return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
-        elif boss_level >= 3:
+        elif boss_level >= 2:
             return self.generate_set(group_size, [UnitType.BONE_WIZARD, UnitType.BONE_WIZARD])
 
 
@@ -75,9 +75,9 @@ class EnemyPositionsGenerator:
         return [(500, 570), (700, 570), (600, 500), (800, 500)]
 
     def get_enemy_positions(self, boss_level):
-        if boss_level <= 2:
+        if boss_level < 2:
             return self.generate_forest_enemy_positions()
-        elif boss_level >= 3:
+        elif boss_level >= 2:
             return self.generate_castle_enemy_positions()
 
 
@@ -139,14 +139,8 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
             enemy_healthbar_x, enemy_healthbar_y = enemy_healthbar_positions[index]
             current_enemy = self.get_enemy(enemy_set[index], level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y)
             enemy_group.append(current_enemy)
+
         return enemy_group
-
-
-
-
-
-
-
 
 
 
