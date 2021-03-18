@@ -93,8 +93,9 @@ while constants.globals.run:
             hero_player.next_action = ['use', 'healing_potion']
         else:
             damage_text.warning(hero_player, 'No Healing Potions', game_attributes.text_sprite)
-    if stage_drawer.display_mana_potion() and hero_player.stash.healing_potions > 0:
-        if hero_player.stash.healing_potions > 0:
+
+    if stage_drawer.display_mana_potion():
+        if hero_player.stash.mana_potions > 0:
             hero_player.next_action = ['use', 'mana_potion']
         else:
             damage_text.warning(hero_player, 'No Mana Potions', game_attributes.text_sprite)
