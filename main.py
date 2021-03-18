@@ -60,16 +60,25 @@ while constants.globals.run:
     if run_reset:
         battle_master.game_mode = GameModes.BATTLE
         constants.globals.action_cooldown = 0
-        run_reset = False
         hero_player.ultimate_status = False
         hero_player.multi_attacks_left = 7
+        run_reset = False
 
-    # if battle_master.level <= 7:
-    #     if not game_attributes.sound_mixer.get_busy():
-    #         battle_music.play()
-    # elif battle_master.level > 7:
-    #     if not game_attributes.sound_mixer.get_busy():
-    #         castle_music.play()
+        if battle_master.level <= 7:
+            if battle_master.is_boss_level():
+                game_attributes.sound_mixer.fadeout(1)
+                boss_music.play()
+            else:
+                if not game_attributes.sound_mixer.get_busy():
+                    battle_music.play()
+
+        elif battle_master.level > 7:
+            if battle_master.is_boss_level():
+                game_attributes.sound_mixer.fadeout(1)
+                boss_music.play()
+            else:
+                if not game_attributes.sound_mixer.get_busy():
+                   castle_music.play()
 
     stage_drawer.update(battle_master.level, battle_master.friendly_fighters[0], battle_master.enemy_fighters,
                         battle_master.is_boss_level(), game_attributes.text_sprite)
