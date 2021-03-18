@@ -37,7 +37,7 @@ class EnemyStatsGenerator:
     @staticmethod
     def generate_bandit_stats(level):
         randomlevel = level + randint(0, 2)
-        maxhp = randomlevel * 9
+        maxhp = 10 + (randomlevel * 7)
         maxmp = randomlevel * 4
         str = 8 + round(randomlevel / 2)
         dex = 6 + round(randomlevel / 2)
@@ -93,9 +93,9 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
         if level < 4:
            return randint(1, 2)
         elif 4 <= level < 7:
-            return randint(1, 3)
+            return randint(2, 3)
         elif 7 <= level < 10:
-            return randint(1, 4)
+            return randint(1, 3)
         elif 10 <= level < 14:
             return randint(2, 4)
         elif 14 <= level < 18:
