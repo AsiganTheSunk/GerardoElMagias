@@ -57,6 +57,7 @@ class BattleMaster:
         self.level += 1
         if self.is_boss_level():
             self.boss_level += 1
+
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.get_hero()
 
