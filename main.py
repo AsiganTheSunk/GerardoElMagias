@@ -62,6 +62,7 @@ while constants.globals.run:
         constants.globals.action_cooldown = 0
         run_reset = False
         hero_player.ultimate_status = False
+        hero_player.multi_attacks_left = 7
 
     # if battle_master.level <= 7:
     #     if not game_attributes.sound_mixer.get_busy():
@@ -83,7 +84,7 @@ while constants.globals.run:
             hero_player.next_action = ['use', 'healing_potion']
         else:
             damage_text.warning(hero_player, 'No Healing Potions', game_attributes.text_sprite)
-    if stage_drawer.display_mana_potion() and hero_player.stash.mana_potions > 0:
+    if stage_drawer.display_mana_potion() and hero_player.stash.healing_potions > 0:
         if hero_player.stash.healing_potions > 0:
             hero_player.next_action = ['use', 'mana_potion']
         else:

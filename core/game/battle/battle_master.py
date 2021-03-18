@@ -72,14 +72,14 @@ class BattleMaster:
             if hero_player.next_action:
                 hero_player.run_next_action(damage_text_group)
                 self.move_to_next_fighter()
-            # Use: Ultimate Spell
-            # Todo: Convert Use talking action_cooldown, current_fighter and action_wait_time into account
+
             if hero_player.ultimate_status:
                 hero_player.use_ultimate(self.enemy_fighters, damage_text_group)
                 if hero_player.multi_attacks_left == 0:
                     hero_player.ultimate_status = False
                     constants.globals.action_cooldown = 0
                     self.move_to_next_fighter()
+                    hero_player.multi_attacks_left = 7
         else:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
