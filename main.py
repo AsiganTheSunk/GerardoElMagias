@@ -88,19 +88,19 @@ while constants.globals.run:
             target_unit.death()
             target_unit.death_animation()
 
-    if stage_drawer.display_health_potion():
+    if stage_drawer.display_health_potion() and battle_master.current_fighter == battle_master.friendly_fighters[0]:
         if hero_player.stash.healing_potions > 0:
             hero_player.next_action = ['use', 'healing_potion']
         else:
             damage_text.warning(hero_player, 'No Healing Potions', game_attributes.text_sprite)
 
-    if stage_drawer.display_mana_potion():
+    if stage_drawer.display_mana_potion() and battle_master.current_fighter == battle_master.friendly_fighters[0]:
         if hero_player.stash.mana_potions > 0:
             hero_player.next_action = ['use', 'mana_potion']
         else:
             damage_text.warning(hero_player, 'No Mana Potions', game_attributes.text_sprite)
 
-    if stage_drawer.display_spell_book():
+    if stage_drawer.display_spell_book() and battle_master.current_fighter == battle_master.friendly_fighters[0]:
         battle_master.game_mode = GameModes.SPELLBOOK
     if battle_master.game_mode == GameModes.SPELLBOOK:
         open_spell_book(hero_player, battle_master.enemy_fighters, game_attributes.surface,

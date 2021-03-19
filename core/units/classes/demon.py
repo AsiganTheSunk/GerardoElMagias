@@ -57,6 +57,16 @@ class Demon(BasicUnit, MeleeSpells, MagicSpells):
             self.cast_firestorm(self, target_list, damage_text_group)
             return True
 
+    def use_lightning(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(20):
+            constants.globals.action_cooldown = -30
+            self.cast_lightning(self, target_list, damage_text_group)
+            return True
+
+        self.no_action_error('Mana', damage_text_group)
+        return False
+
     def death_animation(self):
         # Activates: Death Animation
         self.animation_set.action = 1
@@ -87,18 +97,26 @@ class Demon(BasicUnit, MeleeSpells, MagicSpells):
         self.animation_set.action = 6
         self.animation_set.reset_frame_index()
 
-
-
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 0.8)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.90)
         if health_trigger:
-            i = randint(1, 2)
+            i = randint(1, 4)
             if i == 1:
-                self.use_heal(damage_text_group)
-            if i == 2:
                 self.attack(target, damage_text_group)
-            if i == 3:
-                self.use_firestorm([target], damage_text_group)
-
+            elif i == 2:
+                if self.current_mp >= 12:
+                    self.use_heal(damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
+            elif i == 3:
+                if self.current_mp >= 15:
+                    self.use_firestorm([target], damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
+            elif i == 4:
+                if self.current_mp >= 20:
+                    self.use_lightning([target], damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
         else:
             self.attack(target, damage_text_group)
