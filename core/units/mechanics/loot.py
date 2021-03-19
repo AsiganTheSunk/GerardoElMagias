@@ -6,7 +6,7 @@ from core.units.classes.djinn import Djinn
 from core.units.classes.bone_wizard import BoneWizard
 from core.units.classes.banditchief import BanditChief
 from core.units.classes.melee_bandit import Bandit
-from core.units.classes.dragon import Dragon
+from core.units.classes.smalldragon import SmallDragon
 from core.units.classes.lizard import Lizard
 from core.items.item_db.consumable_item_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
 
@@ -18,7 +18,7 @@ class LootPool:
     def loot(self, caster, target, text_sprite):
         if type(target) is Bandit or type(target) is BoneWizard:
             self.roll_basic_loot(caster, target, text_sprite)
-        elif type(target) is BanditChief or type(target) is Dragon or type(target) is Lizard or type(target) is Djinn:
+        elif type(target) is BanditChief or type(target) is SmallDragon or type(target) is Lizard or type(target) is Djinn:
             self.roll_boss_loot(caster, target, text_sprite)
 
     def roll_basic_loot(self, caster, target, text_sprite):
