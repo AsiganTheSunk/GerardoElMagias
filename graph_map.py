@@ -8,8 +8,7 @@ TEXTCOLOR = (0, 0, 0)
 (width, height) = (500, 500)
 
 running = True
-from pygame import font, init
-import time
+from pygame import font, init, time
 from graph_generator import MapGraphGenerator
 
 stage_list = ['Shop', 'Forest', 'Castle']
@@ -56,7 +55,6 @@ class MapGraphDrawer:
         step = 120
         starting_pos_y = 250
         pygame.draw.circle(screen, RED, (starting_pos_x, starting_pos_y), 25)
-        pygame.display.update()
 
     def create_node(self, x, y):
         return pygame.Rect(x, y, 20, 20)
@@ -70,7 +68,6 @@ class MapGraphDrawer:
             starting_pos_x += step
 
     def display_node(self, screen):
-
         self.draw_node_list = []
         previous = None
         for index, item in enumerate(self.node_pos_list):
@@ -78,7 +75,7 @@ class MapGraphDrawer:
             new_node = self.create_node(x, y)
             self.draw_node_list.append(new_node)
             pygame.draw.rect(screen, Color('LightBlue'), new_node)
-            pygame.display.update()
+
             if previous is not None:
                 pygame.draw.line(screen, Color('LightBlue'), previous.center, new_node.center, 2)
             previous = new_node
@@ -89,11 +86,16 @@ class MapGraphDrawer:
                 return item
 
 
+def debounce_time(last_updated, interval):
+    return time.get_ticks() - last_updated >= interval
+
 
 def main():
     global running, screen
-    boolswitch = False
-    timer = 0.0
+    
+    interval = 600
+    last_updated = 0
+
     pygame.init()
     # Define Game Fonts:
     tahoma_font_path = './resources/fonts/Tahoma.ttf'
@@ -110,19 +112,11 @@ def main():
     map_drawer.generate_node_pos(list_of_nodes)
     map_drawer.display_node(screen)
     while running:
-        if timer > 0.25:
-            boolswitch = True
-            timer = 0.0
-        else:
-            x = time.time()
-            timer += (x - clock)
-            clock = x
-
         ev = pygame.event.get()
         screen.fill(GREEN_GRASS)
         map_drawer.display_node(screen)
         pygame.draw.rect(screen, (250, 100, 20), rect)
-        pygame.display.flip()
+
         for event in ev:
             if event.type == pygame.MOUSEBUTTONUP:
                 mouse_x, mouse_y = get_pos_x_y()
@@ -138,7 +132,6 @@ def main():
         if data is not None:
             rect_hover = pygame.Rect(data.x, data.y, 20, 20)
             pygame.draw.rect(screen, (100, 100, 20), rect_hover)
-            pygame.display.update()
 
         index_to_draw = -1
         for index, item in enumerate(map_drawer.draw_node_list):
@@ -153,26 +146,25 @@ def main():
             pygame.display.update()
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] or keys[pygame.K_LEFT]:  # to move left
-            boolswitch = False
-            clock = time.time()
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and debounce_time(last_updated, interval):  # to move left
             rect.x -= 120
             if rect.x < 100:
                 rect.x = 100
+            last_updated = time.get_ticks()
 
-        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            boolswitch = False
-            clock = time.time()
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and debounce_time(last_updated, interval):
             # to move right
             rect.x += 120
             if rect.x > 340:
                 rect.x = 340
+            last_updated = time.get_ticks()
 
-        if keys[pygame.K_SPACE] or keys[pygame.K_RETURN]:
+        if (keys[pygame.K_SPACE] or keys[pygame.K_RETURN]) and debounce_time(last_updated, interval):
             # to move right
             print('Entering', '[ ' + list_of_nodes[index_to_draw].name + ' ]', '....')
+            last_updated = time.get_ticks()
 
-        clock.tick(15)
+        clock.tick(60)
         pygame.display.update()
 
 
