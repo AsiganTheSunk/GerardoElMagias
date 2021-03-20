@@ -11,7 +11,7 @@ running = True
 from pygame import font, init, time
 from graph_generator import MapGraphGenerator
 
-stage_list = ['Shop', 'Forest', 'Castle']
+stage_list = ['Shop', 'Forest', 'Castle', 'Desert', 'Tombs', 'Dark Forest']
 
 map_graph_generator = MapGraphGenerator()
 list_of_nodes = map_graph_generator.generate_main_map(stage_list)
@@ -41,9 +41,11 @@ list_of_nodes = map_graph_generator.generate_main_map(stage_list)
 # https://stackoverflow.com/questions/19117062/how-to-add-text-into-a-pygame-rectangle
 # https://stackoverflow.com/questions/32909847/line-styles-in-pygame
 
+
 class MapGraphNavigator:
     def __init__(self):
         pass
+
 
 class MapGraphDrawer:
     def __init__(self):
@@ -86,7 +88,7 @@ class MapGraphDrawer:
                 return item
 
 
-def debounce_time(last_updated, interval):
+def debounce_time(last_updated, interval=600):
     return time.get_ticks() - last_updated >= interval
 
 
@@ -146,20 +148,20 @@ def main():
             pygame.display.update()
 
         keys = pygame.key.get_pressed()
-        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and debounce_time(last_updated, interval):  # to move left
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and debounce_time(last_updated):  # to move left
             rect.x -= 120
             if rect.x < 100:
                 rect.x = 100
             last_updated = time.get_ticks()
 
-        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and debounce_time(last_updated, interval):
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and debounce_time(last_updated):
             # to move right
             rect.x += 120
             if rect.x > 340:
                 rect.x = 340
             last_updated = time.get_ticks()
 
-        if (keys[pygame.K_SPACE] or keys[pygame.K_RETURN]) and debounce_time(last_updated, interval):
+        if (keys[pygame.K_SPACE] or keys[pygame.K_RETURN]) and debounce_time(last_updated):
             # to move right
             print('Entering', '[ ' + list_of_nodes[index_to_draw].name + ' ]', '....')
             last_updated = time.get_ticks()
@@ -176,6 +178,7 @@ def get_pos_x_y():
 def draw_circle():
     pos = get_pos_x_y()
     pygame.draw.circle(screen, BLUE, pos, 20)
+
 
 
 if __name__ == '__main__':
