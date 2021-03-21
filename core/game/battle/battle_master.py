@@ -109,6 +109,8 @@ class BattleMaster:
                     constants.globals.action_cooldown = 0
                     self.move_to_next_fighter()
                     hero_player.multi_attacks_left = 7
+                else:
+                    self.move_to_victory_phase()
         else:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)

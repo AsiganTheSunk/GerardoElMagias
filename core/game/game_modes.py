@@ -10,3 +10,9 @@ class GameModes(Enum):
     VICTORY = 2
     DEFEAT = 3
     SPELLBOOK = 4
+
+
+class GameMenuModes(Enum):
+    MENU = 0
+    SPELLBOOK = 1
+    SHOP = 2

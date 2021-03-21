@@ -69,7 +69,7 @@ class StageResolver:
         self.player.next_action = None
 
     def stage_reset(self):
-        constants.globals.action_cooldown = 0
+        # constants.globals.action_cooldown = 0
         self.battle_master.friendly_fighters[0].ultimate_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
