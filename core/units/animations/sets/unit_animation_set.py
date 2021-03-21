@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from pygame import time, Surface, Rect, SRCALPHA, draw, mask
+from pygame import time, Surface, Rect, SRCALPHA, draw, mask, mouse
 from core.units.animations.sets.animation_set import AnimationSet
 
 
@@ -32,6 +32,9 @@ class UnitAnimationSet(AnimationSet):
     #     shape_surf = Surface(Rect(rect).size, SRCALPHA)
     #     draw.rect(shape_surf, color, shape_surf.get_rect())
     #     surface.blit(shape_surf, rect)
+
+    def mouse_collision(self):
+        return self.rect.collidepoint(mouse.get_pos())
 
     def idle_animation(self):
         # Activates: Idle Animation

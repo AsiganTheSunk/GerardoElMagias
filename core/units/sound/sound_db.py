@@ -32,7 +32,7 @@ SOUND_POOL = {
     SoundType.MUSIC: {
         SoundMusicSubType.BACKGROUND: [
             SoundResource('boss', SoundFileExtension.MP3, 0.07),
-            SoundResource('battle', SoundFileExtension.MP3, 0.07),
+            SoundResource('forest', SoundFileExtension.MP3, 0.07),
             SoundResource('victory', SoundFileExtension.MP3, 0.1),
             SoundResource('castle', SoundFileExtension.MP3, 0.1),
         ]

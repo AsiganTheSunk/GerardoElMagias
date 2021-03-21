@@ -22,8 +22,10 @@ class BattleMaster:
     def create_enemies(self):
         enemy_fighters = []
         if self.is_boss_level():
+            self.game_mode = GameModes.BOSS_BATTLE
             enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
         else:
+            self.game_mode = GameModes.BATTLE
             enemy_group = EnemyGroup(self.animation_master)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
@@ -53,7 +55,6 @@ class BattleMaster:
             self.move_to_next_fighter()
 
     def next_level(self):
-
         self.level += 1
         if self.is_boss_level():
             self.boss_level += 1
