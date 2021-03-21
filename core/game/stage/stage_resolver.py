@@ -83,19 +83,22 @@ class StageResolver:
                             self.game_attributes.text_sprite, self.battle_master)
 
     def resolve_player_interface_actions(self):
-            if self.stage_drawer.display_health_potion():
-                if self.player.stash.has_healing_potion() and self.battle_master.is_player_phase():
+        if self.stage_drawer.display_health_potion():
+            if self.battle_master.is_player_phase():
+                if self.player.stash.has_healing_potion():
                     self.player.next_action = ['use', 'healing_potion']
                 else:
                     damage_text.warning(self.player, 'No Healing Potions', self.game_attributes.text_sprite)
 
-            if self.stage_drawer.display_mana_potion():
-                if self.player.stash.has_mana_potion() and self.battle_master.is_player_phase():
+        if self.stage_drawer.display_mana_potion():
+            if self.battle_master.is_player_phase():
+                if self.player.stash.has_mana_potion():
                     self.player.next_action = ['use', 'mana_potion']
                 else:
                     damage_text.warning(self.player, 'No Mana Potions', self.game_attributes.text_sprite)
 
-            if self.player.has_full_fury() and self.battle_master.is_player_phase():
+        if self.player.has_full_fury():
+            if self.battle_master.is_player_phase():
                 if self.stage_drawer.display_ultimate() and constants.globals.action_cooldown >= self.action_wait_time:
                     # Todo: activar animacion pre-ulti
                     self.player.ultimate_status = True
@@ -104,7 +107,6 @@ class StageResolver:
                     constants.globals.action_cooldown = -25
 
     def resolve_mouse_display(self):
-
         pass
 
     def resolve_player_mouse_actions(self):
