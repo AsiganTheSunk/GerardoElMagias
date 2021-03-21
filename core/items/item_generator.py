@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint, choice, sample
 
 from core.items.equipement_items.item_categories import *

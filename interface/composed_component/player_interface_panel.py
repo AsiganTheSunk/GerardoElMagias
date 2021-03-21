@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
@@ -6,7 +9,7 @@ from constants.basic_images import skull_image, spellbook_image, \
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font, interface_font
-from pygame import Color, Rect, display, draw, transform, Surface, mask
+from pygame import Color, Rect, display, draw, transform, Surface, mask, mouse
 
 
 class LootPointer:
@@ -64,8 +67,9 @@ class PlayerInterfacePanel:
         self.victory_banner_image = victory_banner_image
         self.defeat_banner_image = defeat_banner_image
 
-    def display_bag_mouse(self, position_x_y):
-        self.surface.blit(self.loot_pointer, position_x_y)
+    def display_bag_mouse(self):
+        mouse.set_visible(False)
+        self.surface.blit(self.loot_pointer, mouse.get_pos())
 
     def display_defeat_banner(self):
         self.surface.blit(defeat_banner_image, (180, 50))
@@ -73,8 +77,9 @@ class PlayerInterfacePanel:
     def display_victory_banner(self):
         self.surface.blit(self.victory_banner_image, (180, 50))
 
-    def display_sword_mouse(self, position_x_y):
-        self.surface.blit(self.sword_pointer, position_x_y)
+    def display_sword_mouse(self):
+        mouse.set_visible(False)
+        self.surface.blit(self.sword_pointer,  mouse.get_pos())
 
     def display_gold_icon(self):
         self.surface.blit(gold_image, (20, 20))

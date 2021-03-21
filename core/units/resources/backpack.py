@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class BackPack:
     def __init__(self):
         self.max_slots = 20

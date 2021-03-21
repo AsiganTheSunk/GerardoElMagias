@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.resources.mana_bar import ManaBar
 from core.units.resources.stash import Stash
 
@@ -58,7 +61,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
 
         self.experience_system = ExperienceSystem()
 
-        self.current_fury = 0
+        self.current_fury = 100
         self.experience = 0
         self.exp_level_break = 5
         self.fury_status = True

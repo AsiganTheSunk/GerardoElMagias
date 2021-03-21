@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class BasicSpell:
     def __init__(self, caster, target, name):
         if caster is not None:

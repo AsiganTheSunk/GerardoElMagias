@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from pygame import image, transform
 from core.units.animations.db.unit_animation_db import UNIT_ANIMATION_SETS, SKILL_ANIMATION_SETS
@@ -11,7 +12,7 @@ class AnimationResourceClass(Enum):
     ENVIRONMENT = 'environment'
 
 
-class AnimationMaster:
+class AnimationLoader:
     def __init__(self, surface):
         self.surface = surface
         self.environment_animation_sets = []
@@ -22,7 +23,7 @@ class AnimationMaster:
         return self.unit_animation_sets[resource_type]
 
     def load_resource_sets(self, animation_pool, resource_type):
-        print('[ Loading Image Resources ]:')
+        print('[ Loading Animation Resources ]:')
         print('-------' * 10)
         animation_sets = dict()
         # For Each AnimationSet present in AnimationSets: Environment, Skills, Units

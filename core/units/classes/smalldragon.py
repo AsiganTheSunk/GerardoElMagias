@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.skills.melee import MeleeSpells
 
 from core.units.skills.magic import MagicSpells

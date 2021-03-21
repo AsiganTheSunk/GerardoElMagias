@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 from core.units.combat.combat_type_resolution import CombatTypeResolution
 

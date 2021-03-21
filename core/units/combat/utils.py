@@ -1,5 +1,5 @@
-# Pre Save State for Enemy List: target_list
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 def get_alive_targets_status(target_list):
     pre_target_list = []

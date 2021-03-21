@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Combat Imports
 from core.units.combat.combat_formulas import CombatFormulas
 from core.units.combat.combat_resolver import CombatResolver

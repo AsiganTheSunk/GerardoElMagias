@@ -1,10 +1,12 @@
-from pygame import display
-import constants.globals
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.text.combat_text_resolver import CombatTextResolver
 from core.text.damage_text import DamageText
 from constants.basic_images import lightning_image, firestorm_image, next_button_image, background_shop_image, skill_heal_image
 from interface.basic_components import button
 from constants.sound import lightning_spell_1_sound, firestorm_spell_1_sound, heal_spell_1_sound
+
 from core.game.game_modes import GameModes
 
 combat_text_resolver = CombatTextResolver()

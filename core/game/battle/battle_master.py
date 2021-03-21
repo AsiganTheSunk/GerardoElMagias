@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.game.battle.scripted_enemies import scripted_enemy
 from constants.game_windows import screen_height, panel_height
 from core.units.classes.player import HeroPlayer
@@ -19,11 +22,31 @@ class BattleMaster:
         self.current_fighter = self.friendly_fighters[0]
         self.game_mode = GameModes.BATTLE
 
+    def get_hero(self):
+        return self.friendly_fighters[0]
+
+    def is_spell_book_phase(self):
+        return self.game_mode is GameModes.SPELLBOOK
+
+    def is_victory_phase(self):
+        return self.game_mode is GameModes.VICTORY
+
+    def is_defeat_phase(self):
+        return self.game_mode is GameModes.DEFEAT
+
+    def is_player_phase(self):
+        return self.current_fighter is self.friendly_fighters[0]
+
+    def is_battle_phase(self):
+        return self.game_mode is GameModes.BATTLE or self.game_mode is GameModes.BOSS_BATTLE
+
     def create_enemies(self):
         enemy_fighters = []
         if self.is_boss_level():
+            self.game_mode = GameModes.BOSS_BATTLE
             enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
         else:
+            self.game_mode = GameModes.BATTLE
             enemy_group = EnemyGroup(self.animation_master)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
@@ -36,15 +59,21 @@ class BattleMaster:
                           190, screen_height - panel_height + 40, 190, screen_height - panel_height + 40,
                           self.animation_master)
 
-    def get_hero(self):
-        return self.friendly_fighters[0]
-
     def get_total_fighters(self):
         return len(self.enemy_fighters) + len(self.friendly_fighters)
 
-    def move_to_next_fighter(self):
+    def move_to_defeat_phase(self):
         if not self.get_hero().alive:
             self.game_mode = GameModes.DEFEAT
+
+    def move_to_victory_phase(self):
+        if self.no_enemies_alive():
+            self.game_mode = GameModes.VICTORY
+
+    def move_to_next_fighter(self):
+        self.move_to_victory_phase()
+        self.move_to_defeat_phase()
+
         combined_fighters = self.friendly_fighters + self.enemy_fighters
         combined_alive_fighters = list(filter(lambda fighter: fighter.alive, combined_fighters))
         current_index = combined_fighters.index(self.current_fighter)
@@ -53,7 +82,6 @@ class BattleMaster:
             self.move_to_next_fighter()
 
     def next_level(self):
-
         self.level += 1
         if self.is_boss_level():
             self.boss_level += 1
@@ -64,7 +92,7 @@ class BattleMaster:
     def get_alive_enemies(self):
         return list(filter(lambda enemy: enemy.alive, self.enemy_fighters))
 
-    def are_enemies_alive(self):
+    def no_enemies_alive(self):
         return len(self.get_alive_enemies()) == 0
 
     def run_fighter_action(self, damage_text_group):
@@ -81,8 +109,9 @@ class BattleMaster:
                     constants.globals.action_cooldown = 0
                     self.move_to_next_fighter()
                     hero_player.multi_attacks_left = 7
+                else:
+                    self.move_to_victory_phase()
         else:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
             self.move_to_next_fighter()
-
