@@ -59,9 +59,6 @@ class BattleMaster:
                           190, screen_height - panel_height + 40, 190, screen_height - panel_height + 40,
                           self.animation_master)
 
-    def get_hero(self):
-        return self.friendly_fighters[0]
-
     def get_total_fighters(self):
         return len(self.enemy_fighters) + len(self.friendly_fighters)
 
@@ -116,4 +113,3 @@ class BattleMaster:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
             self.move_to_next_fighter()
-
