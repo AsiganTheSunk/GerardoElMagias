@@ -61,7 +61,7 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
 
         self.experience_system = ExperienceSystem()
 
-        self.current_fury = 100
+        self.current_fury = 0
         self.experience = 0
         self.exp_level_break = 5
         self.fury_status = True
