@@ -47,7 +47,7 @@ class StageResolver:
                                  self.game_attributes.text_sprite)
 
         # Sound Master:
-        self.sound_master.stage_selector_sound.select_sound(self.battle_master.level)
+        self.sound_master.stage_sound_selector.select_sound(self.battle_master.level)
         self.sound_master.background_play(self.battle_master.game_mode)
 
         # Kill Switch: Debugging
