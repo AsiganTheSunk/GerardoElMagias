@@ -20,7 +20,7 @@ from pygame import init
 init()
 
 # Game Engine Import:
-from game_engine import GameEngine
+from game.game_engine import GameEngine
 
 
 game = GameEngine()

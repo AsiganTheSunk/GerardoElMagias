@@ -14,10 +14,10 @@ from interface.composed_component.player_interface_panel import StageDrawer
 from core.units.sound.sound_master import SoundMaster
 from core.units.animations.animation_manager import AnimationLoader
 from core.game.battle.battle_master import BattleMaster
-from game_attributes import GameAttributes
+from game.game_attributes import GameAttributes
 
 # Game Event Control Import:
-from stage_resolver import StageResolver
+from core.game.stage.stage_resolver import StageResolver
 
 
 class StageInitializer:
