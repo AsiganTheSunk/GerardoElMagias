@@ -17,6 +17,7 @@ class ClassSound:
         self.block_sound = sounds['fx']['attacks']['miss']
         self.miss_sound = sounds['fx']['attacks']['miss']
 
+
 class ConsumableSounds:
     def __init__(self, sounds):
         self.consume_health_potion = sounds['fx']['items']['health_potion']
@@ -41,7 +42,6 @@ class CommonStageSounds:
         self.empty_loot_sound = sounds['fx']['items']['empty']
         self.victory_sound = sounds['music']['background']['victory']
         # self.defeat_sound = sounds['music']['background']['defeat']
-
 
 
 class StageSounds(CommonStageSounds, ConsumableSounds, MenuSounds):
