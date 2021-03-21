@@ -10,14 +10,16 @@ __maintainer__ = "Father Karras, AsiganTheSunk and GRAN CALAVERA"
 __email__ = ""
 __status__ = "Development"
 
+# Hide Support Message, this must be placed before pygame init Import
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
-# Pygame Imports:
+# Pygame Init Import:
 from pygame import init
 
 init()
 
+# Game Engine Import:
 from game_engine import GameEngine
 
 
