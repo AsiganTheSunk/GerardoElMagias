@@ -1,11 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # controla el cooldown entre acciones
 action_cooldown = 0
 
-# controla los turnos. 1 = turno del jugador; 2 o más = turno del enemigo
+run_game = True
+run_stage = False
 
-number_of_strikes = 0
-action_wait_time = 90
-
-run = True
-runbattle = False
 clicked = False

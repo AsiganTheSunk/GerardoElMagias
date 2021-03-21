@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from pygame import time, Surface, Rect, SRCALPHA, draw, mask
 from core.units.animations.sets.animation_set import AnimationSet

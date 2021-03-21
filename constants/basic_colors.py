@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Default Color: Definitions
 RED_COLOR = (255, 0, 0)
 GREEN_COLOR = (0, 255, 0)

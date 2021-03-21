@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 from core.units.classes.melee_bandit import Bandit
 from enum import Enum

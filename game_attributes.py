@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Pygame Imports:
 from pygame import time, display, mixer, sprite
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from constants.basic_colors import *
 from core.text.combat_text_types import CombatTextTypes

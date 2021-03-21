@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \

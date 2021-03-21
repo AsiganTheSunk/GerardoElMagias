@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.sound.sound_resource import SoundResource
 from core.units.sound.sound_type import SoundType, SoundFileExtension, SoundFxSubType, SoundMusicSubType
 

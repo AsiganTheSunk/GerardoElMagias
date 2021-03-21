@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 

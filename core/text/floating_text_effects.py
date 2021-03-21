@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pygame import init, sprite, transform, time, display, Color, Surface, SRCALPHA, BLEND_RGBA_MULT
 from math import sin, cos, radians
 

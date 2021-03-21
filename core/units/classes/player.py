@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.resources.mana_bar import ManaBar
 from core.units.resources.stash import Stash
 

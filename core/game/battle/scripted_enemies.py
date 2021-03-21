@@ -1,4 +1,7 @@
-#from core.units.classes.melee_bandit import Bandit
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.units.classes.melee_bandit import Bandit
 from core.units.classes.banditchief import BanditChief
 from core.units.classes.smalldragon import SmallDragon
 from core.units.classes.dragon import Dragon

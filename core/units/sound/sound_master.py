@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pygame import mixer
 from core.units.sound.sound_db import SOUND_POOL
 from core.game.game_modes import GameModes
@@ -200,8 +202,8 @@ class SoundLoader:
         self.sounds = sound_type
         import pprint
 
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(self.sounds)
+        # pp = pprint.PrettyPrinter(indent=4)
+        # pp.pprint(self.sounds)
 
     def load_resource(self, resource_type, sound_set, sound_name, sound_file_extension, sound_volume):
         # print(f"> resources/sound/{resource_type.lower()}/{sound_set.lower()}/

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 from core.text.damage_text import DamageText
 from constants.sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound

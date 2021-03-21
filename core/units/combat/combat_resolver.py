@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.combat.combat_type_resolution import CombatTypeResolution
 
 import constants.globals
@@ -75,8 +78,9 @@ class CombatResolver:
     def resolve_multi_attack(self, caster, target_list, multi_strike, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
+        # TODO: pass de proper wait time instead of 90
         if self.multi_attacks_left >= 0:
-            if constants.globals.action_cooldown >= constants.globals.action_wait_time:
+            if constants.globals.action_cooldown >= 90:
                 if len(alive_enemy) > 0:
                     target = alive_enemy[randint(0, len(alive_enemy) - 1)]
                     caster.melee_attack_animation()
@@ -90,9 +94,6 @@ class CombatResolver:
             caster.ultimate_status = False
             # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             constants.globals.action_cooldown = -40
-
-
-
 
     def resolve_fixed_damage_attack(self, target, input_damage, input_type, damage_text_group):
         target.hurt_animation()
