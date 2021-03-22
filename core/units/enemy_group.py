@@ -72,11 +72,11 @@ class EnemyStatsGenerator:
 class EnemyPositionsGenerator:
     @staticmethod
     def generate_forest_enemy_positions():
-        return [(500, 555), (600, 600), (700, 555), (800, 600)]
+        return [(650, 475), (775, 500), (900, 475), (1025, 500)]
 
     @staticmethod
     def generate_castle_enemy_positions():
-        return [(500, 570), (700, 570), (600, 500), (800, 500)]
+        return [(700, 420), (825, 480), (950, 420), (1075, 480)]
 
     def get_enemy_positions(self, boss_level):
         if boss_level < 2:
@@ -110,10 +110,10 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
     @staticmethod
     def get_enemy_healthbar_positions():
         return [
-            (480, screen_height - panel_height + 40),
-            (480, screen_height - panel_height + 100),
-            (700, screen_height - panel_height + 40),
-            (700, screen_height - panel_height + 100)
+            (680, screen_height - panel_height + 40),
+            (680, screen_height - panel_height + 100),
+            (900, screen_height - panel_height + 40),
+            (900, screen_height - panel_height + 100)
         ]
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):

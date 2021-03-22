@@ -43,6 +43,7 @@ class Djinn(BasicUnit, MeleeSpells, MagicSpells):
         return True
 
     def power_of_two_attack(self, target, damage_text_group):
+        self.melee_attack_animation()
         exponent = self.power_of_two_exponent
         self.cast_power_of_two_attack(target, damage_text_group, exponent)
         self.power_of_two_exponent += 1
@@ -82,11 +83,14 @@ class Djinn(BasicUnit, MeleeSpells, MagicSpells):
 
 
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 0.7)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.75)
         if health_trigger:
             i = randint(1, 2)
             if i == 1:
-                self.use_heal(damage_text_group)
+                if self.current_mp >= 12:
+                    self.use_heal(damage_text_group)
+                else:
+                    self.power_of_two_attack(target, damage_text_group)
             if i == 2:
                 self.power_of_two_attack(target, damage_text_group)
 
