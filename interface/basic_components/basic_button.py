@@ -28,27 +28,37 @@ class BasicButton:
         self.surface = surface
         self.last_update = 0
 
+        self.key_bind = None
         self.button_status = True
 
+    def set_key_bind(self, key_bind):
+        self.key_bind = key_bind
+
+    def get_key_bind(self):
+        return self.key_bind
+
     def button_text_placement(self, placement):
-        if placement == 'center':
-            # return (self.x + (self.image_width / 2)), (self.y + (self.image_height / 2))
-            return (self.x + (self.image_width / 2)), (self.y - (self.image_height / 2))
-        elif placement == 'under':
-            pass
-
-    def button_text(self, text, placement):
-        pass
-
-    def display_text(self):
-        # Todo: Find bette fit
         text_width, text_height = self.text_font.size(self.text_message)
-        self.surface.blit(
-            self.text_font.render(self.text_message, True, self.text_color),
-            ((self.x + (self.image_width / 2)) + text_width/2, (self.y + (self.image_height / 2) + text_height/2)))
+        center_x, center_y = self.rect.center
+        if placement == 'center':
+            return (center_x - text_width/2), (center_y - text_height/2)
+        elif placement == 'bottom_center':
+            return (center_x - text_width/2), (center_y + text_height - 2)
+        elif placement == 'bottom_under':
+            return (center_x - text_width/2), (center_y + self.image_height/2)
+        elif placement == 'top_center':
+            return (center_x - text_width/2), (center_y - self.image_height/2 - 2)
+        elif placement == 'top_over':
+            return (center_x - text_width/2), (self.rect.y - text_height - 2)
+
+    def display_text(self, active=False, placement='bottom_under'):
+        text_x, text_y = self.button_text_placement(placement)
+        if not active:
+            self.surface.blit(self.text_font.render(self.text_message, True, Color('White')), (text_x, text_y))
+        else:
+            self.surface.blit(self.text_font.render(self.text_message, True, Color('Tomato')),  (text_x, text_y))
 
     def display(self, show_text=False):
-        # draw button
         if self.button_status:
             self.surface.blit(self.image, (self.rect.x, self.rect.y))
         else:
@@ -61,36 +71,53 @@ class BasicButton:
     def mouse_collide(self):
         return self.rect.collidepoint(mouse.get_pos())
 
-    def activate_button(self):
+    def activate(self):
         self.button_status = True
 
-    def deactivate_button(self):
+    def deactivate(self):
         self.button_status = False
+
+    def mouse_over_effect(self):
+        mouse_over = Surface((self.image_width, self.image_width), SRCALPHA, 32)
+        mouse_over.set_alpha(100)
+        mouse_over.fill(Color('LightBlue'))
+        self.surface.blit(mouse_over, (self.rect.x, self.rect.y))
+        draw.rect(self.surface, Color('Blue'), (self.rect.x, self.rect.y, self.image_width+1, self.image_height+1), 2)
 
     def is_hover(self):
         if self.mouse_collide():
-            mouse_over = Surface((self.image_width, self.image_width), SRCALPHA, 32)
-            mouse_over.set_alpha(100)
-            mouse_over.fill(Color('LightBlue'))
-            self.surface.blit(mouse_over, (self.rect.x, self.rect.y))
+            self.mouse_over_effect()
 
-    def click_animation(self):
-        # Todo: find a way to create the proper push down animation
-        pass
+    def click_effect(self):
+        self.surface.blit(self.clicked_image, (self.rect.x + 3, self.rect.y + 3))
+        if self.is_hover():
+            self.mouse_over_effect()
+        draw.rect(self.surface, Color('Tomato'), (self.rect.x, self.rect.y, self.image_width+1, self.image_height+1), 2)
 
     def debounce_time(self, interval=500):
         return time.get_ticks() - self.last_update >= interval
 
-    def is_clicked(self):
+    def activate_button(self, interval=500):
+        self.is_key_bind_clicked(interval)
+        self.is_mouse_clicked(interval)
+
+    def is_key_bind_clicked(self, interval=500):
+        pass
+
+    def is_mouse_clicked(self, interval=500):
         if self.mouse_collide() and self.button_status:
-            if mouse.get_pressed(num_buttons=3)[0] and self.debounce_time():
-                self.last_update = time.get_ticks()
-                return True
+            if mouse.get_pressed(num_buttons=3)[0]:
+                self.click_effect()
+                self.display_text(True)
+                if self.debounce_time(interval):
+                    self.last_update = time.get_ticks()
+                    return True
         return False
 
-    def grayscale(self, img):
+    @staticmethod
+    def grayscale(img):
         arr = surfarray.array3d(img)
-        # luminosity filter
+        # Luminosity Filter
         avgs = [[(r * 0.298 + g * 0.587 + b * 0.114) for (r, g, b) in col] for col in arr]
         arr = array([[[avg, avg, avg] for avg in col] for col in avgs])
         return surfarray.make_surface(arr)
