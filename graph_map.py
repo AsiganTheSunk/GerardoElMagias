@@ -9,34 +9,23 @@ TEXTCOLOR = (0, 0, 0)
 
 running = True
 from pygame import font, init, time
-from graph_generator import MapGraphGenerator
+from graph_generator import MapGraphGenerator, BasicNodeProperties
 
-stage_list = ['Shop', 'Forest', 'Castle', 'Desert', 'Tombs', 'Dark Forest']
+main_line_forest = [
+    BasicNodeProperties(1, 5, [], ['Bandit'], []),
+    BasicNodeProperties(2, 6, [5], ['Bandit'], ['Chief Bandit']),
+    BasicNodeProperties(3, 4, [1, 3], ['Bandit'], ['Chief Bandit', 'Djinn']),
+]
 
-map_graph_generator = MapGraphGenerator()
-list_of_nodes = map_graph_generator.generate_main_map(stage_list)
+main_line_castle = [
+    BasicNodeProperties(1, 5, [], ['Esqueleteiro'], []),
+    BasicNodeProperties(2, 6, [5], ['Esqueleteiro'], ['Chief Esqueleteiro']),
+    BasicNodeProperties(3, 4, [1, 3], ['Esqueleteiro'], ['Chief Esqueleteiro', 'Djinn']),
+]
 
-# for index, item in enumerate(list_of_nodes):
-#     print('Index:', index, 'Current Node:', item.name)
-#     if item.previous_node is not None:
-#         print('Previous Node:', item.previous_node.name)
-#     if item.next_node is not None:
-#         print('Next Node:', item.next_node.name)
-#     if item.right_alternative_path_node is not None:
-#         print('Alt. Right Node:', item.right_alternative_path_node.name)
-#         if item.right_alternative_path_node.previous_node is not None:
-#             print('Alt. Right Previous Node:', item.right_alternative_path_node.previous_node.name)
-#         if item.right_alternative_path_node.next_node is not None:
-#             print('Alt. Right Next Node:', item.right_alternative_path_node.next_node.name)
-#         if item.right_alternative_path_node.dungeon_node is not None:
-#             print('Dungeon Alt. Node:', item.right_alternative_path_node.dungeon_node.name)
-#             if item.right_alternative_path_node.dungeon_node.next_node is not None:
-#                 print('Alt. Shop Portal Node:', item.right_alternative_path_node.dungeon_node.next_node.name)
-#     if item.dungeon_node is not None:
-#         print('Dungeon Node:', item.dungeon_node.name)
-#         if item.dungeon_node.next_node is not None:
-#             print('Shop Portal Node:', item.dungeon_node.next_node.name)
-#     print('-------' * 8)
+map_generator = MapGraphGenerator()
+normal_world = map_generator.generate_world_map(['Forest', 'Castle'], [main_line_forest, main_line_castle])
+
 
 # https://stackoverflow.com/questions/19117062/how-to-add-text-into-a-pygame-rectangle
 # https://stackoverflow.com/questions/32909847/line-styles-in-pygame
@@ -65,7 +54,7 @@ class MapGraphDrawer:
         starting_pos_x = 100
         step = 120
         starting_pos_y = 250
-        for index, item in enumerate(node_map):
+        for _ in node_map:
             self.node_pos_list.append((starting_pos_x, starting_pos_y))
             starting_pos_x += step
 
@@ -91,6 +80,8 @@ class MapGraphDrawer:
 def debounce_time(last_updated, interval=600):
     return time.get_ticks() - last_updated >= interval
 
+
+list_of_nodes = ['Forest', 'Castle', 'Desert', 'Tombs']
 
 def main():
     global running, screen
@@ -144,7 +135,7 @@ def main():
                 index_to_draw = index
 
         if index_to_draw != -1:
-            screen.blit(interface_font.render('[ ' + list_of_nodes[index_to_draw].name + ' ]', True, (255, 0, 0)), (200, 100))
+            # screen.blit(interface_font.render('[ ' + list_of_nodes[index_to_draw].name + ' ]', True, (255, 0, 0)), (200, 100))
             pygame.display.update()
 
         keys = pygame.key.get_pressed()
@@ -163,7 +154,7 @@ def main():
 
         if (keys[pygame.K_SPACE] or keys[pygame.K_RETURN]) and debounce_time(last_updated):
             # to move right
-            print('Entering', '[ ' + list_of_nodes[index_to_draw].name + ' ]', '....')
+            # print('Entering', '[ ' + list_of_nodes[index_to_draw].name + ' ]', '....')
             last_updated = time.get_ticks()
 
         clock.tick(60)
@@ -178,7 +169,6 @@ def get_pos_x_y():
 def draw_circle():
     pos = get_pos_x_y()
     pygame.draw.circle(screen, BLUE, pos, 20)
-
 
 
 if __name__ == '__main__':
