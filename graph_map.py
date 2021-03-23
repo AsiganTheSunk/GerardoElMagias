@@ -1,4 +1,4 @@
-from pygame import font, mouse, init, draw, display, Color, time, event as pygame_event, QUIT
+from pygame import font, mouse, init, draw, display, Color, time, event as pygame_event, QUIT, key
 init()
 
 from graph_generator import MapGraphGenerator, BasicNodeProperties
@@ -37,7 +37,7 @@ def main():
     interface_font = font.Font(tahoma_font_path, 15)
     interface_font.set_bold(True)
 
-    display.set_caption("TUFF")
+    display.set_caption("Game Map Graph")
     screen.fill(Color('DarkOliveGreen4'))
     map_graph_navigator.display()
     display.update()
@@ -45,6 +45,8 @@ def main():
     running = True
 
     while running:
+        map_graph_navigator.navigate()
+        # map_graph_navigator.perform_mouse_over_action()
         # Did the user click the window close button?
         for event in pygame_event.get():
             if event.type == QUIT:

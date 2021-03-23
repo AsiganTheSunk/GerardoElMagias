@@ -26,7 +26,6 @@ class MapGraphDrawer:
         self.starting_node_position_y = 250
 
         self.last_updated = 0
-
         self.total_steps = 0
 
     # def draw_circle(self):
@@ -65,7 +64,6 @@ class MapGraphDrawer:
 
     def display_main_line_node_positions(self):
         for stage_rect_node in self.stage_rect_node_list:
-            print(stage_rect_node)
             draw.rect(self.surface, Color('LightBlue'), stage_rect_node)
 
     def display_graph_map(self):
@@ -75,13 +73,17 @@ class MapGraphDrawer:
     def mouse_click(self):
         for stage_node_index, stage_rect_node in enumerate(self.stage_rect_node_list):
             if stage_rect_node.collidepoint(mouse.get_pos()) and self.debounce_time():
+                print(stage_rect_node, stage_node_index)
                 self.update_last_time()
                 return stage_rect_node, self.current_realm_map[stage_node_index]
+
+        return None, None
 
     def mouse_over(self):
         for stage_node_index, stage_rect_node in enumerate(self.stage_rect_node_list):
             if stage_rect_node.collidepoint(mouse.get_pos()):
                 return self.current_realm_map[stage_node_index]
+        return None
 
     def update_last_time(self):
         self.last_updated = time.get_ticks()
@@ -99,7 +101,7 @@ class MapGraphNavigator:
         self.map_font = font.Font(self.map_font_path, 15)
         self.map_font.set_bold(True)
         self.last_updated = 0
-        self.rect = Rect(100, 250, 20, 20)
+
         self.surface = surface
 
         self.last_updated = 0
@@ -109,6 +111,9 @@ class MapGraphNavigator:
         self.map_graph_generator = MapGraphDrawer(self.surface)
         self.map_graph_generator.set_current_realm(self.current_realm)
         self.map_graph_generator.generate_main_line_node_position()
+
+        self.navigation_rect = \
+            Rect(self.map_graph_generator.starting_node_position_x, self.map_graph_generator.starting_node_position_y, 30, 30)
 
     def update_current_realm(self, current_realm_index):
         self.current_realm = self.full_world_map[current_realm_index]
@@ -125,21 +130,25 @@ class MapGraphNavigator:
             if event.type == MOUSEBUTTONUP:
                 stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
                 if stage_node_rect is not None:
-                    self.rect.x = stage_node_rect.x
+                    self.navigation_rect.x = stage_node_rect.x
 
             if event.type == QUIT:
+                # Todo: Return to World Map
                 running = False
 
         if (keys[K_a] or keys[K_LEFT]) and self.debounce_time():  # to move left
-            self.rect.x -= 120
-            if self.rect.x < 100:
-                self.rect.x = 100
+            print('press A')
+            self.navigation_rect.x -= 120
+            if self.navigation_rect.x < 100:
+                self.navigation_rect.x = 100
+
             self.last_updated = time.get_ticks()
 
         if (keys[K_d] or keys[K_RIGHT]) and self.debounce_time():
-            self.rect.x += 120
-            if self.rect.x > 340:
-                self.rect.x = 340
+            print('press D')
+            self.navigation_rect.x += 120
+            if self.navigation_rect.x > 340:
+                self.navigation_rect.x = 340
             self.last_updated = time.get_ticks()
 
         if (keys[K_SPACE] or keys[K_RETURN]) and self.debounce_time():
@@ -148,9 +157,16 @@ class MapGraphNavigator:
             print('Entering', '[ Stage ]', '....')
             self.last_updated = time.get_ticks()
 
+        # self.display_navigation_box()
+
+    def display_navigation_box(self):
+        print(self.navigation_rect.x, self.navigation_rect.y)
+        draw.rect(self.surface, Color('Cyan'), self.navigation_rect)
+
     def display(self):
         self.map_graph_generator.display_graph_map()
-        # draw.rect(self.surface, (250, 100, 20), self.rect)
+        starting_stage_position_x = self.map_graph_generator.starting_node_position_x
+        starting_stage_position_y = self.map_graph_generator.starting_node_position_y
 
     def perform_mouse_over_action(self):
         stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
@@ -164,7 +180,8 @@ class MapGraphNavigator:
             self.surface.blit(self.map_font.render(
                 f'[ Stage {stage_node_data.name} {stage_node_data.node_index} ]', True, (255, 0, 0)), (200, 100))
             display.update()
-    #
+
     # def navigate(self):
     #     ev = pygame.event.get()
     #     self.map_drawer.display_node(screen)
+
