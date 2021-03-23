@@ -20,10 +20,12 @@ class EnemySetGenerator:
         return tmp
 
     def get_enemy_set(self, boss_level, group_size):
-        if boss_level < 2:
-            return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
-        elif boss_level >= 2:
+        if boss_level > 3:
+            return self.generate_set(group_size, [UnitType.LIZARD, UnitType.BONE_WIZARD])
+        elif boss_level > 1:
             return self.generate_set(group_size, [UnitType.BONE_WIZARD, UnitType.BONE_WIZARD])
+        else:
+            return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
 
 
 class UnitType(Enum):
@@ -78,11 +80,20 @@ class EnemyPositionsGenerator:
     def generate_castle_enemy_positions():
         return [(700, 420), (825, 480), (950, 420), (1075, 480)]
 
+    @staticmethod
+    def generate_dungeon_enemy_positions():
+        return [(700, 370), (825, 450), (950, 370), (1075, 450)]
+
+
     def get_enemy_positions(self, boss_level):
-        if boss_level < 2:
-            return self.generate_forest_enemy_positions()
-        elif boss_level >= 2:
+        if boss_level > 3:
+            return self.generate_dungeon_enemy_positions()
+        elif boss_level > 1:
             return self.generate_castle_enemy_positions()
+        else:
+            return self.generate_forest_enemy_positions()
+
+
 
 
 class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
@@ -103,9 +114,9 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
         elif 10 <= level < 14:
             return randint(2, 4)
         elif 14 <= level < 18:
-            return randint(3, 4)
+            return randint(2, 4)
         elif level >= 18:
-            return 4
+            return randint(3,4)
 
     @staticmethod
     def get_enemy_healthbar_positions():

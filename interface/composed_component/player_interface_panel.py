@@ -5,7 +5,7 @@ from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
     background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
-    defeat_banner_image
+    defeat_banner_image, background_dungeon
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font, interface_font
@@ -43,7 +43,7 @@ class PlayerInterfacePanel:
         self.spell_book_button = Button(self.surface, 10, 600, spellbook_image, 100, 100)
 
         # Skill Buttons:
-        self.ultimate_button = Button(self.surface, 400, 120, ultimate_image, 50, 50)
+        self.ultimate_button = Button(self.surface, 555, 590, ultimate_image, 60, 60)
 
         # Kill All Button:
         self.kill_all_button = Button(self.surface, 18, 90, skull_image, 55, 55)
@@ -152,12 +152,17 @@ class StageBackground:
         self.castle_background_image = background_castle
         self.castle_background = None
 
+        self.dungeon_background_image = background_dungeon
+        self.dungeon_background = None
+
     def set_stage_background(self, level):
         # draw backgrounds
         if level <= 7:
             self.surface.blit(self.forest_background_image, (128, 0))
         if level > 7:
             self.surface.blit(self.castle_background_image, (128, 0))
+        if level > 15:
+            self.surface.blit(self.dungeon_background_image, (128, 0))
 
 
 class PlayerInterfaceText:
@@ -195,8 +200,10 @@ class PlayerInterfaceText:
     def display_stage_information(self, level):
         if level <= 7:
             self.display_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 510, 25)
-        else:
+        elif level <= 14:
             self.display_text(f"THE CASTLE: STAGE {level - 7}", default_font, RED_COLOR, 510, 25)
+        else:
+            self.display_text(f"THE DUNGEON: STAGE {level - 15}", default_font, RED_COLOR, 510, 25)
 
     def display_debug_information(self, _current_fighter, _total_fighters):
         self.display_text(f"Total fighters: {_total_fighters}", default_font, YELLOW_COLOR, 600, 100)

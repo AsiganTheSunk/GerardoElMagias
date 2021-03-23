@@ -38,6 +38,7 @@ SOUND_POOL = {
             SoundResource('forest', SoundFileExtension.MP3, 0.07),
             SoundResource('victory', SoundFileExtension.MP3, 0.1),
             SoundResource('castle', SoundFileExtension.MP3, 0.1),
+            SoundResource('dungeon', SoundFileExtension.MP3, 0.2),
         ]
     }
 }

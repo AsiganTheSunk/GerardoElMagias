@@ -4,15 +4,13 @@
 from pygame import image
 from pygame import transform
 
-background_castle = image.load("resources/background/castle.gif")
-background_castle = transform.scale(background_castle, (1024, 576))
-
-
 # Background Images:
 background_forest = image.load("resources/background/forest.png")
 background_forest = transform.scale(background_forest, (1024, 576))
-background_intro = image.load("resources/background/magia.jpg")
-
+background_castle = image.load("resources/background/castle.gif")
+background_castle = transform.scale(background_castle, (1024, 576))
+background_dungeon = image.load("resources/background/dungeon.jpg")
+background_dungeon = transform.scale(background_dungeon, (1024, 576))
 
 # Panel Images:
 panel_image = image.load("resources/icons/panel.jpg")

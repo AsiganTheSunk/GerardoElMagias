@@ -16,8 +16,8 @@ def scripted_enemy(boss_level, animation_master):
         None,
         BanditChief(650, 475, "BanditChief", 10, 190, 0, 17, 3, 0, 680, (screen_height - panel_height + 40), animation_master),
         Djinn(750, 400, "Djinn", 14, 214, 30, 0, 0, 10, 680, (screen_height - panel_height + 40), animation_master),
-        SmallDragon(730, 435, "SmallDragon", 18, 244, 50, 18, 7, 12, 680, (screen_height - panel_height + 40), animation_master),
-        Dragon(800, 350, "Dragon", 22, 325, 62, 20, 8, 22, 680, (screen_height - panel_height + 40), animation_master),
+        SmallDragon(730, 438, "SmallDragon", 18, 244, 50, 18, 7, 12, 680, (screen_height - panel_height + 40), animation_master),
+        Dragon(800, 352, "Dragon", 22, 325, 62, 20, 8, 22, 680, (screen_height - panel_height + 40), animation_master),
         Demon(800, 365, "Demon", 26, 335, 50, 31, 12, 18, 680, (screen_height - panel_height + 40), animation_master),
         Demon(600, 365, "Demon", 30, 514, 100, 41, 25, 25, 680, (screen_height - panel_height + 40), animation_master)
     ]
