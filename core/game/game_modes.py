@@ -1,8 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from enum import Enum
 
 
 class GameModes(Enum):
     BATTLE = 0
-    VICTORY = 1
-    SPELLBOOK = 2
+    BOSS_BATTLE = 1
+    VICTORY = 2
     DEFEAT = 3
+    SPELLBOOK = 4
+
+
+class GameMenuModes(Enum):
+    MENU = 0
+    SPELLBOOK = 1
+    SHOP = 2

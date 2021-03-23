@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.skills.melee import MeleeSpells
 
 from core.units.skills.magic import MagicSpells
@@ -65,7 +68,6 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
 
-
     def death_animation(self):
         # Activates: Death Animation
         self.animation_set.action = 1
@@ -93,14 +95,21 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 75)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.70)
         if health_trigger:
             i = randint(1, 3)
             if i == 1:
                 self.attack(target, damage_text_group)
             elif i == 2:
-                self.use_heal(damage_text_group)
+                if self.current_mp >= 12:
+                    self.use_heal(damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
             elif i == 3:
-                self.use_firestorm([target], damage_text_group)
+                if self.current_mp >= 15:
+                    self.use_firestorm([target], damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
         else:
             self.attack(target, damage_text_group)
+

@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 import constants.globals
 
-global ulti_atacks
-ulti_atacks = 1
+global ulti_attacks
+ulti_attacks = 1
 
 # Skill Imports
 from core.units.skills.melee import MeleeSpells
@@ -21,7 +24,7 @@ class Lizard(BasicUnit, MeleeSpells):
         # Bandit Loot
         self.looted_status = False
         self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Lizard'))
-        self.current_fury = 1
+        self.current_fury = 0
         self.fury_status = True
 
     def is_looted(self):
@@ -63,15 +66,15 @@ class Lizard(BasicUnit, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        global ulti_atacks
+        global ulti_attacks
         if self.current_fury >= 40:
-            if ulti_atacks < 3:
+            if ulti_attacks < 3:
                 self.attack(target, damage_text_group)
-                ulti_atacks += 1
+                ulti_attacks += 1
                 constants.globals.action_cooldown = 70
             else:
                 self.attack(target, damage_text_group)
-                ulti_atacks = 1
-                self.current_fury = 1
+                ulti_attacks = 1
+                self.current_fury = 0
         else:
             self.attack(target, damage_text_group)

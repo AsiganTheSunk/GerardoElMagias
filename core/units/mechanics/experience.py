@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 from core.text.damage_text import DamageText
 
@@ -31,8 +34,12 @@ class ExperienceSystem:
         hero_player.strength += randint(2, 3)
         hero_player.dexterity += randint(1, 2)
         hero_player.magic += randint(1, 3)
-        hero_player.max_hp += randint(5, 8)
-        hero_player.max_mp += randint(3, 5)
+        i = randint(6,10)
+        hero_player.max_hp += i
+        hero_player.current_hp += i
+        i = randint(3, 5)
+        hero_player.max_mp += i
+        hero_player.current_mp += i
 
         hero_player.exp_level_break = round(hero_player.exp_level_break * 1.6)
         hero_player.level += 1

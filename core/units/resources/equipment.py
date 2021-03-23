@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.items.equipement_items.item_categories import *
 from core.items.generated_item import GeneratedItem
 

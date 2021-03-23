@@ -1,17 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pygame import mixer
-
-# MUSIC
-boss_music = mixer.Sound("resources/music/boss.mp3")
-boss_music.set_volume(0.07)
-
-battle_music = mixer.Sound("resources/music/battle.mp3")
-battle_music.set_volume(0.07)
-
-victory_music = mixer.Sound("resources/music/victory.mp3")
-victory_music.set_volume(0.1)
-
-castle_music = mixer.Sound("resources/music/castle.mp3")
-castle_music.set_volume(0.1)
 
 # SOUND FX
 # SPELL SOUNDS

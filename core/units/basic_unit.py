@@ -1,4 +1,5 @@
-# from core.units.animations.animation_resolver import AnimationSet
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 class BasicUnit:
     def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic):
