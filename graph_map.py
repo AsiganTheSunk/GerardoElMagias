@@ -1,4 +1,4 @@
-from pygame import font, mouse, init, draw, display, Color, time
+from pygame import font, mouse, init, draw, display, Color, time, event as pygame_event, QUIT
 init()
 
 from graph_generator import MapGraphGenerator, BasicNodeProperties
@@ -10,6 +10,7 @@ from stage_map_navigator import MapGraphNavigator, MapGraphDrawer
 main_line_forest = [
     BasicNodeProperties(1, 5, [], ['Bandit'], []),
     BasicNodeProperties(2, 6, [5], ['Bandit'], ['Chief Bandit']),
+    BasicNodeProperties(2, 8, [5], ['Bandit'], ['Chief Bandit']),
     BasicNodeProperties(3, 4, [1, 3], ['Bandit'], ['Chief Bandit', 'Djinn']),
 ]
 
@@ -20,8 +21,13 @@ main_line_castle = [
 ]
 
 map_generator = MapGraphGenerator()
-normal_world = map_generator.generate_world_map(['Forest', 'Castle'], [main_line_forest, main_line_castle])
-list_of_nodes = ['Forest', 'Castle', 'Desert', 'Tombs']
+full_world_map = map_generator.generate_world_map(['Forest', 'Castle'], [main_line_forest, main_line_castle])
+
+screen = display.set_mode((1024, 576))
+map_graph_navigator = MapGraphNavigator(screen, full_world_map, 0)
+
+clock = time.Clock()
+clock.tick(60)
 
 
 def main():
@@ -30,24 +36,24 @@ def main():
     tahoma_font_path = './resources/fonts/Tahoma.ttf'
     interface_font = font.Font(tahoma_font_path, 15)
     interface_font.set_bold(True)
+
     display.set_caption("TUFF")
-
-    screen = display.set_mode((1280, 720))
     screen.fill(Color('DarkOliveGreen4'))
+    map_graph_navigator.display()
     display.update()
-    clock = time.Clock()
 
-    map_graph_navigator = MapGraphNavigator(screen)
-    map_graph_navigator.map_drawer.generate_node_pos(list_of_nodes)
+    running = True
 
     while running:
-        map_graph_navigator.display()
-        map_graph_navigator.stage_node_mouse_over()
-        map_graph_navigator.stage_node_header_information()
-        map_graph_navigator.navigate()
+        # Did the user click the window close button?
+        for event in pygame_event.get():
+            if event.type == QUIT:
+                running = False
 
-        clock.tick(60)
         display.update()
+
+    # Done! Time to quit.
+    quit()
 
 
 if __name__ == '__main__':

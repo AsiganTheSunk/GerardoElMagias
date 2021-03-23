@@ -169,7 +169,7 @@ class MapGraphGenerator:
         for realm_index, realm_name in enumerate(realm_name_list):
             current_realm = self.generate_main_map(realm_name, list_of_realm_properties[realm_index])
             world_map.append(current_realm)
-            self.show_realm(current_realm)
+            # self.show_realm(current_realm)
         return world_map
 
     def show_realm(self, node_list):
@@ -234,20 +234,20 @@ class BasicNodeProperties:
         return full_path_list
 
 
-main_line_forest = [
-    BasicNodeProperties(1, 5, [], ['Bandit'], []),
-    BasicNodeProperties(2, 6, [5], ['Bandit'], ['Chief Bandit']),
-    BasicNodeProperties(3, 4, [1, 3], ['Bandit'], ['Chief Bandit', 'Djinn']),
-]
-
-main_line_castle = [
-    BasicNodeProperties(1, 5, [], ['Esqueleteiro'], []),
-    BasicNodeProperties(2, 6, [5], ['Esqueleteiro'], ['Chief Esqueleteiro']),
-    BasicNodeProperties(3, 4, [1, 3], ['Esqueleteiro'], ['Chief Esqueleteiro', 'Djinn']),
-]
-
-map_generator = MapGraphGenerator()
-normal_world = map_generator.generate_world_map(['Forest', 'Castle'], [main_line_forest, main_line_castle])
+# main_line_forest = [
+#     BasicNodeProperties(1, 5, [], ['Bandit'], []),
+#     BasicNodeProperties(2, 6, [5], ['Bandit'], ['Chief Bandit']),
+#     BasicNodeProperties(3, 4, [1, 3], ['Bandit'], ['Chief Bandit', 'Djinn']),
+# ]
+#
+# main_line_castle = [
+#     BasicNodeProperties(1, 5, [], ['Esqueleteiro'], []),
+#     BasicNodeProperties(2, 6, [5], ['Esqueleteiro'], ['Chief Esqueleteiro']),
+#     BasicNodeProperties(3, 4, [1, 3], ['Esqueleteiro'], ['Chief Esqueleteiro', 'Djinn']),
+# ]
+#
+# map_generator = MapGraphGenerator()
+# normal_world = map_generator.generate_world_map(['Forest', 'Castle'], [main_line_forest, main_line_castle])
 
 
 class StageSelector:
