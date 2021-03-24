@@ -138,20 +138,24 @@ class MapGraphGenerator:
 
         return current_node, previous_node, None
 
-    def generate_main_map(self, stage_name, stage_property_list):
+    def generate_main_line_map(self, realm_list):
+        pass
+
+    def generate_realm_map(self, stage_name, stage_property_list, main_line=False):
         final_list_of_nodes = []
         previous_node = None
-
         for index, stage_property in enumerate(stage_property_list):
             current_node = self.create_node(stage_name, index, stage_property)
 
             current_node, previous_node = self.bind_previous_nodes(current_node, previous_node)
-            if current_node != previous_node:
-                current_node, previous_node, alternative_path_node = \
-                    self.bind_right_alt_node(current_node, previous_node, index)
 
-                dungeon_node = self.bind_dungeon_node(alternative_path_node, index)
-                self.bind_shop_node(dungeon_node, index)
+            if not main_line:
+                if current_node != previous_node:
+                    current_node, previous_node, alternative_path_node = \
+                        self.bind_right_alt_node(current_node, previous_node, index)
+
+                    dungeon_node = self.bind_dungeon_node(alternative_path_node, index)
+                    self.bind_shop_node(dungeon_node, index)
 
                 dungeon_node = self.bind_dungeon_node(current_node, index)
                 self.bind_shop_node(dungeon_node, index)
@@ -167,7 +171,7 @@ class MapGraphGenerator:
         # nodes_of_castle_real = map_graph_generator.generate_main_map('Castle', main_line_castle)
         world_map = []
         for realm_index, realm_name in enumerate(realm_name_list):
-            current_realm = self.generate_main_map(realm_name, list_of_realm_properties[realm_index])
+            current_realm = self.generate_realm_map(realm_name, list_of_realm_properties[realm_index])
             world_map.append(current_realm)
             # self.show_realm(current_realm)
         return world_map
