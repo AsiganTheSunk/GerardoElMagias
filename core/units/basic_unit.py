@@ -4,7 +4,7 @@
 from constants.sound import *
 
 class BasicUnit:
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic):
+    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic):
 
         # Basic Unit Coordinates x,y
         self.x = x
@@ -16,19 +16,21 @@ class BasicUnit:
         # Basic Unit Stats
         self.level = level
 
-        # Basic Resource Stats: Fury, Mana, Health
-        self.max_fury = 100
-        self.current_fury = 0
-        self.max_hp = max_hp
-        self.current_hp = self.max_hp
-        self.max_mp = max_mp
-        self.current_mp = self.max_mp
-
         # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
         self.strength = strength
         self.dexterity = dexterity
+        self.vitality = vitality
         self.magic = magic
         self.intellect = 1
+
+        # Basic Resource Stats: Fury, Mana, Health
+        self.max_fury = 100
+        self.current_fury = 0
+        self.max_hp = self.vitality * 10
+        self.current_hp = self.max_hp
+        self.max_mp = self.magic * 5
+        self.current_mp = self.max_mp
+
 
         # Basic Unit Status
         self.alive = True

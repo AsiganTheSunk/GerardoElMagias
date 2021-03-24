@@ -46,8 +46,8 @@ combat_text_resolver = CombatTextResolver()
 
 
 class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
+    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic)
         FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)

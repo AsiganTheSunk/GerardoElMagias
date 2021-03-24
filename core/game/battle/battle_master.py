@@ -55,7 +55,7 @@ class BattleMaster:
         return self.level in self.boss_levels
 
     def create_hero(self):
-        return HeroPlayer(300, 480, "Hero", 1, 96, 30, 12, 10, 8, 2, 1, 1, 270, screen_height - panel_height + 20,
+        return HeroPlayer(300, 480, "Hero", 1, 12, 10, 9, 8, 2, 1, 1, 270, screen_height - panel_height + 20,
                           270, screen_height - panel_height + 40, 270, screen_height - panel_height + 40,
                           self.animation_master)
 
