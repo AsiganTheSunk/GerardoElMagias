@@ -38,21 +38,28 @@ def main():
     interface_font.set_bold(True)
 
     display.set_caption("Game Map Graph")
+
     screen.fill(Color('DarkOliveGreen4'))
-    map_graph_navigator.display()
     display.update()
 
     running = True
 
     while running:
+        screen.fill(Color('DarkOliveGreen4'))
+
         map_graph_navigator.navigate()
+        map_graph_navigator.display()
+        map_graph_navigator.stage_node_header_information()
+        map_graph_navigator.display_navigation_box()
+        display.update()
         # map_graph_navigator.perform_mouse_over_action()
+
         # Did the user click the window close button?
         for event in pygame_event.get():
             if event.type == QUIT:
                 running = False
 
-        display.update()
+
 
     # Done! Time to quit.
     quit()

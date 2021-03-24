@@ -39,7 +39,6 @@ class MapGraphDrawer:
 
     def display_selector(self):
         starting_pos_x = 100
-        step = 120
         starting_pos_y = 250
         draw.circle(self.surface, Color('Red'), (starting_pos_x, starting_pos_y), 25)
 
@@ -106,14 +105,15 @@ class MapGraphNavigator:
 
         self.last_updated = 0
 
+        self.current_node_index = 0
         self.full_world_map = full_world_map
         self.current_realm = self.full_world_map[current_realm_index]
         self.map_graph_generator = MapGraphDrawer(self.surface)
         self.map_graph_generator.set_current_realm(self.current_realm)
         self.map_graph_generator.generate_main_line_node_position()
 
-        self.navigation_rect = \
-            Rect(self.map_graph_generator.starting_node_position_x, self.map_graph_generator.starting_node_position_y, 30, 30)
+        self.navigation_rect = Rect(self.map_graph_generator.starting_node_position_x,
+                                    self.map_graph_generator.starting_node_position_y, 30, 30)
 
     def update_current_realm(self, current_realm_index):
         self.current_realm = self.full_world_map[current_realm_index]
@@ -123,33 +123,98 @@ class MapGraphNavigator:
     def debounce_time(self, interval=600):
         return time.get_ticks() - self.last_updated >= interval
 
+    def move_to_next_stage_node(self):
+        pass
+
+    def move_to_previous_stage_node(self):
+        pass
+
+
+    def calculate_previous_step(self):
+        if self.current_node_index > 0:
+            self.current_node_index -= 1
+            # Get current stage node properties before adding 1 to the index
+            current_stage_node_properties = self.current_realm[self.current_node_index].properties
+
+            # Establish the basic_step * number_of_battles
+            current_step_size = self.map_graph_generator.basic_step * current_stage_node_properties.number_of_battles
+
+            print('C. Node Index:', self.current_node_index, 'Step Size: ', current_step_size, 'Number Of Battles:',
+                  current_stage_node_properties.number_of_battles)
+
+            # Lastly Update the Index to the proper step
+
+            # Move Distance
+            self.navigation_rect.x -= current_step_size
+            if self.navigation_rect.x < self.map_graph_generator.starting_node_position_x:
+                self.navigation_rect.x = self.map_graph_generator.starting_node_position_x
+
+        else:
+            print('Principio')
+
+
+            # print(self.navigation_rect.x)
+            self.last_updated = time.get_ticks()
+
+
+    def calculate_next_step(self):
+        if self.current_node_index < len(self.current_realm) - 1:
+            # Get current stage node properties before adding 1 to the index
+            current_stage_node_properties = self.current_realm[self.current_node_index].properties
+
+            # Establish the basic_step * number_of_battles
+            current_step_size = self.map_graph_generator.basic_step * current_stage_node_properties.number_of_battles
+
+            print('C. Node Index:', self.current_node_index, 'Step Size: ', current_step_size, 'Number Of Battles:',
+                  current_stage_node_properties.number_of_battles)
+
+            # Update Rect Navigation Position
+            self.navigation_rect.x += current_step_size
+            if self.navigation_rect.x > self.map_graph_generator.total_steps:
+                self.navigation_rect.x = self.map_graph_generator.total_steps
+
+            # Lastly Update the Index to the proper step
+            self.current_node_index += 1
+        else:
+            print('Final')
+
+        # Update last_updated for debounce time
+        self.last_updated = time.get_ticks()
+
+
+
+
+
     def navigate(self):
         keys = key.get_pressed()
         ev = pygame_events.get()
-        for event in ev:
-            if event.type == MOUSEBUTTONUP:
-                stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
-                if stage_node_rect is not None:
-                    self.navigation_rect.x = stage_node_rect.x
 
-            if event.type == QUIT:
-                # Todo: Return to World Map
-                running = False
+        current_stage_node_rect = self.map_graph_generator.stage_rect_node_list[self.current_node_index]
+        current_stage_node = self.map_graph_generator.current_realm_map[self.current_node_index]
+
+
+        #
+        # for event in ev:
+        #     if event.type == MOUSEBUTTONUP:
+        #         stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
+        #         if stage_node_rect is not None:
+        #             self.navigation_rect.x = stage_node_rect.x
+        #
+        #     if event.type == QUIT:
+        #         # Todo: Return to World Map
+        #         running = False
 
         if (keys[K_a] or keys[K_LEFT]) and self.debounce_time():  # to move left
             print('press A')
-            self.navigation_rect.x -= 120
-            if self.navigation_rect.x < 100:
-                self.navigation_rect.x = 100
+            self.calculate_previous_step()
 
+
+            # print(self.navigation_rect.x)
             self.last_updated = time.get_ticks()
 
         if (keys[K_d] or keys[K_RIGHT]) and self.debounce_time():
             print('press D')
-            self.navigation_rect.x += 120
-            if self.navigation_rect.x > 340:
-                self.navigation_rect.x = 340
-            self.last_updated = time.get_ticks()
+            self.calculate_next_step()
 
         if (keys[K_SPACE] or keys[K_RETURN]) and self.debounce_time():
             # to move right
@@ -160,7 +225,7 @@ class MapGraphNavigator:
         # self.display_navigation_box()
 
     def display_navigation_box(self):
-        print(self.navigation_rect.x, self.navigation_rect.y)
+        # print(self.navigation_rect.x, self.navigation_rect.y)
         draw.rect(self.surface, Color('Cyan'), self.navigation_rect)
 
     def display(self):
@@ -171,15 +236,16 @@ class MapGraphNavigator:
     def perform_mouse_over_action(self):
         stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
         if stage_node_rect is not None:
-            rect_hover = Rect(stage_node_rect.x, stage_node_rect.y, 20, 20)
+            rect_hover = Rect(stage_node_rect.x, stage_node_rect.y, 30, 30)
             draw.rect(self.surface, (100, 100, 20), rect_hover)
+            # display.update()
 
     def stage_node_header_information(self):
         stage_node_rect, stage_node_data = self.map_graph_generator.mouse_click()
         if stage_node_rect is not None:
             self.surface.blit(self.map_font.render(
                 f'[ Stage {stage_node_data.name} {stage_node_data.node_index} ]', True, (255, 0, 0)), (200, 100))
-            display.update()
+
 
     # def navigate(self):
     #     ev = pygame.event.get()
