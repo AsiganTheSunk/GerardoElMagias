@@ -3,13 +3,15 @@
 
 from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
-    health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
+    health_potion_image, mana_potion_image, restart_image, next_button_image, gold_image, \
     background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
     defeat_banner_image
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font, interface_font
 from pygame import Color, Rect, display, draw, transform, Surface, mask, mouse
+from core.game.event_control import event_controller
+from interface.composed_component.spell_book import UILayout
 
 
 class LootPointer:
@@ -33,20 +35,7 @@ class PlayerInterfacePanel:
         self.panel_width = panel_width
         self.panel_height = panel_height
 
-        # Consumable Buttons:
-        self.health_potion_button = \
-            Button(self.surface, 0, self.height - self.panel_height + 150, health_potion_image, 64, 64)
-        self.mana_potion_button = \
-            Button(self.surface, 85, self.height - self.panel_height + 150, mana_potion_image, 60, 60)
-
-        # SpellBook Button:
-        self.spell_book_button = Button(self.surface, 45, 695, spellbook_image, 100, 100)
-
-        # Skill Buttons:
-        self.ultimate_button = Button(self.surface, 400, 120, ultimate_image, 50, 50)
-
-        # Kill All Button:
-        self.kill_all_button = Button(self.surface, 40, 260, skull_image, 60, 60)
+        self.ui_elements = []
 
         # Mouse Pointer:
         # self.sword_pointer = MousePointer()
@@ -54,10 +43,6 @@ class PlayerInterfacePanel:
 
         self.sword_pointer = sword_image
         self.loot_pointer = loot_image
-
-        self.restart_button = Button(self.surface, 400, 120, restart_image, 100, 100)
-        self.next_button = Button(self.surface, 800, 10, next_button_image, 80, 80)
-
         # Gold Icon:
         self.gold_image = gold_image
 
@@ -66,6 +51,13 @@ class PlayerInterfacePanel:
 
         self.victory_banner_image = victory_banner_image
         self.defeat_banner_image = defeat_banner_image
+
+    def add(self, element):
+        self.ui_elements.append(element)
+        event_controller.add_subscriber(element)
+        if isinstance(element, UILayout):
+            for sub_element in element.elements:
+                event_controller.add_subscriber(sub_element)
 
     def display_bag_mouse(self):
         mouse.set_visible(False)
@@ -84,28 +76,6 @@ class PlayerInterfacePanel:
     def display_gold_icon(self):
         self.surface.blit(gold_image, (20, 20))
 
-    def display_next_button(self):
-        return self.next_button.draw()
-
-    def display_restart_button(self):
-        return self.restart_button.draw()
-
-    def display_ultimate(self):
-        return self.ultimate_button.draw()
-
-    def display_mana_potion(self):
-        return self.mana_potion_button.draw()
-
-    def display_health_potion(self):
-        return self.health_potion_button.draw()
-
-    def display_spell_book(self):
-        # SpellBook Button:
-        return self.spell_book_button.draw()
-
-    def display_kill_all(self):
-        # Kill All Button:
-        return self.kill_all_button.draw()
 
     @staticmethod
     def gradientRect(window, left_colour, right_colour, target_rect):
@@ -267,6 +237,7 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
         self.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
         self.display_gold_icon()
 
+
         # damage text
         damage_text_group.update()
         damage_text_group.draw(self.surface)
@@ -282,3 +253,13 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
             unit.animation_set.update()
             unit.animation_set.draw()
             unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
+
+        self.render_ui_elements(self.ui_elements)
+
+    def render_ui_elements(self, elements):
+        for ui_element in elements:
+            if not ui_element.hidden:
+                if isinstance(ui_element, UILayout):
+                    self.render_ui_elements(ui_element.elements)
+                else:
+                    self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))

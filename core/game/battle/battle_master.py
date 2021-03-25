@@ -115,3 +115,17 @@ class BattleMaster:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
             self.move_to_next_fighter()
+
+    def handle_potion_click(self, event, button):
+        hero_player = self.get_hero()
+        potion = button.id
+        #esto tendrá más sentido cuando las pociones sean parte de items en lugar de ser su propia movida
+        if self.is_player_phase():
+            if potion == 'healing_potion':
+                if hero_player.stash.has_healing_potion():
+                    hero_player.next_action = ['use', potion]
+            elif potion == 'mana_potion':
+                if hero_player.stash.has_mana_potion():
+                    hero_player.next_action = ['use', potion]
+            # else:
+            #     damage_text.warning(hero_player, 'No Healing Potions', self.game_attributes.text_sprite)

@@ -78,6 +78,7 @@ class StageSoundSelector:
 
 class SoundMaster:
     def __init__(self):
+        self.muted = True
         self.sound_mixer = mixer
         self.sound_mixer.init()
         self.sound_mixer.pre_init(44100, -16, 2, 4096)
@@ -107,12 +108,13 @@ class SoundMaster:
                     self.current_playing_sound.stop()
 
     def update_play_sound(self, current_sound):
+        if self.muted:
+            pass
         if not self.sound_mixer.get_busy():
             self.current_playing_sound = current_sound
             current_sound.play()
 
     def background_play(self, game_mode):
-
         # Background Sound Procedure
         self.background_sound_play(game_mode)
 
