@@ -6,9 +6,9 @@ from pygame import time, display, mixer, sprite
 
 
 class GameAttributes:
-    def __init__(self, clock, fps, width, height):
-        self.clock = clock
-        self.fps = fps
+    def __init__(self, width, height):
+        self.clock = time.Clock()
+        self.fps = 60
         self.surface = display.set_mode((width, height))
         self.update_time = time.get_ticks()
         self.sound_mixer = mixer

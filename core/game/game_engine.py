@@ -8,9 +8,9 @@ from pygame import display, quit
 import constants.globals
 
 # Game Event Control Import:
-from core.game.game_event_controls import event_control
+from core.game.event_control import event_control
 
-from game.stage.stage_initializer import StageInitializer
+from core.game.stage.stage_initializer import StageInitializer
 
 
 class GameEngine:
