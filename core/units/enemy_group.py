@@ -45,8 +45,8 @@ class EnemyStatsGenerator:
         randomlevel = level + randint(0, 2)
         str = 3 + round(randomlevel / 2)
         dex = 6 + randomlevel
-        max_hp = 0 + randomlevel*10
-        max_mp = 50 + randomlevel*5
+        max_hp = 10 + randomlevel*7
+        max_mp = 0
         mag = 0
 
         return randomlevel, str, dex, mag, max_hp, max_mp
@@ -55,8 +55,8 @@ class EnemyStatsGenerator:
     def generate_bone_wizard_stats(level):
         randomlevel = level + randint(0, 2)
         str = 3 + round(randomlevel / 2)
-        dex = 6 + randomlevel
-        max_hp = 100 + randomlevel * 10
+        dex = 1 + randomlevel
+        max_hp = 30 + randomlevel * 4
         max_mp = 50 + randomlevel * 5
         mag = 0
 
@@ -66,9 +66,9 @@ class EnemyStatsGenerator:
     def generate_lizard_stats(level):
         randomlevel = level + randint(0, 2)
         str = 3 + round(randomlevel / 2)
-        dex = 6 + randomlevel
-        max_hp = 100 + randomlevel * 10
-        max_mp = 50 + randomlevel * 5
+        dex = 8 + randomlevel
+        max_hp = 50 + randomlevel * 7
+        max_mp = 0
         mag = 0
 
         return randomlevel, str, dex, mag, max_hp, max_mp

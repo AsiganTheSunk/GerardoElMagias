@@ -197,9 +197,9 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         strength_raise = randint(2, 3)
         dexterity_raise = randint(1, 2)
         magic_raise = randint(1, 3)
-        vitality_raise = randint(2, 3)
-        resilience_raise = randint(2, 3)
-        luck_raise = randint(2, 3)
+        vitality_raise = randint(2, 4)
+        resilience_raise = randint(1, 2)
+        luck_raise = randint(1, 2)
 
         self.level_up_stats(strength_raise, dexterity_raise, magic_raise, vitality_raise, resilience_raise, luck_raise)
 

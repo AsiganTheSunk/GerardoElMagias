@@ -19,17 +19,17 @@ def scripted_enemy(boss_level, animation_master):
     bosses = [
         None,
         create_enemy(BanditChief(650, 475, "BanditChief", 10, 17, 10, 0,
-                                 680, (screen_height - panel_height + 40), animation_master), 100, 50),
+                                 680, (screen_height - panel_height + 40), animation_master), 214, 0),
         create_enemy(Djinn(750, 400, "Djinn", 14, 0, 25, 20,
-                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
+                           680, (screen_height - panel_height + 40), animation_master), 278, 40),
         create_enemy(SmallDragon(730, 438, "SmallDragon", 18, 18, 7, 12,
-                                 680, (screen_height - panel_height + 40), animation_master),100, 50),
+                                 680, (screen_height - panel_height + 40), animation_master), 332, 50),
         create_enemy(Dragon(800, 352, "Dragon", 22, 20, 8, 22,
-                            680, (screen_height - panel_height + 40), animation_master), 100, 50),
+                            680, (screen_height - panel_height + 40), animation_master), 400, 70),
         create_enemy(Demon(800, 365, "Demon", 26, 31, 12, 18,
-                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
+                           680, (screen_height - panel_height + 40), animation_master), 480, 50),
         create_enemy(Demon(600, 365, "Demon", 30, 41, 25, 25,
-                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
+                           680, (screen_height - panel_height + 40), animation_master), 666, 80),
     ]
     return bosses[boss_level]
 
