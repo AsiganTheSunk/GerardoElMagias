@@ -43,29 +43,35 @@ class EnemyStatsGenerator:
     @staticmethod
     def generate_bandit_stats(level):
         randomlevel = level + randint(0, 2)
-        str = 8 + round(randomlevel / 2)
-        dex = 6 + round(randomlevel / 2)
-        vit = 1 + round(randomlevel / 2)
-        mag = 1 + round(randomlevel / 2)
-        return randomlevel, str, dex, vit, mag
-
-    @staticmethod
-    def generate_lizard_stats(level):
-        randomlevel = level + randint(0, 2)
-        str = 5 + round(randomlevel / 2)
-        dex = 1 + round(randomlevel / 2)
-        vit = 1 + round(randomlevel / 2)
-        mag = 5 + round(randomlevel / 2)
-        return randomlevel, str, dex, vit, mag
+        str = 3 + round(randomlevel / 2)
+        dex = 6 + randomlevel
+        vit = 8 + randomlevel
+        mag = 0
+        res = 0
+        lck = 0
+        return randomlevel, str, dex, vit, mag, res, lck
 
     @staticmethod
     def generate_bone_wizard_stats(level):
+        randomlevel = level + randint(0, 2)
+        str = 1 + round(randomlevel / 2)
+        dex = 5 + round(randomlevel / 2)
+        vit = 7 + randomlevel
+        mag = 10 + round(randomlevel / 2)
+        res = 5 + round(randomlevel / 2)
+        lck = 0
+        return randomlevel, str, dex, vit, mag, res, lck
+
+    @staticmethod
+    def generate_lizard_stats(level):
         randomlevel = level + randint(0, 3)
-        str = 2 + round(randomlevel / 2)
-        dex = 0 + round(randomlevel / 2)
-        vit = 1 + round(randomlevel / 2)
-        mag = 10 + randomlevel
-        return randomlevel, str, dex, vit, mag
+        str = 4 + randomlevel
+        dex = 10 + randomlevel
+        vit = 15 + randomlevel
+        mag = 0
+        res = 0
+        lck = 0
+        return randomlevel, str, dex, vit, mag, res, lck
 
 
 class EnemyPositionsGenerator:
@@ -126,19 +132,19 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
         if enemy_type is UnitType.BANDIT:
-            _randomlevel, _str, _dex, _vit, _mag = self.generate_bandit_stats(level)
-            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit, _mag,
+            _randomlevel, _str, _dex, _vit, _mag, _res, _lck = self.generate_bandit_stats(level)
+            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit, _mag, _res, _lck,
                           enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
         elif enemy_type is UnitType.LIZARD:
-            _randomlevel, _str, _dex, _vit, _mag = self.generate_lizard_stats(level)
-            return Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit, _mag,
+            _randomlevel, _str, _dex, _vit, _mag, _res, _lck = self.generate_lizard_stats(level)
+            return Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit, _mag, _res, _lck,
                           enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
         elif enemy_type is UnitType.BONE_WIZARD:
-            _randomlevel, _str, _dex, _vit, _mag = self.generate_bone_wizard_stats(level)
-            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit,
-                              _mag, enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
+            _randomlevel, _str, _dex, _vit, _mag, _res, _lck = self.generate_bone_wizard_stats(level)
+            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _str, _dex, _vit, _mag, _res, _lck,
+                               enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
 
     def generate_enemy(self, level, boss_level):
         enemy_group = []

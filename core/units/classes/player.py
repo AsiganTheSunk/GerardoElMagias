@@ -22,6 +22,8 @@ from core.units.mechanics.loot import LootPool
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 
+from random import randint
+
 # Text Import
 
 # Combat Imports
@@ -46,8 +48,8 @@ combat_text_resolver = CombatTextResolver()
 
 
 class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic)
+    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck)
         FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
@@ -60,6 +62,8 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
         self.stash = Stash(healing_potion, magic_potion, gold)
 
         self.experience_system = ExperienceSystem()
+
+        self.experience_to_gain = 0
 
         self.current_fury = 0
         self.experience = 0
@@ -181,3 +185,24 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)
         error_sound.play()
+
+    def gain_experience(self, damage_text_group):
+        self.experience = self.experience + self.experience_to_gain
+        self.experience_to_gain = 0
+        if self.experience >= self.exp_level_break:
+            self.level_up(self, damage_text_group)
+
+    @staticmethod
+    def level_up(hero_player, damage_text_group):
+        hero_player.strength += randint(2, 3)
+        hero_player.dexterity += randint(1, 2)
+        hero_player.magic += randint(1, 3)
+        i = randint(6, 10)
+        hero_player.max_hp += i
+        hero_player.current_hp += i
+        i = randint(3, 5)
+        hero_player.max_mp += i
+        hero_player.current_mp += i
+
+        hero_player.exp_level_break = round(hero_player.exp_level_break * 1.6)
+        hero_player.level += 1

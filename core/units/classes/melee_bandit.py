@@ -20,9 +20,9 @@ combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, health_bar_x, health_bar_y,
+    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck, health_bar_x, health_bar_y,
                  animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, vitality, dexterity, magic)
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck)
         MeleeSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
@@ -102,7 +102,7 @@ class Bandit(BasicUnit, MeleeSpells):
 
 
     def action(self, target, damage_text_group):
-        health_trigger = self.current_hp <= round(self.max_hp * 0.2)
+        health_trigger = self.current_hp <= round(self.max_hp * 0.15)
         if self.stash.has_healing_potion() and health_trigger:
             self.use_healing_potion(damage_text_group)
         elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:

@@ -185,6 +185,9 @@ class PlayerInterfaceText:
         self.display_text(f"Fuerza: {player.strength}", default_font, WHITE_COLOR, 150, 175)
         self.display_text(f"Destreza: {player.dexterity}", default_font, WHITE_COLOR, 150, 200)
         self.display_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 150, 225)
+        self.display_text(f"Vitalidad: {player.vitality}", default_font, WHITE_COLOR, 150, 250)
+        self.display_text(f"Resiliencia: {player.resilience}", default_font, WHITE_COLOR, 150, 275)
+        self.display_text(f"Suerte: {player.luck}", default_font, WHITE_COLOR, 150, 300)
         self.display_stage_information(level)
 
     def display_next_battle_message(self):
