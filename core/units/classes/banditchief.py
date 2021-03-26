@@ -21,8 +21,8 @@ import constants.globals
 
 
 class BanditChief(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck,  health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck)
+    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)

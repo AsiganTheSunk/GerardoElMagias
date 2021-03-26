@@ -4,7 +4,7 @@
 from constants.sound import *
 
 class BasicUnit:
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck):
+    def __init__(self, x, y, name, level, strength, dexterity, magic):
 
         # Basic Unit Coordinates x,y
         self.x = x
@@ -16,32 +16,37 @@ class BasicUnit:
         # Basic Unit Stats
         self.level = level
 
-        # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
+        # Basic Attribute Stats: Strength, Dexterity, Vitality, Magic, Resilience, Luck
         self.strength = strength
         self.dexterity = dexterity
-        self.vitality = vitality
         self.magic = magic
-        self.resilience = resilience
-        self.luck = luck
 
 
         # Basic Resource Stats: Fury, Mana, Health
         self.max_fury = 100
         self.current_fury = 0
-        self.max_hp = self.vitality * 3
-        self.current_hp = self.max_hp
-        self.max_mp = self.magic * 2 + self.resilience
-        self.current_mp = self.max_mp
+        self.max_hp = 0
+        self.current_hp = 0
+        self.max_mp = 0
+        self.current_mp = 0
 
 
         # Basic Unit Status
         self.alive = True
         self.fury_status = False
         self.experience_status = False
-        self.ultimate_status = False
-        self.multi_attacks_left = 7
 
         self.next_action = None
+
+    def set_max_hp(self, max_hp):
+        self.max_hp = max_hp
+        self.current_hp = max_hp
+
+    def set_max_mp(self, max_mp):
+        self.max_mp = max_mp
+        self.current_mp = max_mp
+
+
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
@@ -119,3 +124,40 @@ class BasicUnit:
                 self.next_action[0] == 'use' and \
                 self.next_action[1] == 'mana_potion':
             self.use_mana_potion(text_sprite)
+
+
+
+
+class PlayerUnit(BasicUnit):
+    def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+
+        self.vitality = vitality
+        self.resilience = resilience
+        self.luck = luck
+
+        # Basic Resource Stats: Fury, Mana, Health
+        self.max_hp = self.vitality * 3
+        self.current_hp = self.max_hp
+        self.max_mp = self.magic * 2 + self.resilience
+        self.current_mp = self.max_mp
+
+        # Basic Unit Status
+        self.ultimate_status = False
+        self.multi_attacks_left = 7
+
+    def level_up_stats(self, strength, dexterity, magic, vitality, resilience, luck):
+        self.strength += strength
+        self.dexterity += dexterity
+        self.magic += magic
+        self.vitality += vitality
+        self.resilience += resilience
+        self.luck += luck
+
+        #calculate max hp and max mp
+        self.max_hp = self.vitality * 3
+        self.current_hp = self.max_hp
+        self.max_mp = self.magic * 2 + self.resilience
+        self.current_mp = self.max_mp
+
+

@@ -56,10 +56,22 @@ class BattleMaster:
     def is_boss_level(self):
         return self.level in self.boss_levels
 
+
+   # def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+
+
     def create_hero(self):
-        return HeroPlayer(300, 480, "Hero", 1, 10 + randint(0, 5), 10 + randint(0, 5), 15 + randint(0, 5), 10 + randint(0, 5),
-                          1 + randint(0, 5), 1 + randint(0, 5), 2, 1, 1, 270, screen_height - panel_height + 20,
-                          270, screen_height - panel_height + 40, 270, screen_height - panel_height + 40,
+        base_strength = randint(10, 15)
+        base_dexterity = randint(15, 20)
+        base_magic = randint(10, 15)
+        base_vitality = randint(15, 20)
+        base_resilience = randint(1, 5)
+        base_luck = randint(1, 5)
+        return HeroPlayer(300, 480, "Hero", 1,
+                          base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,
+                          270, screen_height - panel_height + 20,   # healthbar coords
+                          270, screen_height - panel_height + 40,   # manabar coords
+                          270, screen_height - panel_height + 40,   # furybar coords
                           self.animation_master)
 
     def get_total_fighters(self):
@@ -73,9 +85,7 @@ class BattleMaster:
         hero_player = self.get_hero()
         if self.no_enemies_alive():
             self.game_mode = GameModes.VICTORY
-            hero_player.gain_experience(self)
-
-
+            hero_player.gain_experience()
 
 
     def move_to_next_fighter(self):

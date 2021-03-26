@@ -19,9 +19,8 @@ action_counter = 1
 
 
 class Djinn(BasicUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck, health_bar_x, health_bar_y,
-                 animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck)
+    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 

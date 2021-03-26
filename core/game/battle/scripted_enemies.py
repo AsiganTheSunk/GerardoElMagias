@@ -10,16 +10,26 @@ from core.units.classes.djinn import Djinn
 from core.units.classes.demon import Demon
 from constants.game_windows import *
 
+def create_enemy(enemy, max_hp, max_mp):
+    enemy.set_max_hp(max_hp)
+    enemy.set_max_mp(max_mp)
+    return enemy
 
 def scripted_enemy(boss_level, animation_master):
     bosses = [
         None,
-        BanditChief(650, 475, "BanditChief", 10, 17, 10, 20, 0, 1, 0, 680, (screen_height - panel_height + 40), animation_master),
-        Djinn(750, 400, "Djinn", 14, 0, 25, 10, 20, 1, 0, 680, (screen_height - panel_height + 40), animation_master),
-        SmallDragon(730, 438, "SmallDragon", 18, 18, 7, 30, 12, 1, 0, 680, (screen_height - panel_height + 40), animation_master),
-        Dragon(800, 352, "Dragon", 22, 20, 8, 30, 22, 680, 1, 0, (screen_height - panel_height + 40), animation_master),
-        Demon(800, 365, "Demon", 26, 31, 12, 35, 18, 680, 1, 0, (screen_height - panel_height + 40), animation_master),
-        Demon(600, 365, "Demon", 30, 41, 25, 40, 25, 680, 1, 0, (screen_height - panel_height + 40), animation_master)
+        create_enemy(BanditChief(650, 475, "BanditChief", 10, 17, 10, 0,
+                                 680, (screen_height - panel_height + 40), animation_master), 100, 50),
+        create_enemy(Djinn(750, 400, "Djinn", 14, 0, 25, 20,
+                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
+        create_enemy(SmallDragon(730, 438, "SmallDragon", 18, 18, 7, 12,
+                                 680, (screen_height - panel_height + 40), animation_master),100, 50),
+        create_enemy(Dragon(800, 352, "Dragon", 22, 20, 8, 22,
+                            680, (screen_height - panel_height + 40), animation_master), 100, 50),
+        create_enemy(Demon(800, 365, "Demon", 26, 31, 12, 18,
+                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
+        create_enemy(Demon(600, 365, "Demon", 30, 41, 25, 25,
+                           680, (screen_height - panel_height + 40), animation_master), 100, 50),
     ]
     return bosses[boss_level]
 

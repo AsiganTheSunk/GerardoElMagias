@@ -20,9 +20,8 @@ combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck, health_bar_x, health_bar_y,
-                 animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, vitality, magic, resilience, luck)
+    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
