@@ -19,9 +19,9 @@ class DamageText:
         damage_text_group.add(floating_text)
 
     @staticmethod
-    def cast(target, message, damage_text_group):
+    def cast(target, message, damage_text_group, displacement_x=0, displacement_y=0):
         floating_text = CombatTextTypes(target.animation_set.rect.centerx, target.animation_set.rect.y, 'move_up')
-        floating_text.cast_text(str(message), YELLOW_COLOR)
+        floating_text.cast_text(str(message), YELLOW_COLOR, displacement_x, displacement_y)
         damage_text_group.add(floating_text)
 
     @staticmethod

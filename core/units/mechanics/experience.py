@@ -13,7 +13,7 @@ class ExperienceSystem:
             hero_player.experience_to_gain = hero_player.experience_to_gain + target.level
 
             # Todo: Move init position for the text, 120x, 500y
-            damage_text.cast(hero_player, "+EXP!", damage_text_group)
+            damage_text.cast(hero_player, "+EXP!", damage_text_group, 0, -30)
 
 
     def evaluate_group_kill(self, hero_player, target_list, pre_target_list, post_target_list, damage_text_group):
@@ -21,5 +21,5 @@ class ExperienceSystem:
             if pre_target_list[index] is True and post_target_list[index] is False:
 
                 # Todo: Move init position for the text 120x, 500y
-                damage_text.cast(hero_player, "+EXP!", damage_text_group)
+                damage_text.cast(hero_player, "+EXP!", damage_text_group, 0, -30)
                 hero_player.experience_to_gain += target_list[index].level

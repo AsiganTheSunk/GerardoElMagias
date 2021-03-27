@@ -21,7 +21,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
     @staticmethod
     def cast_heal(caster, target, damage_text_group):
         # Todo: Init proper 150x, 400y
-        damage_text.cast(caster, "Heal", damage_text_group)
+        damage_text.cast(caster, "Heal", damage_text_group, 0, -30)
 
         base_heal = 1 + randint(0, 10) + (caster.magic * 5)
         if target.max_hp - target.current_hp > base_heal:
@@ -31,13 +31,13 @@ class MagicSpells(CombatFormulas, CombatResolver):
         target.current_hp += heal_amount
 
         # Todo: Init proper 150x, 500y
-        damage_text.heal(caster, str(heal_amount) + " Heal ", damage_text_group)
+        damage_text.heal(caster, str(heal_amount), damage_text_group)
 
     def cast_firestorm(self, caster, target_list, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Firestorm! ", damage_text_group)
+            damage_text.cast(caster, " Firestorm! ", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -57,7 +57,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Lightning Bolt! ", damage_text_group)
+            damage_text.cast(caster, " Lightning Bolt! ", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []

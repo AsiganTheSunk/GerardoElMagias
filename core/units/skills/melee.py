@@ -46,7 +46,7 @@ class MeleeSpells(CombatFormulas, CombatResolver):
         input_damage, input_type = self.fixed_damage_attack_resolution(output_damage)
         self.resolve_fixed_damage_attack(target, input_damage, input_type, damage_text_group)
 
-        damage_text.cast(self, "Power of two: " + str(exponent), damage_text_group)
+        damage_text.cast(self, "Power of two: " + str(exponent), damage_text_group, 0, -30)
 
 
 

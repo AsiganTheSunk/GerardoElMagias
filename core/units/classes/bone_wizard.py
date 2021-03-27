@@ -80,7 +80,7 @@ class BoneWizard(BasicUnit, MeleeSpells, MagicSpells):
 
     def use_shadowbolt(self, target, damage_text_group):
         self.shadowbolt_animation()
-        damage_text.cast(self, "SHADOWBOLT", damage_text_group)
+        damage_text.cast(self, "SHADOWBOLT", damage_text_group, 0, -30)
         self.cast_shadowbolt(self, target, damage_text_group)
         return True
 

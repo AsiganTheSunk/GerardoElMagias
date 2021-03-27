@@ -17,6 +17,7 @@ from interface.basic_components.ui_layout import UILayout
 combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()
 
+
 class Spellbook(UILayout):
     def __init__(self, battle_master, text_sprite):
         super().__init__()

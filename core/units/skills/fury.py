@@ -24,6 +24,6 @@ class FurySpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0 and self.multi_attacks_left == 7:
-            damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group)
+            damage_text.cast(self, "Senda de los 7 Golpes", damage_text_group, 0, -30)
 
         return self.resolve_multi_attack(caster, target_list, multi_strike, damage_text_group)
