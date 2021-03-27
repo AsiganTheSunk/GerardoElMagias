@@ -7,7 +7,6 @@ from core.units.classes.player import HeroPlayer
 from core.units.enemy.enemy_group import EnemyGroup
 import constants.globals
 from random import randint
-
 from core.game.game_modes import GameModes
 
 
