@@ -44,7 +44,7 @@ class Spellbook(UILayout):
         elif name == 'firestorm' and caster.use_firestorm(target, text_sprite):
             firestorm_spell_1_sound.play()
             return True
-        elif name == 'healspell' and caster.use_heal(text_sprite):
+        elif name == 'heal_spell' and caster.use_heal(text_sprite):
             heal_spell_1_sound.play()
             return True
         return False
