@@ -69,7 +69,7 @@ class StageResolver:
         self.stage_drawer.add(kill_all_button)
         self.stage_drawer.add(self.next_button)
 
-        self.spellbook = Spellbook(self.battle_master, self.game_attributes.text_sprite)
+        self.spellbook = Spellbook(self.battle_master, self.game_attributes.text_sprite, self.stage_drawer.add_effect)
         self.spellbook.hidden = True
         self.stage_drawer.add(self.spellbook)
 

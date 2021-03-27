@@ -7,17 +7,22 @@ from interface.composed_components.spell_book import UILayout
 from interface.composed_components.player_interface_panel import PlayerInterfacePanel
 from interface.composed_components.player_interface_text import PlayerInterfaceText
 from interface.stage_background import StageBackground
+from interface.stage_effects_drawer import StageEffectsDrawer
 
 
-class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
-    def __init__(self, surface, width, height, panel_width, panel_height, clock, fps):
+class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground, StageEffectsDrawer):
+    def __init__(self, surface, width, height, panel_width, panel_height, clock, fps, animation_master):
         StageBackground.__init__(self, surface)
+        StageEffectsDrawer.__init__(self, animation_master)
         PlayerInterfacePanel.__init__(self, surface, width, height, panel_width, panel_height)
         PlayerInterfaceText.__init__(self, surface, width, height, panel_width, panel_height)
         self.clock = clock
         self.fps = fps
+        self.animation_master = animation_master
+        self.animation_effects = []
 
-    def display_caption(self):
+    @staticmethod
+    def display_caption():
         display.set_caption("Las Trepidantes Aventuras de Gerardo EL MAGIAS")
 
     def display_victory(self):
@@ -56,6 +61,9 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
             unit.animation_set.update()
             unit.animation_set.draw()
             unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
+
+        # draw effects: in front of units
+        self.update_effects()
 
         self.render_ui_elements(self.ui_elements)
 

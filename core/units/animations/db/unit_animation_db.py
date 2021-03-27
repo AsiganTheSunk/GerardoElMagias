@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.units.animations.constants.animation_resource import AnimationResource
-from core.units.animations.constants.unit_animation_type import UnitAnimationType, SkillAnimationType
+from core.units.animations.constants.unit_animation_type import UnitAnimationType
 from enum import Enum
 
 
@@ -17,19 +17,6 @@ class UnitType(Enum):
     DJINN = 'Djinn'
     DEMON = "Demon"
 
-
-class SkillType(Enum):
-    FIRESTORM = 'Firestorm'
-
-
-SKILL_ANIMATION_SETS = {
-    SkillType.FIRESTORM: [
-        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss
-        AnimationResource(SkillAnimationType.PRE_CAST, 8),
-        AnimationResource(SkillAnimationType.CAST, 10),
-        AnimationResource(SkillAnimationType.POST_CAST, 8),
-    ],
-}
 
 UNIT_ANIMATION_SETS = {
     UnitType.BANDIT: [
