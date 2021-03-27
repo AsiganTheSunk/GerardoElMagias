@@ -11,7 +11,8 @@ from constants.sound import ultimate_sound
 import constants.globals
 
 # Game Drawable Instance Imports:
-from interface.composed_component.spell_book import open_spell_book
+from interface.basic_components.button import Button
+from interface.composed_component.spell_book import Spellbook
 
 # Game Control Imports:
 import constants.globals
@@ -20,6 +21,11 @@ import constants.globals
 from core.game.game_modes import GameModes
 
 from core.text.damage_text import DamageText
+
+from constants.basic_images import skull_image, spellbook_image, \
+    health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
+    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
+    defeat_banner_image
 
 
 # Init DamageText
@@ -33,7 +39,39 @@ class StageResolver:
         self.sound_master = sound_master
         self.battle_master = battle_master
         self.stage_drawer = stage_drawer
+
         self.game_attributes = game_attributes
+
+        healing_potion_button = \
+            Button('healing_potion', 0, self.stage_drawer.height - self.stage_drawer.panel_height + 150, health_potion_image, 64, 64)
+
+        mana_potion_button = \
+            Button('mana_potion',85, self.stage_drawer.height - self.stage_drawer.panel_height + 150, mana_potion_image, 60, 60)
+
+        spell_book_button = Button('spellbook', 45, 695, spellbook_image, 100, 100)
+        self.ultimate_button = Button('ultimate', 400, 120, ultimate_image, 50, 50)
+        self.ultimate_button.hidden = True
+        kill_all_button = Button('kill_all', 40, 260, skull_image, 60, 60)
+        self.next_button = Button('next', 800, 10, next_button_image, 80, 80)
+        self.next_button.hidden = True
+
+        mana_potion_button.on_click(battle_master.handle_potion_click)
+        healing_potion_button.on_click(battle_master.handle_potion_click)
+        spell_book_button.on_click(self.toggle_player_spell_book)
+        self.ultimate_button.on_click(self.handle_ultimate_click)
+        kill_all_button.on_click(self.kill_switch)
+        self.next_button.on_click(self.handle_next_click)
+
+        self.stage_drawer.add(mana_potion_button)
+        self.stage_drawer.add(healing_potion_button)
+        self.stage_drawer.add(spell_book_button)
+        self.stage_drawer.add(self.ultimate_button)
+        self.stage_drawer.add(kill_all_button)
+        self.stage_drawer.add(self.next_button)
+
+        self.spellbook = Spellbook(self.battle_master, self.game_attributes.text_sprite)
+        self.spellbook.hidden = True
+        self.stage_drawer.add(self.spellbook)
 
         self.previous_mouse_collision = False
         self.player = self.battle_master.get_hero()
@@ -50,11 +88,7 @@ class StageResolver:
         self.sound_master.stage_sound_selector.select_sound(self.battle_master.level)
         self.sound_master.background_play(self.battle_master.game_mode)
 
-        # Kill Switch: Debugging
-        self.kill_switch()
-
         # Player Interactions
-        self.resolve_player_spell_book()
         self.resolve_player_mouse_actions()
         self.resolve_player_interface_actions()
 
@@ -73,38 +107,21 @@ class StageResolver:
         self.battle_master.friendly_fighters[0].ultimate_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
-    def resolve_player_spell_book(self):
-        if self.stage_drawer.display_spell_book():
-            if self.battle_master.is_player_phase():
-                self.battle_master.game_mode = GameModes.SPELLBOOK
-
-        if self.battle_master.is_spell_book_phase():
-            open_spell_book(self.player, self.battle_master.enemy_fighters, self.game_attributes.surface,
-                            self.game_attributes.text_sprite, self.battle_master)
+    def toggle_player_spell_book(self, event, spellbook):
+        self.spellbook.hidden = not self.spellbook.hidden
 
     def resolve_player_interface_actions(self):
-        if self.stage_drawer.display_health_potion():
-            if self.battle_master.is_player_phase():
-                if self.player.stash.has_healing_potion():
-                    self.player.next_action = ['use', 'healing_potion']
-                else:
-                    damage_text.warning(self.player, 'No Healing Potions', self.game_attributes.text_sprite)
+        if self.player.has_full_fury() and self.battle_master.is_player_phase():
+            self.ultimate_button.hidden = False
+        else:
+            self.ultimate_button.hidden = True
 
-        if self.stage_drawer.display_mana_potion():
-            if self.battle_master.is_player_phase():
-                if self.player.stash.has_mana_potion():
-                    self.player.next_action = ['use', 'mana_potion']
-                else:
-                    damage_text.warning(self.player, 'No Mana Potions', self.game_attributes.text_sprite)
 
-        if self.player.has_full_fury():
-            if self.battle_master.is_player_phase():
-                if self.stage_drawer.display_ultimate() and constants.globals.action_cooldown >= self.action_wait_time:
-                    # Todo: activar animacion pre-ulti
-                    self.player.ultimate_status = True
-                    ultimate_sound.play()
-                    self.player.reset_fury()
-                    constants.globals.action_cooldown = -25
+    def handle_ultimate_click(self, event, button):
+        self.battle_master.get_hero().ultimate_status = True
+        ultimate_sound.play()
+        self.battle_master.get_hero().reset_fury()
+        constants.globals.action_cooldown = -25
 
     def resolve_mouse_display(self):
         pass
@@ -145,21 +162,23 @@ class StageResolver:
         # Victory Check
 
         if self.battle_master.is_victory_phase():
+            self.next_button.hidden = False
             self.stage_drawer.display_victory()
 
-            if self.stage_drawer.display_next_button():
-                self.stage_reset()
-                self.battle_master.next_level()
+
+    def handle_next_click(self, *args):
+        self.stage_reset()
+        self.battle_master.next_level()
+        self.next_button.hidden = True
 
     def resolve_defeat(self):
         if self.battle_master.is_defeat_phase():
             self.stage_drawer.display_defeat()
 
-    def kill_switch(self):
-        if self.stage_drawer.display_kill_all():
-            for target_unit in self.battle_master.enemy_fighters:
-                if target_unit.alive:
-                    target_unit.death()
-                    target_unit.death_animation()
+    def kill_switch(self, event, button):
+        for target_unit in self.battle_master.enemy_fighters:
+            if target_unit.alive:
+                target_unit.death()
+                target_unit.death_animation()
 
-            self.battle_master.move_to_victory_phase()
+        self.battle_master.move_to_victory_phase()

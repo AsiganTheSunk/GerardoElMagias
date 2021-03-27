@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 # Pygame Imports:
-from pygame import time
 
 # Game Engine Constants Imports:
 from constants.game_windows import screen_height, screen_width, panel_height
@@ -25,7 +24,7 @@ class StageInitializer:
         # Load Configuration File
 
         # Initializing InitGame & Stage Drawer
-        self.game_attributes = GameAttributes(time.Clock(), 60, screen_width, screen_height)
+        self.game_attributes = GameAttributes(screen_width, screen_height)
         self.animation_loader = AnimationLoader(self.game_attributes.surface)
         self.sound_master = SoundMaster()
         self.stage_drawer = \
