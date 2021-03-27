@@ -30,11 +30,11 @@ class StageSelector:
 
     def move_to_right_alternative_node(self):
         if self.has_been_completed():
-            self.current_stage = self.current_stage.right_alternative_path_node
+            self.current_stage = self.current_stage.right_child
 
     def move_to_left_alternative_node(self):
         if self.has_been_completed():
-            self.current_stage = self.current_stage.left_alternative_path_node
+            self.current_stage = self.current_stage.left_child
 
     def move_to_dungeon(self):
         if self.has_been_completed():

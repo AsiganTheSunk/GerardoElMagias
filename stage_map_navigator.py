@@ -43,9 +43,9 @@ class MapGraphDrawer:
         current_helper_index = 0
         for stage_index, stage_node in enumerate(self.current_realm_map):
             print('Stage Node:', stage_node.name, stage_node.node_index)
-            if stage_node.right_alternative_path_node is not None:
+            if stage_node.right_child is not None:
 
-                if stage_node.right_alternative_path_node.dungeon_node is not None:
+                if stage_node.right_child.dungeon_node is not None:
                     starting_pos_y = self.stage_rect_alternative_node_list[current_helper_index].y - \
                                      round((self.basic_step * stage_node.properties.number_of_battles) / 2)
                     starting_pos_x = self.stage_rect_alternative_node_list[current_helper_index].x + \
@@ -72,8 +72,8 @@ class MapGraphDrawer:
         alternative_path_index = 0
         dungeon_alternative_index = 0
         for index, stage_rect_node in enumerate(self.stage_rect_node_list):
-            if self.current_realm_map[index].right_alternative_path_node is not None:
-                if self.current_realm_map[index].right_alternative_path_node.dungeon_node is not None:
+            if self.current_realm_map[index].right_child is not None:
+                if self.current_realm_map[index].right_child.dungeon_node is not None:
 
                     current_stage_alternative_center = self.stage_rect_alternative_node_list[alternative_path_index].center
                     current_stage_dungeon_center = self.stage_rect_dungeon_node[dungeon_alternative_index].center
@@ -103,14 +103,14 @@ class MapGraphDrawer:
             starting_pos_y = self.stage_rect_node_list[stage_index].y - round(
                 (self.basic_step * stage_node.properties.number_of_battles) / 2)
 
-            if stage_node.right_alternative_path_node is not None:
+            if stage_node.right_child is not None:
                 new_alternative_node = self.create_node(starting_pos_x, starting_pos_y)
                 self.stage_rect_alternative_node_list.append(new_alternative_node)
 
     def display_alternative_node_bindings(self):
         alternative_path_index = 0
         for index, stage_rect_node in enumerate(self.stage_rect_node_list):
-            if self.current_realm_map[index].right_alternative_path_node is not None:
+            if self.current_realm_map[index].right_child is not None:
                 current_stage_node_center = stage_rect_node.center
                 current_stage_alternative_center = self.stage_rect_alternative_node_list[alternative_path_index].center
                 draw.line(self.surface, Color('Brown'), current_stage_node_center, current_stage_alternative_center,

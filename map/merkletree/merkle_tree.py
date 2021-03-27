@@ -1,15 +1,17 @@
 #!/usr/bin/python3
 
 # Import MerkleNode Module
-from merkletree.merkle_node import MerkleNode
+from map.merkletree.merkle_node import StageNode
 
-class MerkleTree():
+
+class StageTree:
     def __init__(self):
         self.name = __class__.__name__
         self.root = None
         self.nodes = []
         self.node_count = -1
-        self._properties = {'name': self.name }
+        self.max_node_level = 0
+        self._properties = {'name': self.name}
 
     def __getitem__(self, key):
         if key == 'properties':
@@ -19,10 +21,13 @@ class MerkleTree():
         elif key == 'root_hash':
             return self.root.hash
         elif key == 'root_lvl':
-            return  self.root.node_lvl
+            return self.root.node_lvl
         elif key == 'node_count':
             return self.get_node_count() + 1
         return self._properties[key]
+
+    def set_max_node_level(self, node_level):
+        self.max_node_level = node_level
 
     def set_root(self, root):
         '''
@@ -52,29 +57,43 @@ class MerkleTree():
         self.node_count += 1
         return self.node_count
 
-    def add_node(self, hash, block=b'', node_lvl=0, children=None, root=False):
+    def add_node(self, node_lvl=0, parent_identifier=None, root=False):
         '''
         This function adds a node to the Merkle Tree
-        :param hash: hash value
-        :param block: block data, default it's b''
         :param node_lvl: node lvl, default it's 0
-        :param children: children of the merkle node, default it's None
-        :param root: root boolean for the merkle tree, default Fase
+        :param parent_identifier: parent identifier for the current Node, default it's None
+        :param root: root boolean for the StageTree, default False
         :return: New Node
         '''
         try:
-            tmp_node = MerkleNode(node_identifier=self.add_node_count(), hash=hash, block=block, node_lvl=node_lvl, root=root)
-            if children != None:
-                # Setting the Childrens List
-                tmp_node.children_identifiers = children
-                # Updating the Children Value
-                self.get_nodes()[children[0]].parent_identifier = tmp_node.get_node_identifier()
-                self.get_nodes()[children[1]].parent_identifier = tmp_node.get_node_identifier()
             if root:
                 # Setting the Root Value
-                self.set_root(tmp_node)
-            self.nodes.append(tmp_node)
-            return tmp_node
+                new_stage_root_node = StageNode(node_identifier=self.add_node_count(), node_lvl=0, root=root)
+                self.set_root(new_stage_root_node)
+                self.nodes.append(new_stage_root_node)
+                return new_stage_root_node
+            else:
+                new_stage_node = StageNode(node_identifier=self.add_node_count(), node_lvl=node_lvl)
+                new_stage_node.set_parent(parent_identifier)
+                self.nodes.append(new_stage_node)
+                return new_stage_node
+
+        except Exception as err:
+            print('{0}'.format(err))
+
+    def display_nodes_from_lvl(self, node_lvl):
+        '''
+
+        :param node_lvl:
+        :return:
+        '''
+        try:
+            tmp_nodes = []
+            for tmp_node in self.get_nodes():
+                if tmp_node.node_lvl == node_lvl:
+                    tmp_nodes.append((tmp_node.name, tmp_node, tmp_node.node_identifier))
+
+            return tmp_nodes
 
         except Exception as err:
             print('{0}'.format(err))
@@ -117,7 +136,16 @@ class MerkleTree():
 
         :return:
         '''
-        for lvl in range(self.root.node_lvl, 0, -1):
+        for lvl in range(self.root.node_lvl, self.max_node_level, 1):
             print('////////////' * 10)
             print('{0}'.format(self.search_nodes_from_lvl(lvl)))
+        print('////////////' * 10)
 
+    def show_stage_tree(self):
+        print('root', self.root.node_identifier)
+        self.show_stage_branch(self.root.node_identifier)
+
+    def show_stage_branch(self, identifier):
+        for child in self.nodes[identifier].children_identifiers:
+            print('\t'*child.node_lvl, 'child id:', child.node_identifier, 'lvl:', child.node_lvl)
+            self.show_stage_branch(child.node_identifier)

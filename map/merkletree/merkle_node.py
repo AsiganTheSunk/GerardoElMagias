@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 
-class MerkleNode:
-    def __init__(self, node_identifier, hash, block, node_lvl=0, root=False):
+class StageNode:
+    def __init__(self, node_identifier, node_lvl=0, root=False):
         self.name = __class__.__name__
         self.is_root = root
         self.node_identifier = node_identifier
         self.node_lvl = node_lvl
-        self.hash = hash
-        self.block = block
         self.parent_identifier = None
+        self.node_properties = None
         self.children_identifiers = []
+        self.sibling_identifiers = []
 
     def set_children(self, children_identifiers):
         '''
@@ -29,12 +29,6 @@ class MerkleNode:
         '''
         self.node_lvl = node_lvl
 
-    def set_hash(self, hash):
-        '''
-        This function sets the hash of a merkle node
-        '''
-        self.hash = hash
-
     def get_children(self):
         '''
         This function return the children of a merkle node
@@ -49,13 +43,6 @@ class MerkleNode:
         '''
         return self.node_identifier
 
-    def get_hash(self):
-        '''
-        This function return the hash of a merkle node
-        :return: node hash
-        '''
-        return self.hash
-
     def add_children(self, node_identifier):
         '''
         This function Adds a New Child to the children_identifiers list
@@ -64,18 +51,17 @@ class MerkleNode:
         '''
         return self.children_identifiers.append(node_identifier)
 
-
     def remove_child(self, node_identifier):
         '''
         This function removes a child with basename from node children
         :param node_identifier:
         :return:
         '''
-        tmp_children_indefier = []
+        tmp_children_indentifier = []
 
         for item in self.get_children():
             if item.identifier != node_identifier:
-                tmp_children_indefier.append(item)
+                tmp_children_indentifier.append(item)
 
-        self.set_children(tmp_children_indefier)
+        self.set_children(tmp_children_indentifier)
         return self.get_children()

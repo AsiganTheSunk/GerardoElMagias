@@ -7,9 +7,10 @@ class BasicNode:
         self.node_index = node_index
         self.previous_node = previous_node
         self.next_node = next_node
-        self.right_alternative_path_node = None
-        self.left_alternative_path_node = None
+        self.right_child = None
+        self.left_child = None
         self.dungeon_node = None
+        self.node_level = 0
 
         self.properties = properties
 
@@ -28,7 +29,7 @@ class BasicNode:
         self.dungeon_node = dungeon_node
 
     def set_right_alternative_path(self, alternative_path_node):
-        self.right_alternative_path_node = alternative_path_node
+        self.right_child = alternative_path_node
 
     def set_next_node(self, next_node):
         self.next_node = next_node
@@ -67,11 +68,11 @@ class MapGraphGenerator:
 
     @staticmethod
     def roll_dungeon_node():
-        return randint(1, 100) <= 33
+        return randint(1, 100) <= 50
 
     @staticmethod
     def roll_alternative_node(diminishing=1):
-        return randint(1, 100) <= round(40 / diminishing)
+        return randint(1, 100) <= round(50 / diminishing)
 
     def create_node(self, name, index, properties):
         return BasicNode(name, index, properties)
@@ -125,20 +126,17 @@ class MapGraphGenerator:
             alternative_path_node = self.create_alternative_node(current_node.name, index)
             alternative_path_node.set_previous_node(current_node)
 
-            if previous_node.right_alternative_path_node is not None:
-                alternative_path_node.set_previous_node(previous_node.right_alternative_path_node)
-                previous_node.right_alternative_path_node.set_next_node(alternative_path_node)
+            if previous_node.right_child is not None:
+                alternative_path_node.set_previous_node(previous_node.right_child)
+                previous_node.right_child.set_next_node(alternative_path_node)
 
             current_node.set_right_alternative_path(alternative_path_node)
             return current_node, previous_node, alternative_path_node
 
-        if previous_node.right_alternative_path_node is not None:
-            previous_node.right_alternative_path_node.set_next_node(current_node)
+        if previous_node.right_child is not None:
+            previous_node.right_child.set_next_node(current_node)
 
         return current_node, previous_node, None
-
-    def generate_main_line_map(self, realm_list):
-        pass
 
     def generate_realm_map(self, stage_name, stage_property_list, main_line=False):
         final_list_of_nodes = []
@@ -186,22 +184,34 @@ class MapGraphGenerator:
                 print(f'Previous Node: {item.previous_node.name} {item.previous_node.node_index}')
             if item.next_node is not None:
                 print(f'Next Node: {item.next_node.name} {item.next_node.node_index}')
-            if item.right_alternative_path_node is not None:
-                print('Alt. Right Node:', item.right_alternative_path_node.name)
-                if item.right_alternative_path_node.previous_node is not None:
-                    print('Alt. Right Previous Node:', item.right_alternative_path_node.previous_node.name)
-                if item.right_alternative_path_node.next_node is not None:
-                    print('Alt. Right Next Node:', item.right_alternative_path_node.next_node.name,
-                          item.right_alternative_path_node.next_node.node_index)
-                if item.right_alternative_path_node.dungeon_node is not None:
-                    print('Dungeon Alt. Node:', item.right_alternative_path_node.dungeon_node.name)
-                    if item.right_alternative_path_node.dungeon_node.next_node is not None:
-                        print('Alt. Shop Portal Node:', item.right_alternative_path_node.dungeon_node.next_node.name)
+            if item.right_child is not None:
+                print('Alt. Right Node:', item.right_child.name)
+                if item.right_child.previous_node is not None:
+                    print('Alt. Right Previous Node:', item.right_child.previous_node.name)
+                if item.right_child.next_node is not None:
+                    print('Alt. Right Next Node:', item.right_child.next_node.name,
+                          item.right_child.next_node.node_index)
+                if item.right_child.dungeon_node is not None:
+                    print('Dungeon Alt. Node:', item.right_child.dungeon_node.name)
+                    if item.right_child.dungeon_node.next_node is not None:
+                        print('Alt. Shop Portal Node:', item.right_child.dungeon_node.next_node.name)
             if item.dungeon_node is not None:
                 print('Dungeon Node:', item.dungeon_node.name)
                 if item.dungeon_node.next_node is not None:
                     print('Shop Portal Node:', item.dungeon_node.next_node.name)
 
+    def generate_child_node(self, parent_node, index, side):
+        luck = [90, 80, 60, 30, 0]
+        test_luck = randint(1, 99) < luck[parent_node.node_level]
+        if test_luck:
+            print( '----------', luck[parent_node.node_level], '----------')
+            new_name = f'{side} Child {parent_node.name} {parent_node.node_level}'
+
+            new_node = self.create_node(new_name, index, None)
+            new_node.node_level += 1
+            print(new_name)
+            return new_node
+        return None
 
 class BasicNodeProperties:
     def __init__(self, level, number_of_battles=None, boss_battle_index=None, enemy_types=None, boss_types=None):
@@ -237,3 +247,6 @@ class BasicNodeProperties:
         return full_path_list
 
 
+map_generator = MapGraphGenerator()
+main_node_line = map_generator.generate_realm_main_line('Forest', 1)
+complete_graph = map_generator.recursive_node_creation(main_node_line)
