@@ -5,7 +5,7 @@ __author__ = "Father Karras and AsiganTheSunk"
 __copyright__ = "Copyright 2021, Gerardo El Magias"
 
 __credits__ = ["Father Karras", "AsiganTheSunk", "GRAN CALAVERA", "Pechuza"]
-__version__ = "0.1a"
+__version__ = "0.3a"
 __maintainer__ = "Father Karras, AsiganTheSunk and GRAN CALAVERA"
 __email__ = ""
 __status__ = "Development"
