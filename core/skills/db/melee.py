@@ -4,10 +4,10 @@
 from random import randint
 
 # Combat Imports
-from game.battle.combat import CombatFormulas
-from game.battle.combat.combat_resolver import CombatResolver
-from game.text.damage_text import DamageText
-from game.text.combat_text_resolver import CombatTextResolver
+from core.game.battle.combat.combat_formulas import CombatFormulas
+from core.game.battle.combat.combat_resolver import CombatResolver
+from core.game.text.damage_text import DamageText
+from core.game.text.combat_text_resolver import CombatTextResolver
 
 # Init: Damage Text
 combat_text_resolver = CombatTextResolver()
@@ -18,12 +18,6 @@ class MeleeSpells(CombatFormulas, CombatResolver):
     def __init__(self):
         CombatResolver.__init__(self)
         CombatFormulas.__init__(self)
-
-    def cast_multi_attack(self, caster, target_list):
-        pass
-
-    def cast_aoe_attack(self, caster, target_list):
-        pass
 
     def cast_attack(self, caster, target, damage_text_group, multi_strke=False):
         # Calculate Basic Damage: Based on Strength

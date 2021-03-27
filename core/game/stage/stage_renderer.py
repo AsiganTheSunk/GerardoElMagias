@@ -6,12 +6,14 @@ from interface.elements.ui_layout import UILayout
 
 from interface.composed_elements.player_interface_panel import PlayerInterfacePanel
 from interface.composed_elements.player_interface_text import PlayerInterfaceText
-from game.stage.stage_background import StageBackground
+from core.game.stage.stage_background_selector import StageBackgroundSelector
+from core.game.stage.stage_effects_renderer import StageEffectsRenderer
 
 
-class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
-    def __init__(self, surface, width, height, panel_width, panel_height, clock, fps):
-        StageBackground.__init__(self, surface)
+class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSelector, StageEffectsRenderer):
+    def __init__(self, surface, width, height, panel_width, panel_height, clock, fps, animation_master):
+        StageBackgroundSelector.__init__(self, surface)
+        StageEffectsRenderer.__init__(self, animation_master)
         PlayerInterfacePanel.__init__(self, surface, width, height, panel_width, panel_height)
         PlayerInterfaceText.__init__(self, surface, width, height, panel_width, panel_height)
         self.clock = clock

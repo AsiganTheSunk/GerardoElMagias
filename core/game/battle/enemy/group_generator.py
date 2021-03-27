@@ -7,12 +7,12 @@ from units.enemy.bone.bone_wizard import BoneWizard
 from core.units.enemy.lizard.lizard import Lizard
 from constants.game_windows import *
 from units.constants.unit_type import UnitType
-from game.battle.enemy import EnemySetGenerator
-from game.battle.enemy import EnemyStatsGenerator
-from game.battle.enemy import EnemyPositionsGenerator
+from game.battle.enemy.set_generator import EnemySetGenerator
+from game.battle.enemy.stats_generator import EnemyStatsGenerator
+from game.battle.enemy.position_generator import EnemyPositionsGenerator
 
 
-class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
+class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
     def __init__(self, animation_master):
         self.animation_master = animation_master
         EnemyStatsGenerator.__init__(self)

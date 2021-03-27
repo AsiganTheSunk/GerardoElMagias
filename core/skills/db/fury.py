@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 # Combat Imports
-from game.battle.combat import CombatFormulas
-from game.battle.combat.combat_resolver import CombatResolver
-from game.battle.combat import get_alive_targets
-from game.text.damage_text import DamageText
+from core.game.battle.combat.combat_formulas import CombatFormulas
+from core.game.battle.combat.combat_resolver import CombatResolver
+from core.game.battle.combat.combat_utils import get_alive_targets
+from core.game.text.damage_text import DamageText
 
 # Init: Damage Text
 damage_text = DamageText()

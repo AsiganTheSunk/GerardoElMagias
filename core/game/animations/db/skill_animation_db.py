@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.animations import AnimationResource
-from game.animations.constants.unit_animation_type import SkillAnimationType
+from core.game.animations.animation_resource import AnimationResource
+from core.game.animations.constants.skill_animation_type import SkillAnimationType
 from enum import Enum
 
 

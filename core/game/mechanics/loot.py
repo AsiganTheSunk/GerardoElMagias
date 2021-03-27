@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-from game.text.damage_text import DamageText
+from core.game.text.damage_text import DamageText
 from constants.sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound
 from core.items.item_generator import ItemGenerator
-from core.units.enemy.djinn import Djinn
-from units.enemy.bone.bone_wizard import BoneWizard
-from units.enemy.bandit.bandit_chief import BanditChief
-from core.units.enemy.bandit import Bandit
-from units.enemy.dragon.small_dragon import SmallDragon
-from core.units.enemy.dragon import Dragon
-from core.units.enemy.lizard import Lizard
-from core.units.enemy.demon import Demon
+from core.units.enemy.djinn.djinn import Djinn
+from core.units.enemy.bone.bone_wizard import BoneWizard
+from core.units.enemy.bandit.bandit_chief import BanditChief
+from core.units.enemy.bandit.bandit import Bandit
+from core.units.enemy.dragon.small_dragon import SmallDragon
+from core.units.enemy.dragon.dragon import Dragon
+from core.units.enemy.lizard.lizard import Lizard
+from core.units.enemy.demon.demon import Demon
 from core.items.item_db.consumable_item_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
 
 # Init: Damage Text

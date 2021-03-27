@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.text.combat_text_resolver import CombatTextResolver
-from game.text.damage_text import DamageText
+from core.game.text.combat_text_resolver import CombatTextResolver
+from core.game.text.damage_text import DamageText
 from constants.basic_images import lightning_image, firestorm_image, background_shop_image, skill_heal_image
 from constants.sound import lightning_spell_1_sound, firestorm_spell_1_sound, heal_spell_1_sound
 
 from interface.basic_elements.button import Button
 
 from interface.basic_elements.image import Image
-from ui.ui_layout import UILayout
+from interface.elements.ui_layout import UILayout
 
 combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()

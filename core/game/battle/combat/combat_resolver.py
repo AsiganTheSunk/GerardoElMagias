@@ -12,7 +12,7 @@ from game.text.damage_text import DamageText
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
-from core.game.battle.combat.utils import get_alive_targets
+from game.battle.combat.combat_utils import get_alive_targets
 from constants.sound import *
 from random import randint
 

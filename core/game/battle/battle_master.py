@@ -3,8 +3,8 @@
 
 from core.game.battle.scripted_enemies import scripted_enemy
 from constants.game_windows import screen_height, panel_height
-from units.player.hero import HeroPlayer
-from game.battle.enemy.enemy_group import EnemyGroup
+from core.units.player.hero import HeroPlayer
+from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
 from random import randint
 from core.game.game_modes import GameModes
@@ -58,7 +58,7 @@ class BattleMaster:
             enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
         else:
             self.game_mode = GameModes.BATTLE
-            enemy_group = EnemyGroup(self.animation_master)
+            enemy_group = EnemyGroupGenerator(self.animation_master)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.text.damage_text import DamageText
+from core.game.text.damage_text import DamageText
 
 damage_text = DamageText()
 

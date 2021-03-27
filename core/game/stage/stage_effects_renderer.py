@@ -1,4 +1,7 @@
-from skills.effects_db import FireSkillEffect
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.skills.effects_db.fire_skill_effect import FireSkillEffect
 
 
 class StageEffectsRenderer:

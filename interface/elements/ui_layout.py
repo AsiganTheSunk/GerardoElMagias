@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from interface.ui.ui_element import UIElement
+from interface.elements.ui_element import UIElement
 
 
 class UILayout(UIElement):

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import time, mask, mouse
-from game.animations import AnimationSet
+from core.game.animations.animation_set import AnimationSet
 
 
 class UnitAnimationSet(AnimationSet):

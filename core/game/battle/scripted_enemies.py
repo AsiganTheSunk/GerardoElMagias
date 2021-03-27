@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from units.enemy.bandit.bandit_chief import BanditChief
-from units.enemy.dragon.small_dragon import SmallDragon
-from core.units.enemy.dragon import Dragon
-from core.units.enemy.djinn import Djinn
-from core.units.enemy.demon import Demon
+from core.units.enemy.bandit.bandit_chief import BanditChief
+from core.units.enemy.dragon.small_dragon import SmallDragon
+from core.units.enemy.dragon.dragon import Dragon
+from core.units.enemy.djinn.djinn import Djinn
+from core.units.enemy.demon.demon import Demon
 from constants.game_windows import screen_height, panel_height
 
 

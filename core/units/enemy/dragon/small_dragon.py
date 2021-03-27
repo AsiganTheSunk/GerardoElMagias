@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from skills.db.melee import MeleeSpells
+from core.skills.db.melee import MeleeSpells
 
-from skills.db.magic import MagicSpells
+from core.skills.db.magic import MagicSpells
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
-from units.player.resources.stash import Stash
+from core.units.player.resources.stash import Stash
 from random import randint
-from game.text.combat_text_resolver import CombatTextResolver
-from game.text.damage_text import DamageText
+from core.game.text.combat_text_resolver import CombatTextResolver
+from core.game.text.damage_text import DamageText
 
 
 
@@ -18,7 +18,7 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 # Animation Imports
-from game.animations import UnitAnimationSet
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 import constants.globals
 

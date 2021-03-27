@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.sound.sound_resource import SoundResource
-from game.sound.constants.sound_type import SoundType
-from game.sound.constants.sound_fx_sub_type import SoundFxSubType
-from game.sound.constants.sound_file_extension import SoundFileExtension
-from game.sound.constants.sound_music_sub_type import SoundMusicSubType
+from core.game.sound.sound_resource import SoundResource
+from core.game.sound.constants.sound_type import SoundType
+from core.game.sound.constants.sound_fx_sub_type import SoundFxSubType
+from core.game.sound.constants.sound_file_extension import SoundFileExtension
+from core.game.sound.constants.sound_music_sub_type import SoundMusicSubType
 
 
 SOUND_POOL = {

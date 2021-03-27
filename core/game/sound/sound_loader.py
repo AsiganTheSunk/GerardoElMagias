@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.sound.db.sound_db import SOUND_POOL
+from core.game.sound.db.sound_db import SOUND_POOL
 
 
 class SoundLoader:

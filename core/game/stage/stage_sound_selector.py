@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.stage.stage_sounds import StageSounds
+from core.game.stage.stage_sounds import StageSounds
 
 
 class StageSoundSelector:

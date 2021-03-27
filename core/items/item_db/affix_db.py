@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from core.items.affix_system.affix_type import Affix
 from core.items.affix_system.affix_category import *
 from core.items.equipement_items.item_categories import *
-
 
 
 PREFIX_ATTRIBUTE_POOL = [

@@ -3,6 +3,7 @@
 
 from constants.sound import *
 
+
 class BasicUnit:
     def __init__(self, x, y, name, level, strength, dexterity, magic):
 

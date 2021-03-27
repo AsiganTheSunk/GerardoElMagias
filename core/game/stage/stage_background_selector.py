@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 from constants.basic_images import background_forest, background_castle, background_dungeon
 
 
-class StageBackground:
+class StageBackgroundSelector:
     def __init__(self, surface):
         self.surface = surface
 

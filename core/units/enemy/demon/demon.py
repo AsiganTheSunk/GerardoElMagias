@@ -5,11 +5,11 @@ from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
 
 # Skill Imports
-from skills.db.melee import MeleeSpells
-from skills.db.magic import MagicSpells
+from core.skills.db.melee import MeleeSpells
+from core.skills.db.magic import MagicSpells
 
 # Animation Imports
-from game.animations import UnitAnimationSet
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 from random import randint
 import constants.globals

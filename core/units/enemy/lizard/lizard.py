@@ -12,7 +12,7 @@ ulti_attacks = 1
 from skills.db.melee import MeleeSpells
 
 # Animation Imports
-from game.animations import UnitAnimationSet
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Lizard(BasicUnit, MeleeSpells):

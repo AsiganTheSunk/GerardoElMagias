@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.sound.sets.consumable_sound_set import ConsumableSounds
-from game.sound.sets.menu_sound_set import MenuSounds
-from game.sound.sets.stage_sound_set import StageSoundsSet
+from core.game.sound.sets.consumable_sound_set import ConsumableSounds
+from core.game.sound.sets.menu_sound_set import MenuSounds
+from core.game.sound.sets.stage_sound_set import StageSoundsSet
 
 
 class StageSounds(StageSoundsSet, ConsumableSounds, MenuSounds):

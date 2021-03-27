@@ -2,23 +2,23 @@
 # -*- coding: utf-8 -*-
 
 from core.units.resources.mana_bar import ManaBar
-from units.player.resources.stash import Stash
+from core.units.player.resources.stash import Stash
 
-from skills.db.magic import MagicSpells
-from skills.db.melee import MeleeSpells
-from skills.db.fury import FurySpells
+from core.skills.db.magic import MagicSpells
+from core.skills.db.melee import MeleeSpells
+from core.skills.db.fury import FurySpells
 
 from core.units.resources.fury_bar import FuryBar
-from game.mechanics.experience import ExperienceSystem
+from core.game.mechanics.experience import ExperienceSystem
 
-from game.battle.combat import get_alive_targets_status
-from game.text.combat_text_resolver import CombatTextResolver
-from game.text.damage_text import DamageText
+from core.game.battle.combat.combat_utils import get_alive_targets_status
+from core.game.text.combat_text_resolver import CombatTextResolver
+from core.game.text.damage_text import DamageText
 
 from constants.sound import *
 import constants.globals
 
-from game.mechanics import LootPool
+from core.game.mechanics.loot import LootPool
 from core.units.player_unit import PlayerUnit
 from core.units.resources.health_bar import HealthBar
 
@@ -27,11 +27,11 @@ from random import randint
 # Text Import
 
 # Combat Imports
-from game.battle.combat import CombatFormulas
-from game.battle.combat.combat_resolver import CombatResolver
+from core.game.battle.combat.combat_formulas import CombatFormulas
+from core.game.battle.combat.combat_resolver import CombatResolver
 
 # Animation Imports
-from game.animations import UnitAnimationSet
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
 from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION

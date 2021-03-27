@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from skills.db.melee import MeleeSpells
+from core.skills.db.melee import MeleeSpells
 
-from skills.db.magic import MagicSpells
+from core.skills.db.magic import MagicSpells
 from core.units.basic_unit import BasicUnit
 from core.units.resources.health_bar import HealthBar
-from units.player.resources.stash import Stash
+from core.units.player.resources.stash import Stash
 from random import randint
-from game.text.combat_text_resolver import CombatTextResolver
-from game.text.damage_text import DamageText
-
+from core.game.text.combat_text_resolver import CombatTextResolver
+from core.game.text.damage_text import DamageText
 
 
 # Init: Damage Text, CombatTextResolver
@@ -18,9 +17,10 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 # Animation Imports
-from game.animations import UnitAnimationSet
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 import constants.globals
+
 
 class Dragon(BasicUnit, MagicSpells, MeleeSpells):
     def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
@@ -32,8 +32,8 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         # Bandit Loot
         self.looted_status = False
         self.try_to_consume_health_potion = False
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'Dragon', animation_master.get_unit_resource_animation_set('Dragon'))
-
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y,
+                                              'Dragon', animation_master.get_unit_resource_animation_set('Dragon'))
 
     def is_looted(self):
         if self.looted_status:
@@ -92,7 +92,6 @@ class Dragon(BasicUnit, MagicSpells, MeleeSpells):
         # Activates: Miss Animation
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
-
 
     def action(self, target, damage_text_group):
         health_trigger = self.current_hp <= round(self.max_hp * 0.70)

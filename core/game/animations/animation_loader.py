@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from pygame import image, transform
-from game.animations.db import UNIT_ANIMATION_SETS
-from game.animations.db import SKILL_ANIMATION_SETS
+from core.game.animations.db.unit_animation_db import UNIT_ANIMATION_SETS
+from core.game.animations.db.skill_animation_db import SKILL_ANIMATION_SETS
 from enum import Enum
 
 
