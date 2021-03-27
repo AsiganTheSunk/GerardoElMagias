@@ -4,7 +4,7 @@
 import pygame
 
 # button class
-from interface.basic_components.ui_element import UIElement
+from interface.elements.ui_element import UIElement
 
 
 class Button(UIElement):

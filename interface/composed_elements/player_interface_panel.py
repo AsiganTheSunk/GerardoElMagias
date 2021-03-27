@@ -6,7 +6,7 @@ from constants.basic_images import gold_image, panel_image, sword_image, loot_im
 
 from pygame import Color, Rect, display, draw, transform, Surface, mouse
 from core.game.event_control import event_controller
-from interface.composed_components.spell_book import UILayout
+from interface.composed_elements.spell_book import UILayout
 
 
 class PlayerInterfacePanel:

@@ -11,8 +11,8 @@ from constants.sound import ultimate_sound
 import constants.globals
 
 # Game Drawable Instance Imports:
-from interface.basic_components.button import Button
-from interface.composed_components.spell_book import Spellbook
+from interface.basic_elements.button import Button
+from interface.composed_elements.spell_book import Spellbook
 
 # Game Control Imports:
 import constants.globals

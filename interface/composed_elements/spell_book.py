@@ -3,16 +3,13 @@
 
 from core.text.combat_text_resolver import CombatTextResolver
 from core.text.damage_text import DamageText
-from constants.basic_images import lightning_image, firestorm_image, background_shop_image, skill_heal_image, exitbook_button_image
-from interface.basic_components import button
+from constants.basic_images import lightning_image, firestorm_image, background_shop_image, skill_heal_image
 from constants.sound import lightning_spell_1_sound, firestorm_spell_1_sound, heal_spell_1_sound
 
-from core.game.game_modes import GameModes
-from interface.basic_components.button import Button, UIElement
-from pygame import Rect
+from interface.basic_elements.button import Button
 
-from interface.basic_components.image import Image
-from interface.basic_components.ui_layout import UILayout
+from interface.basic_elements.image import Image
+from ui.ui_layout import UILayout
 
 combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()

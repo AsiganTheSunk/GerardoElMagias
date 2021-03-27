@@ -15,7 +15,3 @@ class UnitAnimationType(Enum):
     MATERIALIZE = "Materialize"
 
 
-class SkillAnimationType(Enum):
-    PRE_CAST = 'PreCast'
-    CAST = 'Cast'
-    POST_CAST = 'PostCast'

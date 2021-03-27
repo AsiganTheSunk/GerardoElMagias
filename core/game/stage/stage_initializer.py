@@ -7,7 +7,7 @@
 from constants.game_windows import screen_height, screen_width, panel_height
 
 # Game Drawable Instance Imports:
-from interface.stage_drawer import StageDrawer
+from interface.stage_renderer import StageRenderer
 
 # Master Game Engine Imports
 from core.units.sound.sound_master import SoundMaster
@@ -28,8 +28,8 @@ class StageInitializer:
         self.animation_loader = AnimationLoader(self.game_attributes.surface)
         self.sound_master = SoundMaster()
         self.stage_drawer = \
-            StageDrawer(self.game_attributes.surface, screen_width, screen_height, 0, panel_height,
-                        self.game_attributes.clock, self.game_attributes.fps, self.animation_loader)
+            StageRenderer(self.game_attributes.surface, screen_width, screen_height, 0, panel_height,
+                          self.game_attributes.clock, self.game_attributes.fps)
 
         self.stage_drawer.display_caption()
         self.battle_master = BattleMaster(self.animation_loader)
