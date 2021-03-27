@@ -1,4 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 from interface.basic_components.ui_element import UIElement
+
 
 class UILayout(UIElement):
     def __init__(self):

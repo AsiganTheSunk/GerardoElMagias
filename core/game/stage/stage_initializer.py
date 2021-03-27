@@ -7,7 +7,7 @@
 from constants.game_windows import screen_height, screen_width, panel_height
 
 # Game Drawable Instance Imports:
-from interface.composed_component.player_interface_panel import StageDrawer
+from interface.stage_drawer import StageDrawer
 
 # Master Game Engine Imports
 from core.units.sound.sound_master import SoundMaster

@@ -4,10 +4,9 @@
 from core.game.battle.scripted_enemies import scripted_enemy
 from constants.game_windows import screen_height, panel_height
 from core.units.classes.player import HeroPlayer
-from core.units.enemy_group import EnemyGroup
+from units.enemy.enemy_group import EnemyGroup
 import constants.globals
 from random import randint
-from core.units.mechanics.experience import ExperienceSystem
 
 from core.game.game_modes import GameModes
 
@@ -23,6 +22,17 @@ class BattleMaster:
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.friendly_fighters[0]
         self.game_mode = GameModes.BATTLE
+
+        self.previous_game_mode = None
+
+    def swap_battle_mode(self, game_mode=None):
+        if self.previous_game_mode is None:
+            self.previous_game_mode = self.game_mode
+            self.game_mode = game_mode
+
+        if game_mode is None:
+            self.game_mode = self.previous_game_mode
+            self.previous_game_mode = None
 
     def get_hero(self):
         return self.friendly_fighters[0]
@@ -56,10 +66,6 @@ class BattleMaster:
     def is_boss_level(self):
         return self.level in self.boss_levels
 
-
-   # def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
-
-
     def create_hero(self):
         base_strength = randint(10, 15)
         base_dexterity = randint(15, 20)
@@ -67,7 +73,7 @@ class BattleMaster:
         base_vitality = randint(15, 20)
         base_resilience = randint(1, 5)
         base_luck = randint(1, 5)
-        return HeroPlayer(300, 480, "Hero", 1,
+        return HeroPlayer(300, 480, 1,
                           base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,
                           270, screen_height - panel_height + 20,   # healthbar coords
                           270, screen_height - panel_height + 40,   # manabar coords
@@ -86,7 +92,6 @@ class BattleMaster:
         if self.no_enemies_alive():
             self.game_mode = GameModes.VICTORY
             hero_player.gain_experience()
-
 
     def move_to_next_fighter(self):
         self.move_to_victory_phase()
@@ -137,8 +142,8 @@ class BattleMaster:
     def handle_potion_click(self, event, button):
         hero_player = self.get_hero()
         potion = button.id
-        #esto tendrá más sentido cuando las pociones sean parte de items en lugar de ser su propia movida
-        if self.is_player_phase():
+        # esto tendrá más sentido cuando las pociones sean parte de items en lugar de ser su propia movida
+        if self.is_player_phase() and self.is_battle_phase():
             if potion == 'healing_potion':
                 if hero_player.stash.has_healing_potion():
                     hero_player.next_action = ['use', potion]

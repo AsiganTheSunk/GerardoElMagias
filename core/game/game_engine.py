@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Pygame Imports:
-from pygame import display, quit
+from pygame import display, quit, Color
 
 # Game Engine Constants Imports:
 import constants.globals
@@ -22,6 +22,7 @@ class GameEngine:
 
     def run(self):
         while constants.globals.run_game:
+            self.stage_initializer.game_attributes.surface.fill(Color('Black'))
             self.stage_initializer.run_stage()
             event_control()
             display.update()

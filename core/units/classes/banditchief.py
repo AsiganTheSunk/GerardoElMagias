@@ -21,8 +21,8 @@ import constants.globals
 
 
 class BanditChief(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, 'BanditChief', level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)
@@ -30,7 +30,7 @@ class BanditChief(BasicUnit, MeleeSpells):
         self.looted_status = False
         self.try_to_consume_health_potion = False
 
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('BanditChief'))
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'BanditChief', animation_master.get_unit_resource_animation_set('BanditChief'))
 
     def update_try_to_consume_health_potion(self):
         self.try_to_consume_health_potion = True

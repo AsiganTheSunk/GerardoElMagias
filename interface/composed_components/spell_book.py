@@ -22,10 +22,10 @@ class Spellbook(UILayout):
         super().__init__()
         self.battle_master = battle_master
         self.text_sprite = text_sprite
-        background_panel = Image(background_shop_image, 128, 190)
-        lightning_spell_button = Button('lightning', 150, 220, lightning_image, 150, 150)
-        firestorm_spell_button = Button('firestorm', 165, 410, firestorm_image, 110, 110)
-        heal_spell_button = Button('heal_spell', 500, 220, skill_heal_image, 130, 130)
+        background_panel = Image(background_shop_image, 320, 80)
+        lightning_spell_button = Button('lightning', 350, 120, lightning_image, 150, 150)
+        firestorm_spell_button = Button('firestorm', 365, 310, firestorm_image, 110, 110)
+        heal_spell_button = Button('heal_spell', 700, 120, skill_heal_image, 130, 130)
         lightning_spell_button.on_click(self.handle_spell_click)
         firestorm_spell_button.on_click(self.handle_spell_click)
         heal_spell_button.on_click(self.handle_spell_click)
@@ -33,7 +33,7 @@ class Spellbook(UILayout):
 
     def handle_spell_click(self, event, button):
         if self.cast_spell(button.id, self.battle_master.get_hero(), self.battle_master.enemy_fighters, self.text_sprite):
-            self.battle_master.game_mode = GameModes.BATTLE
+            self.battle_master.swap_battle_mode()
             self.hidden = True
             self.battle_master.move_to_next_fighter()
 

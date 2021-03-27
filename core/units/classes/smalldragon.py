@@ -23,8 +23,8 @@ from core.units.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 
 class SmallDragon(BasicUnit, MagicSpells, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, 'SmallDragon', level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
@@ -32,7 +32,7 @@ class SmallDragon(BasicUnit, MagicSpells, MeleeSpells):
         # Bandit Loot
         self.looted_status = False
         self.try_to_consume_health_potion = False
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('SmallDragon'))
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'SmallDragon', animation_master.get_unit_resource_animation_set('SmallDragon'))
 
 
     def is_looted(self):

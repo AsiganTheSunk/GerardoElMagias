@@ -12,7 +12,7 @@ import constants.globals
 
 # Game Drawable Instance Imports:
 from interface.basic_components.button import Button
-from interface.composed_component.spell_book import Spellbook
+from interface.composed_components.spell_book import Spellbook
 
 # Game Control Imports:
 import constants.globals
@@ -43,16 +43,16 @@ class StageResolver:
         self.game_attributes = game_attributes
 
         healing_potion_button = \
-            Button('healing_potion', 0, self.stage_drawer.height - self.stage_drawer.panel_height + 150, health_potion_image, 64, 64)
+            Button('healing_potion', 130, self.stage_drawer.height - self.stage_drawer.panel_height + 1, health_potion_image, 64, 64)
 
         mana_potion_button = \
-            Button('mana_potion',85, self.stage_drawer.height - self.stage_drawer.panel_height + 150, mana_potion_image, 60, 60)
+            Button('mana_potion', 132, self.stage_drawer.height - self.stage_drawer.panel_height + 65, mana_potion_image, 60, 60)
 
-        spell_book_button = Button('spellbook', 45, 695, spellbook_image, 100, 100)
-        self.ultimate_button = Button('ultimate', 400, 120, ultimate_image, 50, 50)
+        spell_book_button = Button('spellbook', 10, 600, spellbook_image, 100, 100)
+        self.ultimate_button = Button('ultimate', 555, 590, ultimate_image, 60, 60)
         self.ultimate_button.hidden = True
         kill_all_button = Button('kill_all', 40, 260, skull_image, 60, 60)
-        self.next_button = Button('next', 800, 10, next_button_image, 80, 80)
+        self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
 
         mana_potion_button.on_click(battle_master.handle_potion_click)
@@ -73,7 +73,6 @@ class StageResolver:
         self.spellbook.hidden = True
         self.stage_drawer.add(self.spellbook)
 
-        self.previous_mouse_collision = False
         self.player = self.battle_master.get_hero()
 
     def stage_loop_resolver(self):
@@ -102,20 +101,26 @@ class StageResolver:
         constants.globals.action_cooldown += 1
         self.player.next_action = None
 
+
     def stage_reset(self):
         # constants.globals.action_cooldown = 0
         self.battle_master.friendly_fighters[0].ultimate_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
     def toggle_player_spell_book(self, event, spellbook):
-        self.spellbook.hidden = not self.spellbook.hidden
+        if self.battle_master.is_player_phase():
+            self.spellbook.hidden = not self.spellbook.hidden
+
+            if self.battle_master.is_battle_phase():
+                self.battle_master.swap_battle_mode(GameModes.SPELLBOOK)
+            else:
+                self.battle_master.swap_battle_mode()
 
     def resolve_player_interface_actions(self):
         if self.player.has_full_fury() and self.battle_master.is_player_phase():
             self.ultimate_button.hidden = False
         else:
             self.ultimate_button.hidden = True
-
 
     def handle_ultimate_click(self, event, button):
         self.battle_master.get_hero().ultimate_status = True
@@ -128,30 +133,25 @@ class StageResolver:
 
     def resolve_player_mouse_actions(self):
         if self.battle_master.is_victory_phase():
-
             for enemy_unit in self.battle_master.enemy_fighters:
                 if enemy_unit.animation_set.mouse_collision():
-                    self.previous_mouse_collision = True
                     self.stage_drawer.display_bag_mouse()
                     if constants.globals.clicked:
                         self.player.loot(enemy_unit, self.game_attributes.text_sprite)
                         constants.globals.clicked = False
-
-                if self.previous_mouse_collision is True and not enemy_unit.animation_set.mouse_collision():
-                    self.previous_mouse_collision = False
-                    mouse.set_visible(True)
+                    # Return to avoid normal mouse showing up
+                    return
 
         elif self.battle_master.is_battle_phase():
             for enemy_unit in self.battle_master.enemy_fighters:
                 if enemy_unit.animation_set.mouse_collision():
-                    self.previous_mouse_collision = True
                     self.stage_drawer.display_sword_mouse()
                     if constants.globals.clicked and enemy_unit.alive:
                         self.player.next_action = ('attack', enemy_unit)
+                    # Return to avoid normal mouse showing up
+                    return
 
-                if self.previous_mouse_collision is True and not enemy_unit.animation_set.mouse_collision():
-                    self.previous_mouse_collision = False
-                    mouse.set_visible(True)
+        mouse.set_visible(True)
 
     def resolve_combat_phase(self):
         if self.battle_master.is_battle_phase():
@@ -164,7 +164,6 @@ class StageResolver:
         if self.battle_master.is_victory_phase():
             self.next_button.hidden = False
             self.stage_drawer.display_victory()
-
 
     def handle_next_click(self, *args):
         self.stage_reset()

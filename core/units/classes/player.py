@@ -19,7 +19,7 @@ from constants.sound import *
 import constants.globals
 
 from core.units.mechanics.loot import LootPool
-from core.units.basic_unit import PlayerUnit
+from core.units.player_unit import PlayerUnit
 from core.units.resources.health_bar import HealthBar
 
 from random import randint
@@ -48,13 +48,13 @@ combat_text_resolver = CombatTextResolver()
 
 
 class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
-    def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
-        PlayerUnit.__init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck)
+    def __init__(self, x, y, level, strength, dexterity, magic, vitality, resilience, luck, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+        PlayerUnit.__init__(self, x, y, "Hero", level, strength, dexterity, magic, vitality, resilience, luck)
         FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Hero'))
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, "Hero", animation_master.get_unit_resource_animation_set('Hero'))
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)

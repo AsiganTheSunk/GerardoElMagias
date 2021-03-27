@@ -20,14 +20,14 @@ combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(BasicUnit, MeleeSpells):
-    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, 'Bandit', level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         # Bandit Loot
         self.looted_status = False
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, name, animation_master.get_unit_resource_animation_set('Bandit'))
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'Bandit', animation_master.get_unit_resource_animation_set('Bandit'))
         self.stash = Stash(healing_potions=1, mana_potions=0, gold=0)
         self.try_to_consume_health_potion = False
 
