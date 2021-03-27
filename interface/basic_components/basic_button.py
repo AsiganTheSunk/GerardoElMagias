@@ -4,8 +4,6 @@
 from pygame import mouse, transform, Surface, time, SRCALPHA, font, Color, surfarray, draw, display, Rect
 from numpy import array
 
-# BasicButton(screen, 100, 100, ultimate_image, 50, 50, 'Ultimate', text_color=pygame.Color('White'))
-
 
 class BasicButton:
     def __init__(self, surface, x, y, image, image_width, image_height, text_message='',
