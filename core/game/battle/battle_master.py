@@ -3,8 +3,8 @@
 
 from core.game.battle.scripted_enemies import scripted_enemy
 from constants.game_windows import screen_height, panel_height
-from core.units.classes.player import HeroPlayer
-from core.units.enemy.enemy_group import EnemyGroup
+from units.player.hero import HeroPlayer
+from game.battle.enemy.enemy_group import EnemyGroup
 import constants.globals
 from random import randint
 from core.game.game_modes import GameModes

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.text.combat_text_resolver import CombatTextResolver
-from core.text.damage_text import DamageText
+from game.text.combat_text_resolver import CombatTextResolver
+from game.text.damage_text import DamageText
 from constants.basic_images import lightning_image, firestorm_image, background_shop_image, skill_heal_image
 from constants.sound import lightning_spell_1_sound, firestorm_spell_1_sound, heal_spell_1_sound
 

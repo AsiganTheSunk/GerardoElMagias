@@ -69,7 +69,7 @@ class PlayerInterfaceText:
                           self.height - self.panel_height + 80)
 
     def display_enemy_bottom_panel_information(self, scripted_battle, enemy_list):
-        # draw name and health of enemies
+        # draw name and health of enemy
         ENEMY_TEXT_POS_0 = [680, self.height - self.panel_height + 5]
         ENEMY_TEXT_POS_1 = [680, self.height - self.panel_height + 65]
         ENEMY_TEXT_POS_2 = [900, self.height - self.panel_height + 5]

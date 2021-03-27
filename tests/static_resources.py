@@ -1,11 +1,8 @@
-from core.units.resources.backpack import BackPack
 from core.items.equipement_items.item_types import *
 from core.items.equipement_items.item_categories import *
 from core.items.generated_item import GeneratedItem
 from core.items.affix_system.affix_type import *
 from core.items.affix_system.affix_category import *
-from core.units.resources.equipment import EquipmentSet
-
 
 # Static Affix:
 static_prefix = [Affix('Resplandeciente', 20, AttributeType.MAGIC_POWER, 7, 10,

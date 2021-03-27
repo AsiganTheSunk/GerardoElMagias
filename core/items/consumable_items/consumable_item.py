@@ -3,7 +3,7 @@
 
 from random import randint
 from enum import Enum
-from core.text.damage_text import DamageText
+from game.text.damage_text import DamageText
 
 # Init: Damage Text
 damage_text = DamageText()

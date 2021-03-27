@@ -7,11 +7,11 @@
 from constants.game_windows import screen_height, screen_width, panel_height
 
 # Game Drawable Instance Imports:
-from interface.stage_renderer import StageRenderer
+from game.stage.stage_renderer import StageRenderer
 
 # Master Game Engine Imports
-from core.units.sound.sound_master import SoundMaster
-from core.units.animations.animation_loader import AnimationLoader
+from game.sound import SoundMaster
+from game.animations import AnimationLoader
 from core.game.battle.battle_master import BattleMaster
 from core.game.game_attributes import GameAttributes
 

@@ -21,7 +21,6 @@ class BasicUnit:
         self.dexterity = dexterity
         self.magic = magic
 
-
         # Basic Resource Stats: Fury, Mana, Health
         self.max_fury = 100
         self.current_fury = 0
@@ -29,7 +28,6 @@ class BasicUnit:
         self.current_hp = 0
         self.max_mp = 0
         self.current_mp = 0
-
 
         # Basic Unit Status
         self.alive = True
@@ -45,8 +43,6 @@ class BasicUnit:
     def set_max_mp(self, max_mp):
         self.max_mp = max_mp
         self.current_mp = max_mp
-
-
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:

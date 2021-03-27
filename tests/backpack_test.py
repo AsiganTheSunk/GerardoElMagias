@@ -1,4 +1,3 @@
-from core.units.resources.backpack import BackPack
 from tests.static_resources import *
 
 

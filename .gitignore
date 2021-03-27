@@ -5,7 +5,7 @@ constants/__pycache__/
 
 *.pyc
 
-core/units/mechanics/__pycache__/
+core/game/mechanics/__pycache__/
 
 .pycrunch-config.yaml
 

@@ -1,0 +1,125 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.units.basic_unit import BasicUnit
+from core.units.resources.health_bar import HealthBar
+
+# Skill Imports
+from skills.db.melee import MeleeSpells
+from skills.db.magic import MagicSpells
+
+# Animation Imports
+from game.animations import UnitAnimationSet
+
+from random import randint
+import constants.globals
+
+
+class Demon(BasicUnit, MeleeSpells, MagicSpells):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, 'Demon', level, strength, dexterity, magic)
+        MeleeSpells.__init__(self)
+        MagicSpells.__init__(self)
+
+        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
+        # Bandit Loot
+        self.looted_status = False
+        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'Demon', animation_master.get_unit_resource_animation_set('Demon'))
+        self.current_fury = 1
+        self.fury_status = True
+        self.animation_set.action = 6
+
+
+    def is_looted(self):
+        return self.looted_status
+
+    def update_looted_status(self):
+        self.looted_status = True
+
+    def attack(self, target, damage_text_group):
+        self.melee_attack_animation()
+        self.cast_attack(self, target, damage_text_group)
+        return True
+
+    def power_of_two_attack(self, target, damage_text_group):
+        exponent = self.power_of_two_exponent
+        self.cast_power_of_two_attack(target, damage_text_group, exponent)
+        self.power_of_two_exponent += 1
+
+    def use_heal(self, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(12):
+            constants.globals.action_cooldown = -30
+            self.cast_heal(self, self, damage_text_group)
+            return True
+
+    def use_firestorm(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(15):
+            constants.globals.action_cooldown = -30
+            self.cast_firestorm(self, target_list, damage_text_group)
+            return True
+
+    def use_lightning(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(20):
+            constants.globals.action_cooldown = -30
+            self.cast_lightning(self, target_list, damage_text_group)
+            return True
+
+        self.no_action_error('Mana', damage_text_group)
+        return False
+
+    def death_animation(self):
+        # Activates: Death Animation
+        self.animation_set.action = 1
+        self.animation_set.reset_frame_index()
+
+    def melee_attack_animation(self):
+        # Activates: Melee Attack Animation
+        self.animation_set.action = 2
+        self.animation_set.reset_frame_index()
+
+    def hurt_animation(self):
+        # Activates: Hurt Animation
+        self.animation_set.action = 3
+        self.animation_set.reset_frame_index()
+
+    def block_animation(self):
+        # Activates: Block Animation
+        self.animation_set.action = 4
+        self.animation_set.reset_frame_index()
+
+    def miss_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 5
+        self.animation_set.reset_frame_index()
+
+    def materialize_animation(self):
+        # Activates: Miss Animation
+        self.animation_set.action = 6
+        self.animation_set.reset_frame_index()
+
+    def action(self, target, damage_text_group):
+        health_trigger = self.current_hp <= round(self.max_hp * 0.90)
+        if health_trigger:
+            i = randint(1, 4)
+            if i == 1:
+                self.attack(target, damage_text_group)
+            elif i == 2:
+                if self.current_mp >= 12:
+                    self.use_heal(damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
+            elif i == 3:
+                if self.current_mp >= 15:
+                    self.use_firestorm([target], damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
+            elif i == 4:
+                if self.current_mp >= 20:
+                    self.use_lightning([target], damage_text_group)
+                else:
+                    self.attack(target, damage_text_group)
+        else:
+            self.attack(target, damage_text_group)
