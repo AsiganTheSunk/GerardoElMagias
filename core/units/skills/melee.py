@@ -6,6 +6,12 @@ from random import randint
 # Combat Imports
 from core.units.combat.combat_formulas import CombatFormulas
 from core.units.combat.combat_resolver import CombatResolver
+from core.text.damage_text import DamageText
+from core.text.combat_text_resolver import CombatTextResolver
+
+# Init: Damage Text
+combat_text_resolver = CombatTextResolver()
+damage_text = DamageText()
 
 
 class MeleeSpells(CombatFormulas, CombatResolver):
@@ -37,10 +43,10 @@ class MeleeSpells(CombatFormulas, CombatResolver):
 
     def cast_power_of_two_attack(self, target, damage_text_group, exponent):
         output_damage = 2 ** exponent
-
         input_damage, input_type = self.fixed_damage_attack_resolution(output_damage)
-
         self.resolve_fixed_damage_attack(target, input_damage, input_type, damage_text_group)
+
+        damage_text.cast(self, "Power of two: " + str(exponent), damage_text_group)
 
 
 

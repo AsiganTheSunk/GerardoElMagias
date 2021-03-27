@@ -160,6 +160,7 @@ class StageResolver:
 
     def resolve_victory(self):
         # Victory Check
+
         if self.battle_master.is_victory_phase():
             self.next_button.hidden = False
             self.stage_drawer.display_victory()

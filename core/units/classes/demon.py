@@ -16,8 +16,8 @@ import constants.globals
 
 
 class Demon(BasicUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
+    def __init__(self, x, y, name, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 

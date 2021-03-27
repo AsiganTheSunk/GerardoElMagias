@@ -19,8 +19,10 @@ from constants.sound import *
 import constants.globals
 
 from core.units.mechanics.loot import LootPool
-from core.units.basic_unit import BasicUnit
+from core.units.basic_unit import PlayerUnit
 from core.units.resources.health_bar import HealthBar
+
+from random import randint
 
 # Text Import
 
@@ -45,9 +47,9 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic)
+class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
+    def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+        PlayerUnit.__init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck)
         FurySpells.__init__(self)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
@@ -57,9 +59,11 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
-        self.stash = Stash(healing_potion, magic_potion, gold)
+        self.stash = Stash()
 
         self.experience_system = ExperienceSystem()
+
+        self.experience_to_gain = 0
 
         self.current_fury = 0
         self.experience = 0
@@ -181,3 +185,23 @@ class HeroPlayer(BasicUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationS
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)
         error_sound.play()
+
+    def gain_experience(self):
+        self.experience = self.experience + self.experience_to_gain
+        self.experience_to_gain = 0
+        if self.experience >= self.exp_level_break:
+            self.level_up()
+
+
+    def level_up(self):
+        strength_raise = randint(2, 3)
+        dexterity_raise = randint(1, 2)
+        magic_raise = randint(1, 3)
+        vitality_raise = randint(2, 4)
+        resilience_raise = randint(1, 2)
+        luck_raise = randint(1, 2)
+
+        self.level_up_stats(strength_raise, dexterity_raise, magic_raise, vitality_raise, resilience_raise, luck_raise)
+
+        self.exp_level_break = round(self.exp_level_break * 1.6)
+        self.level += 1

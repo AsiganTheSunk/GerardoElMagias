@@ -5,7 +5,7 @@ from interface.basic_components.button import Button
 from constants.basic_images import skull_image, spellbook_image, \
     health_potion_image, mana_potion_image, restart_image, next_button_image, gold_image, \
     background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
-    defeat_banner_image
+    defeat_banner_image, background_dungeon
 
 from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.basic_fonts import default_font, interface_font
@@ -34,7 +34,6 @@ class PlayerInterfacePanel:
         self.height = height
         self.panel_width = panel_width
         self.panel_height = panel_height
-
         self.ui_elements = []
 
         # Mouse Pointer:
@@ -43,6 +42,7 @@ class PlayerInterfacePanel:
 
         self.sword_pointer = sword_image
         self.loot_pointer = loot_image
+        
         # Gold Icon:
         self.gold_image = gold_image
 
@@ -64,10 +64,10 @@ class PlayerInterfacePanel:
         self.surface.blit(self.loot_pointer, mouse.get_pos())
 
     def display_defeat_banner(self):
-        self.surface.blit(defeat_banner_image, (180, 50))
+        self.surface.blit(defeat_banner_image, (380, 50))
 
     def display_victory_banner(self):
-        self.surface.blit(self.victory_banner_image, (180, 50))
+        self.surface.blit(self.victory_banner_image, (350, 50))
 
     def display_sword_mouse(self):
         mouse.set_visible(False)
@@ -88,6 +88,8 @@ class PlayerInterfacePanel:
 
     def display_panel_background(self):
         w, h = display.get_surface().get_size()
+        w = w
+        h = h + 188
         self.gradientRect(self.surface, Color("SteelBlue"), Color("RoyalBlue"),
                           Rect(2, h / 2 + self.panel_height, w-4, self.panel_height))
 
@@ -120,12 +122,17 @@ class StageBackground:
         self.castle_background_image = background_castle
         self.castle_background = None
 
+        self.dungeon_background_image = background_dungeon
+        self.dungeon_background = None
+
     def set_stage_background(self, level):
         # draw backgrounds
         if level <= 7:
-            self.surface.blit(self.forest_background_image, (0, 0))
+            self.surface.blit(self.forest_background_image, (128, 0))
         if level > 7:
-            self.surface.blit(self.castle_background_image, (0, 0))
+            self.surface.blit(self.castle_background_image, (128, 0))
+        if level > 15:
+            self.surface.blit(self.dungeon_background_image, (128, 0))
 
 
 class PlayerInterfaceText:
@@ -143,29 +150,33 @@ class PlayerInterfaceText:
 
     def display_player_information(self, level, player):
         self.display_text(f"{player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
-        self.display_text(f"Nivel: {player.level}", default_font, WHITE_COLOR, 50, 100)
-        self.display_text(f"Experiencia: [ {player.experience}/{player.exp_level_break} ]", default_font, WHITE_COLOR, 50, 125)
-        self.display_text(f"Fuerza: {player.strength}", default_font, WHITE_COLOR, 50, 175)
-        self.display_text(f"Agilidad: {player.dexterity}", default_font, WHITE_COLOR, 50, 200)
-        self.display_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 50, 225)
+        self.display_text(f"Nivel: {player.level}", default_font, WHITE_COLOR, 150, 100)
+        self.display_text(f"Experiencia: [ {player.experience}/{player.exp_level_break} ]", default_font, WHITE_COLOR, 150, 125)
+        self.display_text(f"Fuerza: {player.strength}", default_font, WHITE_COLOR, 150, 175)
+        self.display_text(f"Destreza: {player.dexterity}", default_font, WHITE_COLOR, 150, 200)
+        self.display_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 150, 225)
+        self.display_text(f"Vitalidad: {player.vitality}", default_font, WHITE_COLOR, 150, 250)
+        self.display_text(f"Resiliencia: {player.resilience}", default_font, WHITE_COLOR, 150, 275)
+        self.display_text(f"Suerte: {player.luck}", default_font, WHITE_COLOR, 150, 300)
         self.display_stage_information(level)
 
     def display_next_battle_message(self):
-        self.display_text(f" Next Battle ", default_font, RED_COLOR, 630, 30)
+        self.display_text(f" Next Battle ", default_font, RED_COLOR, 980, 270)
 
     def display_victory_message(self):
-        self.display_text(f" STAGE CLEARED ", default_font, RED_COLOR, 330, 250)
-        self.display_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 330, 300)
+        self.display_text(f" GET YOUR LOOT! ", default_font, RED_COLOR, 530, 300)
         self.display_next_battle_message()
 
     def display_defeat_message(self):
-        self.display_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 340, 350)
+        self.display_text(f" YOU ARE A NOOB ", default_font, RED_COLOR, 540, 350)
 
     def display_stage_information(self, level):
         if level <= 7:
-            self.display_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 310, 25)
+            self.display_text(f"THE WOODS: STAGE {level}", default_font, RED_COLOR, 510, 25)
+        elif level <= 14:
+            self.display_text(f"THE CASTLE: STAGE {level - 7}", default_font, RED_COLOR, 510, 25)
         else:
-            self.display_text(f"THE CASTLE: STAGE {level - 7}", default_font, RED_COLOR, 310, 25)
+            self.display_text(f"THE DUNGEON: STAGE {level - 15}", default_font, RED_COLOR, 510, 25)
 
     def display_debug_information(self, _current_fighter, _total_fighters):
         self.display_text(f"Total fighters: {_total_fighters}", default_font, YELLOW_COLOR, 600, 100)
@@ -173,26 +184,26 @@ class PlayerInterfaceText:
 
     def display_player_bottom_panel_information(self, player):
         # show hero stats
-        self.display_text(f"  HP: {player.current_hp} / {player.max_hp}",
-                          interface_font, WHITE_COLOR, 350, self.height - self.panel_height + 18)
+        self.display_text(f"HP: {player.current_hp} / {player.max_hp}",
+                          interface_font, WHITE_COLOR, 440, self.height - self.panel_height + 18)
         self.display_text(f"MP: {player.current_mp} / {player.max_mp}",
-                          interface_font, WHITE_COLOR, 360, self.height - self.panel_height + 38)
+                          interface_font, WHITE_COLOR, 440, self.height - self.panel_height + 38)
 
         self.display_text(f"FP: {player.current_fury} / {player.max_fury}",
-                          interface_font, WHITE_COLOR, 360, self.height - self.panel_height + 58)
+                          interface_font, WHITE_COLOR, 440, self.height - self.panel_height + 58)
         # show number of pots
-        self.display_text(f"x{player.stash.healing_potions}", default_font, WHITE_COLOR, 60,
-                  self.height - self.panel_height + 170)
+        self.display_text(f"x{player.stash.healing_potions}", default_font, WHITE_COLOR, 190,
+                  self.height - self.panel_height + 20)
         # show number of lightnings
-        self.display_text(f"x{player.stash.mana_potions}", default_font, WHITE_COLOR, 140,
-                  self.height - self.panel_height + 170)
+        self.display_text(f"x{player.stash.mana_potions}", default_font, WHITE_COLOR, 190,
+                  self.height - self.panel_height + 80)
 
-    def display_enemy_bottom_panel_information(self, scripted_battle, level, enemy_list):
+    def display_enemy_bottom_panel_information(self, scripted_battle, enemy_list):
         # draw name and health of enemies
-        ENEMY_TEXT_POS_0 = [480, self.height - self.panel_height + 5]
-        ENEMY_TEXT_POS_1 = [480, self.height - self.panel_height + 65]
-        ENEMY_TEXT_POS_2 = [700, self.height - self.panel_height + 5]
-        ENEMY_TEXT_POS_3 = [700, self.height - self.panel_height + 65]
+        ENEMY_TEXT_POS_0 = [680, self.height - self.panel_height + 5]
+        ENEMY_TEXT_POS_1 = [680, self.height - self.panel_height + 65]
+        ENEMY_TEXT_POS_2 = [900, self.height - self.panel_height + 5]
+        ENEMY_TEXT_POS_3 = [900, self.height - self.panel_height + 65]
 
         tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
 
@@ -234,7 +245,7 @@ class StageDrawer(PlayerInterfacePanel, PlayerInterfaceText, StageBackground):
         self.display_player_information(level, hero)
         self.display_player_bottom_panel_information(hero)
 
-        self.display_enemy_bottom_panel_information(scripted_battle, level, enemy_list)
+        self.display_enemy_bottom_panel_information(scripted_battle, enemy_list)
         self.display_gold_icon()
 
 

@@ -20,10 +20,12 @@ class EnemySetGenerator:
         return tmp
 
     def get_enemy_set(self, boss_level, group_size):
-        if boss_level < 2:
-            return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
-        elif boss_level >= 2:
+        if boss_level > 3:
+            return self.generate_set(group_size, [UnitType.LIZARD, UnitType.BONE_WIZARD])
+        elif boss_level > 1:
             return self.generate_set(group_size, [UnitType.BONE_WIZARD, UnitType.BONE_WIZARD])
+        else:
+            return self.generate_set(group_size, [UnitType.BANDIT, UnitType.BANDIT])
 
 
 class UnitType(Enum):
@@ -41,48 +43,60 @@ class EnemyStatsGenerator:
     @staticmethod
     def generate_bandit_stats(level):
         randomlevel = level + randint(0, 2)
-        maxhp = 10 + (randomlevel * 7)
-        maxmp = randomlevel * 4
-        str = 8 + round(randomlevel / 2)
-        dex = 6 + round(randomlevel / 2)
-        mag = 1 + round(randomlevel / 2)
-        return randomlevel, maxhp, maxmp, str, dex, mag
+        str = 3 + round(randomlevel / 2)
+        dex = 6 + randomlevel
+        max_hp = 10 + randomlevel*7
+        max_mp = 0
+        mag = 0
+
+        return randomlevel, str, dex, mag, max_hp, max_mp
+
+    @staticmethod
+    def generate_bone_wizard_stats(level):
+        randomlevel = level + randint(0, 2)
+        str = 3 + round(randomlevel / 2)
+        dex = 1 + randomlevel
+        max_hp = 30 + randomlevel * 4
+        max_mp = 50 + randomlevel * 5
+        mag = 0
+
+        return randomlevel, str, dex, mag, max_hp, max_mp
 
     @staticmethod
     def generate_lizard_stats(level):
         randomlevel = level + randint(0, 2)
-        maxhp = randomlevel * 11
-        maxmp = randomlevel * 4
-        str = 5 + round(randomlevel / 2)
-        dex = 1 + round(randomlevel / 2)
-        mag = 5 + round(randomlevel / 2)
-        return randomlevel, maxhp, maxmp, str, dex, mag
+        str = 3 + round(randomlevel / 2)
+        dex = 8 + randomlevel
+        max_hp = 50 + randomlevel * 7
+        max_mp = 0
+        mag = 0
 
-    @staticmethod
-    def generate_bone_wizard_stats(level):
-        randomlevel = level + randint(0, 3)
-        maxhp = randomlevel * 6
-        maxmp = randomlevel * 7
-        str = 2 + round(randomlevel / 2)
-        dex = 0 + round(randomlevel / 2)
-        mag = 10 + randomlevel
-        return randomlevel, maxhp, maxmp, str, dex, mag
+        return randomlevel, str, dex, mag, max_hp, max_mp
 
 
 class EnemyPositionsGenerator:
     @staticmethod
     def generate_forest_enemy_positions():
-        return [(500, 555), (600, 600), (700, 555), (800, 600)]
+        return [(650, 475), (775, 500), (900, 475), (1025, 500)]
 
     @staticmethod
     def generate_castle_enemy_positions():
-        return [(500, 570), (700, 570), (600, 500), (800, 500)]
+        return [(700, 420), (825, 480), (950, 420), (1075, 480)]
+
+    @staticmethod
+    def generate_dungeon_enemy_positions():
+        return [(700, 370), (825, 450), (950, 370), (1075, 450)]
+
 
     def get_enemy_positions(self, boss_level):
-        if boss_level < 2:
-            return self.generate_forest_enemy_positions()
-        elif boss_level >= 2:
+        if boss_level > 3:
+            return self.generate_dungeon_enemy_positions()
+        elif boss_level > 1:
             return self.generate_castle_enemy_positions()
+        else:
+            return self.generate_forest_enemy_positions()
+
+
 
 
 class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
@@ -103,34 +117,40 @@ class EnemyGroup(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator
         elif 10 <= level < 14:
             return randint(2, 4)
         elif 14 <= level < 18:
-            return randint(3, 4)
+            return randint(2, 4)
         elif level >= 18:
-            return 4
+            return randint(3,4)
 
     @staticmethod
     def get_enemy_healthbar_positions():
         return [
-            (480, screen_height - panel_height + 40),
-            (480, screen_height - panel_height + 100),
-            (700, screen_height - panel_height + 40),
-            (700, screen_height - panel_height + 100)
+            (680, screen_height - panel_height + 40),
+            (680, screen_height - panel_height + 100),
+            (900, screen_height - panel_height + 40),
+            (900, screen_height - panel_height + 100)
         ]
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
         if enemy_type is UnitType.BANDIT:
-            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bandit_stats(level)
-            return Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel,  _maxhp, _maxmp, _str, _dex, _mag,
-                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
+            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_bandit_stats(level)
+            return self.create_enemy(Bandit(enemy_pos_x, enemy_pos_y, enemy_type.value, randomlevel, str, dex, mag,
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master), max_hp, max_mp)
 
         elif enemy_type is UnitType.LIZARD:
-            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_lizard_stats(level)
-            return Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex, _mag,
-                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
+            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_lizard_stats(level)
+            return self.create_enemy(Lizard(enemy_pos_x, enemy_pos_y, enemy_type.value, randomlevel, str, dex, mag,
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master), max_hp, max_mp)
 
         elif enemy_type is UnitType.BONE_WIZARD:
-            _randomlevel, _maxhp, _maxmp, _str, _dex, _mag = self.generate_bone_wizard_stats(level)
-            return BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, _randomlevel, _maxhp, _maxmp, _str, _dex,
-                              _mag, enemy_healthbar_x, enemy_healthbar_y, self.animation_master)
+            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_bone_wizard_stats(level)
+            return self.create_enemy(BoneWizard(enemy_pos_x, enemy_pos_y, enemy_type.value, randomlevel, str, dex, mag,
+                               enemy_healthbar_x, enemy_healthbar_y, self.animation_master),max_hp, max_mp)
+
+    def create_enemy(self, enemy, max_hp, max_mp):
+        enemy.set_max_hp(max_hp)
+        enemy.set_max_mp(max_mp)
+        return enemy
+
 
     def generate_enemy(self, level, boss_level):
         enemy_group = []

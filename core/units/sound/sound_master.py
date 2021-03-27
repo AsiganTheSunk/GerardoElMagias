@@ -59,15 +59,19 @@ class StageSoundSelector:
     def __init__(self, sounds):
         self.list_of_stages = {
             'forest': StageSounds('forest', sounds),
-            'castle': StageSounds('castle', sounds)
+            'castle': StageSounds('castle', sounds),
+            'dungeon': StageSounds('dungeon', sounds),
         }
         self.current_stage = None
 
     def select_sound(self, level):
         if level <= 7:
             self.set_stage_sounds('forest')
-        elif level > 7:
+        elif level > 7 and level < 16:
             self.set_stage_sounds('castle')
+        else:
+            self.set_stage_sounds('dungeon')
+
 
     def set_stage_sounds(self, stage_name):
         self.current_stage = self.list_of_stages[stage_name]
@@ -80,7 +84,6 @@ class SoundMaster:
     def __init__(self):
         self.muted = True
         self.sound_mixer = mixer
-        self.sound_mixer.init()
         self.sound_mixer.pre_init(44100, -16, 2, 4096)
 
         sound_loader = SoundLoader(self.sound_mixer)
@@ -105,7 +108,7 @@ class SoundMaster:
                 self.previous_game_mode = game_mode
                 if self.sound_mixer.get_busy():
                     self.sound_mixer.fadeout(1)
-                    self.current_playing_sound.stop()
+
 
     def update_play_sound(self, current_sound):
         if self.muted:

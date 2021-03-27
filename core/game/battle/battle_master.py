@@ -6,6 +6,8 @@ from constants.game_windows import screen_height, panel_height
 from core.units.classes.player import HeroPlayer
 from core.units.enemy_group import EnemyGroup
 import constants.globals
+from random import randint
+from core.units.mechanics.experience import ExperienceSystem
 
 from core.game.game_modes import GameModes
 
@@ -54,9 +56,22 @@ class BattleMaster:
     def is_boss_level(self):
         return self.level in self.boss_levels
 
+
+   # def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck, healing_potion, magic_potion, gold, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master):
+
+
     def create_hero(self):
-        return HeroPlayer(150, 580, "Hero", 1, 96, 30, 12, 10, 8, 2, 1, 1, 190, screen_height - panel_height + 20,
-                          190, screen_height - panel_height + 40, 190, screen_height - panel_height + 40,
+        base_strength = randint(10, 15)
+        base_dexterity = randint(15, 20)
+        base_magic = randint(10, 15)
+        base_vitality = randint(15, 20)
+        base_resilience = randint(1, 5)
+        base_luck = randint(1, 5)
+        return HeroPlayer(300, 480, "Hero", 1,
+                          base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,
+                          270, screen_height - panel_height + 20,   # healthbar coords
+                          270, screen_height - panel_height + 40,   # manabar coords
+                          270, screen_height - panel_height + 40,   # furybar coords
                           self.animation_master)
 
     def get_total_fighters(self):
@@ -67,8 +82,11 @@ class BattleMaster:
             self.game_mode = GameModes.DEFEAT
 
     def move_to_victory_phase(self):
+        hero_player = self.get_hero()
         if self.no_enemies_alive():
             self.game_mode = GameModes.VICTORY
+            hero_player.gain_experience()
+
 
     def move_to_next_fighter(self):
         self.move_to_victory_phase()

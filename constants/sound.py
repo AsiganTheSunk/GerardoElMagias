@@ -40,6 +40,11 @@ critical_hit_sound.set_volume(0.07)
 ultimate_sound = mixer.Sound("resources/sound/attacks/ultimate.wav")
 ultimate_sound.set_volume(0.10)
 
+ulti_up_sound = mixer.Sound("resources/sound/fx/attacks/ulti_up.wav")
+ulti_up_sound.set_volume(0.10)
+
+
+
 # ITEM SOUNDS
 health_potion_sound = mixer.Sound("resources/sound/items/health_potion.wav")
 health_potion_sound.set_volume(0.15)

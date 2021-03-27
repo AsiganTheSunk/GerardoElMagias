@@ -4,14 +4,13 @@
 from pygame import image
 from pygame import transform
 
-background_castle = image.load("resources/background/castle.gif")
-background_castle = transform.scale(background_castle, (928, 663))
-
-
 # Background Images:
 background_forest = image.load("resources/background/forest.png")
-background_intro = image.load("resources/background/magia.jpg")
-
+background_forest = transform.scale(background_forest, (1024, 576))
+background_castle = image.load("resources/background/castle.gif")
+background_castle = transform.scale(background_castle, (1024, 576))
+background_dungeon = image.load("resources/background/dungeon.jpg")
+background_dungeon = transform.scale(background_dungeon, (1024, 576))
 
 # Panel Images:
 panel_image = image.load("resources/icons/panel.jpg")
@@ -23,7 +22,8 @@ mana_potion_image = image.load("resources/icons/mana_potion.png")
 lightning_image = image.load("resources/icons/lightning.png")
 firestorm_image = image.load("resources/icons/firestorm.png")
 skill_heal_image = image.load("resources/icons/heal.png")
-next_button_image = image.load("resources/icons/next.jpg")
+next_button_image = image.load("resources/icons/next.png")
+exitbook_button_image = image.load("resources/icons/exitbook.png")
 ultimate_image = image.load("resources/icons/ultimate.png")
 
 gold_image = image.load("resources/icons/oro.png")
