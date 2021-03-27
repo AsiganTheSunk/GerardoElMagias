@@ -101,9 +101,7 @@ class StageResolver:
         constants.globals.action_cooldown += 1
         self.player.next_action = None
 
-
     def stage_reset(self):
-        # constants.globals.action_cooldown = 0
         self.battle_master.friendly_fighters[0].ultimate_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
@@ -150,7 +148,7 @@ class StageResolver:
                         self.player.next_action = ('attack', enemy_unit)
                     # Return to avoid normal mouse showing up
                     return
-
+        # Enable default mouse
         mouse.set_visible(True)
 
     def resolve_combat_phase(self):
@@ -159,8 +157,6 @@ class StageResolver:
                 self.battle_master.run_fighter_action(self.game_attributes.text_sprite)
 
     def resolve_victory(self):
-        # Victory Check
-
         if self.battle_master.is_victory_phase():
             self.next_button.hidden = False
             self.stage_drawer.display_victory()
