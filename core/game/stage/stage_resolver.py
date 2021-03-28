@@ -102,7 +102,6 @@ class StageResolver:
         self.player.next_action = None
 
     def stage_reset(self):
-        # constants.globals.action_cooldown = 0
         self.battle_master.friendly_fighters[0].ultimate_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
@@ -116,16 +115,17 @@ class StageResolver:
                 self.battle_master.swap_battle_mode()
 
     def resolve_player_interface_actions(self):
-        if self.player.has_full_fury() and self.battle_master.is_player_phase():
+        if self.player.has_full_fury():
             self.ultimate_button.hidden = False
         else:
             self.ultimate_button.hidden = True
 
     def handle_ultimate_click(self, event, button):
-        self.battle_master.get_hero().ultimate_status = True
-        ultimate_sound.play()
-        self.battle_master.get_hero().reset_fury()
-        constants.globals.action_cooldown = -25
+        if self.battle_master.is_player_phase():
+            self.battle_master.get_hero().ultimate_status = True
+            ultimate_sound.play()
+            self.battle_master.get_hero().reset_fury()
+            constants.globals.action_cooldown = -25
 
     def resolve_mouse_display(self):
         pass
@@ -167,6 +167,7 @@ class StageResolver:
     def handle_next_click(self, *args):
         self.stage_reset()
         self.battle_master.next_level()
+        constants.globals.action_cooldown = 0
         self.next_button.hidden = True
 
     def resolve_defeat(self):

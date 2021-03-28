@@ -45,6 +45,9 @@ class BattleMaster:
     def is_defeat_phase(self):
         return self.game_mode is GameModes.DEFEAT
 
+    def is_level_up_phase(self):
+        return self.game_mode is GameModes.LEVELUP
+
     def is_player_phase(self):
         return self.current_fighter is self.friendly_fighters[0]
 
@@ -67,10 +70,10 @@ class BattleMaster:
 
     def create_hero(self):
         base_strength = randint(10, 15)
-        base_dexterity = randint(15, 20)
+        base_dexterity = randint(10, 15)
         base_magic = randint(10, 15)
         base_vitality = randint(15, 20)
-        base_resilience = randint(1, 5)
+        base_resilience = randint(10, 15)
         base_luck = randint(1, 5)
         return HeroPlayer(300, 480, 1,
                           base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,

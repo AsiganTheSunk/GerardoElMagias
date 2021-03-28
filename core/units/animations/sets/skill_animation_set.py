@@ -12,7 +12,10 @@ class SkillAnimationSet(AnimationSet):
         self.surface = surface
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.additional_cycles = 0
+        if skill_name == "Firestorm":
+            self.additional_cycles = 1
+        else:
+            self.additional_cycles = 0
 
     def update(self, animation_cooldown=100):
         # Evaluate if animation is finished
