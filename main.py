@@ -5,7 +5,7 @@ __author__ = "Father Karras and AsiganTheSunk"
 __copyright__ = "Copyright 2021, Gerardo El Magias"
 
 __credits__ = ["Father Karras", "AsiganTheSunk", "GRAN CALAVERA", "Pechuza"]
-__version__ = "0.1a"
+__version__ = "0.3a"
 __maintainer__ = "Father Karras, AsiganTheSunk and GRAN CALAVERA"
 __email__ = ""
 __status__ = "Development"
@@ -20,8 +20,10 @@ from pygame import init
 init()
 
 # Game Engine Import:
-from game.game_engine import GameEngine
+from core.game.game_engine import GameEngine
 
 
+print('[ Starting Game Engine ]:')
+print('//////' * 10)
 game = GameEngine()
 game.run()

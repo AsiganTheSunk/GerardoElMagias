@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from constants.game_sound import *
+
+
 class BasicUnit:
-    def __init__(self, x, y, name, level, max_hp, max_mp, strength, dexterity, magic):
+    def __init__(self, x, y, name, level, strength, dexterity, magic):
 
         # Basic Unit Coordinates x,y
         self.x = x
@@ -14,28 +17,33 @@ class BasicUnit:
         # Basic Unit Stats
         self.level = level
 
-        # Basic Resource Stats: Fury, Mana, Health
-        self.max_fury = 100
-        self.current_fury = 0
-        self.max_hp = max_hp
-        self.current_hp = self.max_hp
-        self.max_mp = max_mp
-        self.current_mp = self.max_mp
-
-        # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
+        # Basic Attribute Stats: Strength, Dexterity, Vitality, Magic, Resilience, Luck
         self.strength = strength
         self.dexterity = dexterity
         self.magic = magic
-        self.intellect = 1
+
+        # Basic Resource Stats: Fury, Mana, Health
+        self.max_fury = 100
+        self.current_fury = 0
+        self.max_hp = 0
+        self.current_hp = 0
+        self.max_mp = 0
+        self.current_mp = 0
 
         # Basic Unit Status
         self.alive = True
         self.fury_status = False
         self.experience_status = False
-        self.ultimate_status = False
-        self.multi_attacks_left = 7
 
         self.next_action = None
+
+    def set_max_hp(self, max_hp):
+        self.max_hp = max_hp
+        self.current_hp = max_hp
+
+    def set_max_mp(self, max_mp):
+        self.max_mp = max_mp
+        self.current_mp = max_mp
 
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
@@ -81,10 +89,11 @@ class BasicUnit:
         return input_mana
 
     def gain_fury(self, input_damage):
-        fury_amount = round(input_damage * 1.4)
+        fury_amount = round(input_damage * 1.5 * 100 / self.max_hp)
         if self.current_fury + fury_amount >= self.max_fury:
             self.current_fury = self.max_fury
             gained_fury = self.max_fury - self.current_fury
+            ulti_up_sound.play()
             return gained_fury
         else:
             self.current_fury += fury_amount

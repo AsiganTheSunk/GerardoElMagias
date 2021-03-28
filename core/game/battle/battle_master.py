@@ -2,37 +2,52 @@
 # -*- coding: utf-8 -*-
 
 from core.game.battle.scripted_enemies import scripted_enemy
-from constants.game_windows import screen_height, panel_height
-from core.units.classes.player import HeroPlayer
-from core.units.enemy_group import EnemyGroup
+from core.units.player.hero import HeroPlayer
+from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
-
-from core.game.game_modes import GameModes
+from random import randint
+from core.game.constants.game_modes import GameModes
 
 
 class BattleMaster:
-    def __init__(self, animation_master):
+    def __init__(self, animation_master, game_attributes):
+        self.animation_master = animation_master
+        self.game_attributes = game_attributes
+
         self.queue = []
         self.level = 1
         self.boss_levels = [4, 7, 11, 15, 19, 20]
         self.boss_level = 0
-        self.animation_master = animation_master
+
         self.friendly_fighters = [self.create_hero()]
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.friendly_fighters[0]
         self.game_mode = GameModes.BATTLE
+        self.previous_game_mode = None
+
+    def swap_battle_mode(self, game_mode=None):
+        if self.previous_game_mode is None:
+            self.previous_game_mode = self.game_mode
+            self.game_mode = game_mode
+
+        if game_mode is None:
+            self.game_mode = self.previous_game_mode
+            self.previous_game_mode = None
 
     def get_hero(self):
         return self.friendly_fighters[0]
 
     def is_spell_book_phase(self):
-        return self.game_mode is GameModes.SPELLBOOK
+        return self.game_mode is GameModes.SPELL_BOOK
 
     def is_victory_phase(self):
         return self.game_mode is GameModes.VICTORY
 
     def is_defeat_phase(self):
         return self.game_mode is GameModes.DEFEAT
+
+    def is_level_up_phase(self):
+        return self.game_mode is GameModes.LEVEL_UP
 
     def is_player_phase(self):
         return self.current_fighter is self.friendly_fighters[0]
@@ -47,7 +62,7 @@ class BattleMaster:
             enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
         else:
             self.game_mode = GameModes.BATTLE
-            enemy_group = EnemyGroup(self.animation_master)
+            enemy_group = EnemyGroupGenerator(self.animation_master, self.game_attributes)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
 
@@ -55,8 +70,21 @@ class BattleMaster:
         return self.level in self.boss_levels
 
     def create_hero(self):
-        return HeroPlayer(150, 580, "Hero", 1, 96, 30, 12, 10, 8, 2, 1, 1, 190, screen_height - panel_height + 20,
-                          190, screen_height - panel_height + 40, 190, screen_height - panel_height + 40,
+        base_strength = randint(10, 15)
+        base_dexterity = randint(10, 15)
+        base_magic = randint(10, 15)
+        base_vitality = randint(15, 20)
+        base_resilience = randint(10, 15)
+        base_luck = randint(1, 5)
+
+        return HeroPlayer(300, 480, 1,
+                          base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,
+                          # Health Bar Coordinates x,y
+                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 20,
+                          # Mana Bar Coordinates x,y
+                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
+                          # Fury Bar Coordinates x,y
+                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
                           self.animation_master)
 
     def get_total_fighters(self):
@@ -67,8 +95,10 @@ class BattleMaster:
             self.game_mode = GameModes.DEFEAT
 
     def move_to_victory_phase(self):
+        hero_player = self.get_hero()
         if self.no_enemies_alive():
             self.game_mode = GameModes.VICTORY
+            hero_player.gain_experience()
 
     def move_to_next_fighter(self):
         self.move_to_victory_phase()
@@ -115,3 +145,17 @@ class BattleMaster:
             # Enemy action
             self.current_fighter.action(hero_player, damage_text_group)
             self.move_to_next_fighter()
+
+    def handle_potion_click(self, event, button):
+        hero_player = self.get_hero()
+        potion = button.id
+        # esto tendrá más sentido cuando las pociones sean parte de items en lugar de ser su propia movida
+        if self.is_player_phase() and self.is_battle_phase():
+            if potion == 'healing_potion':
+                if hero_player.stash.has_healing_potion():
+                    hero_player.next_action = ['use', potion]
+            elif potion == 'mana_potion':
+                if hero_player.stash.has_mana_potion():
+                    hero_player.next_action = ['use', potion]
+            # else:
+            #     damage_text.warning(hero_player, 'No Healing Potions', self.game_attributes.text_sprite)
