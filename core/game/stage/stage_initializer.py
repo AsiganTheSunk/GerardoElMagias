@@ -11,7 +11,7 @@ from interface.stage_drawer import StageDrawer
 
 # Master Game Engine Imports
 from core.units.sound.sound_master import SoundMaster
-from core.units.animations.animation_manager import AnimationLoader
+from core.units.animations.animation_loader import AnimationLoader
 from core.game.battle.battle_master import BattleMaster
 from core.game.game_attributes import GameAttributes
 
@@ -29,7 +29,7 @@ class StageInitializer:
         self.sound_master = SoundMaster()
         self.stage_drawer = \
             StageDrawer(self.game_attributes.surface, screen_width, screen_height, 0, panel_height,
-                        self.game_attributes.clock, self.game_attributes.fps)
+                        self.game_attributes.clock, self.game_attributes.fps, self.animation_loader)
 
         self.stage_drawer.display_caption()
         self.battle_master = BattleMaster(self.animation_loader)

@@ -23,7 +23,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         # Todo: Init proper 150x, 400y
         damage_text.cast(caster, "Heal", damage_text_group, 0, -30)
 
-        base_heal = 1 + randint(0, 10) + (caster.magic * 5)
+        base_heal = 1 + randint(0, 10) + (caster.magic * 4)
         if target.max_hp - target.current_hp > base_heal:
             heal_amount = base_heal
         else:
@@ -43,7 +43,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = randint(0, 15)
+                base_damage = randint(0, 5)
                 output_damage = (caster.magic * 2) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
@@ -63,7 +63,46 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = randint(0, 55)
+                base_damage = randint(1, 55)
+                output_damage = base_damage
+
+                input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
+                input_damage_list.append(input_damage)
+                input_type_list.append(input_type)
+
+            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
+
+
+    def cast_earth(self, caster, target_list, damage_text_group):
+        alive_enemy = get_alive_targets(target_list)
+
+        if len(alive_enemy) > 0:
+            damage_text.cast(caster, " Earth! ", damage_text_group, 0, -30)
+
+            input_damage_list = []
+            input_type_list = []
+            for _ in target_list:
+                # Basic Spell Attributes: minimum, maximum, multiplier
+                base_damage = 10
+                output_damage = (caster.magic * 1) + base_damage
+
+                input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
+                input_damage_list.append(input_damage)
+                input_type_list.append(input_type)
+
+            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
+
+    def cast_magicnova(self, caster, target_list, damage_text_group):
+        alive_enemy = get_alive_targets(target_list)
+
+        if len(alive_enemy) > 0:
+            damage_text.cast(caster, " Magicnova! ", damage_text_group, 0, -30)
+
+            input_damage_list = []
+            input_type_list = []
+            for _ in target_list:
+                # Basic Spell Attributes: minimum, maximum, multiplier
+                base_damage = 3
                 output_damage = (caster.magic * 1) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())

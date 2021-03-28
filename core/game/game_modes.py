@@ -10,6 +10,7 @@ class GameModes(Enum):
     VICTORY = 2
     DEFEAT = 3
     SPELLBOOK = 4
+    LEVELUP = 5
 
 
 class GameMenuModes(Enum):

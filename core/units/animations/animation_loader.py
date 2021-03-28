@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from pygame import image, transform
-from core.units.animations.db.unit_animation_db import UNIT_ANIMATION_SETS, SKILL_ANIMATION_SETS
+from core.units.animations.db.unit_animation_db import UNIT_ANIMATION_SETS
+from core.units.animations.db.skill_animation_db import SKILL_ANIMATION_SETS
 from enum import Enum
 
 
@@ -17,7 +18,10 @@ class AnimationLoader:
         self.surface = surface
         self.environment_animation_sets = []
         self.unit_animation_sets = self.load_resource_sets(UNIT_ANIMATION_SETS, AnimationResourceClass.UNITS.value)
-        # self.skill_animation_sets = self.load_resource_sets(SKILL_ANIMATION_SETS, AnimationResourceClass.SKILLS.value)
+        self.skill_animation_sets = self.load_resource_sets(SKILL_ANIMATION_SETS, AnimationResourceClass.SKILLS.value)
+
+    def get_skill_resource_animation_set(self, resource_type):
+        return self.skill_animation_sets[resource_type]
 
     def get_unit_resource_animation_set(self, resource_type):
         return self.unit_animation_sets[resource_type]
@@ -40,6 +44,7 @@ class AnimationLoader:
 
             animation_sets[animation_set_type.value] = animation_set
         print('\n', 'Done.')
+        print(animation_sets)
         return animation_sets
 
     def load_resource_sequence(self, resource_type, name, animation, sequence_length, x_scale=2, y_scale=2):

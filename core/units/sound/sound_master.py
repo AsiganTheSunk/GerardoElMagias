@@ -6,6 +6,7 @@ from core.units.sound.sound_db import SOUND_POOL
 from core.game.game_modes import GameModes
 
 
+
 class ClassSound:
     def __init__(self, class_name, sounds):
         self.class_name = class_name
@@ -67,7 +68,7 @@ class StageSoundSelector:
     def select_sound(self, level):
         if level <= 7:
             self.set_stage_sounds('forest')
-        elif level > 7 and level < 16:
+        elif level > 7 and level < 17:
             self.set_stage_sounds('castle')
         else:
             self.set_stage_sounds('dungeon')
