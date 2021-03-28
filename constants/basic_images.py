@@ -23,7 +23,7 @@ lightning_image = image.load("resources/icons/lightning.png")
 firestorm_image = image.load("resources/icons/firestorm.png")
 earth_image = image.load("resources/icons/earth.png")
 heal_image = image.load("resources/icons/heal.png")
-magicnova_image = image.load("resources/icons/magicnova.png")
+magicnova_image = image.load("resources/icons/magic_nova.png")
 
 
 next_button_image = image.load("resources/icons/next.png")

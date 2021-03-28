@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from core.skills.effects_db.fire_skill_effect import FireSkillEffect
+from core.skills.effects_db.earth_skill_effect import EarthSkillEffect
+from core.skills.effects_db.magic_nova_skill_effect import MagicNovaSkillEffect
 
 
 class StageEffectsRenderer:
@@ -14,6 +16,16 @@ class StageEffectsRenderer:
             for target in target_list:
                 fire_storm_effect = FireSkillEffect(target, self.animation_master)
                 self.animation_effects.append(fire_storm_effect)
+
+        if spell == 'earth':
+            for target in target_list:
+                earth_effect = EarthSkillEffect(target, self.animation_master)
+                self.animation_effects.append(earth_effect)
+
+        if spell == 'magic_nova':
+            for target in target_list:
+                magic_nova_effect = MagicNovaSkillEffect(target, self.animation_master)
+                self.animation_effects.append(magic_nova_effect)
 
     def update_effects(self):
         if self.animation_effects:

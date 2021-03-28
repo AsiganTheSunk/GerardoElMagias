@@ -3,19 +3,7 @@
 
 from core.game.animations.animation_resource import AnimationResource
 from core.game.animations.constants.unit_animation_type import UnitAnimationType
-from enum import Enum
-
-
-class UnitType(Enum):
-    BANDIT = 'Bandit'
-    BANDIT_CHIEF = 'BanditChief'
-    LIZARD = 'Lizard'
-    DRAGON = 'Dragon'
-    SMALLDRAGON = "SmallDragon"
-    BONE_WIZARD = 'BoneWizard'
-    HERO = 'Hero'
-    DJINN = 'Djinn'
-    DEMON = "Demon"
+from core.units.constants.unit_type import UnitType
 
 
 UNIT_ANIMATION_SETS = {
