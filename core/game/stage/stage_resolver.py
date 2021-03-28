@@ -20,10 +20,8 @@ from core.game.constants.game_modes import GameModes
 
 from core.game.text.damage_text import DamageText
 
-from constants.basic_images import skull_image, spellbook_image, \
-    health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
-    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
-    defeat_banner_image, whirlwind_image
+from constants.game_images import skull_image, spell_book_image, \
+    health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image
 
 # Init DamageText
 damage_text = DamageText()
