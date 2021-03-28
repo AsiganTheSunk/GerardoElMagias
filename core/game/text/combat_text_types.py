@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from constants.basic_fonts import combat_text_font, critical_combat_text_font, cast_text_font
-from game.text.floating_text_effects import FloatingTextEffects
+from core.game.text.floating_text_effects import FloatingTextEffects
 
 
 class CombatTextTypes(FloatingTextEffects):

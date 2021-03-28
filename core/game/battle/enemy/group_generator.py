@@ -3,13 +3,13 @@
 
 from random import randint
 from core.units.enemy.bandit.bandit import Bandit
-from units.enemy.bone.bone_wizard import BoneWizard
+from core.units.enemy.bone.bone_wizard import BoneWizard
 from core.units.enemy.lizard.lizard import Lizard
 from constants.game_windows import *
-from units.constants.unit_type import UnitType
-from game.battle.enemy.set_generator import EnemySetGenerator
-from game.battle.enemy.stats_generator import EnemyStatsGenerator
-from game.battle.enemy.position_generator import EnemyPositionsGenerator
+from core.units.constants.unit_type import UnitType
+from core.game.battle.enemy.set_generator import EnemySetGenerator
+from core.game.battle.enemy.stats_generator import EnemyStatsGenerator
+from core.game.battle.enemy.position_generator import EnemyPositionsGenerator
 
 
 class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):

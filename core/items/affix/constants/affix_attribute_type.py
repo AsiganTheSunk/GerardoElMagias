@@ -4,7 +4,7 @@
 from enum import Enum
 
 
-class AttributeType(Enum):
+class AffixAttributeType(Enum):
     STRENGTH = 'Fuerza'
     MAGIC_POWER = 'Magia'
     DEXTERITY = 'Destreza'

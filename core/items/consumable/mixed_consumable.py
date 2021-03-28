@@ -8,7 +8,7 @@ from core.game.text.damage_text import DamageText
 damage_text = DamageText()
 
 
-class MixedConsumableItem:
+class MixedConsumable:
     def __init__(self, name, consumable_items, consume_sound):
         self.name = name
         self.consumable_items = consumable_items

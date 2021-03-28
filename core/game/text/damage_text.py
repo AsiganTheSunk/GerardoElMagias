@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from constants.basic_colors import *
-from game.text.combat_text_types import CombatTextTypes
+from core.game.text.combat_text_types import CombatTextTypes
 
 
 class DamageText:

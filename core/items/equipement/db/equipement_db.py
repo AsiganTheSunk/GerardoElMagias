@@ -1,5 +1,13 @@
-from core.items.equipement_items.item_categories import *
-from core.items.equipement_items.item_types import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.items.equipement.constants.equipement_item_type import EquipmentItemType
+from core.items.equipement.constants.equipment_slot_type import EquipmentSlotType
+from core.items.equipement.category.amulet import Amulet
+from core.items.equipement.category.ring import Ring
+from core.items.equipement.category.armor import Armor
+from core.items.equipement.category.shield import Shield
+from core.items.equipement.category.melee_weapon import MeleeWeapon
 
 
 ITEM_POOL = {

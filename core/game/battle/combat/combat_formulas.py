@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-from game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
+from core.game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
 
 
 class CombatFormulas:

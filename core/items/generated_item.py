@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.items.item_db.affix_db import *
+from core.items.affix.constants.affix_attribute_type import AffixAttributeType
+from core.items.equipement.constants.equipement_item_type import EquipmentItemType
 
 
 class GeneratedItem:
@@ -54,17 +55,17 @@ class GeneratedItem:
         return composed_item_name
 
     def set_stats(self, attribute_type, attribute_value):
-        if attribute_type == AttributeType.STRENGTH.value:
+        if attribute_type == AffixAttributeType.STRENGTH.value:
             self.strength = self.strength + attribute_value
-        elif attribute_type == AttributeType.DEXTERITY.value:
+        elif attribute_type == AffixAttributeType.DEXTERITY.value:
             self.dexterity = self.dexterity + attribute_value
-        elif attribute_type == AttributeType.MAGIC_POWER.value:
+        elif attribute_type == AffixAttributeType.MAGIC_POWER.value:
             self.magic = self.magic + attribute_value
-        elif attribute_type == AttributeType.HEALTH.value:
+        elif attribute_type == AffixAttributeType.HEALTH.value:
             self.max_hp = self.max_hp + attribute_value
-        elif attribute_type == AttributeType.MANA.value:
+        elif attribute_type == AffixAttributeType.MANA.value:
             self.max_mp = self.max_mp + attribute_value
-        elif attribute_type == AttributeType.FURY.value:
+        elif attribute_type == AffixAttributeType.FURY.value:
             self.max_fury = self.max_fury + attribute_value
 
     def get_prefix_str_stats(self):

@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
+from core.game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
 
 import constants.globals
 
-from game.text.combat_text_resolver import CombatTextResolver
-from game.text.damage_text import DamageText
+from core.game.text.combat_text_resolver import CombatTextResolver
+from core.game.text.damage_text import DamageText
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
-from game.battle.combat.combat_utils import get_alive_targets
+from core.game.battle.combat.combat_utils import get_alive_targets
 from constants.sound import *
 from random import randint
 

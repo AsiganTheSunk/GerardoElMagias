@@ -4,13 +4,13 @@
 from random import randint
 
 from core.game.text.damage_text import DamageText
-from core.items.consumable_items.recovered_stat_type import RecoveredStatType
+from core.items.consumable.constants.recovered_stat_type import RecoveredStatType
 
 # Init: Damage Text
 damage_text = DamageText()
 
 
-class ConsumableItem:
+class BasicConsumable:
     def __init__(self, name, recovered_stat, base_stat, base_stat_interval, base_stat_multiplier, consume_sound):
         self.name = name
         self.recovered_stat = recovered_stat

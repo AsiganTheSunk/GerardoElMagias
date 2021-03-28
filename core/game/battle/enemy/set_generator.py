@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import choice
-from units.constants.unit_type import UnitType
+from core.units.constants.unit_type import UnitType
 
 
 class EnemySetGenerator:

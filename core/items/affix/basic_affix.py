@@ -4,7 +4,7 @@
 from random import randint
 
 
-class Affix:
+class BasicAffix:
     def __init__(self, name, item_level, attribute_type, minimum_attribute, maximum_attribute, allowed_item_type):
         self.name = name
         self.item_level = item_level

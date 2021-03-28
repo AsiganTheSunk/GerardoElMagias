@@ -3,7 +3,7 @@
 
 import pygame
 
-# button class
+# button category
 from interface.elements.ui_element import UIElement
 
 

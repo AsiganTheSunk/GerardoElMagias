@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from random import randint, choice, sample
+from random import choice, randint
 
-from core.items.equipement_items.item_categories import *
-from core.items.equipement_items.item_types import *
-from core.items.affix_system.affix_type import *
-from core.items.affix_system.affix_category import *
-
-from core.items.item_db.base_item_db import ITEM_POOL
-from core.items.item_db.affix_db import *
+from core.items.equipement.constants.item_rarity import ItemRarity
+from core.items.equipement.constants.equipement_item_type import EquipmentItemType
+from core.items.equipement.db.equipement_db import ITEM_POOL
+from core.items.affix.db.affix_db import PREFIX_ATTRIBUTE_POOL, SUFFIX_ATTRIBUTE_POOL
 from core.items.generated_item import GeneratedItem
 
 
@@ -107,12 +104,3 @@ class ItemGenerator:
                         equipment_prefix_list.append(prefix_item)
                 final_equipment_prefix_list.append(choice(equipment_prefix_list))
         return final_equipment_prefix_list
-
-
-# level = randint(1, 30)
-# base_mf = 0
-#
-#
-# item_generator = ItemGenerator()
-# dropped_item = item_generator.get_item(level, ITEM_POOL, base_mf)
-# print(dropped_item)

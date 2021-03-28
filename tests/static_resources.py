@@ -1,19 +1,19 @@
 from core.items.equipement_items.item_types import *
 from core.items.equipement_items.item_categories import *
 from core.items.generated_item import GeneratedItem
-from core.items.affix_system.affix_type import *
-from core.items.affix_system.affix_category import *
+from core.items.affix_system.affix import *
+from core.items.affix_system.constants.affix_attribute_type import *
 
 # Static Affix:
-static_prefix = [Affix('Resplandeciente', 20, AttributeType.MAGIC_POWER, 7, 10,
+static_prefix = [Affix('Resplandeciente', 20, AffixAttributeType.MAGIC_POWER, 7, 10,
                        [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                         EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
-static_prefix1 = [Affix('Reluciente', 10, AttributeType.MAGIC_POWER, 4, 6,
+static_prefix1 = [Affix('Reluciente', 10, AffixAttributeType.MAGIC_POWER, 4, 6,
                         [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                          EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
-static_suffix = [Affix('de Vida', 1, AttributeType.HEALTH, 5, 15,
+static_suffix = [Affix('de Vida', 1, AffixAttributeType.HEALTH, 5, 15,
                        [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                         EquipmentItemType.RING, EquipmentItemType.AMULET])]
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from skills.basic_spell import BasicSpellEffect
-from game.animations.sets.skill_animation_set import SkillAnimationSet
+from core.skills.basic_spell import BasicSpellEffect
+from core.game.animations.sets.skill_animation_set import SkillAnimationSet
 
 
 class FireSkillEffect(BasicSpellEffect):

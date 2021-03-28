@@ -13,7 +13,7 @@ from core.units.enemy.dragon.small_dragon import SmallDragon
 from core.units.enemy.dragon.dragon import Dragon
 from core.units.enemy.lizard.lizard import Lizard
 from core.units.enemy.demon.demon import Demon
-from core.items.item_db.consumable_item_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
+from core.items.consumable.db.consumable_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
 
 # Init: Damage Text
 damage_text = DamageText()

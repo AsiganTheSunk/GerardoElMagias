@@ -34,7 +34,7 @@ from core.game.battle.combat.combat_resolver import CombatResolver
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
-from core.items.item_db.consumable_item_db import HEALTH_POTION, MANA_POTION
+from core.items.consumable.db.consumable_db import HEALTH_POTION, MANA_POTION
 
 import constants.globals
 

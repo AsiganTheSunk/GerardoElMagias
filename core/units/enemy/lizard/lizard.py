@@ -9,7 +9,7 @@ global ulti_attacks
 ulti_attacks = 1
 
 # Skill Imports
-from skills.db.melee import MeleeSpells
+from core.skills.db.melee import MeleeSpells
 
 # Animation Imports
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
