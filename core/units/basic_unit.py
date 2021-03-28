@@ -65,13 +65,21 @@ class BasicUnit:
         return self.experience_status
 
     def has_full_fury(self):
-        return self.current_fury == self.max_fury
+        if self.current_fury == 100:
+            return True
+
+    def has_50_fury(self):
+        if self.current_fury >= 50:
+            return True
 
     def has_fury(self):
         return self.fury_status
 
     def reset_fury(self):
         self.current_fury = 0
+
+    def subtract_fury(self):
+        self.current_fury -= 50
 
     def gain_health(self, input_health):
         if self.current_hp + input_health >= self.max_hp:

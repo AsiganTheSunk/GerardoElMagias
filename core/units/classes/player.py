@@ -64,6 +64,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.experience_system = ExperienceSystem()
 
         self.experience_to_gain = 0
+        self.previous_exp = 0
 
         self.current_fury = 0
         self.experience = 0
@@ -83,6 +84,10 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
     def use_ultimate(self, target_list, damage_text_group):
         self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
+        return True
+
+    def use_whirlwind(self, target_list, damage_text_group):
+        self.cast_whirlwind(self, target_list, damage_text_group)
         return True
 
     def use_heal_spell(self, damage_text_group):
@@ -241,5 +246,9 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.level_up_stats(strength_raise, dexterity_raise, magic_raise, vitality_raise, resilience_raise, luck_raise)
 
-        self.exp_level_break = round(self.exp_level_break * 1.6)
+        self.previous_exp = self.experience
+        self.experience = self.previous_exp - self.exp_level_break
+
+        self.exp_level_break = round(self.exp_level_break * 1.3)
+
         self.level += 1

@@ -127,6 +127,12 @@ class BattleMaster:
                 hero_player.run_next_action(damage_text_group)
                 self.move_to_next_fighter()
 
+            if hero_player.whirlwind_status:
+                hero_player.use_whirlwind(self.enemy_fighters, damage_text_group)
+                self.move_to_next_fighter()
+                constants.globals.action_cooldown = 0
+                hero_player.whirlwind_status = False
+
             if hero_player.ultimate_status:
                 hero_player.use_ultimate(self.enemy_fighters, damage_text_group)
                 if hero_player.multi_attacks_left == 0:

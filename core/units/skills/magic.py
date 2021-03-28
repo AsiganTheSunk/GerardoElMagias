@@ -37,7 +37,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Firestorm! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Firestorm!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -57,7 +57,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Lightning Bolt! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Lightning Bolt!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -77,7 +77,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Earth! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Earth!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -96,7 +96,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Magicnova! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Magicnova!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
