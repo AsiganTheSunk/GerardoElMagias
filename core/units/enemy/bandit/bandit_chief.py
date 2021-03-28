@@ -8,7 +8,7 @@ from core.units.player.resources.stash import Stash
 from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.sound import *
+from constants.game_sound import *
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()

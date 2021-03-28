@@ -23,5 +23,7 @@ init()
 from core.game.game_engine import GameEngine
 
 
+print('[ Starting Game Engine ]:')
+print('//////' * 10)
 game = GameEngine()
 game.run()

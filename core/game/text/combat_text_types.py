@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.basic_fonts import combat_text_font, critical_combat_text_font, cast_text_font
+from constants.game_fonts import combat_text_font, critical_combat_text_font, cast_text_font
 from core.game.text.floating_text_effects import FloatingTextEffects
 
 

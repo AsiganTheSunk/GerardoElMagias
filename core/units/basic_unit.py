@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.sound import *
+from constants.game_sound import *
 
 
 class BasicUnit:

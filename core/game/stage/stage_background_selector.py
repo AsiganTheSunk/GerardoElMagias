@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.basic_images import background_forest, background_castle, background_dungeon
+from constants.game_images import background_forest, background_castle, background_dungeon
 
 
 class StageBackgroundSelector:

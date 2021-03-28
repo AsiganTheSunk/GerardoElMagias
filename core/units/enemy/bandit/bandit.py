@@ -8,7 +8,7 @@ from core.units.player.resources.stash import Stash
 from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.sound import *
+from constants.game_sound import *
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 

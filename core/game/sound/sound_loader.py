@@ -30,7 +30,7 @@ class SoundLoader:
                                                                           sound.file_extension, sound.volume)
                 sound_subtype[sound_set.value.lower()] = sound_resource
             sound_type[sound_resource_type.value.lower()] = sound_subtype
-        
+
         print('\nDone.')
         self.sounds = sound_type
 

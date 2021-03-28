@@ -3,7 +3,7 @@
 
 from pygame import Color
 
-# Default Color: Definitions
+# Pygame Color: Definitions
 RED_COLOR = Color('Red')
 GREEN_COLOR = Color('Green')
 WHITE_COLOR = Color('White')
@@ -13,4 +13,5 @@ GRAY_COLOR = Color('DarkGray')
 ORANGE_COLOR = Color('Orange')
 PURPLE_COLOR = Color('Purple')
 
+# Custom Color: Definitions
 LIGHT_ORANGE_COLOR = (255, 209, 99)

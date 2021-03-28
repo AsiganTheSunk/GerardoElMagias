@@ -3,7 +3,7 @@
 
 from random import randint
 from core.game.text.damage_text import DamageText
-from constants.sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound
+from constants.game_sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound
 from core.items.equipement.equipment_generator import EquipmentGenerator
 from core.units.enemy.djinn.djinn import Djinn
 from core.units.enemy.bone.bone_wizard import BoneWizard

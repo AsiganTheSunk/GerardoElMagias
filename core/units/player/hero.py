@@ -15,7 +15,7 @@ from core.game.battle.combat.combat_utils import get_alive_targets_status
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 
-from constants.sound import *
+from constants.game_sound import *
 import constants.globals
 
 from core.game.mechanics.loot import LootPool

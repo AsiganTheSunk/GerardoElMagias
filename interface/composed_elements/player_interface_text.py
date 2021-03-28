@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.basic_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
-from constants.basic_fonts import default_font, interface_font
+from constants.game_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
+from constants.game_fonts import default_font, interface_font
 
 
 class PlayerInterfaceText:

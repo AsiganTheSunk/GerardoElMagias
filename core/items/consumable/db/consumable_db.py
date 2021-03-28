@@ -4,7 +4,7 @@
 from core.items.consumable.basic_consumable import BasicConsumable
 from core.items.consumable.mixed_consumable import MixedConsumable
 from core.items.consumable.constants.recovered_stat_type import RecoveredStatType
-from constants.sound import health_potion_sound, eat_sound, drink_sound
+from constants.game_sound import health_potion_sound, eat_sound, drink_sound
 
 
 # Base Potions
