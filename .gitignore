@@ -12,3 +12,8 @@ core/game/mechanics/__pycache__/
 setup.py
 
 venv/
+logs/AnimationLoader.log
+
+logs/SoundLoader.log
+
+playing_with_tree.py

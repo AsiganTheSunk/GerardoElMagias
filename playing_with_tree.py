@@ -3,7 +3,6 @@
 
 from core.game.map.stage_tree.stage_tree_builder import StageTreeBuilder
 
-from logging import DEBUG
 
 merkle_tree_builder = StageTreeBuilder()
 # merkle_tree = merkle_tree_builder.build_merkle_tree(6)

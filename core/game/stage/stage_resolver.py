@@ -142,7 +142,7 @@ class StageResolver:
         if self.battle_master.is_player_phase():
             self.battle_master.get_hero().whirlwind_status = True
             ultimate_sound.play()
-            self.battle_master.get_hero().subtract_fury()
+            self.battle_master.get_hero().reduce_fury(50)
             constants.globals.action_cooldown = -25
 
     def resolve_mouse_display(self):
