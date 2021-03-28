@@ -20,8 +20,10 @@ from core.game.constants.game_modes import GameModes
 
 from core.game.text.damage_text import DamageText
 
-from constants.game_images import skull_image, spell_book_image, \
-    health_potion_image, mana_potion_image, ultimate_image, next_button_image
+from constants.basic_images import skull_image, spellbook_image, \
+    health_potion_image, mana_potion_image, restart_image, ultimate_image, next_button_image, gold_image, \
+    background_forest, background_castle, panel_image, sword_image, victory_banner_image, loot_image, \
+    defeat_banner_image, whirlwind_image
 
 # Init DamageText
 damage_text = DamageText()
@@ -48,7 +50,12 @@ class StageResolver:
         spell_book_button = Button('spell_book', 10, 600, spell_book_image, 100, 100)
         self.ultimate_button = Button('ultimate', 555, 590, ultimate_image, 60, 60)
         self.ultimate_button.hidden = True
+
+        self.whirlwind_button = Button('whirlwind', 280, 655, whirlwind_image, 40, 40)
+        self.whirlwind_button.hidden = True
+
         kill_all_button = Button('kill_all', 40, 260, skull_image, 60, 60)
+
         self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
 
@@ -56,6 +63,7 @@ class StageResolver:
         healing_potion_button.on_click(battle_master.handle_potion_click)
         spell_book_button.on_click(self.toggle_player_spell_book)
         self.ultimate_button.on_click(self.handle_ultimate_click)
+        self.whirlwind_button.on_click(self.handle_whirlwind_click)
         kill_all_button.on_click(self.kill_switch)
         self.next_button.on_click(self.handle_next_click)
 
@@ -101,6 +109,7 @@ class StageResolver:
 
     def stage_reset(self):
         self.battle_master.friendly_fighters[0].ultimate_status = False
+        self.battle_master.friendly_fighters[0].whirlwind_status = False
         self.battle_master.friendly_fighters[0].multi_attacks_left = 7
 
     def toggle_player_spell_book(self, event, spell_book):
@@ -118,12 +127,27 @@ class StageResolver:
         else:
             self.ultimate_button.hidden = True
 
+        if self.player.has_50_fury():
+            self.whirlwind_button.hidden = False
+        else:
+            self.whirlwind_button.hidden = True
+
+
     def handle_ultimate_click(self, event, button):
         if self.battle_master.is_player_phase():
             self.battle_master.get_hero().ultimate_status = True
             ultimate_sound.play()
             self.battle_master.get_hero().reset_fury()
             constants.globals.action_cooldown = -25
+
+    def handle_whirlwind_click(self, event, button):
+        if self.battle_master.is_player_phase():
+            self.battle_master.get_hero().whirlwind_status = True
+            ultimate_sound.play()
+            self.battle_master.get_hero().subtract_fury()
+            constants.globals.action_cooldown = -25
+
+
 
     def resolve_mouse_display(self):
         pass

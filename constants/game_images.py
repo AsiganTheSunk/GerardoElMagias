@@ -29,6 +29,7 @@ water_nova_image = image.load("resources/icons/water_nova.png")
 next_button_image = image.load("resources/icons/next.png")
 exitbook_button_image = image.load("resources/icons/exitbook.png")
 ultimate_image = image.load("resources/icons/ultimate.png")
+whirlwind_image = image.load("resources/icons/whirlwind.png")
 
 gold_image = image.load("resources/icons/oro.png")
 

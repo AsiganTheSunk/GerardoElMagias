@@ -87,7 +87,7 @@ class CombatResolver:
                     caster.cast_attack(self, target, damage_text_group, True)
 
                     self.multi_attacks_left -= 1
-                    constants.globals.action_cooldown = 60
+                    constants.globals.action_cooldown = 65
 
         else:
             self.multi_attacks_left = 7
