@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.items.equipement_items.item_categories import *
-from core.items.generated_item import GeneratedItem
+from core.items.equipement.constants.equipment_slot_type import EquipmentSlotType
 
 
 class EquipmentSet:

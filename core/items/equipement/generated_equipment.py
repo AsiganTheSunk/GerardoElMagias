@@ -5,7 +5,7 @@ from core.items.affix.constants.affix_attribute_type import AffixAttributeType
 from core.items.equipement.constants.equipement_item_type import EquipmentItemType
 
 
-class GeneratedItem:
+class GeneratedEquipment:
     def __init__(self, base_item, item_type, item_rarity, item_prefix_list, item_suffix_list):
         self.base_item = base_item
         self.item_type = item_type

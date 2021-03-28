@@ -4,7 +4,7 @@
 from random import randint
 from core.game.text.damage_text import DamageText
 from constants.sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound
-from core.items.item_generator import ItemGenerator
+from core.items.equipement.equipment_generator import EquipmentGenerator
 from core.units.enemy.djinn.djinn import Djinn
 from core.units.enemy.bone.bone_wizard import BoneWizard
 from core.units.enemy.bandit.bandit_chief import BanditChief
@@ -74,7 +74,7 @@ class LootPool:
             self.loot_error(target, text_sprite)
 
     def roll_boss_loot(self, caster, target, text_sprite):
-        item_generator = ItemGenerator()
+        item_generator = EquipmentGenerator()
         if not target.is_looted():
             drum_roll_sound.play()
             # Todo: Proper setup for loot boss, based on level

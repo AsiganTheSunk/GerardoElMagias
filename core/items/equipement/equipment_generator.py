@@ -7,10 +7,10 @@ from core.items.equipement.constants.item_rarity import ItemRarity
 from core.items.equipement.constants.equipement_item_type import EquipmentItemType
 from core.items.equipement.db.equipement_db import ITEM_POOL
 from core.items.affix.db.affix_db import PREFIX_ATTRIBUTE_POOL, SUFFIX_ATTRIBUTE_POOL
-from core.items.generated_item import GeneratedItem
+from core.items.equipement.generated_equipment import GeneratedEquipment
 
 
-class ItemGenerator:
+class EquipmentGenerator:
     def __init__(self):
         self.item_pool = ITEM_POOL
 
@@ -69,7 +69,7 @@ class ItemGenerator:
         equipment_rarity_type = self.get_rarity(magic_find)
         equipment_base_item = self.get_base_item(equipment_item_type, item_level, self.item_pool)
         equipment_prefix_list, equipment_suffix_list = self.get_affixes(item_level, equipment_item_type, equipment_rarity_type)
-        return GeneratedItem(equipment_base_item, equipment_item_type, equipment_rarity_type, equipment_prefix_list, equipment_suffix_list)
+        return GeneratedEquipment(equipment_base_item, equipment_item_type, equipment_rarity_type, equipment_prefix_list, equipment_suffix_list)
 
     def get_affixes(self, item_level, item_type, item_rarity):
         equipment_prefix_number, equipment_suffix_number = self.get_base_prefix_suffix_number(item_rarity)
