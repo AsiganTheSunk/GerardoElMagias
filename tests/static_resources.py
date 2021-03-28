@@ -1,19 +1,28 @@
-from core.items.equipement_items.item_types import *
-from core.items.equipement_items.item_categories import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.items.equipement.constants.equipement_item_type import EquipmentItemType
+from core.items.equipement.constants.equipment_slot_type import EquipmentSlotType
 from core.items.equipement.generated_equipment import GeneratedEquipment
-from core.items.affix_system.affix import *
-from core.items.affix_system.constants.affix_attribute_type import *
+from core.items.affix.basic_affix import BasicAffix
+from core.items.affix.constants.affix_attribute_type import AffixAttributeType
+from core.items.equipement.constants.item_rarity import ItemRarity
+from core.items.equipement.category.armor import Armor
+from core.items.equipement.category.amulet import Amulet
+from core.items.equipement.category.shield import Shield
+from core.items.equipement.category.ring import Ring
+from core.items.equipement.category.melee_weapon import MeleeWeapon
 
 # Static Affix:
-static_prefix = [Affix('Resplandeciente', 20, AffixAttributeType.MAGIC_POWER, 7, 10,
+static_prefix = [BasicAffix('Resplandeciente', 20, AffixAttributeType.MAGIC_POWER, 7, 10,
                        [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                         EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
-static_prefix1 = [Affix('Reluciente', 10, AffixAttributeType.MAGIC_POWER, 4, 6,
+static_prefix1 = [BasicAffix('Reluciente', 10, AffixAttributeType.MAGIC_POWER, 4, 6,
                         [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                          EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
-static_suffix = [Affix('de Vida', 1, AffixAttributeType.HEALTH, 5, 15,
+static_suffix = [BasicAffix('de Vida', 1, AffixAttributeType.HEALTH, 5, 15,
                        [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                         EquipmentItemType.RING, EquipmentItemType.AMULET])]
 

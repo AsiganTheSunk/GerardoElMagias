@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-class BasicSpellEffect:
+class BasicSkillEffect:
     def __init__(self, target):
         # Basic Unit Target Coordinates x,y
         self.target_x = target.animation_set.rect.x

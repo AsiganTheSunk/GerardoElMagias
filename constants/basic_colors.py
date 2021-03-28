@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from pygame import Color
+
 # Default Color: Definitions
-RED_COLOR = (255, 0, 0)
-GREEN_COLOR = (0, 255, 0)
-WHITE_COLOR = (255, 255, 255)
-YELLOW_COLOR = (255, 255, 0)
-BLUE_COLOR = (0, 0, 255)
-GRAY_COLOR = (128, 128, 128)
-ORANGE_COLOR = (255, 165, 0)
-PURPLE_COLOR = (75, 0, 130)
+RED_COLOR = Color('Red')
+GREEN_COLOR = Color('Green')
+WHITE_COLOR = Color('White')
+YELLOW_COLOR = Color('Yellow')
+BLUE_COLOR = Color('Blue')
+GRAY_COLOR = Color('DarkGray')
+ORANGE_COLOR = Color('Orange')
+PURPLE_COLOR = Color('Purple')
+
 LIGHT_ORANGE_COLOR = (255, 209, 99)

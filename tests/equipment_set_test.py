@@ -1,5 +1,10 @@
-from units.player.resources.equipment import EquipmentSet
-from tests.static_resources import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from core.units.player.resources.equipment import EquipmentSet
+from core.units.player.resources.backpack import BackPack
+from tests.static_resources import static_dual, static_amulet2, static_amulet, static_ring0, static_ring1, \
+    static_ring2, static_off_weapon, static_main_weapon, static_body
 
 
 def test_equip_while_empty():

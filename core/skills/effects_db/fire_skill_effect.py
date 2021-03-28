@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.skills.basic_spell import BasicSpellEffect
+from core.skills.basic_skill_effect import BasicSkillEffect
 from core.game.animations.sets.skill_animation_set import SkillAnimationSet
 
 
-class FireSkillEffect(BasicSpellEffect):
+class FireSkillEffect(BasicSkillEffect):
     def __init__(self, target, animation_master):
-        BasicSpellEffect.__init__(self, target)
+        BasicSkillEffect.__init__(self, target)
 
         self.animation_master = animation_master
         # Experimental Skill Animation
