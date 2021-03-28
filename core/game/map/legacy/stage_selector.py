@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class StageSelector:
     def __init__(self, world_map):
         self.world_map = world_map

@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 class StageNode:
     def __init__(self, node_identifier, node_lvl=0, root=False):

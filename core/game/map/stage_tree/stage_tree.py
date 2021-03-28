@@ -1,6 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-# Import MerkleNode Module
+# Import StageNode Module
 from game.map.stage_tree.stage_node import StageNode
 
 

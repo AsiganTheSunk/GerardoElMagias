@@ -4,8 +4,10 @@
 from pygame import font, mouse, init, draw, display, Color, time, event as pygame_event, QUIT, key
 init()
 
-from graph_generator import MapGraphGenerator, BasicNodeProperties
-from stage_map_navigator import MapGraphNavigator, MapGraphDrawer
+from graph_generator import MapGraphGenerator
+from graph_node_properties import BasicNodeProperties
+from stage_map_navigator import MapGraphNavigator
+from stage_map_renderer import MapGraphRenderer
 
 # https://stackoverflow.com/questions/19117062/how-to-add-text-into-a-pygame-rectangle
 # https://stackoverflow.com/questions/32909847/line-styles-in-pygame
@@ -50,16 +52,12 @@ def main():
     while running:
         screen.fill(Color('DarkOliveGreen4'))
         map_graph_navigator.display()
-
-
         display.update()
 
         # Did the user click the window close button?
         for event in pygame_event.get():
             if event.type == QUIT:
                 running = False
-
-
 
     # Done! Time to quit.
     quit()

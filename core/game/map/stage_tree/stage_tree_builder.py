@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Import StageTree Module
 from core.game.map.stage_tree.stage_tree import StageTree
