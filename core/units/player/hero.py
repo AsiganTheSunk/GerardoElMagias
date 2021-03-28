@@ -85,7 +85,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
         return True
 
-    def use_heal(self, damage_text_group):
+    def use_heal_spell(self, damage_text_group):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
@@ -95,9 +95,9 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.no_action_error('Mana', damage_text_group)
         return False
 
-    def use_firestorm(self, target_list, damage_text_group):
+    def use_firestorm_spell(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(15):
+        if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
             # Pre Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
@@ -116,14 +116,52 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.no_action_error('Mana', damage_text_group)
         return False
 
-    def use_lightning(self, target_list, damage_text_group):
+    def use_lightning_spell(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(20):
+        if self.reduce_mana(16):
             constants.globals.action_cooldown = -30
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
             self.cast_lightning(self, target_list, damage_text_group)
+            # Retrieve State for Enemy List: target_list
+            pos_target_list = get_alive_targets_status(target_list)
+
+            # Evaluate Kills
+            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
+                                                       damage_text_group)
+            return True
+
+        self.no_action_error('Mana', damage_text_group)
+        return False
+
+    def use_earth_spell(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(14):
+            constants.globals.action_cooldown = -40
+            # Save State for Enemy List: target_list
+            pre_target_list = get_alive_targets_status(target_list)
+
+            self.cast_earth(self, target_list, damage_text_group)
+            # Retrieve State for Enemy List: target_list
+            pos_target_list = get_alive_targets_status(target_list)
+
+            # Evaluate Kills
+            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
+                                                       damage_text_group)
+            return True
+
+        self.no_action_error('Mana', damage_text_group)
+        return False
+
+    def use_magicnova_spell(self, target_list, damage_text_group):
+        # Consume Mana: Spell Casting
+        if self.reduce_mana(18):
+            constants.globals.action_cooldown = -50
+            # Save State for Enemy List: target_list
+            pre_target_list = get_alive_targets_status(target_list)
+
+            self.cast_magicnova(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 

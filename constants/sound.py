@@ -5,20 +5,19 @@ from pygame import mixer
 
 # SOUND FX
 # SPELL SOUNDS
-lightning_spell_1_sound = mixer.Sound("resources/sound/spells/lightning_spell_1.wav")
-lightning_spell_1_sound.set_volume(0.1)
+lightning_spell_sound = mixer.Sound("resources/sound/spells/lightning_spell.wav")
+lightning_spell_sound.set_volume(0.1)
 
-lightning_spell_2_sound = mixer.Sound("resources/sound/spells/lightning_spell_2.wav")
-lightning_spell_2_sound.set_volume(0.1)
+firestorm_spell_sound = mixer.Sound("resources/sound/spells/firestorm_spell.wav")
+firestorm_spell_sound.set_volume(0.1)
 
-firestorm_spell_1_sound = mixer.Sound("resources/sound/spells/firestorm_spell_1.wav")
-firestorm_spell_1_sound.set_volume(0.1)
+heal_spell_sound = mixer.Sound("resources/sound/spells/heal_spell.wav")
+heal_spell_sound.set_volume(0.1)
 
-firestorm_spell_2_sound = mixer.Sound("resources/sound/spells/firestorm_spell_2.wav")
-firestorm_spell_2_sound.set_volume(0.1)
+earth_spell_sound = mixer.Sound("resources/sound/spells/earth_spell.wav")
+earth_spell_sound.set_volume(0.1)
 
-heal_spell_1_sound = mixer.Sound("resources/sound/spells/heal_spell_1.wav")
-heal_spell_1_sound.set_volume(0.1)
+
 
 
 # ATTACK RELATED SOUNDS
