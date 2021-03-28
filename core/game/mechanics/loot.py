@@ -33,41 +33,41 @@ class LootPool:
         if not target.is_looted():
             if loot_chance == 0:
                 empty_sound.play()
-                damage_text.warning(target, f' Empty! ', text_sprite)
+                damage_text.warning(target, f'Empty!', text_sprite)
 
             elif loot_chance == 1:
                 health_potion_sound.play()
                 caster.stash.add_healing_potion(1)
-                damage_text.warning(target, f' x1 Health Potion Found! ', text_sprite)
+                damage_text.warning(target, f'x1 Health Potion Found!', text_sprite)
 
             elif loot_chance == 2:
                 health_potion_sound.play()
                 caster.stash.add_mana_potion(1)
-                damage_text.warning(target, f' x1 Mana Potion Found! ', text_sprite)
+                damage_text.warning(target, f'x1 Mana Potion Found!', text_sprite)
 
             elif loot_chance == 3:
                 quality_roll = randint(0, 50)
                 if quality_roll > target.level:
-                    damage_text.warning(target, f' Food Found! ', text_sprite)
+                    damage_text.warning(target, f'Food Found!', text_sprite)
                     BREAD.consume(caster, text_sprite)
                 else:
-                    damage_text.warning(target, f' Large Food Found!', text_sprite)
+                    damage_text.warning(target, f'Large Food Found!', text_sprite)
                     LARGE_BREAD.consume(caster, text_sprite)
 
             elif loot_chance == 4:
                 quality_roll = randint(0, 50)
                 if quality_roll > target.level:
-                    damage_text.warning(target, f' Drink Found! ', text_sprite)
+                    damage_text.warning(target, f'Drink Found!', text_sprite)
                     DRINK.consume(caster, text_sprite)
                 else:
-                    damage_text.warning(target, f' Large Drink Found! ', text_sprite)
+                    damage_text.warning(target, f'Large Drink Found!', text_sprite)
                     LARGE_DRINK.consume(caster, text_sprite)
 
             elif loot_chance == 5:
                 gold = randint(1, 9) + target.level
                 caster.stash.add_gold(gold)
                 gold_sound.play()
-                damage_text.cast(target, f' {gold} Gold Found! ', text_sprite)
+                damage_text.cast(target, f'{gold} Gold Found!', text_sprite)
 
             target.update_looted_status()
         else:
@@ -91,5 +91,5 @@ class LootPool:
     @staticmethod
     def loot_error(target, text_sprite):
         # Todo: Init with -30y
-        damage_text.warning(target, f' ALREADY LOOTED! ', text_sprite)
+        damage_text.warning(target, f'ALREADY LOOTED!', text_sprite)
         error_sound.play()

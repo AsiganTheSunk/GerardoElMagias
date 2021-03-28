@@ -38,7 +38,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             # Display Header Cast
-            damage_text.cast(caster, " Fire Storm! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Fire Storm!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -59,7 +59,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             # Display Header Cast
-            damage_text.cast(caster, " Lightning Bolt! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Lightning Bolt!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -79,7 +79,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             # Display Header Cast
-            damage_text.cast(caster, " Earth Shock! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Earth Shock!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -99,7 +99,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             # Display Header Cast
-            damage_text.cast(caster, " Water Nova! ", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Water Nova!", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -116,7 +116,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
     def cast_shadow_bolt(self, caster, target, damage_text_group):
         # Display Header Cast
-        damage_text.cast(caster, " Shadow Bolt! ", damage_text_group, 0, -30)
+        damage_text.cast(caster, "Shadow Bolt!", damage_text_group, 0, -30)
 
         # Calculate Basic Damage: Based on Strength
         base_damage = randint(0, 3)

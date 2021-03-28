@@ -69,6 +69,7 @@ class StageResolver:
         self.stage_renderer.add(healing_potion_button)
         self.stage_renderer.add(spell_book_button)
         self.stage_renderer.add(self.ultimate_button)
+        self.stage_renderer.add(self.whirlwind_button)
         self.stage_renderer.add(kill_all_button)
         self.stage_renderer.add(self.next_button)
 
@@ -120,16 +121,15 @@ class StageResolver:
                 self.battle_master.swap_battle_mode()
 
     def resolve_player_interface_actions(self):
-        if self.player.has_full_fury():
+        if self.player.has_enough_fury():
             self.ultimate_button.hidden = False
         else:
             self.ultimate_button.hidden = True
 
-        if self.player.has_50_fury():
+        if self.player.has_enough_fury(50):
             self.whirlwind_button.hidden = False
         else:
             self.whirlwind_button.hidden = True
-
 
     def handle_ultimate_click(self, event, button):
         if self.battle_master.is_player_phase():
@@ -144,8 +144,6 @@ class StageResolver:
             ultimate_sound.play()
             self.battle_master.get_hero().subtract_fury()
             constants.globals.action_cooldown = -25
-
-
 
     def resolve_mouse_display(self):
         pass

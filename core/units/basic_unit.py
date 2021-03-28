@@ -45,6 +45,12 @@ class BasicUnit:
         self.max_mp = max_mp
         self.current_mp = max_mp
 
+    def reduce_fury(self, input_fury):
+        if self.current_fury - input_fury < 0:
+            self.current_fury = 0
+        else:
+            self.current_fury -= input_fury
+
     def reduce_health(self, input_health):
         if self.current_hp - input_health < 0:
             self.current_hp = 0
@@ -52,7 +58,7 @@ class BasicUnit:
             self.current_hp -= input_health
 
     def reduce_mana(self, input_mana):
-        if self.current_mp >= input_mana:
+        if self.has_enough_mana(input_mana):
             # Consume Mana: Spell Casting
             self.current_mp -= input_mana
             return True
@@ -61,22 +67,17 @@ class BasicUnit:
     def has_experience(self):
         return self.experience_status
 
-    def has_full_fury(self):
-        if self.current_fury == 100:
-            return True
+    def has_enough_mana(self, input_mana):
+        return self.current_mp >= input_mana
 
-    def has_50_fury(self):
-        if self.current_fury >= 50:
-            return True
+    def has_enough_fury(self, input_fury=100):
+        return self.current_fury >= input_fury
 
     def has_fury(self):
         return self.fury_status
 
     def reset_fury(self):
         self.current_fury = 0
-
-    def subtract_fury(self):
-        self.current_fury -= 50
 
     def gain_health(self, input_health):
         if self.current_hp + input_health >= self.max_hp:
