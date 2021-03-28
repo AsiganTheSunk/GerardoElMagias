@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 
 # Import MerkleNode Module
-from map.merkletree.merkle_node import StageNode
+from game.map.stage_tree.stage_node import StageNode
 
 
 class StageTree:
     def __init__(self):
-        self.name = __class__.__name__
         self.root = None
         self.nodes = []
         self.node_count = -1
         self.max_node_level = 0
-        self._properties = {'name': self.name}
+        self._properties = {'name': self.__class__.__name__}
 
     def __getitem__(self, key):
         if key == 'properties':
@@ -30,41 +29,41 @@ class StageTree:
         self.max_node_level = node_level
 
     def set_root(self, root):
-        '''
+        """
         This function sets the root node of the MerkleTree
-        '''
+        """
         self.root = root
 
     def get_nodes(self):
-        '''
+        """
         This function return the nodes of the MerkleTree
         :return: node identifier
-        '''
+        """
         return self.nodes
 
     def get_node_count(self):
-        '''
+        """
         This function returns node_count
         :return: node count
-        '''
+        """
         return self.node_count
 
     def add_node_count(self):
-        '''
+        """
         This function adds one to node_count
         :return: node count
-        '''
+        """
         self.node_count += 1
         return self.node_count
 
     def add_node(self, node_lvl=0, parent_identifier=None, root=False):
-        '''
+        """
         This function adds a node to the Merkle Tree
         :param node_lvl: node lvl, default it's 0
         :param parent_identifier: parent identifier for the current Node, default it's None
         :param root: root boolean for the StageTree, default False
         :return: New Node
-        '''
+        """
         try:
             if root:
                 # Setting the Root Value
@@ -82,11 +81,10 @@ class StageTree:
             print('{0}'.format(err))
 
     def display_nodes_from_lvl(self, node_lvl):
-        '''
-
+        """
         :param node_lvl:
         :return:
-        '''
+        """
         try:
             tmp_nodes = []
             for tmp_node in self.get_nodes():
@@ -99,11 +97,11 @@ class StageTree:
             print('{0}'.format(err))
 
     def search_nodes_from_lvl(self, node_lvl):
-        '''
-
+        """
+        This function ...
         :param node_lvl:
         :return:
-        '''
+        """
         try:
             tmp_nodes = []
             for tmp_node in self.get_nodes():
@@ -116,13 +114,13 @@ class StageTree:
             print('{0}'.format(err))
 
     def minimal_coverage(self, node_identifier, _minimal_coverage):
-        '''
-
+        """
+        This function ...
         :param node_identifier:
         :param _minimal_coverage:
         :return:
-        '''
-        if _minimal_coverage == []:
+        """
+        if not _minimal_coverage:
             _minimal_coverage.append(node_identifier)
 
         if self.get_nodes()[node_identifier].is_root is True:
@@ -130,16 +128,6 @@ class StageTree:
         else:
             _minimal_coverage.append(self.get_nodes()[node_identifier].parent_identifier)
             return self.minimal_coverage(self.get_nodes()[node_identifier].parent_identifier, _minimal_coverage)
-
-    def show_merkle_tree(self):
-        '''
-
-        :return:
-        '''
-        for lvl in range(self.root.node_lvl, self.max_node_level, 1):
-            print('////////////' * 10)
-            print('{0}'.format(self.search_nodes_from_lvl(lvl)))
-        print('////////////' * 10)
 
     def show_stage_tree(self):
         print('root', self.root.node_identifier)

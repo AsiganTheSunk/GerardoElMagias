@@ -2,7 +2,6 @@
 
 class StageNode:
     def __init__(self, node_identifier, node_lvl=0, root=False):
-        self.name = __class__.__name__
         self.is_root = root
         self.node_identifier = node_identifier
         self.node_lvl = node_lvl

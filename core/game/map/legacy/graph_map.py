@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pygame import font, mouse, init, draw, display, Color, time, event as pygame_event, QUIT, key
 init()
 
@@ -33,7 +36,7 @@ clock.tick(60)
 def main():
     running = True
     # Define Game Fonts:
-    tahoma_font_path = './resources/fonts/Tahoma.ttf'
+    tahoma_font_path = '../../../../resources/fonts/Tahoma.ttf'
     interface_font = font.Font(tahoma_font_path, 15)
     interface_font.set_bold(True)
 

@@ -187,7 +187,7 @@ list_of_nodes = ['Forest', 'Castle', 'Desert', 'Tombs']
 
 class MapGraphNavigator:
     def __init__(self, surface, full_world_map, current_realm_index):
-        self.map_font_path = './resources/fonts/Tahoma.ttf'
+        self.map_font_path = '../../../../resources/fonts/Tahoma.ttf'
         self.map_font = font.Font(self.map_font_path, 15)
         self.map_font.set_bold(True)
         self.last_updated = 0
