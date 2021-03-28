@@ -15,7 +15,7 @@ combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()
 
 
-class Spellbook(UILayout):
+class SpellBook(UILayout):
     def __init__(self, battle_master, text_sprite, add_effect):
         super().__init__()
         self.battle_master = battle_master

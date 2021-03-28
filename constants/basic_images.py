@@ -16,7 +16,7 @@ background_dungeon = transform.scale(background_dungeon, (1024, 576))
 panel_image = image.load("resources/icons/panel.jpg")
 
 # Button Images:
-spellbook_image = image.load("resources/icons/spellbook.png")
+spell_book_image = image.load("resources/icons/spell_book.png")
 health_potion_image = image.load("resources/icons/health_potion.png")
 mana_potion_image = image.load("resources/icons/mana_potion.png")
 lightning_image = image.load("resources/icons/lightning.png")

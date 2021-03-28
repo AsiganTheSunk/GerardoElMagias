@@ -9,5 +9,5 @@ class GameModes(Enum):
     BOSS_BATTLE = 1
     VICTORY = 2
     DEFEAT = 3
-    SPELLBOOK = 4
-    LEVELUP = 5
+    SPELL_BOOK = 4
+    LEVEL_UP = 5

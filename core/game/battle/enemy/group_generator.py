@@ -5,7 +5,6 @@ from random import randint
 from core.units.enemy.bandit.bandit import Bandit
 from core.units.enemy.bone.bone_wizard import BoneWizard
 from core.units.enemy.lizard.lizard import Lizard
-from constants.game_windows import *
 from core.units.constants.unit_type import UnitType
 from core.game.battle.enemy.set_generator import EnemySetGenerator
 from core.game.battle.enemy.stats_generator import EnemyStatsGenerator
@@ -13,16 +12,18 @@ from core.game.battle.enemy.position_generator import EnemyPositionsGenerator
 
 
 class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
-    def __init__(self, animation_master):
-        self.animation_master = animation_master
+    def __init__(self, animation_master, game_attributes):
         EnemyStatsGenerator.__init__(self)
         EnemyPositionsGenerator.__init__(self)
         EnemySetGenerator.__init__(self)
 
+        self.animation_master = animation_master
+        self.game_attributes = game_attributes
+
     @staticmethod
     def generate_group_size(level):
         if level < 4:
-           return randint(1, 2)
+            return randint(1, 2)
         elif 4 <= level < 7:
             return randint(2, 3)
         elif 7 <= level < 10:
@@ -34,13 +35,12 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
         elif level >= 18:
             return randint(3,4)
 
-    @staticmethod
-    def get_enemy_healthbar_positions():
+    def get_enemy_healthbar_positions(self):
         return [
-            (680, screen_height - panel_height + 40),
-            (680, screen_height - panel_height + 100),
-            (900, screen_height - panel_height + 40),
-            (900, screen_height - panel_height + 100)
+            (680, self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+            (680, self.game_attributes.screen_height - self.game_attributes.panel_height + 100),
+            (900, self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+            (900, self.game_attributes.screen_height - self.game_attributes.panel_height + 100)
         ]
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):

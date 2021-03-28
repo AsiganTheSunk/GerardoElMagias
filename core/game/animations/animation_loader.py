@@ -20,8 +20,10 @@ class AnimationLoader:
         return self.unit_animation_sets[resource_type]
 
     def load_resource_sets(self, animation_pool, resource_type):
-        print('[ Loading Animation Resources ]:')
-        print('-------' * 10)
+        print()
+        print('//////' * 10)
+        print(f'[ Loading {resource_type.title()} Animation Resources ]:')
+        print('//////' * 10)
         animation_sets = dict()
         # For Each AnimationSet present in AnimationSets: Environment, Skills, Units
         for animation_set_type in animation_pool:
@@ -36,8 +38,7 @@ class AnimationLoader:
                     animation_resource.animation_type, animation_resource.frames))
 
             animation_sets[animation_set_type.value] = animation_set
-        # print('\n', 'Done.')
-        # print(animation_sets)
+        print('\nDone.')
         return animation_sets
 
     def load_resource_sequence(self, resource_type, name, animation, sequence_length, x_scale=2, y_scale=2):

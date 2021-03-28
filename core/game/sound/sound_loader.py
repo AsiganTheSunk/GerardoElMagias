@@ -11,8 +11,10 @@ class SoundLoader:
         self.load_sound_sets()
 
     def load_sound_sets(self):
+        print()
+        print('//////' * 10)
         print('[ Loading Sound Resources ]:')
-        print('-------' * 10)
+        print('//////' * 10)
         sound_type = dict()
         # For Each AnimationSet present in AnimationSets: Environment, Skills, Units
         for sound_resource_type in SOUND_POOL:
@@ -28,7 +30,8 @@ class SoundLoader:
                                                                           sound.file_extension, sound.volume)
                 sound_subtype[sound_set.value.lower()] = sound_resource
             sound_type[sound_resource_type.value.lower()] = sound_subtype
-        print('\n', 'Done.')
+        
+        print('\nDone.')
         self.sounds = sound_type
 
         # pp = pprint.PrettyPrinter(indent=4)

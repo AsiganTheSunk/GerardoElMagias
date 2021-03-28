@@ -6,5 +6,5 @@ from enum import Enum
 
 class GameMenuModes(Enum):
     MENU = 0
-    SPELLBOOK = 1
+    SPELL_BOOK = 1
     SHOP = 2
