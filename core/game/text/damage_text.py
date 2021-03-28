@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.game_colors import *
+from constants.game_colors import RED_COLOR, YELLOW_COLOR, WHITE_COLOR, GRAY_COLOR, PURPLE_COLOR, \
+    GREEN_COLOR, BLUE_COLOR, ORANGE_COLOR, LIGHT_ORANGE_COLOR
 from core.game.text.combat_text_types import CombatTextTypes
 
 

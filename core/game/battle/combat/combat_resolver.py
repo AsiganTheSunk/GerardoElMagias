@@ -2,19 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from core.game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
-
 import constants.globals
-
+from core.game.battle.combat.combat_utils import get_alive_targets
+from constants.game_sound import block_sound, miss_sound, critical_hit_sound, hit_cut_sound
+from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
-
-from core.game.battle.combat.combat_utils import get_alive_targets
-from constants.game_sound import *
-from random import randint
 
 
 class CombatResolver:
@@ -69,11 +66,9 @@ class CombatResolver:
 
     def resolve_aoe_attack(self, caster, target_list, input_damage_list, input_damage_type_list, damage_text_group):
         for index, target in enumerate(target_list):
-            # print(index, target.name, len(target_list))
             if target.alive:
-                self.resolve_attack(caster, target, input_damage_list[index], input_damage_type_list[index], damage_text_group, True)
-            else:
-                pass
+                self.resolve_attack(caster, target, input_damage_list[index], input_damage_type_list[index],
+                                    damage_text_group, True)
 
     def resolve_multi_attack(self, caster, target_list, multi_strike, damage_text_group):
         alive_enemy = get_alive_targets(target_list)

@@ -1,47 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.skills.db.melee import MeleeSpells
+from random import randint
 
+from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
-from core.units.basic_unit import BasicUnit
+from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
 from core.units.player.resources.stash import Stash
-from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-
-
+# Animation Imports
+from core.game.animations.sets.unit_animation_set import UnitAnimationSet
+import constants.globals
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
-# Animation Imports
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
-import constants.globals
-
-class SmallDragon(BasicUnit, MagicSpells, MeleeSpells):
+class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
     def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, 'SmallDragon', level, strength, dexterity, magic)
+        EnemyUnit.__init__(self, x, y, 'SmallDragon', level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)
-        # Bandit Loot
-        self.looted_status = False
-        self.try_to_consume_health_potion = False
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'SmallDragon', animation_master.get_unit_resource_animation_set('SmallDragon'))
-
-
-    def is_looted(self):
-        if self.looted_status:
-            return True
-        return False
-
-    def update_looted_status(self):
-        self.looted_status = True
+        self.animation_set = \
+            UnitAnimationSet(animation_master.surface, x, y,
+                             'SmallDragon', animation_master.get_unit_resource_animation_set('SmallDragon'))
 
     def attack(self, target, damage_text_group):
         self.melee_attack_animation()
@@ -67,7 +54,6 @@ class SmallDragon(BasicUnit, MagicSpells, MeleeSpells):
 
         damage_text.warning(self, ' No Enough Mana! ', damage_text_group)
         return False
-
 
     def death_animation(self):
         # Activates: Death Animation

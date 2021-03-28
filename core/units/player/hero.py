@@ -15,7 +15,7 @@ from core.game.battle.combat.combat_utils import get_alive_targets_status
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 
-from constants.game_sound import *
+from constants.game_sound import error_sound
 import constants.globals
 
 from core.game.mechanics.loot import LootPool
@@ -159,7 +159,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.no_action_error('Mana', damage_text_group)
         return False
 
-    def use_magicnova_spell(self, target_list, damage_text_group):
+    def use_water_nova_spell(self, target_list, damage_text_group):
         # Consume Mana: Spell Casting
         if self.reduce_mana(18):
             constants.globals.action_cooldown = -50
@@ -234,7 +234,6 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.experience_to_gain = 0
         if self.experience >= self.exp_level_break:
             self.level_up()
-
 
     def level_up(self):
         strength_raise = randint(2, 3)

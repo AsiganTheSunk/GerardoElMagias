@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import draw
-from constants.game_colors import *
+from constants.game_colors import GRAY_COLOR, ORANGE_COLOR
 
 
 class FuryBar:

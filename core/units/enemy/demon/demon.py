@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.units.basic_unit import BasicUnit
+from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
+from core.game.text.damage_text import DamageText
 
 # Skill Imports
 from core.skills.db.melee import MeleeSpells
@@ -10,41 +11,32 @@ from core.skills.db.magic import MagicSpells
 
 # Animation Imports
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
-
 from random import randint
 import constants.globals
+from constants.game_sound import error_sound
+
+damage_text = DamageText()
 
 
-class Demon(BasicUnit, MeleeSpells, MagicSpells):
+class Demon(EnemyUnit, MeleeSpells, MagicSpells):
     def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
-        BasicUnit.__init__(self, x, y, 'Demon', level, strength, dexterity, magic)
+        EnemyUnit.__init__(self, x, y, 'Demon', level, strength, dexterity, magic)
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        # Bandit Loot
-        self.looted_status = False
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, 'Demon', animation_master.get_unit_resource_animation_set('Demon'))
+
+        self.animation_set = \
+            UnitAnimationSet(animation_master.surface, x, y,
+                             'Demon', animation_master.get_unit_resource_animation_set('Demon'))
         self.current_fury = 1
         self.fury_status = True
         self.animation_set.action = 6
-
-
-    def is_looted(self):
-        return self.looted_status
-
-    def update_looted_status(self):
-        self.looted_status = True
 
     def attack(self, target, damage_text_group):
         self.melee_attack_animation()
         self.cast_attack(self, target, damage_text_group)
         return True
-
-    def power_of_two_attack(self, target, damage_text_group):
-        exponent = self.power_of_two_exponent
-        self.cast_power_of_two_attack(target, damage_text_group, exponent)
-        self.power_of_two_exponent += 1
 
     def use_heal(self, damage_text_group):
         # Consume Mana: Spell Casting
@@ -99,6 +91,10 @@ class Demon(BasicUnit, MeleeSpells, MagicSpells):
         # Activates: Miss Animation
         self.animation_set.action = 6
         self.animation_set.reset_frame_index()
+
+    def no_action_error(self, name, text_sprite):
+        damage_text.warning(self, f' No {name} !', text_sprite)
+        error_sound.play()
 
     def action(self, target, damage_text_group):
         health_trigger = self.current_hp <= round(self.max_hp * 0.90)
