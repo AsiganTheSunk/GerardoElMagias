@@ -18,6 +18,6 @@ class StageEffectsRenderer:
     def update_effects(self):
         if self.animation_effects:
             for animation_effect_index, animation_effect in enumerate(self.animation_effects):
-                if animation_effect.skill_set.update():
+                if animation_effect.target_skill_set_effect.update():
                     self.animation_effects.pop(animation_effect_index)
-                animation_effect.skill_set.draw()
+                animation_effect.target_skill_set_effect.draw()

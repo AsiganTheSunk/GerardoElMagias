@@ -60,6 +60,9 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
             unit.animation_set.draw()
             unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
 
+        # draw effects: in front of units
+        self.update_effects()
+
         self.render_ui_elements(self.ui_elements)
 
     def render_ui_elements(self, elements):
