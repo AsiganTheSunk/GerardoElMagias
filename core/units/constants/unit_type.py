@@ -9,7 +9,8 @@ class UnitType(Enum):
     BANDIT_CHIEF = 'BanditChief'
     LIZARD = 'Lizard'
     DRAGON = 'Dragon'
-    SMALLDRAGON = 'SmallDragon'
+    SMALLDRAGON = "SmallDragon"
     BONE_WIZARD = 'BoneWizard'
     HERO = 'Hero'
     DJINN = 'Djinn'
+    DEMON = "Demon"

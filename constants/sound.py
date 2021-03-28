@@ -8,15 +8,17 @@ from pygame import mixer
 lightning_spell_sound = mixer.Sound("resources/sound/spells/lightning_spell.wav")
 lightning_spell_sound.set_volume(0.1)
 
-firestorm_spell_sound = mixer.Sound("resources/sound/spells/firestorm_spell.wav")
+firestorm_spell_sound = mixer.Sound("resources/sound/spells/fire_storm_spell.wav")
 firestorm_spell_sound.set_volume(0.1)
 
 heal_spell_sound = mixer.Sound("resources/sound/spells/heal_spell.wav")
 heal_spell_sound.set_volume(0.1)
 
-earth_spell_sound = mixer.Sound("resources/sound/spells/earth_spell.wav")
+earth_spell_sound = mixer.Sound("resources/sound/spells/earth_shock_spell.wav")
 earth_spell_sound.set_volume(0.1)
 
+water_nova_sound = mixer.Sound("resources/sound/spells/earth_shock_spell.wav")
+water_nova_sound.set_volume(0.1)
 
 
 

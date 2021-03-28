@@ -20,6 +20,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
     @staticmethod
     def cast_heal(caster, target, damage_text_group):
+        # Display Header Cast
         # Todo: Init proper 150x, 400y
         damage_text.cast(caster, "Heal", damage_text_group, 0, -30)
 
@@ -30,14 +31,14 @@ class MagicSpells(CombatFormulas, CombatResolver):
             heal_amount = target.max_hp - target.current_hp
         target.current_hp += heal_amount
 
-        # Todo: Init proper 150x, 500y
         damage_text.heal(caster, str(heal_amount), damage_text_group)
 
     def cast_firestorm(self, caster, target_list, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Firestorm! ", damage_text_group, 0, -30)
+            # Display Header Cast
+            damage_text.cast(caster, " Fire Storm! ", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -57,6 +58,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
+            # Display Header Cast
             damage_text.cast(caster, " Lightning Bolt! ", damage_text_group, 0, -30)
 
             input_damage_list = []
@@ -72,12 +74,12 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
 
-
-    def cast_earth(self, caster, target_list, damage_text_group):
+    def cast_earth_shock(self, caster, target_list, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Earth! ", damage_text_group, 0, -30)
+            # Display Header Cast
+            damage_text.cast(caster, " Earth Shock! ", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -92,11 +94,12 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
 
-    def cast_magicnova(self, caster, target_list, damage_text_group):
+    def cast_water_nova(self, caster, target_list, damage_text_group):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, " Magicnova! ", damage_text_group, 0, -30)
+            # Display Header Cast
+            damage_text.cast(caster, " Water Nova! ", damage_text_group, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -111,11 +114,13 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
 
+    def cast_shadow_bolt(self, caster, target, damage_text_group):
+        # Display Header Cast
+        damage_text.cast(caster, " Shadow Bolt! ", damage_text_group, 0, -30)
 
-    def cast_shadowbolt(self, caster, target, damage_text_group):
         # Calculate Basic Damage: Based on Strength
         base_damage = randint(0, 3)
-        output_damage = (caster.magic) + base_damage
+        output_damage = caster.magic + base_damage
 
         input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
         self.resolve_attack(caster, target, input_damage, input_type, damage_text_group)

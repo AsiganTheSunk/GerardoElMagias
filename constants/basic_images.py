@@ -20,10 +20,10 @@ spellbook_image = image.load("resources/icons/spellbook.png")
 health_potion_image = image.load("resources/icons/health_potion.png")
 mana_potion_image = image.load("resources/icons/mana_potion.png")
 lightning_image = image.load("resources/icons/lightning.png")
-firestorm_image = image.load("resources/icons/firestorm.png")
-earth_image = image.load("resources/icons/earth.png")
+firestorm_image = image.load("resources/icons/fire_storm.png")
+earth_image = image.load("resources/icons/earth_shock.png")
 heal_image = image.load("resources/icons/heal.png")
-magicnova_image = image.load("resources/icons/magic_nova.png")
+water_nova_image = image.load("resources/icons/water_nova.png")
 
 
 next_button_image = image.load("resources/icons/next.png")

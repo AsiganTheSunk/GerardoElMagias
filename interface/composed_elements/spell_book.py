@@ -3,7 +3,7 @@
 
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.basic_images import lightning_image, firestorm_image, background_shop_image, heal_image, earth_image, magicnova_image, exitbook_button_image
+from constants.basic_images import lightning_image, firestorm_image, background_shop_image, heal_image, earth_image, water_nova_image, exitbook_button_image
 from constants.sound import lightning_spell_sound, firestorm_spell_sound, heal_spell_sound, earth_spell_sound
 
 from interface.basic_elements.button import Button
@@ -23,10 +23,10 @@ class Spellbook(UILayout):
         background_panel = Image(background_shop_image, 260, 60)
 
         lightning_spell_button = Button('lightning_spell', 330, 100, lightning_image, 120, 120)
-        firestorm_spell_button = Button('firestorm_spell', 345, 250, firestorm_image, 90, 90)
-        earth_spell_button = Button('earth_spell', 330, 360, earth_image, 130, 130)
+        firestorm_spell_button = Button('fire_storm_spell', 345, 250, firestorm_image, 90, 90)
+        earth_spell_button = Button('earth_shock_spell', 330, 360, earth_image, 130, 130)
         heal_spell_button = Button('heal_spell', 690, 100, heal_image, 100, 100)
-        magic_nova_spell_button = Button('magic_nova_spell', 420, 25, magicnova_image, 250, 250)
+        magic_nova_spell_button = Button('magic_nova_spell', 420, 25, water_nova_image, 250, 250)
 
         lightning_spell_button.on_click(self.handle_spell_click)
         firestorm_spell_button.on_click(self.handle_spell_click)
@@ -52,19 +52,19 @@ class Spellbook(UILayout):
         if name == 'lightning_spell' and caster.use_lightning_spell(target, text_sprite):
             lightning_spell_sound.play()
             return True
-        elif name == 'firestorm_spell' and caster.use_firestorm_spell(target, text_sprite):
-            self.add_effect(target, 'firestorm')
+        elif name == 'fire_storm_spell' and caster.use_firestorm_spell(target, text_sprite):
+            self.add_effect(target, 'fire_storm')
             firestorm_spell_sound.play()
             return True
         elif name == 'heal_spell' and caster.use_heal_spell(text_sprite):
             heal_spell_sound.play()
             return True
-        elif name == 'earth_spell' and caster.use_earth_spell(target, text_sprite):
-            self.add_effect(target, 'earth')
+        elif name == 'earth_shock_spell' and caster.use_earth_spell(target, text_sprite):
+            self.add_effect(target, 'earth_shock')
             earth_spell_sound.play()
             return True
         elif name == 'magic_nova_spell' and caster.use_magicnova_spell(target, text_sprite):
-            self.add_effect(target, 'magic_nova')
+            self.add_effect(target, 'water_nova')
             earth_spell_sound.play()
             return True
         return False

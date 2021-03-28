@@ -4,15 +4,14 @@
 from pygame import image, transform
 from core.game.animations.db.unit_animation_db import UNIT_ANIMATION_SETS
 from core.game.animations.db.skill_animation_db import SKILL_ANIMATION_SETS
-from core.game.animations.animation_resource import AnimationResource
+from core.game.animations.constants.animation_resource_type import AnimationResourceType
 
 
 class AnimationLoader:
-    def __init__(self, surface):
-        self.surface = surface
+    def __init__(self):
         self.environment_animation_sets = []
-        self.unit_animation_sets = self.load_resource_sets(UNIT_ANIMATION_SETS, AnimationResourceClass.UNITS.value)
-        self.skill_animation_sets = self.load_resource_sets(SKILL_ANIMATION_SETS, AnimationResourceClass.SKILLS.value)
+        self.unit_animation_sets = self.load_resource_sets(UNIT_ANIMATION_SETS, AnimationResourceType.UNITS.value)
+        self.skill_animation_sets = self.load_resource_sets(SKILL_ANIMATION_SETS, AnimationResourceType.SKILLS.value)
 
     def get_skill_resource_animation_set(self, resource_type):
         return self.skill_animation_sets[resource_type]
@@ -37,8 +36,8 @@ class AnimationLoader:
                     animation_resource.animation_type, animation_resource.frames))
 
             animation_sets[animation_set_type.value] = animation_set
-        print('\n', 'Done.')
-        print(animation_sets)
+        # print('\n', 'Done.')
+        # print(animation_sets)
         return animation_sets
 
     def load_resource_sequence(self, resource_type, name, animation, sequence_length, x_scale=2, y_scale=2):

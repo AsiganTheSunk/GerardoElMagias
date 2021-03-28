@@ -142,7 +142,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.cast_earth(self, target_list, damage_text_group)
+            self.cast_earth_shock(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
@@ -161,7 +161,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.cast_magicnova(self, target_list, damage_text_group)
+            self.cast_water_nova(self, target_list, damage_text_group)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 

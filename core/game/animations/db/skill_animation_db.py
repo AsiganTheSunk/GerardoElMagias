@@ -3,23 +3,19 @@
 
 from core.game.animations.animation_resource import AnimationResource
 from core.game.animations.constants.skill_animation_type import SkillAnimationType
-from enum import Enum
-
-
-class SkillType(Enum):
-    FIRESTORM = 'Firestorm'
+from core.skills.constants.skill_type import SkillType
 
 
 SKILL_ANIMATION_SETS = {
-    SkillType.FIRESTORM: [
+    SkillType.FIRE_STORM: [
         AnimationResource(SkillAnimationType.CAST, 6),
     ],
 
-    SkillType.EARTH: [
+    SkillType.EARTH_SHOCK: [
         AnimationResource(SkillAnimationType.CAST, 9),
     ],
 
-    SkillType.MAGICNOVA: [
+    SkillType.WATER_NOVA: [
         AnimationResource(SkillAnimationType.CAST, 12),
     ],
 }
