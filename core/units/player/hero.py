@@ -48,8 +48,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
             UnitAnimationSet(animation_master.surface, x, y, 'Hero',
                              animation_master.get_unit_animation_set('Hero'))
 
-
-        # animation_master.animation_loader.generate_animation_callbacks('Hero')
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Hero')
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
@@ -69,8 +68,11 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.loot_pool = LootPool()
 
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
+
     def attack(self, target, text_sprite):
-        self.melee_attack_animation()
+        self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
@@ -82,6 +84,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         return True
 
     def use_whirlwind(self, target_list, text_sprite):
+        self.use_animation('Attack')
         self.cast_whirlwind(self, target_list, text_sprite)
         return True
 
@@ -151,11 +154,6 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.no_action_error(MANA_POTION.name, text_sprite)
         return False
-
-    def run_animation(self, callback):
-        animation_callback_index = self.animation_master.get()
-        self.animation_set.action = animation_callback_index[callback]
-        self.animation_set.reset_frame_index()
 
     def death_animation(self):
         # Activates: Death Animation
