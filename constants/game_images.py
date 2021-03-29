@@ -13,7 +13,7 @@ background_castle_image = image.load("resources/image/background/castle.gif")
 background_castle_image = transform.scale(background_castle_image, (1024, 576))
 background_dungeon_image = image.load("resources/image/background/dungeon.jpg")
 background_dungeon_image = transform.scale(background_dungeon_image, (1024, 576))
-background_spell_book_image = image.load("resources/image/background/shop.png")
+background_spell_book_image = image.load("resources/image/background/spell_book.png")
 
 
 # ==============================================================

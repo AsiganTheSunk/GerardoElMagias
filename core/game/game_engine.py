@@ -8,7 +8,7 @@ from pygame import display, quit, Color
 import constants.globals
 
 # Game Event Control Import:
-from core.game.event_control import event_control
+from core.game.game_event_control import event_control
 
 # Master Game Engine Imports
 from core.game.sound.sound_master import SoundMaster

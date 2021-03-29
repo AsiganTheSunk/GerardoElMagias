@@ -61,7 +61,7 @@ class AnimationLoader:
         return animation_sequence
 
     def load_resource(self, resource_type, unit_type, value, index, x_scale, y_scale):
-        image_path = f"resources/{resource_type}/{unit_type.lower()}/sprites/{value}/{index}.png"
+        image_path = f"resources/animation/{resource_type}/{unit_type.lower()}/sprites/{value}/{index}.png"
         self.animation_loader_logger.log_debug_message('> ' + image_path)
         loaded_image = image.load(image_path)
         normalized_image = transform.scale(loaded_image,

@@ -5,7 +5,7 @@ from pygame import event, QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import constants.globals
 
 
-class EventControl:
+class GameEventControl:
     def __init__(self):
         self.subscribers = []
 
@@ -24,7 +24,7 @@ class EventControl:
                     click_callback(game_event, subscriber)
 
 
-event_controller = EventControl()
+event_controller = GameEventControl()
 
 
 def event_control():
