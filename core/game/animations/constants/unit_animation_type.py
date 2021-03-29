@@ -11,7 +11,7 @@ class UnitAnimationType(Enum):
     DEATH = 'Death'
     BLOCK = 'Block'
     MISS = 'Miss'
-    SHADOWBOLT = "Shadowbolt"
+    SHADOWBOLT = "ShadowBolt"
     MATERIALIZE = "Materialize"
 
 

@@ -191,6 +191,6 @@ class StageResolver:
         for target_unit in self.battle_master.enemy_fighters:
             if target_unit.alive:
                 target_unit.death()
-                target_unit.death_animation()
+                target_unit.use_animation('Death')
 
         self.battle_master.move_to_victory_phase()

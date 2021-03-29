@@ -28,12 +28,16 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Demon', animation_master.get_unit_animation_set('Demon'))
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Demon')
 
         self.fury_status = True
         self.animation_set.action = 6
 
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
+
     def attack(self, target, text_sprite):
-        self.melee_attack_animation()
+        self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
@@ -60,36 +64,6 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
             self.cast_lightning(self, target_list, text_sprite)
             return True
         return False
-
-    def death_animation(self):
-        # Activates: Death Animation
-        self.animation_set.action = 1
-        self.animation_set.reset_frame_index()
-
-    def melee_attack_animation(self):
-        # Activates: Melee Attack Animation
-        self.animation_set.action = 2
-        self.animation_set.reset_frame_index()
-
-    def hurt_animation(self):
-        # Activates: Hurt Animation
-        self.animation_set.action = 3
-        self.animation_set.reset_frame_index()
-
-    def block_animation(self):
-        # Activates: Block Animation
-        self.animation_set.action = 4
-        self.animation_set.reset_frame_index()
-
-    def miss_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 5
-        self.animation_set.reset_frame_index()
-
-    def materialize_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 6
-        self.animation_set.reset_frame_index()
 
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)

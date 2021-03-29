@@ -7,7 +7,7 @@ from core.skills.db.magic import MagicSpells
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.fury import FurySpells
 from core.units.resources.fury_bar import FuryBar
-from core.game.mechanics.experience import ExperienceSystem
+from core.game.mechanics.experience import ExperienceMaster
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 from constants.game_sound import error_sound
@@ -47,7 +47,6 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y, 'Hero',
                              animation_master.get_unit_animation_set('Hero'))
-
         self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Hero')
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
@@ -55,7 +54,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
         self.stash = Stash()
 
-        self.experience_system = ExperienceSystem()
+        self.experience_system = ExperienceMaster()
 
         self.experience_to_gain = 0
         self.previous_exp = 0
@@ -154,31 +153,6 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.no_action_error(MANA_POTION.name, text_sprite)
         return False
-
-    def death_animation(self):
-        # Activates: Death Animation
-        self.animation_set.action = 1
-        self.animation_set.reset_frame_index()
-
-    def melee_attack_animation(self):
-        # Activates: Melee Attack Animation
-        self.animation_set.action = 2
-        self.animation_set.reset_frame_index()
-
-    def hurt_animation(self):
-        # Activates: Hurt Animation
-        self.animation_set.action = 3
-        self.animation_set.reset_frame_index()
-
-    def block_animation(self):
-        # Activates: Block Animation
-        self.animation_set.action = 4
-        self.animation_set.reset_frame_index()
-
-    def miss_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 5
-        self.animation_set.reset_frame_index()
 
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)

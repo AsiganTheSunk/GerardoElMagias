@@ -27,7 +27,6 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Bandit', animation_master.get_unit_animation_set('Bandit'))
-
         self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Bandit')
 
         self.stash = Stash(healing_potions=1, mana_potions=0, gold=0)
@@ -53,26 +52,6 @@ class Bandit(EnemyUnit, MeleeSpells):
 
         damage_text.warning(self, 'No Healing Potions', text_sprite)
         return False
-
-    def death_animation(self):
-        # Activates: Death Animation
-        self.animation_set.action = 1
-        self.animation_set.reset_frame_index()
-
-    def hurt_animation(self):
-        # Activates: Hurt Animation
-        self.animation_set.action = 3
-        self.animation_set.reset_frame_index()
-
-    def block_animation(self):
-        # Activates: Block Animation
-        self.animation_set.action = 4
-        self.animation_set.reset_frame_index()
-
-    def miss_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 5
-        self.animation_set.reset_frame_index()
 
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.15)

@@ -29,6 +29,11 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'SmallDragon', animation_master.get_unit_animation_set('SmallDragon'))
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('SmallDragon')
+
+
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
 
     def attack(self, target, text_sprite):
         self.melee_attack_animation()

@@ -59,7 +59,7 @@ UNIT_ANIMATION_SETS = {
     ],
 
     UnitType.BONE_WIZARD: [
-        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Materialize, 7: Shadowbolt
+        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Materialize, 7: ShadowBolt
         AnimationResource(UnitAnimationType.IDLE, 5),
         AnimationResource(UnitAnimationType.DEATH, 10),
         AnimationResource(UnitAnimationType.ATTACK, 7),

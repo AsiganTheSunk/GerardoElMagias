@@ -30,9 +30,13 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = UnitAnimationSet(animation_master.surface, x, y,
                                               'Dragon', animation_master.get_unit_animation_set('Dragon'))
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Dragon')
+
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
 
     def attack(self, target, text_sprite):
-        self.melee_attack_animation()
+        self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
@@ -55,31 +59,6 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
 
         damage_text.warning(self, ' No Enough Mana! ', text_sprite)
         return False
-
-    def death_animation(self):
-        # Activates: Death Animation
-        self.animation_set.action = 1
-        self.animation_set.reset_frame_index()
-
-    def melee_attack_animation(self):
-        # Activates: Melee Attack Animation
-        self.animation_set.action = 2
-        self.animation_set.reset_frame_index()
-
-    def hurt_animation(self):
-        # Activates: Hurt Animation
-        self.animation_set.action = 3
-        self.animation_set.reset_frame_index()
-
-    def block_animation(self):
-        # Activates: Block Animation
-        self.animation_set.action = 4
-        self.animation_set.reset_frame_index()
-
-    def miss_animation(self):
-        # Activates: Miss Animation
-        self.animation_set.action = 5
-        self.animation_set.reset_frame_index()
 
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.70)

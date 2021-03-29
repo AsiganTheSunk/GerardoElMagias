@@ -13,6 +13,9 @@ class UnitAnimationSet(AnimationSet):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
+    def set_action(self, action):
+        self.action = action
+
     def update(self, animation_cooldown=100):
         # Update Action Frame Index
         self.image = self.animation_list[self.action][self.frame_index]
@@ -27,23 +30,16 @@ class UnitAnimationSet(AnimationSet):
             if self.action == 1:
                 self.frame_index = len(self.animation_list[1]) - 1
             else:
-                self.idle_animation()
+                self.action = 0     # Idle Animation
+                self.reset_frame_index()
 
-    # def draw_rect_alpha(self, surface, color, rect):
+    # def draw_hitbox(self, surface, color, rect):
     #     shape_surf = Surface(Rect(rect).size, SRCALPHA)
     #     draw.rect(shape_surf, color, shape_surf.get_rect())
     #     surface.blit(shape_surf, rect)
 
-    def set_action(self, action):
-        self.action = action
-
     def mouse_collision(self):
         return self.rect.collidepoint(mouse.get_pos())
-
-    def idle_animation(self):
-        # Activates: Idle Animation
-        self.action = 0
-        self.reset_frame_index()
 
     def draw(self):
         # Place Animation on the Screen

@@ -21,9 +21,13 @@ class Lizard(EnemyUnit, MeleeSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Lizard', animation_master.get_unit_animation_set('Lizard'))
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Lizard')
 
         self.ultimate_strikes = 1
         self.fury_status = True
+
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
 
     def attack(self, target, text_sprite):
         self.melee_attack_animation()

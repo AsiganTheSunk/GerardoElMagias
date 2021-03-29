@@ -7,7 +7,7 @@ from core.game.battle.combat.combat_utils import get_alive_targets_status
 damage_text = DamageText()
 
 
-class ExperienceSystem:
+class ExperienceMaster:
     @staticmethod
     def evaluate_kill(caster, target, text_sprite):
         if not target.alive:

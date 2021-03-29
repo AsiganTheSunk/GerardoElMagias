@@ -22,20 +22,20 @@ class CombatResolver:
 
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
-            target.block_animation()
+            target.use_animation('Block')
             block_sound.play()
             # target.block_sound.play()
 
         # Activates Miss Animation & Sound on the current Target
         elif input_type is CombatTypeResolution.MISS:
-            target.miss_animation()
+            target.use_animation('Miss')
             miss_sound.play()
             # target.miss_sound.play()
 
         # Activates Hurt/Death Animation and Sound on the current Target
         else:
             if input_damage != 0:
-                target.hurt_animation()
+                target.use_animation('Hurt')
 
                 # Activates Critical Hit Sound
                 if input_type is CombatTypeResolution.CRITICAL_HIT:
@@ -57,7 +57,7 @@ class CombatResolver:
                 # Evaluate Death: Target
                 if target.is_dead():
                     target.death()
-                    target.death_animation()
+                    target.use_animation('Death')
                     constants.globals.clicked = False
                     if caster.has_experience():
                         caster.experience_system.evaluate_kill(caster, target, text_sprite)
@@ -91,7 +91,7 @@ class CombatResolver:
             constants.globals.action_cooldown = -40
 
     def resolve_fixed_damage_attack(self, target, input_damage, input_type, text_sprite):
-        target.hurt_animation()
+        target.use_animation('Hurt')
         hit_cut_sound.play()
 
         target.reduce_health(input_damage)
@@ -101,7 +101,7 @@ class CombatResolver:
 
         if target.is_dead():
             target.death()
-            target.death_animation()
+            target.use_animation('Death')
             constants.globals.clicked = False
 
         combat_text_resolver.resolve(target, input_damage,  input_type, text_sprite)
