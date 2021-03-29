@@ -42,7 +42,7 @@ class BanditChief(EnemyUnit, MeleeSpells):
         constants.globals.action_cooldown = 0
         if self.stash.consume_healing_potion():
             HEALTH_POTION.consume(self, text_sprite)
-            self.sound_master.play_spell_item_sound('health_potion')
+            self.sound_master.play_item_fx_sound('health_potion')
             return True
 
         damage_text.warning(self, 'No Healing Potions', text_sprite)

@@ -38,10 +38,6 @@ class SoundLoader:
         self.animation_loader_logger.log_debug_message('Done')
         self.sounds = sound_type
 
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(self.sounds)
-
     def load_resource(self, resource_type, sound_set, sound_name, sound_file_extension, sound_volume):
         sound_path = f'resources/sound/{resource_type.lower()}/{sound_set.lower()}/{sound_name.lower()}.{sound_file_extension.value}'
         self.animation_loader_logger.log_debug_message('> ' + sound_path)
