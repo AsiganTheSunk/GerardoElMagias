@@ -65,10 +65,6 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
             return True
         return False
 
-    def no_action_error(self, name, text_sprite):
-        damage_text.warning(self, f' No {name} !', text_sprite)
-        error_sound.play()
-
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.90)
         if health_trigger:

@@ -70,13 +70,13 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
+    def get_loot(self, target, text_sprite):
+        self.loot_pool.loot(self, target, text_sprite)
+
     def attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
-
-    def loot(self, target, text_sprite):
-        self.loot_pool.loot(self, target, text_sprite)
 
     def use_ultimate(self, target_list, text_sprite):
         self.cast_path_of_the_seven_strikes(self, target_list, text_sprite)

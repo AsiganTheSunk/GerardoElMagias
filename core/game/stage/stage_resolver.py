@@ -151,7 +151,7 @@ class StageResolver:
                 if enemy_unit.animation_set.mouse_collision():
                     self.stage_renderer.display_bag_mouse()
                     if constants.globals.clicked:
-                        self.player.loot(enemy_unit, self.game_attributes.text_sprite)
+                        self.player.get_loot(enemy_unit, self.game_attributes.text_sprite)
                         constants.globals.clicked = False
                     # Return to avoid normal mouse showing up
                     return
