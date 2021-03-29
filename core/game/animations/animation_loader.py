@@ -23,23 +23,30 @@ class AnimationLoader:
     def get_unit_resource_animation_set(self, resource_type):
         return self.unit_animation_sets[resource_type]
 
+    @staticmethod
+    def generate_animation_callback(index):
+        return lambda animation_set: (animation_set.set_action(index), animation_set.reset_frame_index())
+
     def load_resource_sets(self, animation_pool, resource_type):
         self.animation_loader_logger.log_debug_header(f'[ Loading {resource_type.title()} Animation Resources ]:')
         animation_sets = dict()
         # For Each AnimationSet present in AnimationSets: Environment, Skills, Units
         for animation_set_type in animation_pool:
             animation_set = []
+            animation_set_callbacks = dict()
             # Load Each Animation Resource present in the Animation to be displayed
             self.animation_loader_logger.log_debug_message()
             self.animation_loader_logger.log_debug_message(f'Animation Resource Type: {animation_set_type.value}')
             self.animation_loader_logger.log_debug_message('------' * 10)
             for index, animation_resource in enumerate(animation_pool[animation_set_type]):
+                animation_set_callbacks[animation_resource.animation_type.value] = self.generate_animation_callback(index)
                 # Load: Sequence Animations using Path to Resources
                 self.animation_loader_logger.log_debug_message(f'Animation Resource: {animation_resource.animation_type.value}')
                 animation_set.append(self.load_resource_sequence(
                     resource_type, animation_set_type.value,
                     animation_resource.animation_type, animation_resource.frames))
 
+            animation_sets[animation_set_type.value + 'CallBacks'] = animation_set_callbacks
             animation_sets[animation_set_type.value] = animation_set
 
         self.animation_loader_logger.log_debug_message()

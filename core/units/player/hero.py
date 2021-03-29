@@ -8,7 +8,6 @@ from core.skills.db.melee import MeleeSpells
 from core.skills.db.fury import FurySpells
 from core.units.resources.fury_bar import FuryBar
 from core.game.mechanics.experience import ExperienceSystem
-from core.game.battle.combat.combat_utils import get_alive_targets_status
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 from constants.game_sound import error_sound
@@ -45,7 +44,12 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         MeleeSpells.__init__(self)
         MagicSpells.__init__(self)
 
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y, "Hero", animation_master.get_unit_resource_animation_set('Hero'))
+        self.animation_set = \
+            UnitAnimationSet(animation_master.surface, x, y, 'Hero',
+                             animation_master.get_unit_animation_set('Hero'))
+
+
+        # animation_master.animation_loader.generate_animation_callbacks('Hero')
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
@@ -94,18 +98,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
-            # Pre Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets_status(target_list)
-
-            # Retrieve State for Enemy List: target_list
-            self.cast_firestorm(self, target_list, text_sprite)
-
-            # Post Save State for Enemy List: target_list
-            pos_target_list = get_alive_targets_status(target_list)
-
-            # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       text_sprite)
+            self.experience_system.aoe_experience_helper(self, target_list, self.cast_firestorm, text_sprite)
             return True
 
         self.no_action_error('Mana', text_sprite)
@@ -115,16 +108,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(16):
             constants.globals.action_cooldown = -30
-            # Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets_status(target_list)
-
-            self.cast_lightning(self, target_list, text_sprite)
-            # Retrieve State for Enemy List: target_list
-            pos_target_list = get_alive_targets_status(target_list)
-
-            # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       text_sprite)
+            self.experience_system.aoe_experience_helper(self, target_list, self.cast_lightning, text_sprite)
             return True
 
         self.no_action_error('Mana', text_sprite)
@@ -134,16 +118,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(14):
             constants.globals.action_cooldown = -40
-            # Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets_status(target_list)
-
-            self.cast_earth_shock(self, target_list, text_sprite)
-            # Retrieve State for Enemy List: target_list
-            pos_target_list = get_alive_targets_status(target_list)
-
-            # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       text_sprite)
+            self.experience_system.aoe_experience_helper(self, target_list, self.cast_earth_shock, text_sprite)
             return True
 
         self.no_action_error('Mana', text_sprite)
@@ -153,16 +128,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(18):
             constants.globals.action_cooldown = -50
-            # Save State for Enemy List: target_list
-            pre_target_list = get_alive_targets_status(target_list)
-
-            self.cast_water_nova(self, target_list, text_sprite)
-            # Retrieve State for Enemy List: target_list
-            pos_target_list = get_alive_targets_status(target_list)
-
-            # Evaluate Kills
-            self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       text_sprite)
+            self.experience_system.aoe_experience_helper(self, target_list, self.cast_water_nova, text_sprite)
             return True
 
         self.no_action_error('Mana', text_sprite)
@@ -185,6 +151,11 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.no_action_error(MANA_POTION.name, text_sprite)
         return False
+
+    def run_animation(self, callback):
+        animation_callback_index = self.animation_master.get()
+        self.animation_set.action = animation_callback_index[callback]
+        self.animation_set.reset_frame_index()
 
     def death_animation(self):
         # Activates: Death Animation

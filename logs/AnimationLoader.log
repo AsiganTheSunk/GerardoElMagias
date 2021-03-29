@@ -1,480 +1,480 @@
-03/29/2021 02:15:08 AM - [DEBUG]: 
-03/29/2021 02:15:08 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-03/29/2021 02:15:08 AM - [DEBUG]: [ Loading Units Animation Resources ]:
-03/29/2021 02:15:08 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-03/29/2021 02:15:08 AM - [DEBUG]: 
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource Type: Bandit
-03/29/2021 02:15:08 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Death/9.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Block/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: 
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource Type: BanditChief
-03/29/2021 02:15:08 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/9.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: 
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource Type: Hero
-03/29/2021 02:15:08 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Idle/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Death/9.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Attack/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/6.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/7.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Block/8.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Miss/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Miss/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Miss/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Miss/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/hero/sprites/Miss/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: 
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource Type: Lizard
-03/29/2021 02:15:08 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/5.png
-03/29/2021 02:15:08 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/0.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/1.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/2.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/3.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/4.png
-03/29/2021 02:15:08 AM - [DEBUG]: > resources/units/lizard/sprites/Death/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Block/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: SmallDragon
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/9.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: BoneWizard
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/9.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Materialize
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/9.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Shadowbolt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/9.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/10.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Djinn
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Death/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Block/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Materialize
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Demon
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Idle/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Idle/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Idle/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Idle/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Death/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Materialize
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Dragon
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Idle
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Death
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Death/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Death/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Death/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Death/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Death/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Attack
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Hurt
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Hurt/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Hurt/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Block
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Block/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Block/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Block/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Miss
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Materialize
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Done.
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-03/29/2021 02:15:09 AM - [DEBUG]: [ Loading Skills Animation Resources ]:
-03/29/2021 02:15:09 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Fire_Storm
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Cast
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/fire_storm/sprites/Cast/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Earth_Shock
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Cast
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource Type: Water_Nova
-03/29/2021 02:15:09 AM - [DEBUG]: ------------------------------------------------------------
-03/29/2021 02:15:09 AM - [DEBUG]: Animation Resource: Cast
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/0.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/1.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/2.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/3.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/4.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/5.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/6.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/7.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/8.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/9.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/10.png
-03/29/2021 02:15:09 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/11.png
-03/29/2021 02:15:09 AM - [DEBUG]: 
-03/29/2021 02:15:09 AM - [DEBUG]: Done.
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/29/2021 03:56:04 AM - [DEBUG]: [ Loading Units Animation Resources ]:
+03/29/2021 03:56:04 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Bandit
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Idle/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Death/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Attack/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Block/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bandit/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: BanditChief
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Idle/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Death/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Attack/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Block/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/banditchief/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Hero
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Idle/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Death/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Attack/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Block/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/hero/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Lizard
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Idle/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Hurt/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/lizard/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: SmallDragon
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Idle/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Death/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Attack/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Block/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/smalldragon/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: BoneWizard
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Idle/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Death/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Attack/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Block/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Materialize
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Materialize/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Shadowbolt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/bonewizard/sprites/Shadowbolt/10.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Djinn
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Hurt/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Block/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Miss/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Materialize
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/djinn/sprites/Materialize/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Demon
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Death/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Hurt/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Materialize
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/demon/sprites/Materialize/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Dragon
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Idle
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Idle/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Death
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Death/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Death/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Death/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Death/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Death/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Attack
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Attack/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Hurt
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Hurt/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Hurt/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Block
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Block/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Block/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Block/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Miss
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Miss/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Materialize
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/units/dragon/sprites/Materialize/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Done.
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/29/2021 03:56:04 AM - [DEBUG]: [ Loading Skills Animation Resources ]:
+03/29/2021 03:56:04 AM - [DEBUG]: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Firestorm
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Cast
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/firestorm/sprites/Cast/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Earth_Shock
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Cast
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/earth_shock/sprites/Cast/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource Type: Water_Nova
+03/29/2021 03:56:04 AM - [DEBUG]: ------------------------------------------------------------
+03/29/2021 03:56:04 AM - [DEBUG]: Animation Resource: Cast
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/0.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/1.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/2.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/3.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/4.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/5.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/6.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/7.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/8.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/9.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/10.png
+03/29/2021 03:56:04 AM - [DEBUG]: > resources/skills/water_nova/sprites/Cast/11.png
+03/29/2021 03:56:04 AM - [DEBUG]: 
+03/29/2021 03:56:04 AM - [DEBUG]: Done.

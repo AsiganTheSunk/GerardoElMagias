@@ -4,6 +4,7 @@
 from pygame import event, QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 import constants.globals
 
+
 class EventControl:
     def __init__(self):
         self.subscribers = []
@@ -16,7 +17,8 @@ class EventControl:
 
     def handle_click(self, game_event):
         for subscriber in self.subscribers:
-            if 'click' in subscriber.events: # TODO: crear una interfaz llamada "clickable", en lugar de chequear todos los elementos
+            # TODO: crear una interfaz llamada "clickable", en lugar de chequear todos los elementos
+            if 'click' in subscriber.events:
                 click_callback = subscriber.events['click']
                 if not subscriber.hidden and subscriber.rect.collidepoint(game_event.pos):
                     click_callback(game_event, subscriber)

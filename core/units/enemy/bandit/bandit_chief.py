@@ -26,7 +26,7 @@ class BanditChief(EnemyUnit, MeleeSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
-                             'BanditChief', animation_master.get_unit_resource_animation_set('BanditChief'))
+                             'BanditChief', animation_master.get_unit_animation_set('BanditChief'))
 
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)
 

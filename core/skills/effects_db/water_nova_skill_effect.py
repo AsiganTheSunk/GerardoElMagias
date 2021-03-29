@@ -17,4 +17,4 @@ class MagicNovaSkillEffect(BasicSkillEffect):
 
         self.target_skill_set_effect = \
             SkillAnimationSet(self.animation_master.surface, target_x, target_y, 'Water_Nova',
-                              self.animation_master.get_skill_resource_animation_set('Water_Nova'))
+                              self.animation_master.get_skill_animation_set('Water_Nova'))

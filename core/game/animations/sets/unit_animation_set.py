@@ -34,6 +34,9 @@ class UnitAnimationSet(AnimationSet):
     #     draw.rect(shape_surf, color, shape_surf.get_rect())
     #     surface.blit(shape_surf, rect)
 
+    def set_action(self, action):
+        self.action = action
+
     def mouse_collision(self):
         return self.rect.collidepoint(mouse.get_pos())
 

@@ -23,7 +23,7 @@ class SpellBook(UILayout):
         background_panel = Image(background_shop_image, 260, 60)
 
         lightning_spell_button = Button('lightning_spell', 330, 100, lightning_image, 120, 120)
-        firestorm_spell_button = Button('fire_storm_spell', 345, 250, firestorm_image, 90, 90)
+        firestorm_spell_button = Button('firestorm_spell', 345, 250, firestorm_image, 90, 90)
         earth_spell_button = Button('earth_shock_spell', 330, 360, earth_image, 130, 130)
         heal_spell_button = Button('heal_spell', 690, 100, heal_image, 100, 100)
         magic_nova_spell_button = Button('water_nova_spell', 420, 25, water_nova_image, 250, 250)
@@ -52,8 +52,8 @@ class SpellBook(UILayout):
         if name == 'lightning_spell' and caster.use_lightning_spell(target, text_sprite):
             lightning_spell_sound.play()
             return True
-        elif name == 'fire_storm_spell' and caster.use_firestorm_spell(target, text_sprite):
-            self.add_effect(target, 'fire_storm')
+        elif name == 'firestorm_spell' and caster.use_firestorm_spell(target, text_sprite):
+            self.add_effect(target, 'firestorm')
             firestorm_spell_sound.play()
             return True
         elif name == 'heal_spell' and caster.use_heal_spell(text_sprite):

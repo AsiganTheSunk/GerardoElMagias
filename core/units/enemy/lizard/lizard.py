@@ -20,7 +20,7 @@ class Lizard(EnemyUnit, MeleeSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
-                             'Lizard', animation_master.get_unit_resource_animation_set('Lizard'))
+                             'Lizard', animation_master.get_unit_animation_set('Lizard'))
 
         self.ultimate_strikes = 1
         self.fury_status = True

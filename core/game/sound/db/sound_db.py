@@ -19,11 +19,9 @@ SOUND_POOL = {
             SoundResource('ultimate', SoundFileExtension.WAV, 0.1)
         ],
         SoundFxSubType.SPELLS: [
-            SoundResource('lightning_spell_1', SoundFileExtension.WAV, 0.1),
-            SoundResource('lightning_spell_2', SoundFileExtension.WAV, 0.1),
-            SoundResource('firestorm_spell_1', SoundFileExtension.WAV, 0.1),
-            SoundResource('firestorm_spell_2', SoundFileExtension.WAV, 0.1),
-            SoundResource('heal_spell_1', SoundFileExtension.WAV, 0.1)
+            SoundResource('lightning_spell', SoundFileExtension.WAV, 0.1),
+            SoundResource('firestorm_spell', SoundFileExtension.WAV, 0.1),
+            SoundResource('heal_spell', SoundFileExtension.WAV, 0.1)
         ],
         SoundFxSubType.ITEMS: [
             SoundResource('gold', SoundFileExtension.WAV, 0.15),

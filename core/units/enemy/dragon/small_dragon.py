@@ -28,7 +28,7 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
-                             'SmallDragon', animation_master.get_unit_resource_animation_set('SmallDragon'))
+                             'SmallDragon', animation_master.get_unit_animation_set('SmallDragon'))
 
     def attack(self, target, text_sprite):
         self.melee_attack_animation()

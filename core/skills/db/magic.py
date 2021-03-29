@@ -38,7 +38,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
 
         if len(alive_enemy) > 0:
             # Display Header Cast
-            damage_text.cast(caster, "Fire Storm!", text_sprite, 0, -30)
+            damage_text.cast(caster, "Firestorm!", text_sprite, 0, -30)
 
             input_damage_list = []
             input_type_list = []

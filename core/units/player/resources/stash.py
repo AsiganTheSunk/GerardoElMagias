@@ -7,8 +7,6 @@ class Stash:
         self.mana_potions = mana_potions
         self.gold = gold
 
-        self.items = []
-
     def has_healing_potion(self):
         return self.healing_potions > 0
 
@@ -18,8 +16,8 @@ class Stash:
     def has_enough_gold(self, gold_value):
         return self.gold >= gold_value
 
-    def add_gold(self, item_number):
-        self.gold += item_number
+    def add_gold(self, gold_value):
+        self.gold += gold_value
 
     def add_healing_potion(self, number_of_potions):
         self.healing_potions += number_of_potions

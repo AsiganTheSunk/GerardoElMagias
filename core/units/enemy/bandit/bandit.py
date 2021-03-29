@@ -26,9 +26,14 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
-                             'Bandit', animation_master.get_unit_resource_animation_set('Bandit'))
+                             'Bandit', animation_master.get_unit_animation_set('Bandit'))
+
+        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Bandit')
 
         self.stash = Stash(healing_potions=1, mana_potions=0, gold=0)
+
+    def use_animation(self, animation):
+        self.animation_callbacks[animation](self.animation_set)
 
     def attack(self, target, text_sprite):
         self.melee_attack_animation()
@@ -55,9 +60,10 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.animation_set.reset_frame_index()
 
     def melee_attack_animation(self):
+        self.use_animation('Attack')
         # Activates: Melee Attack Animation
-        self.animation_set.action = 2
-        self.animation_set.reset_frame_index()
+        # self.animation_set.action = 2
+        # self.animation_set.reset_frame_index()
 
     def hurt_animation(self):
         # Activates: Hurt Animation

@@ -16,5 +16,5 @@ class FireSkillEffect(BasicSkillEffect):
             caster_x, caster_y = self.caster_center
 
         self.target_skill_set_effect = \
-            SkillAnimationSet(self.animation_master.surface, target_x, target_y, 'Fire_Storm',
-                              self.animation_master.get_skill_resource_animation_set('Fire_Storm'))
+            SkillAnimationSet(self.animation_master.surface, target_x, target_y, 'Firestorm',
+                              self.animation_master.get_skill_animation_set('Firestorm'))

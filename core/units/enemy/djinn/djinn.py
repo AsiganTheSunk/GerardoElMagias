@@ -23,7 +23,7 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
-                             'Djinn', animation_master.get_unit_resource_animation_set('Djinn'))
+                             'Djinn', animation_master.get_unit_animation_set('Djinn'))
 
         self.fury_status = True
         self.power_of_two_exponent = 0

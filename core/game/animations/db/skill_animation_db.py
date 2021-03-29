@@ -7,7 +7,7 @@ from core.skills.constants.skill_type import SkillType
 
 
 SKILL_ANIMATION_SETS = {
-    SkillType.FIRE_STORM: [
+    SkillType.FIRESTORM: [
         AnimationResource(SkillAnimationType.CAST, 6),
     ],
 

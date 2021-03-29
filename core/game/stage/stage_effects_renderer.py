@@ -12,10 +12,10 @@ class StageEffectsRenderer:
         self.animation_effects = []
 
     def add_effect(self, target_list, spell):
-        if spell == 'fire_storm':
+        if spell == 'firestorm':
             for target in target_list:
-                fire_storm_effect = FireSkillEffect(target, self.animation_master)
-                self.animation_effects.append(fire_storm_effect)
+                firestorm_effect = FireSkillEffect(target, self.animation_master)
+                self.animation_effects.append(firestorm_effect)
 
         if spell == 'earth_shock':
             for target in target_list:
