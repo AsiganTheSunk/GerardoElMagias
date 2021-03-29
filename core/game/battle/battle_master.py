@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.game.battle.scripted_enemies import scripted_enemy
 from core.units.player.hero import HeroPlayer
 from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
@@ -58,12 +57,12 @@ class BattleMaster:
 
     def create_enemies(self):
         enemy_fighters = []
+        enemy_group = EnemyGroupGenerator(self.animation_master, self.sound_master, self.game_attributes)
         if self.is_boss_level():
             self.game_mode = GameModes.BOSS_BATTLE
-            enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master, self.sound_master)]
+            enemy_fighters = [enemy_group.scripted_enemy(self.boss_level, self.animation_master, self.sound_master)]
         else:
             self.game_mode = GameModes.BATTLE
-            enemy_group = EnemyGroupGenerator(self.animation_master, self.sound_master, self.game_attributes)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
 

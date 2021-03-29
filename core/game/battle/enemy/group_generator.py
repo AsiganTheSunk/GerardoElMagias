@@ -9,6 +9,11 @@ from core.units.constants.unit_type import UnitType
 from core.game.battle.enemy.set_generator import EnemySetGenerator
 from core.game.battle.enemy.stats_generator import EnemyStatsGenerator
 from core.game.battle.enemy.position_generator import EnemyPositionsGenerator
+from core.units.enemy.bandit.bandit_chief import BanditChief
+from core.units.enemy.dragon.small_dragon import SmallDragon
+from core.units.enemy.dragon.dragon import Dragon
+from core.units.enemy.djinn.djinn import Djinn
+from core.units.enemy.demon.demon import Demon
 
 
 class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
@@ -82,3 +87,27 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
             enemy_group.append(current_enemy)
 
         return enemy_group
+
+    def scripted_enemy(self, boss_level, animation_master, sound_master):
+        bosses = [
+            None,
+            self.create_enemy(BanditChief(650, 475, 10, 17, 10, 0,
+                                          680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                          animation_master, sound_master), 214, 0),
+            self.create_enemy(Djinn(750, 400, 14, 0, 25, 20,
+                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                    animation_master, sound_master), 278, 40),
+            self.create_enemy(SmallDragon(730, 438, 18, 18, 7, 12,
+                                          680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                          animation_master, sound_master), 332, 50),
+            self.create_enemy(Dragon(800, 352, 22, 20, 8, 22,
+                                     680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                     animation_master, sound_master), 400, 70),
+            self.create_enemy(Demon(800, 365, 26, 31, 12, 18,
+                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                    animation_master, sound_master), 480, 50),
+            self.create_enemy(Demon(600, 365, 30, 41, 25, 25,
+                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                                    animation_master, sound_master), 666, 80),
+        ]
+        return bosses[boss_level]
