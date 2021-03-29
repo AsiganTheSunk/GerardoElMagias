@@ -36,12 +36,12 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.animation_callbacks[animation](self.animation_set)
 
     def attack(self, target, text_sprite):
-        self.melee_attack_animation()
+        self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
     def strong_attack(self, target, text_sprite):
-        self.melee_attack_animation()
+        self.use_animation('Attack')
         self.cast_strong_attack(self, target, text_sprite)
         return True
 
@@ -58,12 +58,6 @@ class Bandit(EnemyUnit, MeleeSpells):
         # Activates: Death Animation
         self.animation_set.action = 1
         self.animation_set.reset_frame_index()
-
-    def melee_attack_animation(self):
-        self.use_animation('Attack')
-        # Activates: Melee Attack Animation
-        # self.animation_set.action = 2
-        # self.animation_set.reset_frame_index()
 
     def hurt_animation(self):
         # Activates: Hurt Animation
