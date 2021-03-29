@@ -55,11 +55,11 @@ ITEM_POOL = {
 
     # Amulet Attributes: Name
     EquipmentItemType.AMULET: [
-        Amulet("Amulet", 1, EquipmentSlotType.AMULET)
+        Amulet("Amuleto", 1, EquipmentSlotType.AMULET)
     ],
 
     # Ring Attributes: Name
     EquipmentItemType.RING: [
-        Ring("Ring", 1, EquipmentSlotType.RING)
+        Ring("Anillo", 1, EquipmentSlotType.RING)
     ]
 }

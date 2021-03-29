@@ -13,13 +13,16 @@ from core.units.enemy.dragon.dragon import Dragon
 from core.units.enemy.lizard.lizard import Lizard
 from core.units.enemy.demon.demon import Demon
 from core.items.consumable.db.consumable_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
+from logger.logger_master import LoggerMaster
+from logger.constants.logger_level_type import LoggingLevelType
 
 # Init: Damage Text
 damage_text = DamageText()
 
 
-class LootPool:
+class LootMaster:
     def __init__(self, sound_master):
+        self.loot_master_logger = LoggerMaster(self.__class__.__name__, LoggingLevelType.DEBUG.value)
         self.sound_master = sound_master
 
     def loot(self, caster, target, text_sprite):
@@ -36,16 +39,22 @@ class LootPool:
             if loot_chance == 0:
                 self.sound_master.play_item_fx_sound('empty')
                 damage_text.warning(target, f'Empty!', text_sprite)
+                self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__} '
+                                                          f'Receiving Nothing')
 
             elif loot_chance == 1:
                 self.sound_master.play_item_fx_sound('health_potion')
                 caster.stash.add_healing_potion(1)
                 damage_text.warning(target, f'x1 Health Potion Found!', text_sprite)
+                self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__} '
+                                                          f'Receiving Health Potion')
 
             elif loot_chance == 2:
                 self.sound_master.play_item_fx_sound('health_potion')
                 caster.stash.add_mana_potion(1)
                 damage_text.warning(target, f'x1 Mana Potion Found!', text_sprite)
+                self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__} '
+                                                          f'Receiving Mana Potion')
 
             elif loot_chance == 3:
                 quality_roll = randint(0, 50)
@@ -53,10 +62,14 @@ class LootPool:
                     damage_text.warning(target, f'Food Found!', text_sprite)
                     BREAD.consume(caster, text_sprite)
                     self.sound_master.play_item_fx_sound('eat')
+                    self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__} '
+                                                              f'Receiving Bread')
                 else:
                     damage_text.warning(target, f'Large Food Found!', text_sprite)
                     LARGE_BREAD.consume(caster, text_sprite)
                     self.sound_master.play_item_fx_sound('eat')
+                    self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__} '
+                                                              f'Receiving Large Bread')
 
             elif loot_chance == 4:
                 quality_roll = randint(0, 50)
@@ -64,16 +77,23 @@ class LootPool:
                     damage_text.warning(target, f'Drink Found!', text_sprite)
                     DRINK.consume(caster, text_sprite)
                     self.sound_master.play_item_fx_sound('drink')
+                    self.sound_master.play_item_fx_sound('eat')
+                    self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__}'
+                                                              f' Receiving Drink')
                 else:
                     damage_text.warning(target, f'Large Drink Found!', text_sprite)
                     LARGE_DRINK.consume(caster, text_sprite)
                     self.sound_master.play_item_fx_sound('drink')
+                    self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__}'
+                                                              f' Receiving Large Drink')
 
             elif loot_chance == 5:
                 gold = randint(1, 9) + target.level
                 caster.stash.add_gold(gold)
                 damage_text.cast(target, f'{gold} Gold Found!', text_sprite)
                 self.sound_master.play_item_fx_sound('gold')
+                self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__}'
+                                                          f' Receiving {gold} Gold')
 
             target.update_looted_status()
         else:
@@ -87,9 +107,8 @@ class LootPool:
             roll_item = item_generator.get_item(30, 1000)
             item_name = roll_item.get_item_name()
             damage_text.heal(target, f'{item_name}', text_sprite)
-
-            # Debugging
-            print('\n', item_name, '\n')
+            self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__}'
+                                                      f' Receiving {item_name.title()}')
             target.update_looted_status()
         else:
             self.loot_error(target, text_sprite)

@@ -46,9 +46,14 @@ class CombatResolver:
                 target.reduce_health(input_damage)
 
                 if target.has_fury():
-                    # Updates current Target Fury
+                    # Updates current Target Fury, Saves Previous for Sound Effect Condition
+                    previous_fury = target.current_fury
                     target.gain_fury(input_damage)
-                    if target.has_enough_fury(50) or target.has_enough_fury():
+
+                    # Only Play Sound of Ultimate Up if player reaches 50
+                    if previous_fury < target.current_fury == 50:
+                        self.sound_master.play_unit_fx_sound('ultimate_up')
+                    elif previous_fury < target.current_fury == 100:
                         self.sound_master.play_unit_fx_sound('ultimate_up')
 
                 # TODO Activates hurt sound
@@ -58,7 +63,7 @@ class CombatResolver:
                     target.use_animation('Death')
                     constants.globals.clicked = False
                     if caster.has_experience():
-                        caster.experience_system.evaluate_kill(caster, target, text_sprite)
+                        caster.evaluate_kill(target, text_sprite)
 
         combat_text_resolver.resolve(target, input_damage,  input_type, text_sprite)
 
@@ -76,7 +81,7 @@ class CombatResolver:
             if constants.globals.action_cooldown >= 90:
                 if len(alive_enemy) > 0:
                     target = alive_enemy[randint(0, len(alive_enemy) - 1)]
-                    caster.melee_attack_animation()
+                    caster.use_animation('Attack')
                     caster.cast_attack(self, target, text_sprite, True)
 
                     self.multi_attacks_left -= 1

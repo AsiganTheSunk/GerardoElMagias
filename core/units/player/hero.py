@@ -7,11 +7,11 @@ from core.skills.db.magic import MagicSpells
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.fury import FurySpells
 from core.units.resources.fury_bar import FuryBar
-from core.game.mechanics.experience import ExperienceMaster
+from core.game.mechanics.experience_master import ExperienceMaster
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 import constants.globals
-from core.game.mechanics.loot import LootPool
+from core.game.mechanics.loot_master import LootMaster
 from core.units.player_unit import PlayerUnit
 from core.units.resources.health_bar import HealthBar
 from random import randint
@@ -28,12 +28,13 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
+class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
     def __init__(self, x, y, level, strength, dexterity, magic, vitality, resilience, luck, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master, sound_master):
         PlayerUnit.__init__(self, x, y, "Hero", level, strength, dexterity, magic, vitality, resilience, luck)
         FurySpells.__init__(self, sound_master)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
+        ExperienceMaster.__init__(self, self)
 
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y, 'Hero',
@@ -45,18 +46,8 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
         self.stash = Stash()
 
-        self.experience_system = ExperienceMaster()
-
-        self.experience_to_gain = 0
-        self.previous_exp = 0
-
-        self.current_fury = 0
-        self.experience = 0
-        self.exp_level_break = 5
         self.fury_status = True
-        self.experience_status = True
-
-        self.loot_pool = LootPool(self.sound_master)
+        self.loot_pool = LootMaster(self.sound_master)
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
@@ -92,7 +83,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
-            self.experience_system.aoe_experience_helper(self, target_list, self.cast_firestorm, text_sprite)
+            self.aoe_experience_helper(self, target_list, self.cast_firestorm, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
 
@@ -103,7 +94,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(16):
             constants.globals.action_cooldown = -30
-            self.experience_system.aoe_experience_helper(self, target_list, self.cast_lightning, text_sprite)
+            self.aoe_experience_helper(self, target_list, self.cast_lightning, text_sprite)
             self.sound_master.play_spell_fx_sound('lightning_spell')
             return True
 
@@ -114,7 +105,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(14):
             constants.globals.action_cooldown = -40
-            self.experience_system.aoe_experience_helper(self, target_list, self.cast_earth_shock, text_sprite)
+            self.aoe_experience_helper(self, target_list, self.cast_earth_shock, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')
             return True
 
@@ -125,7 +116,7 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
         # Consume Mana: Spell Casting
         if self.reduce_mana(18):
             constants.globals.action_cooldown = -50
-            self.experience_system.aoe_experience_helper(self, target_list, self.cast_water_nova, text_sprite)
+            self.aoe_experience_helper(self, target_list, self.cast_water_nova, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')
             return True
 
@@ -155,26 +146,3 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)
         self.sound_master.play_item_fx_sound('error')
-
-    def gain_experience(self):
-        self.experience = self.experience + self.experience_to_gain
-        self.experience_to_gain = 0
-        if self.experience >= self.exp_level_break:
-            self.level_up()
-
-    def level_up(self):
-        strength_raise = randint(2, 3)
-        dexterity_raise = randint(1, 2)
-        magic_raise = randint(1, 3)
-        vitality_raise = randint(2, 4)
-        resilience_raise = randint(1, 2)
-        luck_raise = randint(1, 2)
-
-        self.level_up_stats(strength_raise, dexterity_raise, magic_raise, vitality_raise, resilience_raise, luck_raise)
-
-        self.previous_exp = self.experience
-        self.experience = self.previous_exp - self.exp_level_break
-
-        self.exp_level_break = round(self.exp_level_break * 1.3)
-
-        self.level += 1

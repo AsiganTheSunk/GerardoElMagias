@@ -41,7 +41,7 @@ class CombatFormulas:
         return 0, CombatTypeResolution.MISS
 
     def spell_attack_resolution(self, caster, output_damage, hit_resolution):
-        # Calculate Miss, Basic Damage & Critical Hit
+        # Calculate Basic Damage & Critical Hit
         if self.spell_critical_chance(hit_resolution, caster.magic):
             return self.critical_hit(output_damage), CombatTypeResolution.CRITICAL_HIT
         return output_damage, CombatTypeResolution.HIT
