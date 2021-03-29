@@ -6,6 +6,7 @@ from core.game.battle.combat.combat_utils import get_alive_targets_status
 from logger.logger_master import LoggerMaster
 from logger.constants.logger_level_type import LoggingLevelType
 from random import randint
+
 damage_text = DamageText()
 
 

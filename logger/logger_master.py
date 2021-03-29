@@ -10,7 +10,7 @@ from logger.constants.logger_messages import message_separator
 
 
 class LoggerMaster:
-    def __init__(self, name, level=LoggingLevelType.INFO.value, file_streamer=True, console_streamer=False):
+    def __init__(self, name, level=LoggingLevelType.INFO.value, file_streamer=True, console_streamer=False, mode='w'):
         self.name = name
         self.logger = CustomLogger(name=name, level=level)
 
@@ -20,7 +20,7 @@ class LoggerMaster:
 
         if file_streamer:
             # Custom Logger File Configuration: File Init Configuration
-            file_handler = FileHandler(f'logs/{name}.log', 'w')
+            file_handler = FileHandler(f'logs/{name}.log', mode)
             file_handler.setFormatter(file_formatter)
             file_handler.setLevel(level=level)
             self.logger.addHandler(file_handler)

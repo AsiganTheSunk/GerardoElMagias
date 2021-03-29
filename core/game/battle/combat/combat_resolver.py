@@ -7,6 +7,8 @@ from core.game.battle.combat.combat_utils import get_alive_targets
 from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
+from logger.logger_master import LoggerMaster
+from logger.constants.logger_level_type import LoggingLevelType
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
@@ -15,11 +17,17 @@ combat_text_resolver = CombatTextResolver()
 
 class CombatResolver:
     def __init__(self, sound_master):
+        self.combat_resolver_logger = LoggerMaster('CombatResolver', LoggingLevelType.DEBUG.value)
         self.sound_master = sound_master
 
     def resolve_attack(self, caster, target, input_damage, input_type, text_sprite, multi_strike=False):
         if not multi_strike:
             constants.globals.action_cooldown = 0
+
+        self.combat_resolver_logger.log_debug_message(f'Caster {caster.__class__.__name__} performs Attack, '
+                                                      f'Target {target.__class__.__name__} '
+                                                      f'receives {input_type.value.title()} '
+                                                      f'for {input_damage}')
 
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
@@ -51,14 +59,16 @@ class CombatResolver:
                     target.gain_fury(input_damage)
 
                     # Only Play Sound of Ultimate Up if player reaches 50
-                    if previous_fury < target.current_fury == 50:
+                    if previous_fury < 50 and target.current_fury >= 50:
                         self.sound_master.play_unit_fx_sound('ultimate_up')
-                    elif previous_fury < target.current_fury == 100:
+                    elif previous_fury < target.max_fury and target.current_fury == target.max_fury:
                         self.sound_master.play_unit_fx_sound('ultimate_up')
+
 
                 # TODO Activates hurt sound
                 # Evaluate Death: Target
                 if target.is_dead():
+                    self.combat_resolver_logger.log_debug_message(f'Target {target.__class__.__name__} Dies')
                     target.death()
                     target.use_animation('Death')
                     constants.globals.clicked = False

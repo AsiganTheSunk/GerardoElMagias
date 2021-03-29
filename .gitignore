@@ -17,3 +17,9 @@ logs/AnimationLoader.log
 logs/SoundLoader.log
 
 playing_with_tree.py
+
+logs/CombatResolver.log
+
+logs/ExperienceMaster.log
+
+logs/LootMaster.log
