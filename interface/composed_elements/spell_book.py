@@ -3,7 +3,7 @@
 
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.game_images import lightning_image, firestorm_image, background_shop_image, heal_image, earth_image, water_nova_image, exitbook_button_image
+from constants.game_images import lightning_image, firestorm_image, background_shop_image, heal_image, earth_image, water_nova_image, exit_book_button_image
 from constants.game_sound import lightning_spell_sound, firestorm_spell_sound, heal_spell_sound, earth_spell_sound
 
 from interface.basic_elements.button import Button

@@ -25,41 +25,40 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         MagicSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Demon', animation_master.get_unit_resource_animation_set('Demon'))
-        self.current_fury = 1
+
         self.fury_status = True
         self.animation_set.action = 6
 
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
-    def use_heal(self, damage_text_group):
+    def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
-            self.cast_heal(self, self, damage_text_group)
+            self.cast_heal(self, self, text_sprite)
             return True
+        return False
 
-    def use_firestorm(self, target_list, damage_text_group):
+    def use_firestorm(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
-            self.cast_firestorm(self, target_list, damage_text_group)
+            self.cast_firestorm(self, target_list, text_sprite)
             return True
+        return False
 
-    def use_lightning(self, target_list, damage_text_group):
+    def use_lightning(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
-            self.cast_lightning(self, target_list, damage_text_group)
+            self.cast_lightning(self, target_list, text_sprite)
             return True
-
-        self.no_action_error('Mana', damage_text_group)
         return False
 
     def death_animation(self):
@@ -96,26 +95,26 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         damage_text.warning(self, f' No {name} !', text_sprite)
         error_sound.play()
 
-    def action(self, target, damage_text_group):
+    def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.90)
         if health_trigger:
-            i = randint(1, 4)
-            if i == 1:
-                self.attack(target, damage_text_group)
-            elif i == 2:
-                if self.current_mp >= 12:
-                    self.use_heal(damage_text_group)
+            random_action = randint(1, 4)
+            if random_action == 1:
+                self.attack(target, text_sprite)
+            elif random_action == 2:
+                if self.use_heal(text_sprite):
+                    pass
                 else:
-                    self.attack(target, damage_text_group)
-            elif i == 3:
-                if self.current_mp >= 15:
-                    self.use_firestorm([target], damage_text_group)
+                    self.attack(target, text_sprite)
+            elif random_action == 3:
+                if self.use_firestorm([target], text_sprite):
+                    pass
                 else:
-                    self.attack(target, damage_text_group)
-            elif i == 4:
-                if self.current_mp >= 20:
-                    self.use_lightning([target], damage_text_group)
+                    self.attack(target, text_sprite)
+            elif random_action == 4:
+                if self.use_lightning([target], text_sprite):
+                    pass
                 else:
-                    self.attack(target, damage_text_group)
+                    self.attack(target, text_sprite)
         else:
-            self.attack(target, damage_text_group)
+            self.attack(target, text_sprite)

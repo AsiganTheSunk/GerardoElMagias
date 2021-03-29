@@ -125,21 +125,21 @@ class BattleMaster:
     def no_enemies_alive(self):
         return len(self.get_alive_enemies()) == 0
 
-    def run_fighter_action(self, damage_text_group):
+    def run_fighter_action(self, text_sprite):
         hero_player = self.get_hero()
         if self.current_fighter == hero_player:
             if hero_player.next_action:
-                hero_player.run_next_action(damage_text_group)
+                hero_player.run_next_action(text_sprite)
                 self.move_to_next_fighter()
 
             if hero_player.whirlwind_status:
-                hero_player.use_whirlwind(self.enemy_fighters, damage_text_group)
+                hero_player.use_whirlwind(self.enemy_fighters, text_sprite)
                 self.move_to_next_fighter()
                 constants.globals.action_cooldown = 0
                 hero_player.whirlwind_status = False
 
             if hero_player.ultimate_status:
-                hero_player.use_ultimate(self.enemy_fighters, damage_text_group)
+                hero_player.use_ultimate(self.enemy_fighters, text_sprite)
                 if hero_player.multi_attacks_left == 0:
                     hero_player.ultimate_status = False
                     constants.globals.action_cooldown = 0
@@ -149,7 +149,7 @@ class BattleMaster:
                     self.move_to_victory_phase()
         else:
             # Enemy action
-            self.current_fighter.action(hero_player, damage_text_group)
+            self.current_fighter.action(hero_player, text_sprite)
             self.move_to_next_fighter()
 
     def handle_potion_click(self, event, button):

@@ -24,10 +24,8 @@ firestorm_image = image.load("resources/icons/fire_storm.png")
 earth_image = image.load("resources/icons/earth_shock.png")
 heal_image = image.load("resources/icons/heal.png")
 water_nova_image = image.load("resources/icons/water_nova.png")
-
-
 next_button_image = image.load("resources/icons/next.png")
-exitbook_button_image = image.load("resources/icons/exitbook.png")
+exit_book_button_image = image.load("resources/icons/exit_book.png")
 ultimate_image = image.load("resources/icons/ultimate.png")
 whirlwind_image = image.load("resources/icons/whirlwind.png")
 
@@ -61,9 +59,9 @@ espada_larga_image = image.load("resources/weapons/swords/base/espada_larga.png"
 gladius_image = image.load("resources/weapons/swords/base/gladius.png")
 mandoble_image = image.load("resources/weapons/swords/base/mandoble.png")
 punhal_image = image.load("resources/weapons/swords/base/puñal.png")
-#Unique Swords
-fragmento_de_infierno_image = image.load("resources/weapons/swords/unique/fragmento_de_infierno.png")
 
+# Unique Swords
+fragmento_de_infierno_image = image.load("resources/weapons/swords/unique/fragmento_de_infierno.png")
 
 # Axe Images
 # Basic Axes
@@ -85,8 +83,8 @@ coraza_image = image.load("resources/items/armors/base/coraza.png")
 coraza_forjada_en_el_infierno_image = image.load("resources/items/armors/base/coraza_forjada_en_el_infierno.png")
 cota_de_malla_image = image.load("resources/items/armors/base/cota_de_malla.png")
 piel_de_balrog_image = image.load("resources/items/armors/base/coraza.png")
-# Elite Armors
 
+# Elite Armors
 
 
 # Shield Images

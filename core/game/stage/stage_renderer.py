@@ -31,7 +31,7 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
         self.display_defeat_banner()
         self.display_defeat_message()
 
-    def update(self, level, hero, enemy_list, scripted_battle, damage_text_group):
+    def update(self, level, hero, enemy_list, scripted_battle, text_sprite):
         self.clock.tick(self.fps)
 
         # draw backgrounds
@@ -45,8 +45,8 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
         self.display_gold_icon()
 
         # damage text
-        damage_text_group.update()
-        damage_text_group.draw(self.surface)
+        text_sprite.update()
+        text_sprite.draw(self.surface)
 
         # draw fighters
         hero.animation_set.update()

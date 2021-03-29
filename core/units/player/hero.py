@@ -35,8 +35,8 @@ from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
 from core.items.consumable.db.consumable_db import HEALTH_POTION, MANA_POTION
-
 import constants.globals
+from core.units.decorators.requirement_decorators import mana_requirement
 
 combat_resolver = CombatResolver()
 combat_formulas = CombatFormulas()
@@ -74,33 +74,32 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
 
         self.loot_pool = LootPool()
 
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
-    def loot(self, target, damage_text_group):
-        self.loot_pool.loot(self, target, damage_text_group)
+    def loot(self, target, text_sprite):
+        self.loot_pool.loot(self, target, text_sprite)
 
-    def use_ultimate(self, target_list, damage_text_group):
-        self.cast_path_of_the_seven_strikes(self, target_list, damage_text_group)
+    def use_ultimate(self, target_list, text_sprite):
+        self.cast_path_of_the_seven_strikes(self, target_list, text_sprite)
         return True
 
-    def use_whirlwind(self, target_list, damage_text_group):
-        self.cast_whirlwind(self, target_list, damage_text_group)
+    def use_whirlwind(self, target_list, text_sprite):
+        self.cast_whirlwind(self, target_list, text_sprite)
         return True
 
-    def use_heal_spell(self, damage_text_group):
+    def use_heal_spell(self, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
-            self.cast_heal(self, self, damage_text_group)
+            self.cast_heal(self, self, text_sprite)
             return True
-
-        self.no_action_error('Mana', damage_text_group)
+        self.no_action_error('Mana', text_sprite)
         return False
 
-    def use_firestorm_spell(self, target_list, damage_text_group):
+    def use_firestorm_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
@@ -108,96 +107,92 @@ class HeroPlayer(PlayerUnit, MeleeSpells, MagicSpells, FurySpells, UnitAnimation
             pre_target_list = get_alive_targets_status(target_list)
 
             # Retrieve State for Enemy List: target_list
-            self.cast_firestorm(self, target_list, damage_text_group)
+            self.cast_firestorm(self, target_list, text_sprite)
 
             # Post Save State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       damage_text_group)
+                                                       text_sprite)
             return True
 
-        self.no_action_error('Mana', damage_text_group)
+        self.no_action_error('Mana', text_sprite)
         return False
 
-    def use_lightning_spell(self, target_list, damage_text_group):
+    def use_lightning_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(16):
             constants.globals.action_cooldown = -30
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.cast_lightning(self, target_list, damage_text_group)
+            self.cast_lightning(self, target_list, text_sprite)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       damage_text_group)
+                                                       text_sprite)
             return True
 
-        self.no_action_error('Mana', damage_text_group)
+        self.no_action_error('Mana', text_sprite)
         return False
 
-    def use_earth_spell(self, target_list, damage_text_group):
+    def use_earth_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(14):
             constants.globals.action_cooldown = -40
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.cast_earth_shock(self, target_list, damage_text_group)
+            self.cast_earth_shock(self, target_list, text_sprite)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       damage_text_group)
+                                                       text_sprite)
             return True
 
-        self.no_action_error('Mana', damage_text_group)
+        self.no_action_error('Mana', text_sprite)
         return False
 
-    def use_water_nova_spell(self, target_list, damage_text_group):
+    def use_water_nova_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(18):
             constants.globals.action_cooldown = -50
             # Save State for Enemy List: target_list
             pre_target_list = get_alive_targets_status(target_list)
 
-            self.cast_water_nova(self, target_list, damage_text_group)
+            self.cast_water_nova(self, target_list, text_sprite)
             # Retrieve State for Enemy List: target_list
             pos_target_list = get_alive_targets_status(target_list)
 
             # Evaluate Kills
             self.experience_system.evaluate_group_kill(self, target_list, pre_target_list, pos_target_list,
-                                                       damage_text_group)
+                                                       text_sprite)
             return True
 
-        self.no_action_error('Mana', damage_text_group)
+        self.no_action_error('Mana', text_sprite)
         return False
 
-    def use_healing_potion(self, damage_text_group):
-        if self.stash.has_healing_potion():
+    def use_healing_potion(self, text_sprite):
+        if self.stash.consume_healing_potion():
             constants.globals.action_cooldown = 0
-
-            self.stash.consume_healing_potion()
-            HEALTH_POTION.consume(self, damage_text_group)
+            HEALTH_POTION.consume(self, text_sprite)
             return True
 
-        self.no_action_error(HEALTH_POTION.name, damage_text_group)
+        self.no_action_error(HEALTH_POTION.name, text_sprite)
         return False
 
-    def use_mana_potion(self, damage_text_group):
-        if self.stash.has_mana_potion():
+    def use_mana_potion(self, text_sprite):
+        if self.stash.consume_mana_potion():
             constants.globals.action_cooldown = 0
-
-            self.stash.consume_mana_potion()
-            MANA_POTION.consume(self, damage_text_group)
+            MANA_POTION.consume(self, text_sprite)
             return True
 
-        self.no_action_error(MANA_POTION.name, damage_text_group)
+        self.no_action_error(MANA_POTION.name, text_sprite)
         return False
 
     def death_animation(self):

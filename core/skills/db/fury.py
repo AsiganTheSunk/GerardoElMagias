@@ -16,20 +16,20 @@ class FurySpells(CombatFormulas, CombatResolver):
         CombatFormulas.__init__(self)
         CombatResolver.__init__(self)
 
-    def cast_path_of_the_seven_strikes(self, caster, target_list, damage_text_group):
+    def cast_path_of_the_seven_strikes(self, caster, target_list, text_sprite):
         multi_strike = 7
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0 and self.multi_attacks_left == 7:
-            damage_text.cast(self, "Path Of The 7 Strikes", damage_text_group, 0, -30)
+            damage_text.cast(self, "Path Of The 7 Strikes", text_sprite, 0, -30)
 
-        return self.resolve_multi_attack(caster, target_list, multi_strike, damage_text_group)
+        return self.resolve_multi_attack(caster, target_list, multi_strike, text_sprite)
 
-    def cast_whirlwind(self, caster, target_list, damage_text_group):
+    def cast_whirlwind(self, caster, target_list, text_sprite):
         alive_enemy = get_alive_targets(target_list)
 
         if len(alive_enemy) > 0:
-            damage_text.cast(caster, "Whirlwind", damage_text_group, 0, -30)
+            damage_text.cast(caster, "Whirlwind", text_sprite, 0, -30)
 
             input_damage_list = []
             input_type_list = []
@@ -39,6 +39,6 @@ class FurySpells(CombatFormulas, CombatResolver):
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)
 
-            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, damage_text_group)
+            self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, text_sprite)
 
 

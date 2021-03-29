@@ -13,9 +13,6 @@ from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 from random import randint
 import constants.globals
 
-global action_counter
-action_counter = 1
-
 
 class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
     def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
@@ -28,28 +25,29 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
             UnitAnimationSet(animation_master.surface, x, y,
                              'Djinn', animation_master.get_unit_resource_animation_set('Djinn'))
 
-        self.current_fury = 1
         self.fury_status = True
         self.power_of_two_exponent = 0
         self.animation_set.action = 6
+        self.action_counter = 1
 
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
-    def power_of_two_attack(self, target, damage_text_group):
+    def power_of_two_attack(self, target, text_sprite):
         self.melee_attack_animation()
-        exponent = self.power_of_two_exponent
-        self.cast_power_of_two_attack(target, damage_text_group, exponent)
+        self.cast_power_of_two_attack(target, text_sprite, self.power_of_two_exponent)
         self.power_of_two_exponent += 1
+        return True
 
-    def use_heal(self, damage_text_group):
+    def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
-            self.cast_heal(self, self, damage_text_group)
+            self.cast_heal(self, self, text_sprite)
             return True
+        return False
 
     def death_animation(self):
         # Activates: Death Animation
@@ -76,23 +74,21 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
 
-    def action(self, target, damage_text_group):
-        global action_counter
+    def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.70)
-
-        if action_counter % 2:
-            self.attack(target, damage_text_group)
+        if self.action_counter % 2:
+            self.attack(target, text_sprite)
         else:
             if health_trigger:
-                i = randint(1, 2)
-                if i == 1:
+                random_action = randint(1, 2)
+                if random_action == 1:
                     if self.current_mp >= 12:
-                        self.use_heal(damage_text_group)
+                        self.use_heal(text_sprite)
                     else:
-                        self.power_of_two_attack(target, damage_text_group)
-                if i == 2:
-                    self.power_of_two_attack(target, damage_text_group)
+                        self.power_of_two_attack(target, text_sprite)
+                if random_action == 2:
+                    self.power_of_two_attack(target, text_sprite)
 
             else:
-                self.power_of_two_attack(target, damage_text_group)
-        action_counter = action_counter + 1
+                self.power_of_two_attack(target, text_sprite)
+        self.action_counter += 1

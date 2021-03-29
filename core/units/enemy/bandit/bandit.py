@@ -11,6 +11,7 @@ from core.game.text.damage_text import DamageText
 from constants.game_sound import health_potion_sound
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
+from core.items.consumable.db.consumable_db import HEALTH_POTION
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
@@ -26,43 +27,26 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Bandit', animation_master.get_unit_resource_animation_set('Bandit'))
+
         self.stash = Stash(healing_potions=1, mana_potions=0, gold=0)
-        self.try_to_consume_health_potion = False
 
-    def update_try_to_consume_health_potion(self):
-        self.try_to_consume_health_potion = True
-
-    def has_tried_to_consume_health_potion(self):
-        return self.try_to_consume_health_potion is False
-
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
-    def strong_attack(self, target, damage_text_group):
+    def strong_attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_strong_attack(self, target, damage_text_group)
+        self.cast_strong_attack(self, target, text_sprite)
         return True
 
-    def use_healing_potion(self, damage_text_group):
+    def use_healing_potion(self, text_sprite):
         constants.globals.action_cooldown = 0
-        if self.stash.has_healing_potion():
-            # Activates potion sound
-            health_potion_sound.play()
-
-            base_health = 40
-            health_interval = randint(0, 10)
-            base_health_multiplier = (self.level * 4)
-            health_recover = base_health + health_interval + base_health_multiplier
-
-            self.stash.consume_healing_potion()
-            self.gain_health(health_recover)
-
-            damage_text.heal(self, str(health_recover), damage_text_group)
+        if self.stash.consume_healing_potion():
+            HEALTH_POTION.consume(self, text_sprite)
             return True
 
-        damage_text.warning(self, 'No Healing Potions', damage_text_group)
+        damage_text.warning(self, 'No Healing Potions', text_sprite)
         return False
 
     def death_animation(self):
@@ -90,13 +74,13 @@ class Bandit(EnemyUnit, MeleeSpells):
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
 
-    def action(self, target, damage_text_group):
+    def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.15)
         if self.stash.has_healing_potion() and health_trigger:
-            self.use_healing_potion(damage_text_group)
+            self.use_healing_potion(text_sprite)
         elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
-            self.use_healing_potion(damage_text_group)
+            self.use_healing_potion(text_sprite)
             self.update_try_to_consume_health_potion()
         else:
             # Attack
-            self.attack(target, damage_text_group)
+            self.attack(target, text_sprite)

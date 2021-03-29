@@ -28,11 +28,12 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'BoneWizard', animation_master.get_unit_resource_animation_set('BoneWizard'))
+
         self.animation_set.action = 6
 
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
     def death_animation(self):
@@ -70,15 +71,20 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
         self.animation_set.action = 7
         self.animation_set.reset_frame_index()
 
-    def use_shadow_bolt(self, target, damage_text_group):
-        self.shadow_bolt_animation()
-        damage_text.cast(self, "Shadow Bolt!", damage_text_group, 0, -30)
-        self.cast_shadow_bolt(self, target, damage_text_group)
-        return True
+    def use_shadow_bolt(self, target, text_sprite):
+        if self.reduce_mana(10):
+            self.shadow_bolt_animation()
+            damage_text.cast(self, "Shadow Bolt!", text_sprite, 0, -30)
+            self.cast_shadow_bolt(self, target, text_sprite)
+            return True
+        return False
 
-    def action(self, target, damage_text_group):
-        i = randint(1, 2)
-        if i == 1:
-            self.use_shadow_bolt(target, damage_text_group)
-        if i == 2:
-            self.attack(target, damage_text_group)
+    def action(self, target, text_sprite):
+        random_action = randint(1, 2)
+        if random_action == 1:
+            if self.use_shadow_bolt(target, text_sprite):
+                pass
+            else:
+                self.attack(target, text_sprite)
+        if random_action == 2:
+            self.attack(target, text_sprite)

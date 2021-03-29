@@ -16,7 +16,7 @@ combat_text_resolver = CombatTextResolver()
 
 class CombatResolver:
     @staticmethod
-    def resolve_attack(caster, target, input_damage, input_type, damage_text_group, multi_strike=False):
+    def resolve_attack(caster, target, input_damage, input_type, text_sprite, multi_strike=False):
         if not multi_strike:
             constants.globals.action_cooldown = 0
 
@@ -60,17 +60,17 @@ class CombatResolver:
                     target.death_animation()
                     constants.globals.clicked = False
                     if caster.has_experience():
-                        caster.experience_system.evaluate_kill(caster, target, damage_text_group)
+                        caster.experience_system.evaluate_kill(caster, target, text_sprite)
 
-        combat_text_resolver.resolve(target, input_damage,  input_type, damage_text_group)
+        combat_text_resolver.resolve(target, input_damage,  input_type, text_sprite)
 
-    def resolve_aoe_attack(self, caster, target_list, input_damage_list, input_damage_type_list, damage_text_group):
+    def resolve_aoe_attack(self, caster, target_list, input_damage_list, input_damage_type_list, text_sprite):
         for index, target in enumerate(target_list):
             if target.alive:
                 self.resolve_attack(caster, target, input_damage_list[index], input_damage_type_list[index],
-                                    damage_text_group, True)
+                                    text_sprite, True)
 
-    def resolve_multi_attack(self, caster, target_list, multi_strike, damage_text_group):
+    def resolve_multi_attack(self, caster, target_list, multi_strike, text_sprite):
         alive_enemy = get_alive_targets(target_list)
 
         # TODO: pass de proper wait time instead of 90
@@ -79,7 +79,7 @@ class CombatResolver:
                 if len(alive_enemy) > 0:
                     target = alive_enemy[randint(0, len(alive_enemy) - 1)]
                     caster.melee_attack_animation()
-                    caster.cast_attack(self, target, damage_text_group, True)
+                    caster.cast_attack(self, target, text_sprite, True)
 
                     self.multi_attacks_left -= 1
                     constants.globals.action_cooldown = 65
@@ -90,7 +90,7 @@ class CombatResolver:
             # Action Delay: Next Enemy Action will be delayed after the ultimate cast
             constants.globals.action_cooldown = -40
 
-    def resolve_fixed_damage_attack(self, target, input_damage, input_type, damage_text_group):
+    def resolve_fixed_damage_attack(self, target, input_damage, input_type, text_sprite):
         target.hurt_animation()
         hit_cut_sound.play()
 
@@ -104,4 +104,4 @@ class CombatResolver:
             target.death_animation()
             constants.globals.clicked = False
 
-        combat_text_resolver.resolve(target, input_damage,  input_type, damage_text_group)
+        combat_text_resolver.resolve(target, input_damage,  input_type, text_sprite)

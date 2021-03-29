@@ -11,9 +11,6 @@ from core.skills.db.melee import MeleeSpells
 # Animation Imports
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
-global ulti_attacks
-ulti_attacks = 1
-
 
 class Lizard(EnemyUnit, MeleeSpells):
     def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
@@ -21,17 +18,16 @@ class Lizard(EnemyUnit, MeleeSpells):
         MeleeSpells.__init__(self)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        # Bandit Loot
-
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Lizard', animation_master.get_unit_resource_animation_set('Lizard'))
 
+        self.ultimate_strikes = 1
         self.fury_status = True
 
-    def attack(self, target, damage_text_group):
+    def attack(self, target, text_sprite):
         self.melee_attack_animation()
-        self.cast_attack(self, target, damage_text_group)
+        self.cast_attack(self, target, text_sprite)
         return True
 
     def death_animation(self):
@@ -59,16 +55,15 @@ class Lizard(EnemyUnit, MeleeSpells):
         self.animation_set.action = 5
         self.animation_set.reset_frame_index()
 
-    def action(self, target, damage_text_group):
-        global ulti_attacks
-        if self.current_fury >= 40:
-            if ulti_attacks < 3:
-                self.attack(target, damage_text_group)
-                ulti_attacks += 1
+    def action(self, target, text_sprite):
+        if self.has_enough_fury(40):
+            if self.ultimate_strikes < 3:
+                self.attack(target, text_sprite)
+                self.ultimate_strikes += 1
                 constants.globals.action_cooldown = 70
             else:
-                self.attack(target, damage_text_group)
-                ulti_attacks = 1
+                self.attack(target, text_sprite)
+                self.ultimate_strikes = 1
                 self.current_fury = 0
         else:
-            self.attack(target, damage_text_group)
+            self.attack(target, text_sprite)

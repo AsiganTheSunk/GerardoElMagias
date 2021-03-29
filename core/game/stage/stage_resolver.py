@@ -52,7 +52,7 @@ class StageResolver:
         self.whirlwind_button = Button('whirlwind', 280, 655, whirlwind_image, 40, 40)
         self.whirlwind_button.hidden = True
 
-        kill_all_button = Button('kill_all', 40, 260, skull_image, 60, 60)
+        kill_all_button = Button('kill_all', 30, 260, skull_image, 60, 60)
 
         self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
@@ -144,9 +144,6 @@ class StageResolver:
             ultimate_sound.play()
             self.battle_master.get_hero().reduce_fury(50)
             constants.globals.action_cooldown = -25
-
-    def resolve_mouse_display(self):
-        pass
 
     def resolve_player_mouse_actions(self):
         if self.battle_master.is_victory_phase():
