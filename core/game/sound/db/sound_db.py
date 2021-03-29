@@ -16,12 +16,14 @@ SOUND_POOL = {
             SoundResource('block', SoundFileExtension.WAV, 0.1),
             SoundResource('miss', SoundFileExtension.WAV, 0.1),
             SoundResource('critical_hit', SoundFileExtension.WAV, 0.07),
-            SoundResource('ultimate', SoundFileExtension.WAV, 0.1)
+            SoundResource('ultimate', SoundFileExtension.WAV, 0.1),
+            SoundResource('ultimate_up', SoundFileExtension.WAV, 0.1)
         ],
         SoundFxSubType.SPELLS: [
             SoundResource('lightning_spell', SoundFileExtension.WAV, 0.1),
             SoundResource('firestorm_spell', SoundFileExtension.WAV, 0.1),
-            SoundResource('heal_spell', SoundFileExtension.WAV, 0.1)
+            SoundResource('heal_spell', SoundFileExtension.WAV, 0.1),
+            SoundResource('earth_shock_spell', SoundFileExtension.WAV, 0.1),
         ],
         SoundFxSubType.ITEMS: [
             SoundResource('gold', SoundFileExtension.WAV, 0.15),

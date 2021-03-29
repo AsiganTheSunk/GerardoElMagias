@@ -13,16 +13,15 @@ from core.skills.db.magic import MagicSpells
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 from random import randint
 import constants.globals
-from constants.game_sound import error_sound
 
 damage_text = DamageText()
 
 
 class Demon(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'Demon', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
-        MagicSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
+        MagicSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
@@ -46,6 +45,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
             self.cast_heal(self, self, text_sprite)
+            self.sound_master.play_spell_fx_sound('heal_spell')
             return True
         return False
 
@@ -54,6 +54,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
             self.cast_firestorm(self, target_list, text_sprite)
+            self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
         return False
 
@@ -62,6 +63,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
             self.cast_lightning(self, target_list, text_sprite)
+            self.sound_master.play_spell_fx_sound('lightning_spell')
             return True
         return False
 

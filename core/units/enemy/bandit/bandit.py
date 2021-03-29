@@ -8,7 +8,6 @@ from core.units.player.resources.stash import Stash
 from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.game_sound import health_potion_sound
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 from core.items.consumable.db.consumable_db import HEALTH_POTION
@@ -19,11 +18,12 @@ combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'Bandit', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
+        self.sound_master = sound_master
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Bandit', animation_master.get_unit_animation_set('Bandit'))
@@ -47,6 +47,7 @@ class Bandit(EnemyUnit, MeleeSpells):
     def use_healing_potion(self, text_sprite):
         constants.globals.action_cooldown = 0
         if self.stash.consume_healing_potion():
+            self.sound_master.play_item_fx_sound('health_potion')
             HEALTH_POTION.consume(self, text_sprite)
             return True
 

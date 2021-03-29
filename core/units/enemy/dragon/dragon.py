@@ -8,7 +8,6 @@ from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
 from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
-from core.units.player.resources.stash import Stash
 
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
@@ -22,10 +21,10 @@ combat_text_resolver = CombatTextResolver()
 
 
 class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'Dragon', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
-        MagicSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
+        MagicSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = UnitAnimationSet(animation_master.surface, x, y,
@@ -45,9 +44,8 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
             self.cast_heal(self, self, text_sprite)
+            self.sound_master.play_spell_fx_sound('heal_spell')
             return True
-
-        damage_text.warning(self, ' No Enough Mana! ', text_sprite)
         return False
 
     def use_firestorm(self, target_list, text_sprite):
@@ -55,9 +53,8 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
         if self.reduce_mana(15):
             constants.globals.action_cooldown = -30
             self.cast_firestorm(self, target_list, text_sprite)
+            self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
-
-        damage_text.warning(self, ' No Enough Mana! ', text_sprite)
         return False
 
     def action(self, target, text_sprite):

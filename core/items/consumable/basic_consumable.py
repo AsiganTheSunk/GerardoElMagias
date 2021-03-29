@@ -11,13 +11,12 @@ damage_text = DamageText()
 
 
 class BasicConsumable:
-    def __init__(self, name, recovered_stat, base_stat, base_stat_interval, base_stat_multiplier, consume_sound):
+    def __init__(self, name, recovered_stat, base_stat, base_stat_interval, base_stat_multiplier):
         self.name = name
         self.recovered_stat = recovered_stat
         self.base_stat = base_stat
         self.base_stat_interval = base_stat_interval
         self.base_stat_multiplier = base_stat_multiplier
-        self.consume_sound = consume_sound
 
     def resolve_recovered_stat(self, caster):
         final_base_stat_multiplier = 0
@@ -42,11 +41,9 @@ class BasicConsumable:
         else:
             return 0
 
-    def consume(self, caster, text_sprite, mixed_consumable=False):
+    def consume(self, caster, text_sprite):
         final_stat_recovered = self.resolve_recovered_stat(caster)
         effective_stat_recovered = self.resolve_effective_stat(caster, final_stat_recovered)
-        if not mixed_consumable:
-            self.consume_sound.play()
         self.display_recovered_stat(caster, effective_stat_recovered, text_sprite)
 
     def display_recovered_stat(self, caster, effective_stat_recovered, text_sprite):

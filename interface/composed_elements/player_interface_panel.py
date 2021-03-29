@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.game_images import gold_image, panel_image, sword_image, loot_image, \
+from constants.game_images import gold_image, sword_image, loot_image, \
     victory_banner_image, defeat_banner_image
 
 from pygame import Color, Rect, display, draw, transform, Surface, mouse
@@ -23,9 +23,6 @@ class PlayerInterfacePanel:
         
         # Gold Icon:
         self.gold_image = gold_image
-
-        # Panel Background
-        self.panel_background_image = panel_image
 
         self.victory_banner_image = victory_banner_image
         self.defeat_banner_image = defeat_banner_image

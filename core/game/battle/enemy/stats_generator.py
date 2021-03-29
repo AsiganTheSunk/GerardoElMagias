@@ -7,33 +7,33 @@ from random import randint
 class EnemyStatsGenerator:
     @staticmethod
     def generate_bandit_stats(level):
-        randomlevel = level + randint(0, 2)
-        str = 3 + round(randomlevel / 2)
-        dex = 6 + randomlevel
-        max_hp = 10 + randomlevel*7
+        random_level = level + randint(0, 2)
+        strength = 3 + round(random_level / 2)
+        dexterity = 6 + random_level
+        magic = 0
+        max_hp = 10 + random_level * 7
         max_mp = 0
-        mag = 0
 
-        return randomlevel, str, dex, mag, max_hp, max_mp
+        return random_level, strength, dexterity, magic, max_hp, max_mp
 
     @staticmethod
     def generate_bone_wizard_stats(level):
-        randomlevel = level + randint(0, 3)
-        str = round(randomlevel / 2)
-        dex = 1 + randomlevel
-        max_hp = 30 + randomlevel * 4
-        max_mp = 25 + randomlevel * 5
-        mag = 10 + randomlevel
+        random_level = level + randint(0, 3)
+        strength = round(random_level / 2)
+        dexterity = 1 + random_level
+        magic = 10 + random_level
+        max_hp = 30 + random_level * 4
+        max_mp = 25 + random_level * 5
 
-        return randomlevel, str, dex, mag, max_hp, max_mp
+        return random_level, strength, dexterity, magic, max_hp, max_mp
 
     @staticmethod
     def generate_lizard_stats(level):
-        randomlevel = level + randint(0, 3)
-        str = 4 + round(randomlevel / 2)
-        dex = 8 + randomlevel
-        max_hp = 50 + randomlevel * 7
+        random_level = level + randint(0, 3)
+        strength = 4 + round(random_level / 2)
+        dexterity = 8 + random_level
+        magic = 0
+        max_hp = 50 + random_level * 7
         max_mp = 0
-        mag = 0
 
-        return randomlevel, str, dex, mag, max_hp, max_mp
+        return random_level, strength, dexterity, magic, max_hp, max_mp

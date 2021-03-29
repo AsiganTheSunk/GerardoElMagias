@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from constants.game_sound import ulti_up_sound
-
 
 class BasicUnit:
     def __init__(self, x, y, name, level, strength, dexterity, magic):
@@ -102,7 +100,6 @@ class BasicUnit:
         if self.current_fury + fury_amount >= self.max_fury:
             self.current_fury = self.max_fury
             gained_fury = self.max_fury - self.current_fury
-            ulti_up_sound.play()
             return gained_fury
         else:
             self.current_fury += fury_amount

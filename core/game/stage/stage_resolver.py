@@ -5,7 +5,6 @@
 from pygame import mouse
 
 # Game Engine Constants Imports:
-from constants.game_sound import ultimate_sound
 import constants.globals
 
 # Game Drawable Instance Imports:
@@ -20,7 +19,7 @@ from core.game.constants.game_modes import GameModes
 
 from core.game.text.damage_text import DamageText
 
-from constants.game_images import skull_image, spell_book_image, \
+from constants.game_images import skull_button_image, spell_book_button_image, \
     health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image
 
 # Init DamageText
@@ -45,14 +44,14 @@ class StageResolver:
             Button('mana_potion', 132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
                    mana_potion_image, 60, 60)
 
-        spell_book_button = Button('spell_book', 10, 600, spell_book_image, 100, 100)
+        spell_book_button = Button('spell_book', 10, 600, spell_book_button_image, 100, 100)
         self.ultimate_button = Button('ultimate', 555, 590, ultimate_image, 60, 60)
         self.ultimate_button.hidden = True
 
         self.whirlwind_button = Button('whirlwind', 280, 655, whirlwind_image, 40, 40)
         self.whirlwind_button.hidden = True
 
-        kill_all_button = Button('kill_all', 30, 260, skull_image, 60, 60)
+        kill_all_button = Button('kill_all', 30, 260, skull_button_image, 60, 60)
 
         self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
@@ -134,14 +133,14 @@ class StageResolver:
     def handle_ultimate_click(self, event, button):
         if self.battle_master.is_player_phase():
             self.battle_master.get_hero().ultimate_status = True
-            ultimate_sound.play()
+            self.sound_master.play_unit_fx_sound('ultimate')
             self.battle_master.get_hero().reset_fury()
             constants.globals.action_cooldown = -25
 
     def handle_whirlwind_click(self, event, button):
         if self.battle_master.is_player_phase():
             self.battle_master.get_hero().whirlwind_status = True
-            ultimate_sound.play()
+            self.sound_master.play_unit_fx_sound('ultimate')
             self.battle_master.get_hero().reduce_fury(50)
             constants.globals.action_cooldown = -25
 

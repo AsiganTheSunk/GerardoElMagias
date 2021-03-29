@@ -19,9 +19,9 @@ combat_text_resolver = CombatTextResolver()
 
 
 class BanditChief(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'BanditChief', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.animation_set = \
@@ -43,6 +43,7 @@ class BanditChief(EnemyUnit, MeleeSpells):
         constants.globals.action_cooldown = 0
         if self.stash.consume_healing_potion():
             HEALTH_POTION.consume(self, text_sprite)
+            self.sound_master.play_spell_item_sound('health_potion')
             return True
 
         damage_text.warning(self, 'No Healing Potions', text_sprite)

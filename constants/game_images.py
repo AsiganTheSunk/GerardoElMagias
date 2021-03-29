@@ -4,99 +4,123 @@
 from pygame import image
 from pygame import transform
 
+# ==============================================================
 # Background Images:
-background_forest = image.load("resources/background/forest.png")
-background_forest = transform.scale(background_forest, (1024, 576))
-background_castle = image.load("resources/background/castle.gif")
-background_castle = transform.scale(background_castle, (1024, 576))
-background_dungeon = image.load("resources/background/dungeon.jpg")
-background_dungeon = transform.scale(background_dungeon, (1024, 576))
+# ==============================================================
+background_forest_image = image.load("resources/image/background/forest.png")
+background_forest_image = transform.scale(background_forest_image, (1024, 576))
+background_castle_image = image.load("resources/image/background/castle.gif")
+background_castle_image = transform.scale(background_castle_image, (1024, 576))
+background_dungeon_image = image.load("resources/image/background/dungeon.jpg")
+background_dungeon_image = transform.scale(background_dungeon_image, (1024, 576))
+background_spell_book_image = image.load("resources/image/background/shop.png")
 
-# Panel Images:
-panel_image = image.load("resources/icons/panel.jpg")
 
+# ==============================================================
 # Button Images:
-spell_book_image = image.load("resources/icons/spell_book.png")
-health_potion_image = image.load("resources/icons/health_potion.png")
-mana_potion_image = image.load("resources/icons/mana_potion.png")
-lightning_image = image.load("resources/icons/lightning.png")
-firestorm_image = image.load("resources/icons/firestorm.png")
-earth_image = image.load("resources/icons/earth_shock.png")
-heal_image = image.load("resources/icons/heal.png")
-water_nova_image = image.load("resources/icons/water_nova.png")
-next_button_image = image.load("resources/icons/next.png")
-exit_book_button_image = image.load("resources/icons/exit_book.png")
-ultimate_image = image.load("resources/icons/ultimate.png")
-whirlwind_image = image.load("resources/icons/whirlwind.png")
-
-gold_image = image.load("resources/icons/oro.png")
-
-# Victory & Defeat Images:
-victory_banner_image = image.load("resources/icons/victory.png")
-defeat_banner_image = image.load("resources/icons/defeat.png")
-
-# Sword Image:
-sword_image = image.load("resources/icons/sword.png")
-
-# Restart Image:
-restart_image = image.load("resources/icons/restart.png")
-
-# Loot Image:
-loot_image = image.load("resources/icons/loot.png")
-
-# Shop Image:
-background_shop_image = image.load("resources/icons/shop.png")
+# ==============================================================
+spell_book_button_image = image.load("resources/image/button/spell_book.png")
+exit_book_button_image = image.load("resources/image/button/exit_book.png")
+restart_button_image = image.load("resources/image/button/restart.png")
+skull_button_image = image.load("resources//image/button/skull.png")
 
 
-# Weapon Images
-# Sword Images
-# Basic Swords
-daga_image = image.load("resources/weapons/swords/base/daga.png")
-espada_bastarda_image = image.load("resources/weapons/swords/base/espada_bastarda.png")
-espada_corta_image = image.load("resources/weapons/swords/base/espada_corta.png")
-espada_forjada_en_el_infierno_image = image.load("resources/weapons/swords/base/espada_forjada_en_el_infierno.png")
-espada_larga_image = image.load("resources/weapons/swords/base/espada_larga.png")
-gladius_image = image.load("resources/weapons/swords/base/gladius.png")
-mandoble_image = image.load("resources/weapons/swords/base/mandoble.png")
-punhal_image = image.load("resources/weapons/swords/base/puñal.png")
+# ==============================================================
+# Consumable Images:
+# ==============================================================
+health_potion_image = image.load("resources/image/consumable/health_potion.png")
+mana_potion_image = image.load("resources/image/consumable/mana_potion.png")
+
+
+# ==============================================================
+# Button Skill Images:
+# ==============================================================
+lightning_image = image.load("resources/image/button/lightning.png")
+firestorm_image = image.load("resources/image/button/firestorm.png")
+earth_image = image.load("resources/image/button/earth_shock.png")
+heal_image = image.load("resources/image/button/heal.png")
+water_nova_image = image.load("resources/image/button/water_nova.png")
+next_button_image = image.load("resources/image/button/next.png")
+ultimate_image = image.load("resources/image/button/ultimate.png")
+whirlwind_image = image.load("resources/image/button/whirlwind.png")
+
+
+# ==============================================================
+# Icon Images:
+# ==============================================================
+gold_image = image.load("resources/image/icon/oro.png")
+
+
+# ==============================================================
+# Banner Images:
+# ==============================================================
+victory_banner_image = image.load("resources/image/banner/victory.png")
+defeat_banner_image = image.load("resources/image/banner/defeat.png")
+
+
+# ==============================================================
+# Mouse Images:
+# ==============================================================
+sword_image = image.load("resources/image/mouse/sword.png")
+loot_image = image.load("resources/image/mouse/loot.png")
+
+
+# ==============================================================
+# Equipment Images:
+# ==============================================================
+
+# Basic Swords Images:
+# ==============================================================
+daga_image = image.load("resources/image/equipment/weapons/swords/base/daga.png")
+espada_bastarda_image = image.load("resources/image/equipment/weapons/swords/base/espada_bastarda.png")
+espada_corta_image = image.load("resources/image/equipment/weapons/swords/base/espada_corta.png")
+espada_forjada_en_el_infierno_image = image.load("resources/image/equipment/weapons/swords/base/espada_forjada_en_el_infierno.png")
+espada_larga_image = image.load("resources/image/equipment/weapons/swords/base/espada_larga.png")
+gladius_image = image.load("resources/image/equipment/weapons/swords/base/gladius.png")
+mandoble_image = image.load("resources/image/equipment/weapons/swords/base/mandoble.png")
+punhal_image = image.load("resources/image/equipment/weapons/swords/base/puñal.png")
 
 # Unique Swords
-fragmento_de_infierno_image = image.load("resources/weapons/swords/unique/fragmento_de_infierno.png")
+# ==============================================================
+fragmento_de_infierno_image = image.load("resources/image/equipment/weapons/swords/unique/fragmento_de_infierno.png")
 
-# Axe Images
-# Basic Axes
-decapitador_image = image.load("resources/weapons/axes/base/decapitador.png")
-hacha_imgage = image.load("resources/weapons/axes/base/hacha.png")
-hacha_doble_image = image.load("resources/weapons/axes/base/hacha_doble.png")
 
-# Polearm images
-alabarda_image = image.load("resources/weapons/polearms/base/alabarda.png")
-lanza_image = image.load("resources/weapons/polearms/base/lanza.png")
-partisana_image = image.load("resources/weapons/polearms/base/partisana.jpeg")
-pica_image = image.load("resources/weapons/polearms/base/pica.png")
+# Basic Axes Images:
+# ==============================================================
+decapitador_image = image.load("resources/image/equipment/weapons/axes/base/decapitador.png")
+hacha_imgage = image.load("resources/image/equipment/weapons/axes/base/hacha.png")
+hacha_doble_image = image.load("resources/image/equipment/weapons/axes/base/hacha_doble.png")
 
-# Armor images
-# Base Armors
-armadura_de_cuero_image = image.load("resources/items/armors/base/armadura_de_cuero.png")
-chaleco_de_cuero_image = image.load("resources/items/armors/base/chaleco_de_cuero.png")
-coraza_image = image.load("resources/items/armors/base/coraza.png")
-coraza_forjada_en_el_infierno_image = image.load("resources/items/armors/base/coraza_forjada_en_el_infierno.png")
-cota_de_malla_image = image.load("resources/items/armors/base/cota_de_malla.png")
-piel_de_balrog_image = image.load("resources/items/armors/base/coraza.png")
+# Basic Polearm Images:
+# ==============================================================
+alabarda_image = image.load("resources/image/equipment/weapons/polearms/base/alabarda.png")
+lanza_image = image.load("resources/image/equipment/weapons/polearms/base/lanza.png")
+partisana_image = image.load("resources/image/equipment/weapons/polearms/base/partisana.jpeg")
+pica_image = image.load("resources/image/equipment/weapons/polearms/base/pica.png")
+
+
+# Basic Armor Images:
+# ==============================================================
+armadura_de_cuero_image = image.load("resources/image/equipment/armors/base/armadura_de_cuero.png")
+chaleco_de_cuero_image = image.load("resources/image/equipment/armors/base/chaleco_de_cuero.png")
+coraza_image = image.load("resources/image/equipment/armors/base/coraza.png")
+coraza_forjada_en_el_infierno_image = \
+    image.load("resources/image/equipment/armors/base/coraza_forjada_en_el_infierno.png")
+cota_de_malla_image = image.load("resources/image/equipment/armors/base/cota_de_malla.png")
+piel_de_balrog_image = image.load("resources/image/equipment/armors/base/coraza.png")
+
 
 # Elite Armors
+# ==============================================================
 
-
-# Shield Images
-# Base Shields
-aegis_image = image.load("resources/items/shields/base/aegis.png")
-defensor_image = image.load("resources/items/shields/base/defensor.png")
-escudo_forjado_en_el_infierno_image = image.load("resources/items/shields/base/escudo_forjado_en_el_infierno.png")
-guardian_image = image.load("resources/items/shields/base/guardian.png")
-rodela_image = image.load("resources/items/shields/base/rodela.png")
+# Basic Shield Images
+# ==============================================================
+aegis_image = image.load("resources/image/equipment/shields/base/aegis.png")
+defensor_image = image.load("resources/image/equipment/shields/base/defensor.png")
+escudo_forjado_en_el_infierno_image = \
+    image.load("resources/image/equipment/shields/base/escudo_forjado_en_el_infierno.png")
+guardian_image = image.load("resources/image/equipment/shields/base/guardian.png")
+rodela_image = image.load("resources/image/equipment/shields/base/rodela.png")
 # Unique Shields
-furia_de_leon_image = image.load("resources/items/shields/unique/furia_de_leon.png")
-guardia_del_monarca_image = image.load("resources/items/shields/unique/guardia_del_monarca.png")
-
-# Skull Image:
-skull_image = image.load("resources/icons/skull.png")
+furia_de_leon_image = image.load("resources/image/equipment/shields/unique/furia_de_leon.png")
+guardia_del_monarca_image = image.load("resources/image/equipment/shields/unique/guardia_del_monarca.png")

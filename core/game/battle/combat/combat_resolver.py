@@ -4,7 +4,6 @@
 from core.game.battle.combat.constants.combat_type_resolution import CombatTypeResolution
 import constants.globals
 from core.game.battle.combat.combat_utils import get_alive_targets
-from constants.game_sound import block_sound, miss_sound, critical_hit_sound, hit_cut_sound
 from random import randint
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
@@ -15,22 +14,22 @@ combat_text_resolver = CombatTextResolver()
 
 
 class CombatResolver:
-    @staticmethod
-    def resolve_attack(caster, target, input_damage, input_type, text_sprite, multi_strike=False):
+    def __init__(self, sound_master):
+        self.sound_master = sound_master
+
+    def resolve_attack(self, caster, target, input_damage, input_type, text_sprite, multi_strike=False):
         if not multi_strike:
             constants.globals.action_cooldown = 0
 
         # Activates Block Animation & Sound on the current Target
         if input_type is CombatTypeResolution.BLOCKED:
             target.use_animation('Block')
-            block_sound.play()
-            # target.block_sound.play()
+            self.sound_master.play_unit_fx_sound('block')
 
         # Activates Miss Animation & Sound on the current Target
         elif input_type is CombatTypeResolution.MISS:
             target.use_animation('Miss')
-            miss_sound.play()
-            # target.miss_sound.play()
+            self.sound_master.play_unit_fx_sound('miss')
 
         # Activates Hurt/Death Animation and Sound on the current Target
         else:
@@ -39,10 +38,9 @@ class CombatResolver:
 
                 # Activates Critical Hit Sound
                 if input_type is CombatTypeResolution.CRITICAL_HIT:
-                    critical_hit_sound.play()
-                    # target.critical_hit_sound.play()
+                    self.sound_master.play_unit_fx_sound('critical_hit')
                 else:
-                    hit_cut_sound.play()
+                    self.sound_master.play_unit_fx_sound('hit_cut')
 
                 # Updates current Target Health
                 target.reduce_health(input_damage)
@@ -50,8 +48,8 @@ class CombatResolver:
                 if target.has_fury():
                     # Updates current Target Fury
                     target.gain_fury(input_damage)
-                    # target.gain_fury_animation()
-                    # target.gain_fury_sound.play()
+                    if target.has_enough_fury(50) or target.has_enough_fury():
+                        self.sound_master.play_unit_fx_sound('ultimate_up')
 
                 # TODO Activates hurt sound
                 # Evaluate Death: Target
@@ -92,12 +90,14 @@ class CombatResolver:
 
     def resolve_fixed_damage_attack(self, target, input_damage, input_type, text_sprite):
         target.use_animation('Hurt')
-        hit_cut_sound.play()
+        self.sound_master.play_unit_fx_sound('hit_cut')
 
         target.reduce_health(input_damage)
 
         if target.has_fury():
             target.gain_fury(input_damage)
+            if target.has_enough_fury(50) or target.has_enough_fury():
+                self.sound_master.play_unit_fx_sound('ultimate_up')
 
         if target.is_dead():
             target.death()

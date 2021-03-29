@@ -12,12 +12,13 @@ from core.game.battle.enemy.position_generator import EnemyPositionsGenerator
 
 
 class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
-    def __init__(self, animation_master, game_attributes):
+    def __init__(self, animation_master, sound_master, game_attributes):
         EnemyStatsGenerator.__init__(self)
         EnemyPositionsGenerator.__init__(self)
         EnemySetGenerator.__init__(self)
 
         self.animation_master = animation_master
+        self.sound_master = sound_master
         self.game_attributes = game_attributes
 
     @staticmethod
@@ -45,19 +46,22 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
         if enemy_type is UnitType.BANDIT:
-            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_bandit_stats(level)
-            return self.create_enemy(Bandit(enemy_pos_x, enemy_pos_y, randomlevel, str, dex, mag,
-                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master), max_hp, max_mp)
+            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_bandit_stats(level)
+            return self.create_enemy(Bandit(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
+                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
+                                            self.sound_master), max_hp, max_mp)
 
         elif enemy_type is UnitType.LIZARD:
-            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_lizard_stats(level)
-            return self.create_enemy(Lizard(enemy_pos_x, enemy_pos_y, randomlevel, str, dex, mag,
-                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master), max_hp, max_mp)
+            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_lizard_stats(level)
+            return self.create_enemy(Lizard(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
+                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
+                                            self.sound_master), max_hp, max_mp)
 
         elif enemy_type is UnitType.BONE_WIZARD:
-            randomlevel, str, dex, mag, max_hp, max_mp = self.generate_bone_wizard_stats(level)
-            return self.create_enemy(BoneWizard(enemy_pos_x, enemy_pos_y, randomlevel, str, dex, mag,
-                                                enemy_healthbar_x, enemy_healthbar_y, self.animation_master), max_hp, max_mp)
+            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_bone_wizard_stats(level)
+            return self.create_enemy(BoneWizard(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
+                                                enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
+                                                self.sound_master), max_hp, max_mp)
 
     @staticmethod
     def create_enemy(enemy, max_hp, max_mp):

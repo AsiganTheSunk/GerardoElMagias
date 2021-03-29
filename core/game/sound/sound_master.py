@@ -12,6 +12,7 @@ class SoundMaster:
     def __init__(self):
         self.muted = True
         self.sound_mixer = mixer
+        self.sound_mixer_music = mixer.music
         self.sound_mixer.pre_init(44100, -16, 2, 4096)
 
         sound_loader = SoundLoader(self.sound_mixer)
@@ -21,6 +22,15 @@ class SoundMaster:
 
         self.current_playing_sound = None
         self.previous_game_mode = None
+
+    def play_unit_fx_sound(self, unit_fx_sound):
+        self.sounds['fx']['attacks'][unit_fx_sound].play()
+
+    def play_item_fx_sound(self, item_fx_sound):
+        self.sounds['fx']['items'][item_fx_sound].play()
+        
+    def play_spell_fx_sound(self, spell_fx_sound):
+        self.sounds['fx']['spells'][spell_fx_sound].play()
 
     def set_stage_sounds(self, stage_name):
         self.stage_sound_selector.set_stage_sounds(stage_name)
@@ -42,6 +52,8 @@ class SoundMaster:
             pass
         if not self.sound_mixer.get_busy():
             self.current_playing_sound = current_sound
+            # self.sound_mixer_music.load(current_sound.get_sound_path())
+            # self.sound_mixer_music.play()
             current_sound.play()
 
     def background_play(self, game_mode):

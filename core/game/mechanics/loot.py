@@ -3,7 +3,6 @@
 
 from random import randint
 from core.game.text.damage_text import DamageText
-from constants.game_sound import error_sound, health_potion_sound, empty_sound, drum_roll_sound, gold_sound
 from core.items.equipement.equipment_generator import EquipmentGenerator
 from core.units.enemy.djinn.djinn import Djinn
 from core.units.enemy.bone.bone_wizard import BoneWizard
@@ -20,6 +19,9 @@ damage_text = DamageText()
 
 
 class LootPool:
+    def __init__(self, sound_master):
+        self.sound_master = sound_master
+
     def loot(self, caster, target, text_sprite):
         if type(target) is Bandit or type(target) is BoneWizard or type(target) is Lizard:
             self.roll_basic_loot(caster, target, text_sprite)
@@ -32,16 +34,16 @@ class LootPool:
 
         if not target.is_looted():
             if loot_chance == 0:
-                empty_sound.play()
+                self.sound_master.play_item_fx_sound('empty')
                 damage_text.warning(target, f'Empty!', text_sprite)
 
             elif loot_chance == 1:
-                health_potion_sound.play()
+                self.sound_master.play_item_fx_sound('health_potion')
                 caster.stash.add_healing_potion(1)
                 damage_text.warning(target, f'x1 Health Potion Found!', text_sprite)
 
             elif loot_chance == 2:
-                health_potion_sound.play()
+                self.sound_master.play_item_fx_sound('health_potion')
                 caster.stash.add_mana_potion(1)
                 damage_text.warning(target, f'x1 Mana Potion Found!', text_sprite)
 
@@ -50,24 +52,28 @@ class LootPool:
                 if quality_roll > target.level:
                     damage_text.warning(target, f'Food Found!', text_sprite)
                     BREAD.consume(caster, text_sprite)
+                    self.sound_master.play_item_fx_sound('eat')
                 else:
                     damage_text.warning(target, f'Large Food Found!', text_sprite)
                     LARGE_BREAD.consume(caster, text_sprite)
+                    self.sound_master.play_item_fx_sound('eat')
 
             elif loot_chance == 4:
                 quality_roll = randint(0, 50)
                 if quality_roll > target.level:
                     damage_text.warning(target, f'Drink Found!', text_sprite)
                     DRINK.consume(caster, text_sprite)
+                    self.sound_master.play_item_fx_sound('drink')
                 else:
                     damage_text.warning(target, f'Large Drink Found!', text_sprite)
                     LARGE_DRINK.consume(caster, text_sprite)
+                    self.sound_master.play_item_fx_sound('drink')
 
             elif loot_chance == 5:
                 gold = randint(1, 9) + target.level
                 caster.stash.add_gold(gold)
-                gold_sound.play()
                 damage_text.cast(target, f'{gold} Gold Found!', text_sprite)
+                self.sound_master.play_item_fx_sound('gold')
 
             target.update_looted_status()
         else:
@@ -76,7 +82,7 @@ class LootPool:
     def roll_boss_loot(self, caster, target, text_sprite):
         item_generator = EquipmentGenerator()
         if not target.is_looted():
-            drum_roll_sound.play()
+            self.sound_master.play_item_fx_sound('drum_roll')
             # Todo: Proper setup for loot boss, based on level
             roll_item = item_generator.get_item(30, 1000)
             item_name = roll_item.get_item_name()
@@ -88,8 +94,7 @@ class LootPool:
         else:
             self.loot_error(target, text_sprite)
 
-    @staticmethod
-    def loot_error(target, text_sprite):
+    def loot_error(self, target, text_sprite):
         # Todo: Init with -30y
         damage_text.warning(target, f'ALREADY LOOTED!', text_sprite)
-        error_sound.play()
+        self.sound_master.play_item_fx_sound('error')

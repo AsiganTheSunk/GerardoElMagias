@@ -14,9 +14,10 @@ damage_text = DamageText()
 
 
 class MagicSpells(CombatFormulas, CombatResolver):
-    def __init__(self):
-        CombatResolver.__init__(self)
+    def __init__(self, sound_master):
+        self.sound_master = sound_master
         CombatFormulas.__init__(self)
+        CombatResolver.__init__(self, sound_master)
 
     @staticmethod
     def cast_heal(caster, target, text_sprite):

@@ -20,7 +20,7 @@ class StageInitializer:
                           game_attributes.clock, game_attributes.fps, animation_master)
 
         self.stage_renderer.display_caption()
-        self.battle_master = BattleMaster(animation_master, game_attributes)
+        self.battle_master = BattleMaster(animation_master, sound_master, game_attributes)
         self.stage_resolver = StageResolver(sound_master, self.battle_master, self.stage_renderer, game_attributes)
 
     def run_stage(self):

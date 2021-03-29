@@ -15,12 +15,13 @@ import constants.globals
 
 
 class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'Djinn', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
-        MagicSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
+        MagicSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
+        self.sound_master = sound_master
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'Djinn', animation_master.get_unit_animation_set('Djinn'))
@@ -50,6 +51,7 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
         if self.reduce_mana(12):
             constants.globals.action_cooldown = -30
             self.cast_heal(self, self, text_sprite)
+            self.sound_master.play_spell_fx_sound('heal_spell')
             return True
         return False
 

@@ -12,9 +12,9 @@ damage_text = DamageText()
 
 
 class FurySpells(CombatFormulas, CombatResolver):
-    def __init__(self):
+    def __init__(self, sound_master):
         CombatFormulas.__init__(self)
-        CombatResolver.__init__(self)
+        CombatResolver.__init__(self, sound_master)
 
     def cast_path_of_the_seven_strikes(self, caster, target_list, text_sprite):
         multi_strike = 7

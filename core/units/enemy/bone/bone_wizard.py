@@ -19,12 +19,13 @@ damage_text = DamageText()
 
 
 class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master):
+    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
         EnemyUnit.__init__(self, x, y, 'BoneWizard', level, strength, dexterity, magic)
-        MeleeSpells.__init__(self)
-        MagicSpells.__init__(self)
+        MeleeSpells.__init__(self, sound_master)
+        MagicSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
+        self.sound_master = sound_master
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y,
                              'BoneWizard', animation_master.get_unit_animation_set('BoneWizard'))
@@ -43,7 +44,6 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
     def use_shadow_bolt(self, target, text_sprite):
         if self.reduce_mana(10):
             self.use_animation('ShadowBolt')
-            damage_text.cast(self, "Shadow Bolt!", text_sprite, 0, -30)
             self.cast_shadow_bolt(self, target, text_sprite)
             return True
         return False

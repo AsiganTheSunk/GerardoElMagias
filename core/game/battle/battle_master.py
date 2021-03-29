@@ -10,8 +10,9 @@ from core.game.constants.game_modes import GameModes
 
 
 class BattleMaster:
-    def __init__(self, animation_master, game_attributes):
+    def __init__(self, animation_master, sound_master, game_attributes):
         self.animation_master = animation_master
+        self.sound_master = sound_master
         self.game_attributes = game_attributes
 
         self.queue = []
@@ -59,10 +60,10 @@ class BattleMaster:
         enemy_fighters = []
         if self.is_boss_level():
             self.game_mode = GameModes.BOSS_BATTLE
-            enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master)]
+            enemy_fighters = [scripted_enemy(self.boss_level, self.animation_master, self.sound_master)]
         else:
             self.game_mode = GameModes.BATTLE
-            enemy_group = EnemyGroupGenerator(self.animation_master, self.game_attributes)
+            enemy_group = EnemyGroupGenerator(self.animation_master, self.sound_master, self.game_attributes)
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
         return enemy_fighters
 
@@ -85,7 +86,7 @@ class BattleMaster:
                           270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
                           # Fury Bar Coordinates x,y
                           270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
-                          self.animation_master)
+                          self.animation_master, self.sound_master)
 
     def get_total_fighters(self):
         return len(self.enemy_fighters) + len(self.friendly_fighters)

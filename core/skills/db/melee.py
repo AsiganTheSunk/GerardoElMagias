@@ -15,9 +15,9 @@ damage_text = DamageText()
 
 
 class MeleeSpells(CombatFormulas, CombatResolver):
-    def __init__(self):
-        CombatResolver.__init__(self)
+    def __init__(self, sound_master):
         CombatFormulas.__init__(self)
+        CombatResolver.__init__(self, sound_master)
 
     def cast_attack(self, caster, target, text_sprite, multi_strke=False):
         # Calculate Basic Damage: Based on Strength
