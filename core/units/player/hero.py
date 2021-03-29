@@ -83,7 +83,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         # Consume Mana: Spell Casting
         if self.reduce_mana(20):
             constants.globals.action_cooldown = -30
-            self.aoe_experience_helper(self, target_list, self.cast_firestorm, text_sprite)
+            self.cast_firestorm(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
 
@@ -94,7 +94,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         # Consume Mana: Spell Casting
         if self.reduce_mana(16):
             constants.globals.action_cooldown = -30
-            self.aoe_experience_helper(self, target_list, self.cast_lightning, text_sprite)
+            self.cast_lightning(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('lightning_spell')
             return True
 
@@ -105,7 +105,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         # Consume Mana: Spell Casting
         if self.reduce_mana(14):
             constants.globals.action_cooldown = -40
-            self.aoe_experience_helper(self, target_list, self.cast_earth_shock, text_sprite)
+            self.cast_earth_shock(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')
             return True
 
@@ -116,7 +116,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         # Consume Mana: Spell Casting
         if self.reduce_mana(18):
             constants.globals.action_cooldown = -50
-            self.aoe_experience_helper(self, target_list, self.cast_water_nova, text_sprite)
+            self.cast_water_nova(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')
             return True
 
