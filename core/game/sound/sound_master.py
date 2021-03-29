@@ -13,6 +13,7 @@ class SoundMaster:
         self.muted = True
         self.sound_mixer = mixer
         self.sound_mixer_music = mixer.music
+        self.sound_mixer_music.set_volume(0.1)
         self.sound_mixer.pre_init(44100, -16, 2, 4096)
 
         sound_loader = SoundLoader(self.sound_mixer)
@@ -20,7 +21,7 @@ class SoundMaster:
         self.sound_effects = SoundEffects()
         self.stage_sound_selector = StageSoundSelector(self.sounds)
 
-        self.current_playing_sound = None
+        self.current_music_playing = None
         self.previous_game_mode = None
 
     def play_unit_fx_sound(self, unit_fx_sound):
@@ -44,17 +45,16 @@ class SoundMaster:
         else:
             if game_mode is not self.previous_game_mode:
                 self.previous_game_mode = game_mode
-                if self.sound_mixer.get_busy():
-                    self.sound_mixer.fadeout(1)
+                if self.sound_mixer_music.get_busy():
+                    self.sound_mixer_music.fadeout(1)
 
-    def update_play_sound(self, current_sound):
+    def update_play_sound(self, current_music):
         if self.muted:
             pass
-        if not self.sound_mixer.get_busy():
-            self.current_playing_sound = current_sound
-            # self.sound_mixer_music.load(current_sound.get_sound_path())
-            # self.sound_mixer_music.play()
-            current_sound.play()
+        if not self.sound_mixer_music.get_busy():
+            self.current_music_playing = current_music
+            self.sound_mixer_music.load(current_music.get_sound_path())
+            self.sound_mixer_music.play()
 
     def background_play(self, game_mode):
         # Background Sound Procedure
