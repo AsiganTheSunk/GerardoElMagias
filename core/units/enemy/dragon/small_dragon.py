@@ -35,7 +35,7 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
@@ -63,16 +63,16 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
         if health_trigger:
             random_action = randint(1, 3)
             if random_action == 1:
-                self.attack(target, text_sprite)
+                self.use_attack(target, text_sprite)
             elif random_action == 2:
                 if self.use_heal(text_sprite):
                     pass
                 else:
-                    self.attack(target, text_sprite)
+                    self.use_attack(target, text_sprite)
             elif random_action == 3:
                 if self.use_firestorm([target], text_sprite):
                     pass
                 else:
-                    self.attack(target, text_sprite)
+                    self.use_attack(target, text_sprite)
         else:
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)

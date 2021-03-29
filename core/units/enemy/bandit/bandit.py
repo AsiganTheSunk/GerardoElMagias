@@ -34,12 +34,12 @@ class Bandit(EnemyUnit, MeleeSpells):
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
-    def strong_attack(self, target, text_sprite):
+    def use_strong_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_strong_attack(self, target, text_sprite)
         return True
@@ -62,4 +62,4 @@ class Bandit(EnemyUnit, MeleeSpells):
             self.use_healing_potion(text_sprite)
             self.update_try_to_consume_health_potion()
         else:
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)

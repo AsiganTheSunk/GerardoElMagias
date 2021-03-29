@@ -55,7 +55,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
     def get_loot(self, target, text_sprite):
         self.loot_pool.loot(self, target, text_sprite)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True

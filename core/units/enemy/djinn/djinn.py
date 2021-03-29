@@ -35,12 +35,12 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
 
-    def power_of_two_attack(self, target, text_sprite):
+    def use_power_of_two_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_power_of_two_attack(target, text_sprite, self.power_of_two_exponent)
         self.power_of_two_exponent += 1
@@ -58,7 +58,7 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.70)
         if self.action_counter % 2:
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)
         else:
             if health_trigger:
                 random_action = randint(1, 2)
@@ -66,10 +66,10 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
                     if self.current_mp >= 12:
                         self.use_heal(text_sprite)
                     else:
-                        self.power_of_two_attack(target, text_sprite)
+                        self.use_power_of_two_attack(target, text_sprite)
                 if random_action == 2:
-                    self.power_of_two_attack(target, text_sprite)
+                    self.use_power_of_two_attack(target, text_sprite)
 
             else:
-                self.power_of_two_attack(target, text_sprite)
+                self.use_power_of_two_attack(target, text_sprite)
         self.action_counter += 1

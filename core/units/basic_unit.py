@@ -117,7 +117,7 @@ class BasicUnit:
                 self.next_action[0] == 'attack':
             target = self.next_action[1]
 
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)
         if self.next_action and \
                 self.next_action[0] == 'use' \
                 and self.next_action[1] == 'healing_potion':

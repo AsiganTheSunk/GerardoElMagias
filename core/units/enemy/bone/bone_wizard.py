@@ -36,7 +36,7 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
@@ -54,6 +54,6 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
             if self.use_shadow_bolt(target, text_sprite):
                 pass
             else:
-                self.attack(target, text_sprite)
+                self.use_attack(target, text_sprite)
         if random_action == 2:
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)

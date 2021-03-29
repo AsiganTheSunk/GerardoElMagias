@@ -30,7 +30,7 @@ class Lizard(EnemyUnit, MeleeSpells):
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
 
-    def attack(self, target, text_sprite):
+    def use_attack(self, target, text_sprite):
         self.use_animation('Attack')
         self.cast_attack(self, target, text_sprite)
         return True
@@ -38,12 +38,12 @@ class Lizard(EnemyUnit, MeleeSpells):
     def action(self, target, text_sprite):
         if self.has_enough_fury(40):
             if self.ultimate_strikes < 3:
-                self.attack(target, text_sprite)
+                self.use_attack(target, text_sprite)
                 self.ultimate_strikes += 1
                 constants.globals.action_cooldown = 70
             else:
-                self.attack(target, text_sprite)
+                self.use_attack(target, text_sprite)
                 self.ultimate_strikes = 1
                 self.current_fury = 0
         else:
-            self.attack(target, text_sprite)
+            self.use_attack(target, text_sprite)
