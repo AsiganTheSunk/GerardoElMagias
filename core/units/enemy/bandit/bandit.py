@@ -5,8 +5,6 @@ from core.skills.db.melee import MeleeSpells
 from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
 from core.units.player.resources.stash import Stash
-from random import randint
-from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
@@ -14,12 +12,12 @@ from core.items.consumable.db.consumable_db import HEALTH_POTION
 
 # Init: Damage Text, CombatTextResolver
 damage_text = DamageText()
-combat_text_resolver = CombatTextResolver()
 
 
 class Bandit(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Bandit', level, strength, dexterity, magic)
+    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                 health_bar_x, health_bar_y, animation_master, sound_master):
+        EnemyUnit.__init__(self, x, y, 'Bandit', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)

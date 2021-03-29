@@ -1,28 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import constants.globals
 from random import randint
-
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
 from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
-
-from core.game.text.combat_text_resolver import CombatTextResolver
-from core.game.text.damage_text import DamageText
-
-# Animation Imports
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
-
-# Init: Damage Text, CombatTextResolver
-damage_text = DamageText()
-combat_text_resolver = CombatTextResolver()
 
 
 class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Dragon', level, strength, dexterity, magic)
+    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                 health_bar_x,  health_bar_y, animation_master, sound_master):
+        EnemyUnit.__init__(self, x, y, 'Dragon', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
 
@@ -42,7 +32,6 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
     def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(12):
-            constants.globals.action_cooldown = -30
             self.cast_heal(self, self, text_sprite)
             self.sound_master.play_spell_fx_sound('heal_spell')
             return True
@@ -51,7 +40,6 @@ class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
     def use_firestorm(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
         if self.reduce_mana(15):
-            constants.globals.action_cooldown = -30
             self.cast_firestorm(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True

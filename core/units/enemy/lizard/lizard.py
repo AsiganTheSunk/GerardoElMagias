@@ -13,8 +13,9 @@ from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Lizard(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Lizard', level, strength, dexterity, magic)
+    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                 health_bar_x, health_bar_y, animation_master, sound_master):
+        EnemyUnit.__init__(self, x, y, 'Lizard', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
 
         self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)

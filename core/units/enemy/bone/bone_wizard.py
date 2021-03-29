@@ -3,24 +3,16 @@
 
 from core.units.enemy_unit import EnemyUnit
 from core.units.resources.health_bar import HealthBar
-from core.game.text.damage_text import DamageText
-
-# Text Import
 from random import randint
-
-# Skill Imports
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
-
-# Animation Imports
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
-
-damage_text = DamageText()
 
 
 class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, strength, dexterity, magic, health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'BoneWizard', level, strength, dexterity, magic)
+    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                 health_bar_x, health_bar_y, animation_master, sound_master):
+        EnemyUnit.__init__(self, x, y, 'BoneWizard', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
 

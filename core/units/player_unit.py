@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 from core.units.basic_unit import BasicUnit
+from core.units.basic_player_unit import BasicPlayerUnit
 
 
-class PlayerUnit(BasicUnit):
+class PlayerUnit(BasicUnit, BasicPlayerUnit):
     def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+        BasicUnit.__init__(self)
+        BasicPlayerUnit.__init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck)
 
-        self.vitality = vitality
-        self.resilience = resilience
-        self.luck = luck
+        self.attack_rating = self.dexterity * 1
+        self.attack_power = self.strength * 1
+        self.magic_power = self.magic * 1
 
         # Basic Resource Stats: Fury, Mana, Health
         self.max_hp = self.vitality * 3

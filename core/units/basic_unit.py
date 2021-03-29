@@ -3,23 +3,7 @@
 
 
 class BasicUnit:
-    def __init__(self, x, y, name, level, strength, dexterity, magic):
-
-        # Basic Unit Coordinates x,y
-        self.x = x
-        self.y = y
-
-        # Basic Unit Name
-        self.name = name
-
-        # Basic Unit Stats
-        self.level = level
-
-        # Basic Attribute Stats: Strength, Dexterity, Vitality, Magic, Resilience, Luck
-        self.strength = strength
-        self.dexterity = dexterity
-        self.magic = magic
-
+    def __init__(self):
         # Basic Resource Stats: Fury, Mana, Health
         self.max_fury = 100
         self.current_fury = 0

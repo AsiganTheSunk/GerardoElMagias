@@ -60,6 +60,10 @@ class ExperienceMaster:
         self.player.resilience += resilience_raise
         self.player.luck += luck_raise
 
+        self.player.attack_power = self.player.strength * 1
+        self.player.attack_rating = self.player.dexterity * 1
+        self.player.magic_power = self.player.magic * 1
+
         # calculate max hp and max mp
         self.player.max_hp = self.player.vitality * 3
         self.player.current_hp = self.player.current_hp + vitality_raise * 3
@@ -80,16 +84,3 @@ class ExperienceMaster:
                 self.experience_master_logger.log_debug_message(f'Player Kills {target_list[index].__class__.__name__} '
                                                                 f'and Gains +{target_list[index].level} XP')
                 damage_text.cast(self.player, "+EXP!", text_sprite)
-
-    def aoe_experience_helper(self, caster, target_list, aoe_spell, text_sprite):
-        # Pre Save State for Enemy List: target_list
-        pre_target_list = get_alive_targets_status(target_list)
-
-        # Cast Spell
-        aoe_spell(caster, target_list, text_sprite)
-
-        # Post Save State for Enemy List: target_list
-        pos_target_list = get_alive_targets_status(target_list)
-
-        # Evaluate Kills
-        self.evaluate_group_kill(target_list, pre_target_list, pos_target_list, text_sprite)

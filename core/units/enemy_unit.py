@@ -2,11 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from core.units.basic_unit import BasicUnit
+from core.units.basic_enemy_unit import BasicEnemyUnit
 
 
-class EnemyUnit(BasicUnit):
-    def __init__(self, x, y, name, level, strength, dexterity, magic):
-        BasicUnit.__init__(self, x, y, name, level, strength, dexterity, magic)
+class EnemyUnit(BasicUnit, BasicEnemyUnit):
+    def __init__(self, x, y, name, level, attack_power, attack_rating, magic_power, max_hp, max_mp):
+        BasicUnit.__init__(self)
+        BasicEnemyUnit.__init__(self, x, y, name, level, attack_power, attack_rating, magic_power)
+
+        self.max_hp = max_hp
+        self.current_hp = self.max_hp
+        self.max_mp = max_mp
+        self.current_mp = self.max_mp
 
         self.looted_status = False
         self.try_to_consume_health_potion = False

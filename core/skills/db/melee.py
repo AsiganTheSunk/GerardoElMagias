@@ -22,7 +22,8 @@ class MeleeSpells(CombatFormulas, CombatResolver):
     def cast_attack(self, caster, target, text_sprite, multi_strke=False):
         # Calculate Basic Damage: Based on Strength
         base_damage = randint(0, 6)
-        output_damage = (caster.strength * 1) + base_damage
+
+        output_damage = (caster.attack_power * 1) + base_damage
 
         input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
         self.resolve_attack(caster, target, input_damage, input_type, text_sprite, multi_strke)
@@ -30,7 +31,7 @@ class MeleeSpells(CombatFormulas, CombatResolver):
     def cast_strong_attack(self, caster, target, text_sprite):
         # Calculate Basic Damage: Based on Strength
         base_damage = randint(0, 0)
-        output_damage = (caster.strength * 3) + base_damage
+        output_damage = (caster.attack_power * 3) + base_damage
 
         input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
         self.resolve_attack(caster, target, input_damage, input_type, text_sprite)

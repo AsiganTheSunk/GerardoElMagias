@@ -34,7 +34,7 @@ class FurySpells(CombatFormulas, CombatResolver):
             input_damage_list = []
             input_type_list = []
             for _ in target_list:
-                output_damage = round(caster.strength * 1.5)
+                output_damage = round(caster.attack_power * 1.5)
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
                 input_type_list.append(input_type)

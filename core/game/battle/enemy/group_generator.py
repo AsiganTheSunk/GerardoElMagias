@@ -51,28 +51,19 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
 
     def get_enemy(self, enemy_type, level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y):
         if enemy_type is UnitType.BANDIT:
-            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_bandit_stats(level)
-            return self.create_enemy(Bandit(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
-                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
-                                            self.sound_master), max_hp, max_mp)
+            random_level, attack_power, attack_rating, magic_power, max_hp, max_mp = self.generate_bandit_stats(level)
+            return Bandit(enemy_pos_x, enemy_pos_y, random_level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master, self.sound_master)
 
         elif enemy_type is UnitType.LIZARD:
-            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_lizard_stats(level)
-            return self.create_enemy(Lizard(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
-                                            enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
-                                            self.sound_master), max_hp, max_mp)
+            random_level, attack_power, attack_rating, magic_power, max_hp, max_mp = self.generate_lizard_stats(level)
+            return Lizard(enemy_pos_x, enemy_pos_y, random_level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                          enemy_healthbar_x, enemy_healthbar_y, self.animation_master, self.sound_master)
 
         elif enemy_type is UnitType.BONE_WIZARD:
-            random_level, strength, dexterity, magic, max_hp, max_mp = self.generate_bone_wizard_stats(level)
-            return self.create_enemy(BoneWizard(enemy_pos_x, enemy_pos_y, random_level, strength, dexterity, magic,
-                                                enemy_healthbar_x, enemy_healthbar_y, self.animation_master,
-                                                self.sound_master), max_hp, max_mp)
-
-    @staticmethod
-    def create_enemy(enemy, max_hp, max_mp):
-        enemy.set_max_hp(max_hp)
-        enemy.set_max_mp(max_mp)
-        return enemy
+            random_level, attack_power, attack_rating, magic_power, max_hp, max_mp = self.generate_bone_wizard_stats(level)
+            return BoneWizard(enemy_pos_x, enemy_pos_y, random_level, attack_power, attack_rating, magic_power, max_hp, max_mp,
+                              enemy_healthbar_x, enemy_healthbar_y, self.animation_master, self.sound_master)
 
     def generate_enemy(self, level, boss_level):
         enemy_group = []
@@ -85,29 +76,28 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
             enemy_healthbar_x, enemy_healthbar_y = enemy_healthbar_positions[index]
             current_enemy = self.get_enemy(enemy_set[index], level, enemy_pos_x, enemy_pos_y, enemy_healthbar_x, enemy_healthbar_y)
             enemy_group.append(current_enemy)
-
         return enemy_group
 
     def scripted_enemy(self, boss_level, animation_master, sound_master):
         bosses = [
             None,
-            self.create_enemy(BanditChief(650, 475, 10, 17, 10, 0,
-                                          680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                          animation_master, sound_master), 214, 0),
-            self.create_enemy(Djinn(750, 400, 14, 0, 25, 20,
-                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                    animation_master, sound_master), 278, 40),
-            self.create_enemy(SmallDragon(730, 438, 18, 18, 7, 12,
-                                          680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                          animation_master, sound_master), 332, 50),
-            self.create_enemy(Dragon(800, 352, 22, 20, 8, 22,
-                                     680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                     animation_master, sound_master), 400, 70),
-            self.create_enemy(Demon(800, 365, 26, 31, 12, 18,
-                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                    animation_master, sound_master), 480, 50),
-            self.create_enemy(Demon(600, 365, 30, 41, 25, 25,
-                                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
-                                    animation_master, sound_master), 666, 80),
+            BanditChief(650, 475, 10, 17, 10, 0, 214, 0,
+                        680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                        animation_master, sound_master),
+            Djinn(750, 400, 14, 0, 25, 20, 278, 40,
+                  680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                  animation_master, sound_master),
+            SmallDragon(730, 438, 18, 18, 7, 12, 332, 50,
+                        680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                        animation_master, sound_master),
+            Dragon(800, 352, 22, 20, 8, 22, 400, 70,
+                   680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                   animation_master, sound_master),
+            Demon(800, 365, 26, 31, 12, 18, 480, 50,
+                  680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                  animation_master, sound_master),
+            Demon(600, 365, 30, 41, 25, 25, 666, 80,
+                  680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
+                  animation_master, sound_master),
         ]
         return bosses[boss_level]
