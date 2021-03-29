@@ -15,7 +15,7 @@ TILE_SIZE = 50
 pygame.init()
 
 # - window -
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((1280, 720))
 screen_rect = screen.get_rect()
 
 # - map - (with random rectangles)

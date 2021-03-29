@@ -16,7 +16,7 @@ SCREEN_START_SIZE = (500, 500)
 
 
 class Control(object):
-    """A simple control class."""
+    """A simple control category."""
     def __init__(self):
         """
         Initialize all of the usual suspects. If the os.environ line is

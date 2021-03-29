@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import draw
-from constants.basic_colors import *
+from constants.game_colors import GRAY_COLOR, BLUE_COLOR
 
 
 class ManaBar:

@@ -1,5 +1,9 @@
-from core.units.resources.backpack import BackPack
-from tests.static_resources import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from tests.static_resources import static_dual, static_body, static_amulet, static_ring0, static_ring1, \
+    static_ring2, static_off_weapon, static_main_weapon
+from core.units.player.resources.backpack import BackPack
 
 
 def test_backpack():

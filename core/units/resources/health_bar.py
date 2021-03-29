@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import draw
-from constants.basic_colors import GRAY_COLOR, GREEN_COLOR
+from constants.game_colors import GRAY_COLOR, GREEN_COLOR
 
 
 class HealthBar:
