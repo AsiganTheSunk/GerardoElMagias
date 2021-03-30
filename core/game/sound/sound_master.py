@@ -70,7 +70,6 @@ class SoundMaster:
 
         # Victory Defeat Sound Procedures
         self.victory_sound_play(game_mode)
-        # self.defeat_sound_play(game_mode)
 
     def background_sound_play(self, game_mode):
         background_stage_sound = self.stage_sound_selector.current_stage.background_sound
@@ -87,7 +86,6 @@ class SoundMaster:
     def defeat_sound_play(self, game_mode):
         defeat_sound = self.stage_sound_selector.current_stage.defeat_sound
         if game_mode is GameModes.DEFEAT:
-            # self.stop_previous_sound()
             self.update_play_sound(defeat_sound)
 
     def boss_sound_play(self, game_mode):

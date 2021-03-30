@@ -23,3 +23,5 @@ logs/CombatResolver.log
 logs/ExperienceMaster.log
 
 logs/LootMaster.log
+
+logs/StageTreeBuilder.log
