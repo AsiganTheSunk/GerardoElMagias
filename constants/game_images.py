@@ -22,8 +22,8 @@ background_spell_book_image = image.load("resources/image/background/spell_book.
 spell_book_button_image = image.load("resources/image/button/spell_book.png")
 exit_book_button_image = image.load("resources/image/button/exit_book.png")
 restart_button_image = image.load("resources/image/button/restart.png")
-skull_button_image = image.load("resources//image/button/skull.png")
-
+skull_button_image = image.load("resources/image/button/skull.png")
+kill_button_image = image.load("resources/image/button/kill.png")
 
 # ==============================================================
 # Consumable Images:

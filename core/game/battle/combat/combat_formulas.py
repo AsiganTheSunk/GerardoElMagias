@@ -11,20 +11,24 @@ class CombatFormulas:
         return base_damage * multiplier
 
     @staticmethod
-    def melee_critical_chance(hit_chance, attack_rating):
-        return hit_chance <= round(attack_rating/2)
+    def melee_critical_chance(hit_resolution, attack_rating):
+        # print('Critical Hit Chance', (hit_resolution, round(attack_rating / 2)), hit_resolution <= round(attack_rating / 2))
+        return hit_resolution <= round(attack_rating / 2)
 
     @staticmethod
-    def spell_critical_chance(hit_chance, magic_power):
-        return hit_chance < round(magic_power/2)
+    def spell_critical_chance(hit_resolution, magic_power):
+        return hit_resolution <= round(magic_power / 2)
 
     @staticmethod
-    def melee_miss_chance(hit_chance, attack_rating):
-        return hit_chance > 85 + round(attack_rating/5)
+    def melee_hit_chance(hit_resolution, attack_rating):
+        # print('Hit Chance', (hit_resolution, 85 + round(attack_rating / 5)), hit_resolution < 85 + round(attack_rating / 5))
+        return hit_resolution < 85 + round(attack_rating / 5)
 
     @staticmethod
-    def melee_block_chance(shield_value=5):
-        return shield_value > randint(1, 100)
+    def melee_block_chance(block_chance=5):
+        block_resolution = randint(1, 100)
+        # print('Block Chance', (block_resolution, block_chance), block_resolution <= block_chance)
+        return block_resolution <= block_chance
 
     @staticmethod
     def hit_resolution():
@@ -32,8 +36,10 @@ class CombatFormulas:
         return randint(1, 100)
 
     def melee_attack_resolution(self, caster, output_damage, hit_resolution):
-        if not self.melee_miss_chance(hit_resolution, caster.attack_rating):
-            if not self.melee_block_chance(caster.attack_rating):
+        # print()
+        # print('//////////' * 8)
+        if self.melee_hit_chance(hit_resolution, caster.attack_rating):
+            if not self.melee_block_chance():
                 if self.melee_critical_chance(hit_resolution, caster.attack_rating):
                     return self.critical_hit(output_damage), CombatTypeResolution.CRITICAL_HIT
                 return output_damage, CombatTypeResolution.HIT

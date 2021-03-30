@@ -16,10 +16,8 @@ import constants.globals
 
 # Master Game Engine Imports
 from core.game.constants.game_modes import GameModes
-
 from core.game.text.damage_text import DamageText
-
-from constants.game_images import skull_button_image, spell_book_button_image, \
+from constants.game_images import skull_button_image, spell_book_button_image, kill_button_image, \
     health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image
 
 # Init DamageText
@@ -52,6 +50,7 @@ class StageResolver:
         self.whirlwind_button.hidden = True
 
         kill_all_button = Button('kill_all', 30, 260, skull_button_image, 60, 60)
+        kill_switch_button = Button('kill_switch', 30, 350, kill_button_image, 60, 60)
 
         self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
@@ -61,7 +60,8 @@ class StageResolver:
         spell_book_button.on_click(self.toggle_player_spell_book)
         self.ultimate_button.on_click(self.handle_ultimate_click)
         self.whirlwind_button.on_click(self.handle_whirlwind_click)
-        kill_all_button.on_click(self.kill_switch)
+        kill_all_button.on_click(self.kill_switch_and_next)
+        kill_switch_button.on_click(self.kill_switch)
         self.next_button.on_click(self.handle_next_click)
 
         self.stage_renderer.add(mana_potion_button)
@@ -70,6 +70,7 @@ class StageResolver:
         self.stage_renderer.add(self.ultimate_button)
         self.stage_renderer.add(self.whirlwind_button)
         self.stage_renderer.add(kill_all_button)
+        self.stage_renderer.add(kill_switch_button)
         self.stage_renderer.add(self.next_button)
 
         self.spell_book = SpellBook(self.battle_master, self.game_attributes.text_sprite,
@@ -191,5 +192,16 @@ class StageResolver:
             if target_unit.alive:
                 target_unit.death()
                 target_unit.use_animation('Death')
+                self.battle_master.friendly_fighters[0].experience_to_gain += target_unit.level
 
         self.battle_master.move_to_victory_phase()
+
+    def kill_switch_and_next(self, event, button):
+        for target_unit in self.battle_master.enemy_fighters:
+            if target_unit.alive:
+                target_unit.death()
+                target_unit.use_animation('Death')
+                self.battle_master.friendly_fighters[0].experience_to_gain += target_unit.level
+
+        self.battle_master.move_to_victory_phase()
+        self.battle_master.next_level()
