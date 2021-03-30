@@ -47,6 +47,7 @@ class SpellBook(UILayout):
 
     def cast_spell(self, name, caster, target, text_sprite):
         if name == 'lightning_spell' and caster.use_lightning_spell(target, text_sprite):
+            self.add_effect(target, 'lightning')
             return True
         elif name == 'firestorm_spell' and caster.use_firestorm_spell(target, text_sprite):
             self.add_effect(target, 'firestorm')

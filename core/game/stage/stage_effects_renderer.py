@@ -3,7 +3,8 @@
 
 from core.skills.effects_db.fire_skill_effect import FireSkillEffect
 from core.skills.effects_db.earth_skill_effect import EarthShockSkillEffect
-from core.skills.effects_db.water_nova_skill_effect import MagicNovaSkillEffect
+from core.skills.effects_db.water_nova_skill_effect import WaterNovaSkillEffect
+from core.skills.effects_db.lightnning_skills_effect import LightningSkillEffect
 
 
 class StageEffectsRenderer:
@@ -24,7 +25,12 @@ class StageEffectsRenderer:
 
         if spell == 'water_nova':
             for target in target_list:
-                magic_nova_effect = MagicNovaSkillEffect(target, self.animation_master)
+                magic_nova_effect = WaterNovaSkillEffect(target, self.animation_master)
+                self.animation_effects.append(magic_nova_effect)
+
+        if spell == 'lightning':
+            for target in target_list:
+                magic_nova_effect = LightningSkillEffect(target, self.animation_master)
                 self.animation_effects.append(magic_nova_effect)
 
     def update_effects(self):

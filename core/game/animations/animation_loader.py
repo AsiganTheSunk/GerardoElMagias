@@ -44,7 +44,8 @@ class AnimationLoader:
                 self.animation_loader_logger.log_debug_message(f'Animation Resource: {animation_resource.animation_type.value}')
                 animation_set.append(self.load_resource_sequence(
                     resource_type, animation_set_type.value,
-                    animation_resource.animation_type, animation_resource.frames))
+                    animation_resource.animation_type, animation_resource.frames,
+                    animation_resource.scale_x, animation_resource.scale_y))
 
             animation_sets[animation_set_type.value + 'CallBacks'] = animation_set_callbacks
             animation_sets[animation_set_type.value] = animation_set
@@ -53,7 +54,7 @@ class AnimationLoader:
         self.animation_loader_logger.log_debug_message('Done.')
         return animation_sets
 
-    def load_resource_sequence(self, resource_type, name, animation, sequence_length, x_scale=2, y_scale=2):
+    def load_resource_sequence(self, resource_type, name, animation, sequence_length, x_scale, y_scale):
         # Load: Unit Animation Sequence based on Resource Type
         animation_sequence = []
         for index in range(sequence_length):
@@ -65,6 +66,6 @@ class AnimationLoader:
         self.animation_loader_logger.log_debug_message('> ' + image_path)
         loaded_image = image.load(image_path)
         normalized_image = transform.scale(loaded_image,
-                                           (loaded_image.get_width() * x_scale,
-                                            loaded_image.get_height() * y_scale))
+                                           (round(loaded_image.get_width() * x_scale),
+                                            round(loaded_image.get_height() * y_scale)))
         return normalized_image

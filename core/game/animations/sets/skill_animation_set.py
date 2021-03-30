@@ -6,13 +6,13 @@ from core.game.animations.animation_set import AnimationSet
 
 
 class SkillAnimationSet(AnimationSet):
-    def __init__(self, surface, x, y, skill_name, animation_list):
+    def __init__(self, surface, x, y, skill_name, animation_list, additional_cycles=0):
         AnimationSet.__init__(self, x, y, skill_name, animation_list)
 
         self.surface = surface
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.additional_cycles = 0
+        self.additional_cycles = additional_cycles
 
     def update(self, animation_cooldown=100):
         # Evaluate if animation is finished

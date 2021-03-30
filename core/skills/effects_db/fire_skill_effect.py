@@ -17,4 +17,4 @@ class FireSkillEffect(BasicSkillEffect):
 
         self.target_skill_set_effect = \
             SkillAnimationSet(self.animation_master.surface, target_x, target_y, 'Firestorm',
-                              self.animation_master.get_skill_animation_set('Firestorm'))
+                              self.animation_master.get_skill_animation_set('Firestorm'), 1)

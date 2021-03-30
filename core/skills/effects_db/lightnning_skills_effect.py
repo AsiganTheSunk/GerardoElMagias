@@ -5,7 +5,7 @@ from core.skills.basic_skill_effect import BasicSkillEffect
 from core.game.animations.sets.skill_animation_set import SkillAnimationSet
 
 
-class WaterNovaSkillEffect(BasicSkillEffect):
+class LightningSkillEffect(BasicSkillEffect):
     def __init__(self, target, animation_master):
         BasicSkillEffect.__init__(self, target)
 
@@ -16,5 +16,5 @@ class WaterNovaSkillEffect(BasicSkillEffect):
             caster_x, caster_y = self.caster_center
 
         self.target_skill_set_effect = \
-            SkillAnimationSet(self.animation_master.surface, target_x, target_y, 'Water_Nova',
-                              self.animation_master.get_skill_animation_set('Water_Nova'))
+            SkillAnimationSet(self.animation_master.surface, target_x, target_y - 100, 'Lightning',
+                              self.animation_master.get_skill_animation_set('Lightning'))

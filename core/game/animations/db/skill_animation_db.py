@@ -18,4 +18,8 @@ SKILL_ANIMATION_SETS = {
     SkillType.WATER_NOVA: [
         AnimationResource(SkillAnimationType.CAST, 12),
     ],
+
+    SkillType.LIGHTNING: [
+        AnimationResource(SkillAnimationType.CAST, 8, 0.25, 0.25),
+    ],
 }
