@@ -78,6 +78,9 @@ class ExperienceMaster:
         self.player.max_mp = self.player.magic * 2 + self.player.resilience
         self.player.current_mp = self.player.current_mp + magic_raise * 2 + resilience_raise
 
+        self.player.re_calculate_hero_stats()
+
+
     def evaluate_kill(self, target, text_sprite):
         if not target.alive:
             self.experience_to_gain += target.level

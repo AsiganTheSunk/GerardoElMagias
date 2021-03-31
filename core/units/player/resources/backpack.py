@@ -42,11 +42,10 @@ class BackPack:
         total_vitality = 0
         total_luck = 0
 
-        # Basic Attribute Resource: Fury, Health, Mana
+        # Calculated Attribute Resource: Fury, Health, Mana, AttackPower, AttackRating, MagicPower
         total_max_fury = 0
         total_max_hp = 0
         total_max_mp = 0
-
         total_attack_power = 0
         total_attack_rating = 0
         total_magic_power = 0
@@ -70,7 +69,6 @@ class BackPack:
             total_max_mp += backpack_item.max_mp
             total_max_fury += backpack_item.max_fury
 
-        print('\nADD:')
         print(f'T_Strength: {total_strength}, T_Dexterity: {total_dexterity}, T_Magic: {total_magic}, '
               f'T_Vitality: {total_vitality}, T_Resilience: {total_resilience}, T_Luck: {total_luck}, '
               f'T_AttackPower: {total_attack_power}, T_AttackRating: {total_attack_rating}, T_MagicPower: {total_magic_power} '

@@ -162,12 +162,12 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         total_attack_power, total_attack_rating, total_magic_power, \
         total_max_hp, total_max_mp, total_max_fury = self.get_bonus_stats()
 
-        print('\nCURRENT_TOTAL:')
-        print('///////////' * 8)
-        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
-              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
-              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power}, '
-              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+        # print('\nCURRENT_TOTAL:')
+        # print('///////////' * 8)
+        # print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+        #       f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+        #       f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power}, '
+        #       f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
 
         self.strength += total_strength
         self.dexterity += total_dexterity
@@ -188,12 +188,12 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         self.max_mp = (self.magic * 2 + self.resilience) + total_max_mp
         self.current_mp = self.current_mp + (self.max_mp - previous_max_mp)
 
-        print('\nNEW_CURRENT_TOTAL:')
-        print('///////////' * 8)
-        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
-              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
-              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
-              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+        # print('\nNEW_CURRENT_TOTAL:')
+        # print('///////////' * 8)
+        # print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+        #       f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+        #       f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
+        #       f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
 
     def reset_to_raw_stats(self):
         self.strength = self.raw_strength
@@ -212,10 +212,10 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
         self.max_mp = self.magic * 2 + self.resilience
         self.current_mp = self.max_mp
 
-        print('\nRESET_CURRENT_TOTAL:')
-        print('///////////' * 8)
-        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
-              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
-              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
-              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+        # print('\nRESET_CURRENT_TOTAL:')
+        # print('///////////' * 8)
+        # print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+        #       f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+        #       f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
+        #       f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
 
