@@ -18,12 +18,12 @@ PREFIX_ATTRIBUTE_POOL = [
 
 
     # Magic Power Prefix: Name, Item Level, Attribute Type, Minimum Attribute, Maximum Attribute, Allowed Item Type
-    BasicAffix('Brillante', 1, AffixAttributeType.MAGIC_POWER, 1, 3,
-          [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
-    BasicAffix('Reluciente', 10, AffixAttributeType.MAGIC_POWER, 4, 6,
-          [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
-    BasicAffix('Resplandeciente', 20, AffixAttributeType.MAGIC_POWER, 7, 10,
-          [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
+    BasicAffix('Brillante', 1, AffixAttributeType.MAGIC, 1, 3,
+               [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
+    BasicAffix('Reluciente', 10, AffixAttributeType.MAGIC, 4, 6,
+               [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
+    BasicAffix('Resplandeciente', 20, AffixAttributeType.MAGIC, 7, 10,
+               [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD, EquipmentItemType.RING, EquipmentItemType.AMULET]),
 
 
     # Block Chance Prefix: Name, Item Level, Attribute Type, Minimum Attribute, Maximum Attribute, Allowed Item Type

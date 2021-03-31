@@ -14,12 +14,12 @@ from core.items.equipement.category.ring import Ring
 from core.items.equipement.category.melee_weapon import MeleeWeapon
 
 # Static Affix:
-static_prefix = [BasicAffix('Resplandeciente', 20, AffixAttributeType.MAGIC_POWER, 7, 10,
-                       [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
+static_prefix = [BasicAffix('Resplandeciente', 20, AffixAttributeType.MAGIC, 7, 10,
+                            [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                         EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
-static_prefix1 = [BasicAffix('Reluciente', 10, AffixAttributeType.MAGIC_POWER, 4, 6,
-                        [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
+static_prefix1 = [BasicAffix('Reluciente', 10, AffixAttributeType.MAGIC, 4, 6,
+                             [EquipmentItemType.WEAPON, EquipmentItemType.ARMOR, EquipmentItemType.SHIELD,
                          EquipmentItemType.RING, EquipmentItemType.AMULET])]
 
 static_suffix = [BasicAffix('de Vida', 1, AffixAttributeType.HEALTH, 5, 15,

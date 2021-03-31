@@ -14,6 +14,7 @@ import constants.globals
 from core.game.mechanics.loot_master import LootMaster
 from core.units.player_unit import PlayerUnit
 from core.units.resources.health_bar import HealthBar
+from core.units.player.resources.backpack import BackPack
 from random import randint
 
 # Animation Imports
@@ -48,6 +49,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
         self.fury_status = True
         self.loot_pool = LootMaster(self.sound_master)
+        self.backpack = BackPack()
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
@@ -146,3 +148,74 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
     def no_action_error(self, name, text_sprite):
         damage_text.warning(self, f' No {name} !', text_sprite)
         self.sound_master.play_item_fx_sound('error')
+
+    def get_bonus_stats(self):
+        return self.backpack.get_stats()
+
+    def re_calculate_hero_stats(self):
+        self.reset_to_raw_stats()
+        self.calculate_hero_stats()
+
+    # Todo: Improve implementation here.
+    def calculate_hero_stats(self):
+        total_strength, total_dexterity, total_magic, total_vitality, total_resilience, total_luck, \
+        total_attack_power, total_attack_rating, total_magic_power, \
+        total_max_hp, total_max_mp, total_max_fury = self.get_bonus_stats()
+
+        print('\nCURRENT_TOTAL:')
+        print('///////////' * 8)
+        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power}, '
+              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+
+        self.strength += total_strength
+        self.dexterity += total_dexterity
+        self.magic += total_magic
+        self.vitality += total_vitality
+        self.resilience += total_resilience
+        self.luck += total_luck
+
+        self.attack_power = (self.strength * 1) + total_attack_power
+        self.attack_rating = (self.dexterity * 1) + total_attack_rating
+        self.magic_power = (self.magic * 1) + total_magic_power
+
+        previous_max_hp = self.max_hp
+        previous_max_mp = self.max_mp
+
+        self.max_hp = (self.vitality * 3) + total_max_hp
+        self.current_hp = self.current_hp + (self.max_hp - previous_max_hp)
+        self.max_mp = (self.magic * 2 + self.resilience) + total_max_mp
+        self.current_mp = self.current_mp + (self.max_mp - previous_max_mp)
+
+        print('\nNEW_CURRENT_TOTAL:')
+        print('///////////' * 8)
+        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
+              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+
+    def reset_to_raw_stats(self):
+        self.strength = self.raw_strength
+        self.dexterity = self.raw_dexterity
+        self.magic = self.raw_magic
+        self.vitality = self.raw_vitality
+        self.resilience = self.raw_resilience
+        self.luck = self.raw_luck
+
+        self.attack_rating = self.dexterity * 1
+        self.attack_power = self.strength * 1
+        self.magic_power = self.magic * 1
+
+        self.max_hp = self.vitality * 3
+        self.current_hp = self.max_hp
+        self.max_mp = self.magic * 2 + self.resilience
+        self.current_mp = self.max_mp
+
+        print('\nRESET_CURRENT_TOTAL:')
+        print('///////////' * 8)
+        print(f'T_Strength: {self.strength}, T_Dexterity: {self.dexterity}, T_Magic: {self.magic}, '
+              f'T_Vitality: {self.vitality}, T_Resilience: {self.resilience}, T_Luck: {self.luck}, '
+              f'T_AttackPower: {self.attack_power}, T_AttackRating: {self.attack_rating}, T_MagicPower: {self.magic_power} '
+              f'T_MaxHP: {self.max_hp}, T_MaxMP: {self.max_mp}, T_MaxFury: {self.max_fury} ')
+

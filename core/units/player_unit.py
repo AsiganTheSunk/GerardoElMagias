@@ -26,3 +26,14 @@ class PlayerUnit(BasicUnit, BasicPlayerUnit):
         self.whirlwind_status = False
         self.multi_attacks_left = 7
 
+        # Raw Stats
+        self.raw_strength = self.strength
+        self.raw_dexterity = self.dexterity
+        self.raw_magic = self.magic
+        self.raw_vitality = self.vitality
+        self.raw_resilience = self.resilience
+        self.raw_luck = self.luck
+
+
+
+

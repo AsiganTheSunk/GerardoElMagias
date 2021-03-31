@@ -180,26 +180,26 @@ class EquipmentSet:
             if current_equipment_item is not None:
                 print(current_equipment_item)
 
-    def get_stats(self):
-        # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
-        total_strength = 0
-        total_dexterity = 0
-        total_magic = 0
-
-        # Basic Attribute Resource: Fury, Health, Mana
-        total_max_fury = 0
-        total_max_hp = 0
-        total_max_mp = 0
-
-        for equipment_index, equipment_items in enumerate(self.equipped_items):
-            current_equipment_item = equipment_items[self.get_type_from_index(equipment_index)]
-            if current_equipment_item is not None:
-                total_strength += current_equipment_item.strength
-                total_dexterity += current_equipment_item.dexterity
-                total_magic += current_equipment_item.magic
-
-                total_max_hp += current_equipment_item.max_hp
-                total_max_mp += current_equipment_item.max_mp
-                total_max_fury += current_equipment_item.max_fury
-
-        return total_strength, total_dexterity, total_magic, total_max_hp, total_max_mp, total_max_fury
+    # def get_stats(self):
+    #     # Basic Attribute Stats: Strength, Dexterity, Magic, Intellect
+    #     total_strength = 0
+    #     total_dexterity = 0
+    #     total_magic = 0
+    #
+    #     # Basic Attribute Resource: Fury, Health, Mana
+    #     total_max_fury = 0
+    #     total_max_hp = 0
+    #     total_max_mp = 0
+    #
+    #     for equipment_index, equipment_items in enumerate(self.equipped_items):
+    #         current_equipment_item = equipment_items[self.get_type_from_index(equipment_index)]
+    #         if current_equipment_item is not None:
+    #             total_strength += current_equipment_item.strength
+    #             total_dexterity += current_equipment_item.dexterity
+    #             total_magic += current_equipment_item.magic
+    #
+    #             total_max_hp += current_equipment_item.max_hp
+    #             total_max_mp += current_equipment_item.max_mp
+    #             total_max_fury += current_equipment_item.max_fury
+    #
+    #     return total_strength, total_dexterity, total_magic, total_max_hp, total_max_mp, total_max_fury

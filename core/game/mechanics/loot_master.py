@@ -110,8 +110,13 @@ class LootMaster:
             self.loot_master_logger.log_debug_message(f'Player Loots {target.__class__.__name__}'
                                                       f' Receiving {item_name.title()}')
             target.update_looted_status()
+
+            # Note: Temporary Approach
+            caster.backpack.add_item(roll_item)
+
         else:
             self.loot_error(target, text_sprite)
+        caster.re_calculate_hero_stats()
 
     def loot_error(self, target, text_sprite):
         # Todo: Init with -30y
