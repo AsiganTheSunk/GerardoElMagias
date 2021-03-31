@@ -6,9 +6,9 @@ from core.units.basic_enemy_unit import BasicEnemyUnit
 
 
 class EnemyUnit(BasicUnit, BasicEnemyUnit):
-    def __init__(self, x, y, name, level, attack_power, attack_rating, magic_power, max_hp, max_mp):
+    def __init__(self, name, level, attack_power, attack_rating, magic_power, max_hp, max_mp):
         BasicUnit.__init__(self)
-        BasicEnemyUnit.__init__(self, x, y, name, level, attack_power, attack_rating, magic_power)
+        BasicEnemyUnit.__init__(self, 0, 0, name, level, attack_power, attack_rating, magic_power)
 
         self.max_hp = max_hp
         self.current_hp = self.max_hp

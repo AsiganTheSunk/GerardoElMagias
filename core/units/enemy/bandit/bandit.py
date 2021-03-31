@@ -3,10 +3,8 @@
 
 from core.skills.db.melee import MeleeSpells
 from core.units.enemy_unit import EnemyUnit
-from core.units.resources.health_bar import HealthBar
 from core.units.player.resources.stash import Stash
 from core.game.text.damage_text import DamageText
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 from core.items.consumable.db.consumable_db import HEALTH_POTION
 
@@ -15,19 +13,18 @@ damage_text = DamageText()
 
 
 class Bandit(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
-                 health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Bandit', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
+    def __init__(self, level, attack_power, attack_rating, magic_power, max_hp, max_mp, sound_master):
+        EnemyUnit.__init__(self, 'Bandit', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
 
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.sound_master = sound_master
-        self.animation_set = \
-            UnitAnimationSet(animation_master.surface, x, y,
-                             'Bandit', animation_master.get_unit_animation_set('Bandit'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Bandit')
-
+        self.animation_set = None
+        self.animation_callbacks = None
         self.stash = Stash(healing_potions=1, mana_potions=0, gold=0)
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)

@@ -31,7 +31,7 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
         self.display_defeat_banner()
         self.display_defeat_message()
 
-    def update(self, level, hero, enemy_list, scripted_battle, text_sprite):
+    def update(self, level, hero, enemy_list, scripted_battle, text_sprite, battle_master):
         self.clock.tick(self.fps)
 
         # draw backgrounds
@@ -49,16 +49,17 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
         text_sprite.draw(self.surface)
 
         # draw fighters
-        hero.animation_set.update()
-        hero.animation_set.draw()
-        hero.health_bar.draw(hero.current_hp, hero.max_hp, self.surface)
-        hero.mana_bar.draw(hero.current_mp, hero.max_mp, self.surface)
-        hero.fury_bar.draw(hero.current_fury, hero.max_fury, self.surface)
+        battle_master.stage_unit_renderer.render_units()
+        # hero.animation_set.update()
+        # hero.animation_set.draw()
+        # hero.health_bar.draw(hero.current_hp, hero.max_hp, self.surface)
+        # hero.mana_bar.draw(hero.current_mp, hero.max_mp, self.surface)
+        # hero.fury_bar.draw(hero.current_fury, hero.max_fury, self.surface)
 
-        for unit in enemy_list:
-            unit.animation_set.update()
-            unit.animation_set.draw()
-            unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
+        # for unit in enemy_list:
+        #     unit.animation_set.update()
+        #     unit.animation_set.draw()
+        #     unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
 
             # draw effects: in front of units
         self.update_effects()

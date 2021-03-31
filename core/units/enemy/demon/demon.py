@@ -2,27 +2,24 @@
 # -*- coding: utf-8 -*-
 
 from core.units.enemy_unit import EnemyUnit
-from core.units.resources.health_bar import HealthBar
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 from random import randint
 
 
 class Demon(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
-                 health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Demon', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
+    def __init__(self, level, attack_power, attack_rating, magic_power, max_hp, max_mp, sound_master):
+        EnemyUnit.__init__(self, 'Demon', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
 
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        self.animation_set = \
-            UnitAnimationSet(animation_master.surface, x, y,
-                             'Demon', animation_master.get_unit_animation_set('Demon'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Demon')
-
+        self.animation_set = None
+        self.animation_callbacks = None
         self.fury_status = True
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
         self.animation_set.action = 6
 
     def use_animation(self, animation):

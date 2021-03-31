@@ -86,7 +86,7 @@ class StageResolver:
                                    self.battle_master.friendly_fighters[0],
                                    self.battle_master.enemy_fighters,
                                    self.battle_master.is_boss_level(),
-                                   self.game_attributes.text_sprite)
+                                   self.game_attributes.text_sprite, self.battle_master)
 
         # Sound Master:
         self.sound_master.stage_sound_selector.select_sound(self.battle_master.level)
@@ -147,21 +147,21 @@ class StageResolver:
 
     def resolve_player_mouse_actions(self):
         if self.battle_master.is_victory_phase():
-            for enemy_unit in self.battle_master.enemy_fighters:
+            for enemy_unit in self.battle_master.stage_unit_renderer.stage_units[1:]:
                 if enemy_unit.animation_set.mouse_collision():
                     self.stage_renderer.display_bag_mouse()
                     if constants.globals.clicked:
-                        self.player.get_loot(enemy_unit, self.game_attributes.text_sprite)
+                        self.player.get_loot(enemy_unit.unit, self.game_attributes.text_sprite)
                         constants.globals.clicked = False
                     # Return to avoid normal mouse showing up
                     return
 
-        elif self.battle_master.is_battle_phase():
-            for enemy_unit in self.battle_master.enemy_fighters:
-                if enemy_unit.animation_set.mouse_collision():
+        if self.battle_master.is_battle_phase():
+            for enemy_unit in self.battle_master.stage_unit_renderer.stage_units[1:]:
+                if enemy_unit.unit.animation_set.mouse_collision():
                     self.stage_renderer.display_sword_mouse()
-                    if constants.globals.clicked and enemy_unit.alive:
-                        self.player.next_action = ('attack', enemy_unit)
+                    if constants.globals.clicked and enemy_unit.unit.alive:
+                        self.player.next_action = ('attack', enemy_unit.unit)
                     # Return to avoid normal mouse showing up
                     return
         # Enable default mouse

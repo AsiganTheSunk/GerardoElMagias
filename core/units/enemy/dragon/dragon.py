@@ -5,21 +5,20 @@ from random import randint
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
 from core.units.enemy_unit import EnemyUnit
-from core.units.resources.health_bar import HealthBar
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class Dragon(EnemyUnit, MagicSpells, MeleeSpells):
-    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
-                 health_bar_x,  health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Dragon', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
+    def __init__(self, level, attack_power, attack_rating, magic_power, max_hp, max_mp, sound_master):
+        EnemyUnit.__init__(self, 'Dragon', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
 
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        self.animation_set = UnitAnimationSet(animation_master.surface, x, y,
-                                              'Dragon', animation_master.get_unit_animation_set('Dragon'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Dragon')
+        self.animation_set = None
+        self.animation_callbacks = None
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)

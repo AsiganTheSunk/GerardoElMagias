@@ -6,9 +6,9 @@ from core.units.basic_player_unit import BasicPlayerUnit
 
 
 class PlayerUnit(BasicUnit, BasicPlayerUnit):
-    def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck):
+    def __init__(self, name, level, strength, dexterity, magic, vitality, resilience, luck):
         BasicUnit.__init__(self)
-        BasicPlayerUnit.__init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck)
+        BasicPlayerUnit.__init__(self, name, level, strength, dexterity, magic, vitality, resilience, luck)
 
         self.attack_rating = self.dexterity * 1
         self.attack_power = self.strength * 1

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# from core.units.player.hero import HeroPlayer
 from core.units.player.hero import HeroPlayer
 from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
 from random import randint
 from core.game.constants.game_modes import GameModes
+from core.game.stage.stage_unit_renderer import StageUnitRenderer
 
 
 class BattleMaster:
@@ -18,6 +20,8 @@ class BattleMaster:
         self.level = 1
         self.boss_levels = [4, 7, 11, 15, 19, 20]
         self.boss_level = 0
+
+        self.stage_unit_renderer = StageUnitRenderer(self.animation_master, self.game_attributes)
 
         self.friendly_fighters = [self.create_hero()]
         self.enemy_fighters = self.create_enemies()
@@ -55,15 +59,27 @@ class BattleMaster:
     def is_battle_phase(self):
         return self.game_mode is GameModes.BATTLE or self.game_mode is GameModes.BOSS_BATTLE
 
+    def current_stage(self):
+        if self.boss_level > 3:
+            return 'dungeon'
+        elif self.boss_level > 1:
+            return 'castle'
+        else:
+            return 'forest'
+
     def create_enemies(self):
         enemy_fighters = []
-        enemy_group = EnemyGroupGenerator(self.animation_master, self.sound_master, self.game_attributes)
+        enemy_group = EnemyGroupGenerator(self.sound_master)
         if self.is_boss_level():
             self.game_mode = GameModes.BOSS_BATTLE
-            enemy_fighters = [enemy_group.scripted_enemy(self.boss_level, self.animation_master, self.sound_master)]
+            enemy_fighters = [enemy_group.scripted_enemy(self.boss_level, self.sound_master)]
+            self.stage_unit_renderer.add(enemy_fighters[0], self.current_stage())
         else:
             self.game_mode = GameModes.BATTLE
             enemy_fighters = enemy_group.generate_enemy(self.level, self.boss_level)
+            for unit_to_render in enemy_fighters:
+                self.stage_unit_renderer.add(unit_to_render, self.current_stage())
+
         return enemy_fighters
 
     def is_boss_level(self):
@@ -77,15 +93,11 @@ class BattleMaster:
         base_resilience = randint(10, 15)
         base_luck = randint(1, 5)
 
-        return HeroPlayer(300, 480, 1,
-                          base_strength, base_dexterity, base_magic, base_vitality, base_resilience, base_luck,
-                          # Health Bar Coordinates x,y
-                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 20,
-                          # Mana Bar Coordinates x,y
-                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
-                          # Fury Bar Coordinates x,y
-                          270, self.game_attributes.screen_height - self.game_attributes.panel_height + 40,
-                          self.animation_master, self.sound_master)
+        hero_player = HeroPlayer(1, base_strength, base_dexterity, base_magic,
+                                 base_vitality, base_resilience, base_luck,
+                                 self.sound_master)
+        self.stage_unit_renderer.add(hero_player, self.get_hero())
+        return hero_player
 
     def get_total_fighters(self):
         return len(self.enemy_fighters) + len(self.friendly_fighters)
@@ -116,6 +128,7 @@ class BattleMaster:
         if self.is_boss_level():
             self.boss_level += 1
 
+        self.stage_unit_renderer.reset_stage_enemy_units()
         self.enemy_fighters = self.create_enemies()
         self.current_fighter = self.get_hero()
 
