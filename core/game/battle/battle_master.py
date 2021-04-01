@@ -96,7 +96,8 @@ class BattleMaster:
         hero_player = HeroPlayer(1, base_strength, base_dexterity, base_magic,
                                  base_vitality, base_resilience, base_luck,
                                  self.sound_master)
-        self.stage_unit_renderer.add(hero_player, self.get_hero())
+
+        self.stage_unit_renderer.add(hero_player, self.current_stage())
         return hero_player
 
     def get_total_fighters(self):

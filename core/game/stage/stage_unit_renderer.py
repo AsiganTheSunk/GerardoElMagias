@@ -53,7 +53,6 @@ class StageUnitRenderer:
 
     def add(self, unit, stage):
         # Init Resources and Animations
-        print(len(self.stage_units))
         stage_unit_pos_x, stage_unit_pos_y = self.get_stage_unit_position(stage, len(self.stage_units))
         new_stage_unit = StageUnit(self.increment_unit_counter(), unit, stage_unit_pos_x, stage_unit_pos_y, self.animation_master)
         self.set_stage_unit_resource(len(self.stage_units), new_stage_unit)
@@ -99,7 +98,6 @@ class StageUnitRenderer:
             stage_unit_data.set_fury_bar(fury_bar_x, fury_bar_y)
 
         else:
-            print('entra aqui')
             stage_unit_pos_x, stage_unit_pos_y = self.get_resource_unit_position(stage_unit_index)[0]
             stage_unit_data.set_health_bar(stage_unit_pos_x, stage_unit_pos_y)
             # stage_unit_data.set_mana_bar()
