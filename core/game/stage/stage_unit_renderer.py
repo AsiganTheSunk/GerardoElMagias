@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+from core.units.enemy.dragon.small_dragon import SmallDragon
+from core.units.enemy.dragon.dragon import Dragon
+from core.units.enemy.bone.bone_wizard import BoneWizard
+from core.units.enemy.bandit.bandit_chief import BanditChief
+from core.units.enemy.bandit.bandit import Bandit
+from core.units.enemy.djinn.djinn import Djinn
+from core.units.enemy.demon.demon import Demon
+from core.units.enemy.lizard.lizard import Lizard
 from core.units.resources.fury_bar import FuryBar
 from core.units.resources.mana_bar import ManaBar
 from core.units.resources.health_bar import HealthBar
@@ -9,11 +18,14 @@ from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 
 class StageUnit:
-    def __init__(self, unit_identifier, unit, x, y, animation_master):
+    def __init__(self, unit_identifier, unit, x, y, animation_master, adjustment_y=0, adjustment_x=0):
         self.unit_identifier = unit_identifier
         self.unit = unit
         self.x = x
         self.y = y
+
+        # Default Adjust Y of the Enemy Unit: Compensate Enemy Box
+        self.position_y_adjustment(unit)
 
         self.animation_set = \
             UnitAnimationSet(animation_master.surface, x, y, unit.name,
@@ -39,6 +51,39 @@ class StageUnit:
     def set_fury_bar(self, fury_bar_x, fury_bar_y):
         self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.unit.current_fury, self.unit.max_fury)
 
+    def position_y_adjustment(self, unit):
+        if type(unit) is Bandit:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is BoneWizard:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is Lizard:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is BanditChief:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is SmallDragon:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is Djinn:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is Dragon:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
+        elif type(unit) is Demon:
+            position_y_adjustment = 1
+            self.y += position_y_adjustment
+
 
 class StageUnitRenderer:
     def __init__(self, animation_master, game_attributes):
@@ -51,7 +96,10 @@ class StageUnitRenderer:
     def increment_unit_counter(self):
         self.unit_counter += 1
 
-    def add(self, unit, stage):
+    def unit_position_adjustment(self, level, boss_level):
+        pass
+
+    def add(self, unit, stage, level=0, boss_level=0):
         # Init Resources and Animations
         stage_unit_pos_x, stage_unit_pos_y = self.get_stage_unit_position(stage, len(self.stage_units))
         new_stage_unit = StageUnit(self.increment_unit_counter(), unit, stage_unit_pos_x, stage_unit_pos_y, self.animation_master)
@@ -61,7 +109,6 @@ class StageUnitRenderer:
         self.stage_units.append(new_stage_unit)
         # Establish animation_set, animation_callbacks
         unit.set_animations(new_stage_unit.animation_set, new_stage_unit.animation_callbacks)
-        # print(len(self.stage_units), self.stage_units)
 
     def render_units(self):
         for stage_unit in self.stage_units:
@@ -79,11 +126,6 @@ class StageUnitRenderer:
 
     def reset_stage_enemy_units(self):
         self.stage_units = [self.stage_units[0]]
-
-    # def get_stage_unit_index(self, stage_unit_identifier):
-    #     for stage_unit_index, stage_unit_data in enumerate(self.stage_units):
-    #         if stage_unit_data.unit_identifier == stage_unit_identifier:
-    #             return stage_unit_index
 
     def set_stage_unit_resource(self, stage_unit_index, stage_unit_data):
         if stage_unit_index == 0:

@@ -45,7 +45,7 @@ class BanditChief(EnemyUnit, MeleeSpells):
 
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.4)
-        if health_trigger:
+        if self.stash.has_healing_potion() and health_trigger:
             self.use_healing_potion(text_sprite)
         elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
             self.use_healing_potion(text_sprite)

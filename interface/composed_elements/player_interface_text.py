@@ -78,10 +78,8 @@ class PlayerInterfaceText:
         tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
 
         if scripted_battle:
-            self.display_text(f" The Boss HP: {enemy_list[0].current_hp}",
-                              default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
+            self.display_text(f" {enemy_list[0].name}", default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])
         else:
             for index, enemy_fighter in enumerate(enemy_list):
-                self.display_text(f"{enemy_fighter.name} HP: {enemy_fighter.current_hp}",
-                                  default_font, WHITE_COLOR, tmp[index][0], tmp[index][1])
+                self.display_text(f"{enemy_fighter.name} {index + 1}", default_font, WHITE_COLOR, tmp[index][0], tmp[index][1])
 
