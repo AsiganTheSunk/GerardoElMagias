@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from interface.elements.ui_element import UIElement
+from constants.game_fonts import default_font
+from constants.game_colors import WHITE_COLOR
+
+
+class UITextElement(UIElement):
+    def __init__(self, message, position, color=WHITE_COLOR, font=default_font, bold=False, italic=False):
+        super().__init__()
+
+        self.message = message
+        print(message)
+        self.color = color
+        self.font = font
+        self.bold = bold
+        self.italic = italic
+
+        x, y = position
+        self.x = x
+        self.y = y
+
+
+    def set_style(self):
+        if self.bold:
+            self.font.set_bold(True)
+
+        if self.italic:
+            self.font.set_italic(True)
+
+    def render(self):
+        print(self.message)
+        message_font_surface = self.font.render(self.message, True, self.color)
+        return message_font_surface, (self.x, self.y)
+
+    # def render(self):
+    #     message_font_surface = self.font.render(self.message, True, self.color)
+    #     self.surface.blit(message_font_surface, self.message_position)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.game.stage.constant.stage_realms import StageRealms
+from core.game.stage.constants.stage_realms import StageRealms
 
 STAGE_UNIT_REALM_POSITIONS = {
     StageRealms.DUNGEON: [

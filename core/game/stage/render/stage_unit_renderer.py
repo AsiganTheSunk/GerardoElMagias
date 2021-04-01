@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.game.stage.stage_unit import StageUnit
-from core.game.stage.constant.stage_realms import StageRealms
+from core.game.stage.constants.stage_realms import StageRealms
 from core.game.stage.db.stage_unit_positions import STAGE_UNIT_REALM_POSITIONS
 from core.game.stage.db.stage_unit_resource_positions import STAGE_UNIT_UI_RESOURCE_POSITIONS
 
