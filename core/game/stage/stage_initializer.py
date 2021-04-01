@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Game Drawable Instance Imports:
-from core.game.stage.stage_renderer import StageRenderer
+from render.stage_renderer import StageRenderer
 
 # Master Game Engine Imports
 from core.game.battle.battle_master import BattleMaster

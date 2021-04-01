@@ -3,6 +3,41 @@
 
 from constants.game_colors import YELLOW_COLOR, WHITE_COLOR, RED_COLOR
 from constants.game_fonts import default_font, interface_font
+from core.game.stage.db.stage_unit_ui_data_positions import STAGE_UNIT_UI_DATA_POSITIONS
+from interface.elements.ui_layout import UILayout
+
+class PlayerInterfaceDataRenderer:
+    def __init__(self, surface, game_attributes):
+        self.surface = surface
+        self.game_attributes = game_attributes
+
+    def render_text(self, message, font, color, message_position):
+        message_font_surface = font.render(message, True, color)
+        self.surface.blit(message_font_surface, message_position)
+
+
+class PlayerStatInformation(UILayout):
+    def __init__(self, player_interface_data_renderer):
+        super().__init__()
+
+        self.player_interface_data_renderer = player_interface_data_renderer
+
+        self.elements = [
+
+        ]
+
+
+    def display_player_information(self, level, player):
+        self.player_interface_data_renderer.render_text(f"{player.stash.gold}", default_font, YELLOW_COLOR, 80, 30)
+        self.player_interface_data_renderer.render_text(f"Nivel: {player.level}", default_font, WHITE_COLOR, 150, 100)
+        self.player_interface_data_renderer.render_text(f"Experiencia: [ {player.experience}/{player.exp_level_break} ]", default_font, WHITE_COLOR, 150, 125)
+        self.player_interface_data_renderer.render_text(f"Fuerza: {player.strength}", default_font, WHITE_COLOR, 150, 175)
+        self.player_interface_data_renderer.render_text(f"Destreza: {player.dexterity}", default_font, WHITE_COLOR, 150, 200)
+        self.player_interface_data_renderer.render_text(f"Poder Mágico: {player.magic}", default_font, WHITE_COLOR, 150, 225)
+        self.player_interface_data_renderer.render_text(f"Vitalidad: {player.vitality}", default_font, WHITE_COLOR, 150, 250)
+        self.player_interface_data_renderer.render_text(f"Resiliencia: {player.resilience}", default_font, WHITE_COLOR, 150, 275)
+        self.player_interface_data_renderer.render_text(f"Suerte: {player.luck}", default_font, WHITE_COLOR, 150, 300)
+        # self.display_stage_information(level)
 
 
 class PlayerInterfaceText:
@@ -75,7 +110,13 @@ class PlayerInterfaceText:
         ENEMY_TEXT_POS_2 = [900, self.height - self.panel_height + 5]
         ENEMY_TEXT_POS_3 = [900, self.height - self.panel_height + 65]
 
-        tmp = [ENEMY_TEXT_POS_0, ENEMY_TEXT_POS_1, ENEMY_TEXT_POS_2, ENEMY_TEXT_POS_3]
+        # STAGE_UNIT_UI_DATA_POSITIONS
+        tmp = [
+            ENEMY_TEXT_POS_0,
+            ENEMY_TEXT_POS_1,
+            ENEMY_TEXT_POS_2,
+            ENEMY_TEXT_POS_3
+        ]
 
         if scripted_battle:
             self.display_text(f" {enemy_list[0].name}", default_font, WHITE_COLOR, tmp[0][0], tmp[0][1])

@@ -7,7 +7,8 @@ from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
 from random import randint
 from core.game.constants.game_modes import GameModes
-from core.game.stage.stage_unit_renderer import StageUnitRenderer
+from render.stage_unit_renderer import StageUnitRenderer
+from core.game.stage.constants.stage_realms import StageRealms
 
 
 class BattleMaster:
@@ -61,11 +62,11 @@ class BattleMaster:
 
     def current_stage(self):
         if self.boss_level > 3:
-            return 'dungeon'
+            return StageRealms.DUNGEON
         elif self.boss_level > 1:
-            return 'castle'
+            return StageRealms.CASTLE
         else:
-            return 'forest'
+            return StageRealms.FOREST
 
     def create_enemies(self):
         enemy_fighters = []

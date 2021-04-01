@@ -7,13 +7,13 @@ from interface.elements.ui_layout import UILayout
 from interface.composed_elements.player_interface_panel import PlayerInterfacePanel
 from interface.composed_elements.player_interface_text import PlayerInterfaceText
 from core.game.stage.stage_background_selector import StageBackgroundSelector
-from core.game.stage.stage_effects_renderer import StageEffectsRenderer
+from core.game.stage.render.stage_unit_effects_renderer import StageUnitEffectsRenderer
 
 
-class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSelector, StageEffectsRenderer):
+class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSelector, StageUnitEffectsRenderer):
     def __init__(self, surface, width, height, panel_width, panel_height, clock, fps, animation_master):
         StageBackgroundSelector.__init__(self, surface)
-        StageEffectsRenderer.__init__(self, animation_master)
+        StageUnitEffectsRenderer.__init__(self, animation_master)
         PlayerInterfacePanel.__init__(self, surface, width, height, panel_width, panel_height)
         PlayerInterfaceText.__init__(self, surface, width, height, panel_width, panel_height)
         self.clock = clock
@@ -48,20 +48,10 @@ class StageRenderer(PlayerInterfacePanel, PlayerInterfaceText, StageBackgroundSe
         text_sprite.update()
         text_sprite.draw(self.surface)
 
-        # draw fighters
+        # draw units
         battle_master.stage_unit_renderer.render_units()
-        # hero.animation_set.update()
-        # hero.animation_set.draw()
-        # hero.health_bar.draw(hero.current_hp, hero.max_hp, self.surface)
-        # hero.mana_bar.draw(hero.current_mp, hero.max_mp, self.surface)
-        # hero.fury_bar.draw(hero.current_fury, hero.max_fury, self.surface)
 
-        # for unit in enemy_list:
-        #     unit.animation_set.update()
-        #     unit.animation_set.draw()
-        #     unit.health_bar.draw(unit.current_hp, unit.max_hp, self.surface)
-
-            # draw effects: in front of units
+        # draw effects: in front of units
         self.update_effects()
 
         self.render_ui_elements(self.ui_elements)
