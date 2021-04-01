@@ -82,11 +82,7 @@ class StageResolver:
 
     def stage_loop_resolver(self):
         # Stage Drawer Update
-        self.stage_renderer.update(self.battle_master.level,
-                                   self.battle_master.friendly_fighters[0],
-                                   self.battle_master.enemy_fighters,
-                                   self.battle_master.is_boss_level(),
-                                   self.game_attributes.text_sprite, self.battle_master)
+        self.stage_renderer.update(self.game_attributes.text_sprite)
 
         # Sound Master:
         self.sound_master.stage_sound_selector.select_sound(self.battle_master.level)

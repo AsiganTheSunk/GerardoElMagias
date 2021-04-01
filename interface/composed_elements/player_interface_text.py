@@ -16,34 +16,36 @@ from interface.constants.player_messages import LEVEL_MESSAGE, EXPERIENCE_MESSAG
 from core.game.constants.game_modes import GameModes
 
 
-
-
 class PlayerStatInformation(UILayout):
-    def __init__(self, battle_master):
+    def __init__(self):
         super().__init__()
-        self.player = battle_master.get_hero()
 
-        self.elements = [
-            UITextElement(self.player.stash.gold, (80, 30)),
-            UITextElement(LEVEL_MESSAGE(self.player.level), (80, 30)),
-            UITextElement(EXPERIENCE_MESSAGE(self.player.experience, self.player.exp_level_break), (80, 30)),
-            UITextElement(STRENGHT_MESSAGE(self.player.strength), (150, 125)),
-            UITextElement(DEXTERITY_MESSAGE(self.player.dexterity), (150, 175)),
-            UITextElement(MAGIC_MESSAGE(self.player.magic), (150, 175)),
-            UITextElement(VITALITAD_MESSAGE(self.player.vitality), (150, 175)),
-            UITextElement(RESILIENCE_MESSAGE(self.player.resilience), (150, 175)),
-            UITextElement(LUCK_MESSAGE(self.player.luck), (150, 175)),
-        ]
+        self.elements = []
+
+    def add(self, ui_text_element):
+        self.elements.append(ui_text_element)
+
+    def reset(self):
+        self.elements = []
+
+    def update(self, player):
+        self.reset()
+        self.add(UITextElement(player.stash.gold, (80, 30)))
+        self.add(UITextElement(LEVEL_MESSAGE(player.level), (150, 30)))
+        self.add(UITextElement(EXPERIENCE_MESSAGE(player.experience, player.exp_level_break), (150, 60)))
+        self.add(UITextElement(STRENGHT_MESSAGE(player.strength), (150, 90)))
+        self.add(UITextElement(DEXTERITY_MESSAGE(player.dexterity), (150, 120)))
+        self.add(UITextElement(MAGIC_MESSAGE(player.magic), (150, 150)))
+        self.add(UITextElement(VITALITAD_MESSAGE(player.vitality), (150, 180)))
+        self.add(UITextElement(RESILIENCE_MESSAGE(player.resilience), (150, 210)))
+        self.add(UITextElement(LUCK_MESSAGE(player.luck), (150, 240)))
 
 
 class EnemyBottomPanelInformation(UILayout):
-    def __init__(self, battle_master, game_attributes):
+    def __init__(self, game_attributes):
         super().__init__()
-        self.battle_master = battle_master
         self.game_attributes = game_attributes
-
         self.panel_height_correction = self.game_attributes.screen_height - self.game_attributes.panel_height
-
         self.elements = []
 
     def add(self, ui_text_element):
@@ -59,62 +61,17 @@ class EnemyBottomPanelInformation(UILayout):
                                    (680, self.panel_height_correction + 5)))
         else:
             for enemy_index, enemy_unit in enumerate(enemy_unit_list):
-                self.add(UITextElement(ENEMY_UNIT_TITLE_MESSAGE(enemy_unit.value, enemy_index),
+                self.add(UITextElement(ENEMY_UNIT_TITLE_MESSAGE(enemy_unit.name, enemy_index + 1),
                                        (ENEMY_UNIT_PANEL_DATA[enemy_index][0],
                                         ENEMY_UNIT_PANEL_DATA[enemy_index][1](self.panel_height_correction))))
 
 
 class PlayerBottomPanelInformation(UILayout):
-    def __init__(self, battle_master, game_attributes):
+    def __init__(self, game_attributes):
         super().__init__()
-        self.player = battle_master.get_hero()
         self.game_attributes = game_attributes
-
-        panel_height_correction = self.game_attributes.screen_height - self.game_attributes.panel_height
-
-        self.elements = [
-            UITextElement(PLAYER_HP(self.player.current_hp, self.player.max_hp), (440, panel_height_correction + 18)),
-            UITextElement(PLAYER_MP(self.player.current_mp, self.player.max_mp), (440, panel_height_correction + 38)),
-            UITextElement(PLAYER_FURY(self.player.current_fury, self.player.max_fury), (440, panel_height_correction + 58)),
-            UITextElement(PLAYER_CONSUMABLE(self.player.stash.healing_potions), (190, panel_height_correction + 20)),
-            UITextElement(PLAYER_CONSUMABLE(self.player.stash.mana_potions), (190, panel_height_correction + 80)),
-        ]
-
-
-class StageUIInformation(UILayout):
-    def __init__(self, stage_realm, stage_level):
-        super().__init__()
-        self.stage_realm = stage_realm
-        self.stage_level = stage_level
-
-    def render(self):
-        return UITextElement(CURRENT_STAGE(self.get_stage_realm().value, self.get_stage_level().value), (510, 25),
-                             color=RED_COLOR)
-
-    def get_stage_realm(self):
-        return self.stage_realm
-
-    def get_stage_level(self):
-        return self.stage_level
-
-    def set_stage_realm(self, stage_realm):
-        self.stage_realm = stage_realm
-
-    def set_stage_level(self, stage_level):
-        self.stage_level = stage_level
-
-    def update(self, stage_realm, stage_level):
-        self.set_stage_realm(stage_realm)
-        self.set_stage_level(stage_level)
-
-
-class StageUnitDebugInformation(UILayout):
-    def __init__(self, battle_master):
-        super().__init__()
-        self.battle_master = battle_master
-        self.elements = [
-
-        ]
+        self.panel_height_correction = self.game_attributes.screen_height - self.game_attributes.panel_height
+        self.elements = []
 
     def add(self, ui_text_element):
         self.elements.append(ui_text_element)
@@ -122,9 +79,49 @@ class StageUnitDebugInformation(UILayout):
     def reset(self):
         self.elements = []
 
-    def update(self, current_enemies, total_enemies, current_unit_turn, next_unit_turn):
+    def update(self, player):
+        self.reset()
+        self.add(UITextElement(PLAYER_HP(player.current_hp, player.max_hp), (440, self.panel_height_correction + 18)))
+        self.add(UITextElement(PLAYER_MP(player.current_mp, player.max_mp), (440, self.panel_height_correction + 38)))
+        self.add(UITextElement(PLAYER_FURY(player.current_fury, player.max_fury), (440, self.panel_height_correction + 58)))
+        self.add(UITextElement(PLAYER_CONSUMABLE(player.stash.healing_potions), (190, self.panel_height_correction + 20)))
+        self.add(UITextElement(PLAYER_CONSUMABLE(player.stash.mana_potions), (190, self.panel_height_correction + 80)))
+
+
+class StageUIInformation(UILayout):
+    def __init__(self):
+        super().__init__()
+        self.elements = []
+
+    def add(self, ui_text_element):
+        self.elements.append(ui_text_element)
+
+    def reset(self):
+        self.elements = []
+
+    def update(self, stage_realm, stage_level):
+        self.reset()
+        self.add(UITextElement(CURRENT_STAGE(stage_realm.value, stage_level), (510, 25), color=RED_COLOR))
+
+
+class StageUnitDebugInformation(UILayout):
+    def __init__(self):
+        super().__init__()
+        self.elements = []
+
+    def add(self, ui_text_element):
+        self.elements.append(ui_text_element)
+
+    def reset(self):
+        self.elements = []
+
+    def update(self, current_enemies, total_enemies, current_unit_turn, current_unit_index, is_player_phase):
+        self.reset()
         self.add(UITextElement(TOTAL_ENEMIES_MESSAGE(current_enemies, total_enemies), (600, 100)))
-        self.add(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, next_unit_turn), (600, 125)))
+        if is_player_phase:
+            self.add(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, ''), (600, 125)))
+        else:
+            self.add(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, current_unit_index), (600, 125)))
 
 
 class StageUIGameModeInformation(UILayout):
@@ -146,42 +143,38 @@ class StageUIGameModeInformation(UILayout):
             self.add(UITextElement(DEFEAT_MESSAGE, (540, 270)))
 
 
-class PlayerUITextStageInformation:
-    def __init__(self, battle_master, game_attributes):
-        # Player Related UI Information
+class PlayerUITextStageInformation(UILayout):
+    def __init__(self, game_attributes):
+        super().__init__()
 
-        self.player_ui_text_stage_information_elements = [
-            PlayerStatInformation(battle_master),
-            PlayerBottomPanelInformation(battle_master, game_attributes)
+        self.text_elements = [
+            # Player Related UI Information
+            PlayerStatInformation(),
+            PlayerBottomPanelInformation(game_attributes),
+            # Enemy Related UI Information
+            EnemyBottomPanelInformation(game_attributes),
+            # Stage Related UI Information
+            StageUIInformation(),
+            StageUIGameModeInformation(),
+            StageUnitDebugInformation(),
         ]
 
-        # Enemy Related UI Information
-        # self.enemy_bottom_panel_information = EnemyBottomPanelInformation(battle_master, game_attributes)
+    def update_ui_text_stage_information(self, battle_master):
+        player = battle_master.friendly_fighters[0]
+        current_level = battle_master.level
+        current_realm = battle_master.current_stage()
+        current_game_mode = battle_master.game_mode
+        current_enemy_unit_list = battle_master.enemy_fighters
+        current_enemy_unit_number = len(battle_master.enemy_fighters)
+        current_alive_enemy_unit_list = len(list(filter(lambda fighter: fighter.alive, battle_master.enemy_fighters)))
+        current_unit = battle_master.current_fighter.name
+        current_unit_index = (battle_master.current_fighter_index % len(battle_master.enemy_fighters) + 1)
+        is_boss_level = battle_master.is_boss_level()
 
-        # Stage Related UI Information
-        # self.stage_ui_game_mode_information = StageUIGameModeInformation()
-        # self.stage_ui_information = StageUIInformation(battle_master.current_stage_realm, battle_master.level)
-        # self.stage_unit_debug_information = StageUnitDebugInformation(battle_master)
-
-#
-# class PlayerInterfaceDataRenderer:
-#     def __init__(self, surface, battle_master, game_attributes):
-#         self.surface = surface
-#         self.game_attributes = game_attributes
-#         self.battle_master = battle_master
-#
-#         self.player_ui_stage_information = PlayerUITextStageInformation(battle_master, game_attributes)
-#
-#         self.render_ui_elements(self.player_ui_stage_information.elements)
-#
-    def render_text_ui_elements(self, elements):
-        for ui_element in elements:
-            if not ui_element.hidden:
-                if isinstance(ui_element, UILayout):
-                    self.render_ui_elements(ui_element.elements)
-                else:
-                    ui_surface_element, ui_element_position = ui_element.render()
-                    self.surface.blit(ui_surface_element, ui_element_position)
-
-
-
+        self.text_elements[0].update(player)
+        self.text_elements[1].update(player)
+        self.text_elements[2].update(is_boss_level, current_enemy_unit_list)
+        self.text_elements[3].update(current_realm, current_level)
+        self.text_elements[4].update(current_game_mode)
+        self.text_elements[5].update(current_enemy_unit_number, current_alive_enemy_unit_list,
+                                     current_unit, current_unit_index, battle_master.is_player_phase())

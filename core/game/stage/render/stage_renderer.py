@@ -21,7 +21,7 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
 
         StageBackgroundSelector.__init__(self, game_attributes.surface)
         StageUnitEffectsRenderer.__init__(self, animation_master)
-        PlayerUITextStageInformation.__init__(self, battle_master, game_attributes)
+        PlayerUITextStageInformation.__init__(self, game_attributes)
 
         PlayerInterfacePanel.__init__(self, game_attributes.surface,
                                       game_attributes.screen_width, game_attributes.screen_height,
@@ -42,18 +42,22 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
         self.display_defeat_banner()
         # self.display_defeat_message()
 
-    def update(self, level, hero, enemy_list, scripted_battle, text_sprite, battle_master):
+    def update(self, text_sprite):
+        # Retrieve Data from the BattleMaster
+        player = self.battle_master.friendly_fighters[0]
+        current_level = self.battle_master.level
+        current_enemy_unit_list = self.battle_master.enemy_fighters
+        is_boss_level = self.battle_master.is_boss_level(),
+        current_realm = self.battle_master.current_stage()
+
+        # Setup TickRate for the Game
         self.clock.tick(self.fps)
 
         # draw backgrounds
-        self.set_stage_background(level)
+        self.set_stage_background(current_level)
         self.display_panel_background()
-        # draw panel
 
-        # self.display_player_information(level, hero)
-        # self.display_player_bottom_panel_information(hero)
-        #
-        # self.display_enemy_bottom_panel_information(scripted_battle, enemy_list)
+        # draw panel
         self.display_gold_icon()
 
         # damage text
@@ -61,12 +65,13 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
         text_sprite.draw(self.surface)
 
         # draw units
-        battle_master.stage_unit_renderer.render_units()
+        self.battle_master.stage_unit_renderer.render_units()
 
         # draw effects: in front of units
         self.update_effects()
 
-        self.render_text_ui_elements(self.player_ui_text_stage_information_elements)
+        self.update_ui_text_stage_information(self.battle_master)
+        self.render_text_ui_elements(self.text_elements)
         self.render_ui_elements(self.ui_elements)
 
     def render_ui_elements(self, elements):
@@ -75,13 +80,10 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
                 if isinstance(ui_element, UILayout):
                     self.render_ui_elements(ui_element.elements)
                 else:
-                    print(type(ui_element))
                     if type(ui_element) is UITextElement:
-                        print("entra aqui")
                         ui_surface_element, ui_element_position = ui_element.render()
                         self.surface.blit(ui_surface_element, ui_element_position)
                     else:
-                        print('entra aqui')
                         self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))
 
     def render_text_ui_elements(self, elements):

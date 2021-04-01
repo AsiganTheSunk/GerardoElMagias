@@ -28,8 +28,8 @@ NEXT_BATTLE_MESSAGE = f"Batalla Siguiente"
 DEFEAT_MESSAGE = f"Eres un Jodido Noob, Intentalo de Nuevo!"
 VICTORY_MESSAGE = f"Recolecta los Objetos en los Cadaveres!"
 
-TOTAL_ENEMIES_MESSAGE = lambda current_enemies, total_enemies: f"[ {current_enemies} / {total_enemies}]"
-CURRENT_TURN_MESSAGE = lambda current_unit_turn, next_unit_turn: f"{current_unit_turn} > {next_unit_turn}"
+TOTAL_ENEMIES_MESSAGE = lambda current_enemies, total_enemies: f"Current Enemy Units [ {current_enemies} / {total_enemies}]"
+CURRENT_TURN_MESSAGE = lambda current_unit_turn, current_unit_index: f"Current Turn: {current_unit_turn} {current_unit_index}"
 
 ENEMY_UNIT_PANEL_DATA = [
     [680, lambda panel_height_correction: panel_height_correction + 5],

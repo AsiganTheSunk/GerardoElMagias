@@ -30,6 +30,8 @@ class BattleMaster:
         self.game_mode = GameModes.BATTLE
         self.previous_game_mode = None
 
+        self.current_fighter_index = 0
+
     def swap_battle_mode(self, game_mode=None):
         if self.previous_game_mode is None:
             self.previous_game_mode = self.game_mode
@@ -114,6 +116,11 @@ class BattleMaster:
             self.game_mode = GameModes.VICTORY
             hero_player.gain_experience()
 
+    def get_current_fighter(self):
+        combined_fighters = self.friendly_fighters + self.enemy_fighters
+        current_index = combined_fighters.index(self.current_fighter)
+        return combined_fighters[(current_index + 1) % len(combined_fighters)]
+
     def move_to_next_fighter(self):
         self.move_to_victory_phase()
         self.move_to_defeat_phase()
@@ -121,8 +128,10 @@ class BattleMaster:
         combined_fighters = self.friendly_fighters + self.enemy_fighters
         combined_alive_fighters = list(filter(lambda fighter: fighter.alive, combined_fighters))
         current_index = combined_fighters.index(self.current_fighter)
+        self.current_fighter_index = current_index
         self.current_fighter = combined_fighters[(current_index + 1) % len(combined_fighters)]
         if self.current_fighter not in combined_alive_fighters:
+
             self.move_to_next_fighter()
 
     def next_level(self):
