@@ -15,3 +15,5 @@ PURPLE_COLOR = Color('Purple')
 
 # Custom Color: Definitions
 LIGHT_ORANGE_COLOR = (255, 209, 99)
+MEDIUM_GREEN_COLOR = (131, 227, 48)
+MEDIUM_BLUE_COLOR = (0, 147, 255)

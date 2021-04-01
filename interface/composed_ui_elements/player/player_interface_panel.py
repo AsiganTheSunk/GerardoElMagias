@@ -3,10 +3,9 @@
 
 from constants.game_images import gold_image, sword_image, loot_image, \
     victory_banner_image, defeat_banner_image
-
 from pygame import Color, Rect, display, draw, transform, Surface, mouse
 from core.game.game_event_control import event_controller
-from interface.elements.ui_layout import UILayout
+from interface.ui_elements.ui_layout import UILayout
 
 
 class PlayerInterfacePanel:

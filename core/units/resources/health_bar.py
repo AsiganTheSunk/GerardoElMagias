@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import draw
-from constants.game_colors import GRAY_COLOR, GREEN_COLOR
+from constants.game_colors import GRAY_COLOR, MEDIUM_GREEN_COLOR
 
 
 class HealthBar:
@@ -19,4 +19,4 @@ class HealthBar:
         self.current_hp = hp
         ratio = self.current_hp / self.max_hp
         draw.rect(screen, GRAY_COLOR, (self.x, self.y, 160, 15))
-        draw.rect(screen, GREEN_COLOR, (self.x, self.y, 160 * ratio, 15))
+        draw.rect(screen, MEDIUM_GREEN_COLOR, (self.x, self.y, 160 * ratio, 15))

@@ -8,8 +8,8 @@ from pygame import mouse
 import constants.globals
 
 # Game Drawable Instance Imports:
-from interface.basic_elements.button import Button
-from interface.composed_elements.spell_book import SpellBook
+from ui_elements.ui_button import UIButton
+from interface.composed_ui_elements.player_spell_book import SpellBook
 
 # Game Control Imports:
 import constants.globals
@@ -35,24 +35,24 @@ class StageResolver:
         self.game_attributes = game_attributes
 
         healing_potion_button = \
-            Button('healing_potion', 130, self.game_attributes.screen_height - self.game_attributes.panel_height + 1,
-                   health_potion_image, 64, 64)
+            UIButton('healing_potion', 130, self.game_attributes.screen_height - self.game_attributes.panel_height + 1,
+                     health_potion_image, 64, 64)
 
         mana_potion_button = \
-            Button('mana_potion', 132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
-                   mana_potion_image, 60, 60)
+            UIButton('mana_potion', 132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
+                     mana_potion_image, 60, 60)
 
-        spell_book_button = Button('spell_book', 10, 600, spell_book_button_image, 100, 100)
-        self.ultimate_button = Button('ultimate', 555, 590, ultimate_image, 60, 60)
+        spell_book_button = UIButton('spell_book', 10, 600, spell_book_button_image, 100, 100)
+        self.ultimate_button = UIButton('ultimate', 555, 590, ultimate_image, 60, 60)
         self.ultimate_button.hidden = True
 
-        self.whirlwind_button = Button('whirlwind', 280, 655, whirlwind_image, 40, 40)
+        self.whirlwind_button = UIButton('whirlwind', 280, 655, whirlwind_image, 40, 40)
         self.whirlwind_button.hidden = True
 
-        kill_all_button = Button('kill_all', 30, 260, skull_button_image, 60, 60)
-        kill_switch_button = Button('kill_switch', 30, 350, kill_button_image, 60, 60)
+        kill_all_button = UIButton('kill_all', 30, 260, skull_button_image, 60, 60)
+        kill_switch_button = UIButton('kill_switch', 30, 350, kill_button_image, 60, 60)
 
-        self.next_button = Button('next', 1015, 180, next_button_image, 80, 80)
+        self.next_button = UIButton('next', 1015, 180, next_button_image, 80, 80)
         self.next_button.hidden = True
 
         mana_potion_button.on_click(battle_master.handle_potion_click)

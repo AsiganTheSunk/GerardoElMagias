@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import draw
-from constants.game_colors import GRAY_COLOR, BLUE_COLOR
+from constants.game_colors import GRAY_COLOR, MEDIUM_BLUE_COLOR
 
 
 class ManaBar:
@@ -18,4 +18,4 @@ class ManaBar:
         self.max_mp = max_mp
         ratio = self.mp / self.max_mp
         draw.rect(screen, GRAY_COLOR, (self.x, self.y, 160, 15))
-        draw.rect(screen, BLUE_COLOR, (self.x, self.y, 160 * ratio, 15))
+        draw.rect(screen, MEDIUM_BLUE_COLOR, (self.x, self.y, 160 * ratio, 15))

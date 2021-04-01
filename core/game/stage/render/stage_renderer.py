@@ -2,18 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from pygame import display
-from interface.elements.ui_layout import UILayout
-
-from interface.composed_elements.player_interface_panel import PlayerInterfacePanel
-from interface.composed_elements.player_interface_text import PlayerUITextStageInformation
-from core.game.stage.stage_background_selector import StageBackgroundSelector
+from interface.ui_elements.ui_layout import UILayout
+from interface.ui_elements.ui_text_element import UITextElement
+from interface.composed_ui_elements.player.player_interface_panel import PlayerInterfacePanel
+from interface.composed_ui_elements.player_interface_text import PlayerUITextStageInformation
+from selector.stage_background_selector import StageBackgroundSelector
 from core.game.stage.render.stage_unit_effects_renderer import StageUnitEffectsRenderer
-from interface.elements.ui_text_element import UITextElement
 
 
-# game_attributes.surface, game_attributes.screen_width, game_attributes.screen_height, 0, game_attributes.panel_height, game_attributes.clock, game_attributes.fps, animation_master
-
-class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBackgroundSelector, StageUnitEffectsRenderer):
+class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
+                    StageBackgroundSelector, StageUnitEffectsRenderer):
     def __init__(self, battle_master, game_attributes, animation_master):
         self.battle_master = battle_master
         self.game_attributes = game_attributes
@@ -23,9 +21,8 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
         StageUnitEffectsRenderer.__init__(self, animation_master)
         PlayerUITextStageInformation.__init__(self, game_attributes)
 
-        PlayerInterfacePanel.__init__(self, game_attributes.surface,
-                                      game_attributes.screen_width, game_attributes.screen_height,
-                                      0, game_attributes.panel_height)
+        PlayerInterfacePanel.__init__(self, game_attributes.surface, game_attributes.screen_width,
+                                      game_attributes.screen_height, 0, game_attributes.panel_height)
 
         self.clock = self.game_attributes.clock
         self.fps = self.game_attributes.fps
@@ -70,8 +67,8 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation, StageBac
         # draw effects: in front of units
         self.update_effects()
 
-        self.update_ui_text_stage_information(self.battle_master)
-        self.render_text_ui_elements(self.text_elements)
+        self.update_ui_text_elements(self.battle_master)
+        self.render_text_ui_elements(self.ui_text_elements)
         self.render_ui_elements(self.ui_elements)
 
     def render_ui_elements(self, elements):

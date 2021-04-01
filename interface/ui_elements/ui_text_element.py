@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from interface.elements.ui_element import UIElement
-from constants.game_fonts import default_font
+from interface.ui_elements.ui_element import UIElement
+from constants.game_fonts import interface_font
 from constants.game_colors import WHITE_COLOR
 
 
 class UITextElement(UIElement):
-    def __init__(self, message, position, color=WHITE_COLOR, font=default_font, bold=False, italic=False):
+    def __init__(self, message, position, color=WHITE_COLOR, font=interface_font, bold=False, italic=False):
         super().__init__()
 
         self.message = message
@@ -30,7 +30,3 @@ class UITextElement(UIElement):
     def render(self):
         message_font_surface = self.font.render(str(self.message), True, self.color)
         return message_font_surface, (self.x, self.y)
-
-    # def render(self):
-    #     message_font_surface = self.font.render(self.message, True, self.color)
-    #     self.surface.blit(message_font_surface, self.message_position)

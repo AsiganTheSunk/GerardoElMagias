@@ -3,10 +3,10 @@
 
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
-from constants.game_images import lightning_image, firestorm_image, background_spell_book_image, heal_image, earth_image, water_nova_image, exit_book_button_image
-from interface.basic_elements.button import Button
-from interface.basic_elements.image import Image
-from interface.elements.ui_layout import UILayout
+from constants.game_images import lightning_image, firestorm_image, background_spell_book_image, heal_image, earth_image, water_nova_image
+from interface.ui_elements.ui_button import UIButton
+from interface.ui_elements.ui_image import UIImage
+from interface.ui_elements.ui_layout import UILayout
 
 combat_text_resolver = CombatTextResolver()
 damage_text = DamageText()
@@ -17,13 +17,13 @@ class SpellBook(UILayout):
         super().__init__()
         self.battle_master = battle_master
         self.text_sprite = text_sprite
-        background_panel = Image(background_spell_book_image, 260, 60)
+        background_panel = UIImage(background_spell_book_image, 260, 60)
 
-        lightning_spell_button = Button('lightning_spell', 330, 100, lightning_image, 120, 120)
-        firestorm_spell_button = Button('firestorm_spell', 345, 250, firestorm_image, 90, 90)
-        earth_spell_button = Button('earth_shock_spell', 330, 360, earth_image, 130, 130)
-        heal_spell_button = Button('heal_spell', 690, 100, heal_image, 100, 100)
-        magic_nova_spell_button = Button('water_nova_spell', 420, 25, water_nova_image, 250, 250)
+        lightning_spell_button = UIButton('lightning_spell', 330, 100, lightning_image, 120, 120)
+        firestorm_spell_button = UIButton('firestorm_spell', 345, 250, firestorm_image, 90, 90)
+        earth_spell_button = UIButton('earth_shock_spell', 330, 360, earth_image, 130, 130)
+        heal_spell_button = UIButton('heal_spell', 690, 100, heal_image, 100, 100)
+        magic_nova_spell_button = UIButton('water_nova_spell', 420, 25, water_nova_image, 250, 250)
 
         lightning_spell_button.on_click(self.handle_spell_click)
         firestorm_spell_button.on_click(self.handle_spell_click)

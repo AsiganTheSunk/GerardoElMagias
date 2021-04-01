@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-from interface.elements.ui_element import UIElement
+from interface.ui_elements.ui_element import UIElement
 
 
 class UILayout(UIElement):

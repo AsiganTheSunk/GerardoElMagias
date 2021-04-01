@@ -3,7 +3,7 @@
 
 from pygame import mixer
 from core.game.constants.game_modes import GameModes
-from core.game.stage.stage_sound_selector import StageSoundSelector
+from selector.stage_sound_selector import StageSoundSelector
 from core.game.sound.sound_loader import SoundLoader
 from core.game.sound.sound_effects import SoundEffects
 

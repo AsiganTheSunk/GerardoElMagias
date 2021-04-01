@@ -4,10 +4,10 @@
 import pygame
 
 # button category
-from interface.elements.ui_element import UIElement
+from interface.ui_elements.ui_element import UIElement
 
 
-class Button(UIElement):
+class UIButton(UIElement):
 	def __init__(self, id, x, y, image, size_x, size_y):
 		super().__init__()
 		self.id = id
