@@ -35,5 +35,5 @@ class UIButton(UIElement):
 
 	def render(self):
 		if self.clicked:
-			return self.clicked_image, (self.rect.x + 3, self.rect.y + 3)
+			return self.clicked_image, (self.rect.x + 2, self.rect.y + 2)
 		return self.image, (self.rect.x, self.rect.y)

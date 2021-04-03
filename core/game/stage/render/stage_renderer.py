@@ -42,25 +42,16 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
 
     def display_victory(self):
         self.display_victory_banner()
-        # self.display_victory_message()
 
     def display_defeat(self):
         self.display_defeat_banner()
-        # self.display_defeat_message()
 
     def update(self, text_sprite):
-        # Retrieve Data from the BattleMaster
-        player = self.battle_master.friendly_fighters[0]
-        current_level = self.battle_master.level
-        current_enemy_unit_list = self.battle_master.enemy_fighters
-        is_boss_level = self.battle_master.is_boss_level(),
-        current_realm = self.battle_master.current_stage()
-
         # Setup TickRate for the Game
         self.clock.tick(self.fps)
 
         # draw backgrounds
-        self.set_stage_background(current_level)
+        self.set_stage_background(self.battle_master.level)
         self.display_panel_background()
 
         # draw panel
@@ -77,13 +68,10 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
         self.update_effects()
 
         self.update_ui_text_elements(self.battle_master)
-        # self.render_text_ui_elements(self.ui_text_elements)
-        # self.render_text_ui_elements(self.ui_elements)
+        self.new_button.update()
 
         self.render_ui_elements(self.ui_elements)
         self.render_ui_elements(self.ui_text_elements)
-        # self.render_ui_elements(self.new_button.elements)
-        self.new_button.update_button_status()
 
     def render_ui_elements(self, elements):
         for ui_element in elements:
@@ -91,17 +79,12 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
                 if isinstance(ui_element, UILayout):
                     self.render_ui_elements(ui_element.elements)
                 else:
-                    if isinstance(ui_element, UITextElement):
+                    if isinstance(ui_element, UITextElement) or isinstance(ui_element, UIButton):
                         ui_surface_element, ui_element_position = ui_element.render()
                         self.surface.blit(ui_surface_element, ui_element_position)
 
-                    elif isinstance(ui_element, UIButton):
-                        button_image, button_pos = ui_element.render()
-                        self.surface.blit(button_image, button_pos)
-
                     elif isinstance(ui_element, UIRect):
-                        print('Entra aqui')
                         color, x, y, width, height, border_size = ui_element.render()
-                        draw.rect(self.surface, color, (x, y, width, height), 2)
+                        draw.rect(self.surface, color, (x, y, width, height), border_size)
                     else:
                         self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))
