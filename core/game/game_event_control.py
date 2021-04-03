@@ -22,6 +22,10 @@ class GameEventControl:
                 click_callback = subscriber.events['click']
                 if not subscriber.hidden and subscriber.rect.collidepoint(game_event.pos):
                     click_callback(game_event, subscriber)
+            elif 'mouse_over' in subscriber.events:
+                mouse_over_callback = subscriber.events['mouse_over']
+                if not subscriber.hidden and subscriber.rect.collidepoint(game_event.pos):
+                    mouse_over_callback(game_event, subscriber)
 
 
 event_controller = GameEventControl()

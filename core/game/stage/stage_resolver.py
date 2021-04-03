@@ -19,6 +19,7 @@ from core.game.constants.game_modes import GameModes
 from core.game.text.damage_text import DamageText
 from constants.game_images import skull_button_image, spell_book_button_image, kill_button_image, \
     health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image
+from interface.ui_elements.ui_text_button import UITextButton
 
 # Init DamageText
 damage_text = DamageText()
@@ -63,6 +64,8 @@ class StageResolver:
         kill_all_button.on_click(self.kill_switch_and_next)
         kill_switch_button.on_click(self.kill_switch)
         self.next_button.on_click(self.handle_next_click)
+
+
 
         self.stage_renderer.add(mana_potion_button)
         self.stage_renderer.add(healing_potion_button)

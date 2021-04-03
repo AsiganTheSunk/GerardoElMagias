@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pygame import display
+from pygame import display, draw
 from interface.ui_elements.ui_layout import UILayout
 from interface.ui_elements.ui_text_element import UITextElement
 from interface.composed_ui_elements.player.player_interface_panel import PlayerInterfacePanel
 from interface.composed_ui_elements.player_interface_text import PlayerUITextStageInformation
 from selector.stage_background_selector import StageBackgroundSelector
 from core.game.stage.render.stage_unit_effects_renderer import StageUnitEffectsRenderer
+from constants.game_images import skull_button_image, spell_book_button_image, kill_button_image, \
+    health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image
+from interface.ui_elements.ui_text_button import UITextButton
+from interface.ui_elements.ui_button import UIButton
+from interface.ui_elements.ui_rect import UIRect
 
 
 class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
@@ -26,6 +31,10 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
 
         self.clock = self.game_attributes.clock
         self.fps = self.game_attributes.fps
+
+        self.new_button = UITextButton('new_button', 400, 655, whirlwind_image, 40, 40, text_message='hello')
+        self.new_button.button.on_click(self.new_button.handle_on_click_event)
+        self.add(self.new_button)
 
     @staticmethod
     def display_caption():
@@ -68,8 +77,13 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
         self.update_effects()
 
         self.update_ui_text_elements(self.battle_master)
-        self.render_text_ui_elements(self.ui_text_elements)
+        # self.render_text_ui_elements(self.ui_text_elements)
+        # self.render_text_ui_elements(self.ui_elements)
+
         self.render_ui_elements(self.ui_elements)
+        self.render_ui_elements(self.ui_text_elements)
+        # self.render_ui_elements(self.new_button.elements)
+        self.new_button.update_button_status()
 
     def render_ui_elements(self, elements):
         for ui_element in elements:
@@ -77,17 +91,17 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
                 if isinstance(ui_element, UILayout):
                     self.render_ui_elements(ui_element.elements)
                 else:
-                    if type(ui_element) is UITextElement:
+                    if isinstance(ui_element, UITextElement):
                         ui_surface_element, ui_element_position = ui_element.render()
                         self.surface.blit(ui_surface_element, ui_element_position)
+
+                    elif isinstance(ui_element, UIButton):
+                        button_image, button_pos = ui_element.render()
+                        self.surface.blit(button_image, button_pos)
+
+                    elif isinstance(ui_element, UIRect):
+                        print('Entra aqui')
+                        color, x, y, width, height, border_size = ui_element.render()
+                        draw.rect(self.surface, color, (x, y, width, height), 2)
                     else:
                         self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))
-
-    def render_text_ui_elements(self, elements):
-        for ui_element in elements:
-            if not ui_element.hidden:
-                if isinstance(ui_element, UILayout):
-                    self.render_ui_elements(ui_element.elements)
-                else:
-                    ui_surface_element, ui_element_position = ui_element.render()
-                    self.surface.blit(ui_surface_element, ui_element_position)

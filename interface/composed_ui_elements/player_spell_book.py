@@ -40,7 +40,7 @@ class SpellBook(UILayout):
         self.add_effect = add_effect
 
     def handle_spell_click(self, event, button):
-        if self.cast_spell(button.id, self.battle_master.get_hero(), self.battle_master.enemy_fighters, self.text_sprite):
+        if self.cast_spell(button.ui_identifier, self.battle_master.get_hero(), self.battle_master.enemy_fighters, self.text_sprite):
             self.battle_master.swap_battle_mode()
             self.hidden = True
             self.battle_master.move_to_next_fighter()

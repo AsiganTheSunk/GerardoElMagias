@@ -178,7 +178,7 @@ class BattleMaster:
 
     def handle_potion_click(self, event, button):
         hero_player = self.get_hero()
-        potion = button.id
+        potion = button.ui_identifier
         # esto tendrá más sentido cuando las pociones sean parte de items en lugar de ser su propia movida
         if self.is_player_phase() and self.is_battle_phase():
             if potion == 'healing_potion':
