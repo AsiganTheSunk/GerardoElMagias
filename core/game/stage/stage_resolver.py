@@ -65,8 +65,6 @@ class StageResolver:
         kill_switch_button.on_click(self.kill_switch)
         self.next_button.on_click(self.handle_next_click)
 
-
-
         self.stage_renderer.add(mana_potion_button)
         self.stage_renderer.add(healing_potion_button)
         self.stage_renderer.add(spell_book_button)

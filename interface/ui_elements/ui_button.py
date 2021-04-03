@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 from pygame import mouse, transform, Surface, time, SRCALPHA, font, Color, surfarray, draw, display, Rect
 from interface.ui_elements.ui_element import UIElement
+from numpy import array
 
 
 class UIButton(UIElement):
@@ -23,17 +25,31 @@ class UIButton(UIElement):
 		self.rect.topleft = (x, y)
 
 		self.clicked = False
+		self.mouse_over = False
 
 	def on_click(self, callback):
 		self.events['click'] = callback
 
-	def on_mouse_over(self, callback):
-		self.events['mouse_over'] = callback
-
 	def on_key_bind(self, callback):
-		self.events['keybind'] = callback
+		self.events['key_bind'] = callback
 
 	def render(self):
-		if self.clicked:
-			return self.clicked_image, (self.rect.x + 2, self.rect.y + 2)
-		return self.image, (self.rect.x, self.rect.y)
+		if not self.active:
+			if self.clicked:
+				inactive_image = self.grayscale(self.clicked_image)
+				return inactive_image, (self.rect.x + 2, self.rect.y + 2)
+
+			inactive_image = self.grayscale(self.image)
+			return inactive_image, (self.rect.x, self.rect.y)
+		else:
+			if self.clicked:
+				return self.clicked_image, (self.rect.x + 2, self.rect.y + 2)
+			return self.image, (self.rect.x, self.rect.y)
+
+	@staticmethod
+	def grayscale(img):
+		arr = surfarray.array3d(img)
+		# Luminosity Filter
+		avgs = [[(r * 0.298 + g * 0.587 + b * 0.114) for (r, g, b) in col] for col in arr]
+		arr = array([[[avg, avg, avg] for avg in col] for col in avgs])
+		return surfarray.make_surface(arr)

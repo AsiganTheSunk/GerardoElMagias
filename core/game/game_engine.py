@@ -8,7 +8,7 @@ from pygame import display, quit, Color
 import constants.globals
 
 # Game Event Control Import:
-from core.game.game_event_control import event_control
+from core.game.game_event_control import event_controller
 
 # Master Game Engine Imports
 from core.game.sound.sound_master import SoundMaster
@@ -38,6 +38,6 @@ class GameEngine:
         while constants.globals.run_game:
             self.game_attributes.surface.fill(Color('Black'))
             self.stage_initializer.run_stage()
-            event_control()
+            event_controller.manage_events()
             display.update()
         quit()

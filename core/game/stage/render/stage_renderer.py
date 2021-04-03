@@ -13,6 +13,7 @@ from constants.game_images import skull_button_image, spell_book_button_image, k
 from interface.ui_elements.ui_text_button import UITextButton
 from interface.ui_elements.ui_button import UIButton
 from interface.ui_elements.ui_rect import UIRect
+from interface.ui_elements.ui_transparent_rect import UITransparentRect
 
 
 class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
@@ -33,7 +34,8 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
         self.fps = self.game_attributes.fps
 
         self.new_button = UITextButton('new_button', 400, 655, whirlwind_image, 40, 40, text_message='hello')
-        self.new_button.button.on_click(self.new_button.handle_on_click_event)
+        # self.new_button.button.on_click(self.new_button.handle_on_click_event)
+        # self.new_button.button.on_mouse_over(self.new_button.handle_mouse_over_event)
         self.add(self.new_button)
 
     @staticmethod
@@ -70,8 +72,8 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
         self.update_ui_text_elements(self.battle_master)
         self.new_button.update()
 
-        self.render_ui_elements(self.ui_elements)
-        self.render_ui_elements(self.ui_text_elements)
+        self.render_ui_elements(self.ui_elements + self.ui_text_elements)
+        # self.render_ui_elements(self.ui_text_elements)
 
     def render_ui_elements(self, elements):
         for ui_element in elements:
@@ -86,5 +88,9 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
                     elif isinstance(ui_element, UIRect):
                         color, x, y, width, height, border_size = ui_element.render()
                         draw.rect(self.surface, color, (x, y, width, height), border_size)
+
+                    elif isinstance(ui_element, UITransparentRect):
+                        alpha_surface, x, y = ui_element.render()
+                        self.surface.blit(alpha_surface, (x, y))
                     else:
                         self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))
