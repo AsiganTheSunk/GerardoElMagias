@@ -88,6 +88,18 @@ class BattleMaster:
     def is_boss_level(self):
         return self.level in self.boss_levels
 
+    def reset_stage(self):
+        self.friendly_fighters[0].ultimate_status = False
+        self.friendly_fighters[0].whirlwind_status = False
+        self.friendly_fighters[0].multi_attacks_left = 7
+
+    def kill_all_and_gain_experience(self):
+        for target_unit in self.enemy_fighters:
+            if target_unit.alive:
+                target_unit.death()
+                target_unit.use_animation('Death')
+                self.friendly_fighters[0].experience_to_gain += target_unit.level
+
     def create_hero(self):
         base_strength = randint(10, 15)
         base_dexterity = randint(10, 15)

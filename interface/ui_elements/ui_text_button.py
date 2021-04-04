@@ -15,7 +15,7 @@ class UITextButton(UILayout):
                  text_color=Color('Black'), text_font_size=10, text_font='./resources/fonts/Verdana.ttf',
                  text_placement='center', show_text=True):
         super().__init__()
-        
+
         self.text_color = text_color
         self.text_message = text_message
         self.text_font = font.Font(text_font, text_font_size)
@@ -38,37 +38,40 @@ class UITextButton(UILayout):
     def add(self, ui_button_element):
         self.elements.append(ui_button_element)
 
-    def update(self):
-        if self.debounce_time(interval=50):
-            self.button.clicked = mouse.get_pressed(num_buttons=3)[0] and self.button.rect.collidepoint(mouse.get_pos())
-            self.button.mouse_over = self.button.rect.collidepoint(mouse.get_pos())
-            self.reset()
-
-    def set_default(self):
-        text_x, text_y = self.get_text_placement()
-        self.elements = [
-            UIRect(self.button.x - 1, self.button.y - 1,
-                   self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')),
-            self.button,
-        ]
-        if self.show_text:
-            self.add(UITextElement(self.text_message, (text_x, text_y)))
-
     def reset(self):
-        self.set_default()
+        self.elements = []
+        self.default_button()
         if self.button.mouse_over:
             self.mouse_over_effect()
 
         if self.button.clicked:
             self.click_effect()
 
-    def click_effect(self):
-        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
-                        color=Color('Pink')))
+    def update(self):
+        if self.debounce_time():
+            self.button.clicked = mouse.get_pressed(num_buttons=3)[0] and self.button.rect.collidepoint(mouse.get_pos())
+            self.button.mouse_over = self.button.rect.collidepoint(mouse.get_pos())
+            self.reset()
 
+    def default_button(self):
+        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')))
+        self.add(self.button)
+        self.button_text()
+
+    def button_text(self):
+        text_x, text_y = self.get_text_placement()
+        if self.show_text:
+            self.add(UITextElement(self.text_message, (text_x, text_y)))
+
+    def clicked_button_text_effect(self):
         if self.show_text:
             text_x, text_y = self.get_text_placement()
             self.add(UITextElement(self.text_message, (text_x, text_y), color=Color('Tomato')))
+
+    def click_effect(self):
+        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
+                        color=Color('Pink')))
+        self.clicked_button_text_effect()
 
     def mouse_over_effect(self):
         self.add(UITransparentRect(self.button.x, self.button.y, self.button.image_width, self.button.image_height))
@@ -89,5 +92,5 @@ class UITextButton(UILayout):
         elif self.text_placement == 'top_over':
             return (center_x - text_width/2), (self.button.rect.y - text_height - 2)
 
-    def debounce_time(self, interval=200):
+    def debounce_time(self, interval=50):
         return time.get_ticks() - self.last_update >= interval
