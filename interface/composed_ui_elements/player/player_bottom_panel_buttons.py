@@ -31,23 +31,23 @@ class PlayerBottomPanelButtons(UILayout):
         # Consumable Buttons
         self.healing_potion_button = \
             UITextButton('healing_potion',
-                         130, self.game_attributes.screen_height - self.game_attributes.panel_height + 1,
-                         health_potion_image, 60, 60, background=False)
+                         280, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
+                         health_potion_image, 50, 50, background=False)
 
         self.mana_potion_button = \
             UITextButton('mana_potion',
-                         132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
-                         mana_potion_image, 60, 60, background=False)
+                         350, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
+                         mana_potion_image, 50, 50, background=False)
 
         # Skill Buttons
-        self.ultimate_button = UITextButton('ultimate', 350, 655, ultimate_image, 40, 40)
+        self.ultimate_button = UITextButton('ultimate', 520, 655, ultimate_image, 40, 40)
         self.ultimate_button.deactivate()
 
-        self.whirlwind_button = UITextButton('whirlwind', 280, 655, whirlwind_image, 40, 40)
+        self.whirlwind_button = UITextButton('whirlwind', 460, 655, whirlwind_image, 40, 40)
         self.whirlwind_button.deactivate()
 
         # SpellBook Button and Reference Layout:
-        self.spell_book_button = UITextButton('spell_book', 10, 600, spell_book_button_image, 100, 100, background=False)
+        self.spell_book_button = UITextButton('spell_book', 140, 590, spell_book_button_image, 100, 100, background=False)
         self.spell_book = SpellBook(self.battle_master, self.game_attributes.text_sprite, add_effect)
         self.spell_book.hidden = True
 

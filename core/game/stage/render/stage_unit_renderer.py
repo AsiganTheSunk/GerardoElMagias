@@ -50,9 +50,9 @@ class StageUnitRenderer:
         if stage_unit_index == 0:
             player_unit_resource_positions = self.get_unit_resource_position(0)
 
-            stage_unit_data.set_health_bar(player_unit_resource_positions[0])       # Set HealthBar Position
-            stage_unit_data.set_mana_bar(player_unit_resource_positions[1])         # Set ManaBar Position
-            stage_unit_data.set_fury_bar(player_unit_resource_positions[2])         # Set FuryBar Position
+            stage_unit_data.set_health_bar(player_unit_resource_positions[0], size_x=260)           # Set HealthBar Position
+            stage_unit_data.set_mana_bar(player_unit_resource_positions[1], size_x=260, size_y=10)  # Set ManaBar Position
+            stage_unit_data.set_fury_bar(player_unit_resource_positions[2], size_x=260, size_y=10)  # Set FuryBar Position
         else:
             stage_unit_data.set_health_bar(self.get_unit_resource_position(stage_unit_index)[0])
 

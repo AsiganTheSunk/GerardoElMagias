@@ -14,20 +14,20 @@ class StageUnitMatrix(Enum):
 
 STAGE_UNIT_UI_RESOURCE_POSITIONS = [
     [
-        (270, lambda stage_unit_height_correction: stage_unit_height_correction + 20),
-        (270, lambda stage_unit_height_correction: stage_unit_height_correction + 40),
-        (270, lambda stage_unit_height_correction: stage_unit_height_correction + 40)
+        (440, lambda stage_unit_height_correction: stage_unit_height_correction + 20),
+        (440, lambda stage_unit_height_correction: stage_unit_height_correction + 40),
+        (440, lambda stage_unit_height_correction: stage_unit_height_correction + 35)
     ],
     [
-        (680, lambda stage_unit_height_correction: stage_unit_height_correction + 40)
+        (870, lambda stage_unit_height_correction: stage_unit_height_correction + 20)
     ],
     [
-        (680, lambda stage_unit_height_correction: stage_unit_height_correction + 100)
+        (870, lambda stage_unit_height_correction: stage_unit_height_correction + 80)
     ],
     [
-        (900, lambda stage_unit_height_correction: stage_unit_height_correction + 40)
+        (1070, lambda stage_unit_height_correction: stage_unit_height_correction + 20)
     ],
     [
-        (900, lambda stage_unit_height_correction: stage_unit_height_correction + 100)
+        (1070, lambda stage_unit_height_correction: stage_unit_height_correction + 80)
     ]
 ]

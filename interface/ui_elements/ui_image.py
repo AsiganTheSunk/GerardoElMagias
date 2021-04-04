@@ -9,4 +9,6 @@ class UIImage(UIElement):
     def __init__(self, image, x, y):
         super().__init__()
         self.image = image
+        self.x = x
+        self.y = y
         self.rect = Rect(x, y, self.image.get_width(), self.image.get_height())
