@@ -7,6 +7,7 @@ from interface.ui_elements.ui_layout import UILayout
 from interface.ui_elements.ui_text_element import UITextElement
 from interface.ui_elements.ui_button import UIButton
 from interface.ui_elements.ui_rect import UIRect
+from interface.ui_elements.ui_gradient_rect import UIGradientRect
 from interface.ui_elements.ui_transparent_rect import UITransparentRect
 
 
@@ -39,5 +40,9 @@ class PlayerInterfaceRenderer:
                     elif isinstance(ui_element, UITransparentRect):
                         alpha_surface, x, y = ui_element.render()
                         self.surface.blit(alpha_surface, (x, y))
+
+                    elif isinstance(ui_element, UIGradientRect):
+                        gradient_surface, x, y = ui_element.render()
+                        self.surface.blit(gradient_surface, (x, y))
                     else:
                         self.surface.blit(ui_element.image, (ui_element.rect.x, ui_element.rect.y))

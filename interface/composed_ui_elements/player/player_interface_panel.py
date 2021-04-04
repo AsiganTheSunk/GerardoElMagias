@@ -7,6 +7,9 @@ from pygame import Color, Rect, transform, Surface, mouse
 from pygame import display, draw
 
 from interface.ui_elements.ui_image import UIImage
+from interface.ui_elements.ui_rect import UIRect
+from interface.ui_elements.ui_layout import UILayout
+from interface.ui_elements.ui_gradient_rect import UIGradientRect
 
 
 class MouseBag(UIImage):
@@ -29,20 +32,45 @@ class MouseSword(UIImage):
         return self.image, self.x, self.y
 
 
-class PlayerInterfacePanel:
+class PlayerInterfacePanel(UILayout):
     def __init__(self, game_attributes):
+        super().__init__()
         self.game_attributes = game_attributes
         self.surface = self.game_attributes.surface
-        self.width = self.game_attributes.screen_width
-        self.height = self.game_attributes.screen_height
-        self.panel_height = self.game_attributes.panel_height
-
-        self.elements = []
 
         self.gold_image = gold_image
 
         self.victory_banner_image = victory_banner_image
         self.defeat_banner_image = defeat_banner_image
+
+        w, h = display.get_surface().get_size()
+        w = w
+        h = h + 188
+
+        self.add_ui_element(UIGradientRect(2, h / 2 + self.game_attributes.panel_height, w - 4,
+                                           self.game_attributes.panel_height))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w - 2,
+                                   self.game_attributes.panel_height, 3, Color("DimGray")))
+        self.add_ui_element(UIRect(w - w / 3 + 2, h / 2 + self.game_attributes.panel_height + 1, w - w / 2,
+                                   self.game_attributes.panel_height, 3, Color("DimGray")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 3,
+                                   self.game_attributes.panel_height, 3, Color("DimGray")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 5,
+                                   self.game_attributes.panel_height, 3, Color("DimGray")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 10,
+                                   self.game_attributes.panel_height, 3, Color("DimGray")))
+        self.add_ui_element(UIRect(w - w / 3 + 2, h / 2 + self.game_attributes.panel_height + 1, w - w / 2,
+                                   self.game_attributes.panel_height, 1, Color("Black")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 3,
+                                   self.game_attributes.panel_height, 1, Color("Black")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 5,
+                                   self.game_attributes.panel_height, 1, Color("Black")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w / 10,
+                                   self.game_attributes.panel_height, 1, Color("Black")))
+        self.add_ui_element(UIRect(1, h / 2 + self.game_attributes.panel_height + 1, w - 2,
+                                   self.game_attributes.panel_height, 1, Color("Black")))
+
+        self.add_ui_element(UIImage(gold_image, 20, 20))
 
     def display_bag_mouse(self):
         mouse_bag = MouseBag()
@@ -63,51 +91,9 @@ class PlayerInterfacePanel:
         self.surface.blit(image, (x, y))
 
     def display_gold_icon(self):
-        UIImage(gold_image, 20, 20)
+        gold_icon = UIImage(gold_image, 20, 20)
+        # image, x, y = gold_icon.render()
         self.surface.blit(gold_image, (20, 20))
 
     def display_panel_background(self):
-        w, h = display.get_surface().get_size()
-        w = w
-        h = h + 188
-        self.gradient_rect(self.surface, Color("SteelBlue"), Color("RoyalBlue"),
-                           Rect(2, h / 2 + self.panel_height, w-4, self.panel_height))
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
-        draw.rect(self.surface, Color("DimGray"), rect, 3)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/3, self.panel_height)
-        draw.rect(self.surface, Color("DimGray"), rect, 3)
-
-        rect = Rect(w - w/3 + 2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
-        draw.rect(self.surface, Color("DimGray"), rect, 3)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/5, self.panel_height)
-        draw.rect(self.surface, Color("DimGray"), rect, 3)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/10, self.panel_height)
-        draw.rect(self.surface, Color("DimGray"), rect, 3)
-
-        rect = Rect(w - w/3 + 2, h / 2 + self.panel_height + 1, w - w/2, self.panel_height)
-        draw.rect(self.surface, Color("Black"), rect, 1)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/3, self.panel_height)
-        draw.rect(self.surface, Color("Black"), rect, 1)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/5, self.panel_height)
-        draw.rect(self.surface, Color("Black"), rect, 1)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w/10, self.panel_height)
-        draw.rect(self.surface, Color("Black"), rect, 1)
-
-        rect = Rect(1, h / 2 + self.panel_height + 1, w-2, self.panel_height)
-        draw.rect(self.surface, Color("Black"), rect, 1)
-
-    @staticmethod
-    def gradient_rect(surface, left_colour, right_colour, target_rect):
-        """ Draw a horizontal-gradient filled rectangle covering <target_rect> """
-        colour_rect = Surface((2, 2))  # tiny! 2x2 bitmap
-        draw.line(colour_rect, left_colour, (0, 0), (0, 1))  # left colour line
-        draw.line(colour_rect, right_colour, (1, 0), (1, 1))  # right colour line
-        colour_rect = transform.smoothscale(colour_rect, (target_rect.width, target_rect.height))  # stretch!
-        surface.blit(colour_rect, target_rect)  # paint it
+        pass

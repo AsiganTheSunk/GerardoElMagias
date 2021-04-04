@@ -12,3 +12,6 @@ class UIImage(UIElement):
         self.x = x
         self.y = y
         self.rect = Rect(x, y, self.image.get_width(), self.image.get_height())
+
+    # def render(self):
+    #     return self.image, self.x ,self.y

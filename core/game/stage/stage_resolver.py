@@ -58,7 +58,7 @@ class StageResolver:
         if self.battle_master.is_victory_phase():
             for enemy_unit in self.battle_master.stage_unit_renderer.stage_units[1:]:
                 if enemy_unit.animation_set.mouse_collision():
-                    self.stage_renderer.display_bag_mouse()
+                    self.stage_renderer.player_interface_panel.display_bag_mouse()
                     if constants.globals.clicked:
                         self.player.get_loot(enemy_unit.unit, self.game_attributes.text_sprite)
                         constants.globals.clicked = False
@@ -68,7 +68,7 @@ class StageResolver:
         if self.battle_master.is_battle_phase():
             for enemy_unit in self.battle_master.stage_unit_renderer.stage_units[1:]:
                 if enemy_unit.unit.animation_set.mouse_collision():
-                    self.stage_renderer.display_sword_mouse()
+                    self.stage_renderer.player_interface_panel.display_sword_mouse()
                     if constants.globals.clicked and enemy_unit.unit.alive:
                         self.player.next_action = ('attack', enemy_unit.unit)
                     # Return to avoid normal mouse showing up
