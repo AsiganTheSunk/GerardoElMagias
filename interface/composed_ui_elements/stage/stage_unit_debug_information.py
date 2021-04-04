@@ -9,18 +9,13 @@ from interface.constants.player_messages import CURRENT_TURN_MESSAGE, TOTAL_ENEM
 class StageUnitDebugInformation(UILayout):
     def __init__(self):
         super().__init__()
+        self.static = False
         self.elements = []
 
-    def add(self, ui_text_element):
-        self.elements.append(ui_text_element)
-
-    def reset(self):
-        self.elements = []
-
-    def update(self, current_enemies, total_enemies, current_unit_turn, current_unit_index, is_player_phase):
-        self.reset()
-        self.add(UITextElement(TOTAL_ENEMIES_MESSAGE(current_enemies, total_enemies), (950, 30)))
+    def update_ui_elements(self, current_enemies, total_enemies, current_unit_turn, current_unit_index, is_player_phase):
+        self.reset_ui_elements()
+        self.add_ui_element(UITextElement(TOTAL_ENEMIES_MESSAGE(current_enemies, total_enemies), (950, 30)))
         if is_player_phase:
-            self.add(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, ''), (950, 50)))
+            self.add_ui_element(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, ''), (950, 50)))
         else:
-            self.add(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, current_unit_index), (950, 50)))
+            self.add_ui_element(UITextElement(CURRENT_TURN_MESSAGE(current_unit_turn, current_unit_index), (950, 50)))

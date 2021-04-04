@@ -12,20 +12,14 @@ from constants.game_colors import LIGHT_ORANGE_COLOR
 class StageUIGameModeInformation(UILayout):
     def __init__(self):
         super().__init__()
-        self.elements = []
+        self.static = False
 
-    def add(self, ui_text_element):
-        self.elements.append(ui_text_element)
-
-    def reset(self):
-        self.elements = []
-
-    def update(self, game_mode):
-        self.elements = []
+    def update_ui_elements(self, game_mode):
+        self.reset_ui_elements()
         if game_mode is GameModes.VICTORY:
-            self.add(UITextElement(VICTORY_MESSAGE, (435, 70), font=default_font, color=LIGHT_ORANGE_COLOR))
-            self.add(UITextElement(NEXT_BATTLE_MESSAGE, (470, 450), font=default_font, color=LIGHT_ORANGE_COLOR))
+            self.add_ui_element(UITextElement(VICTORY_MESSAGE, (435, 70), font=default_font, color=LIGHT_ORANGE_COLOR))
+            self.add_ui_element(UITextElement(NEXT_BATTLE_MESSAGE, (470, 450), font=default_font, color=LIGHT_ORANGE_COLOR))
         elif game_mode is GameModes.DEFEAT:
-            self.add(UITextElement(DEFEAT_MESSAGE, (440, 70), font=default_font, color=LIGHT_ORANGE_COLOR))
+            self.add_ui_element(UITextElement(DEFEAT_MESSAGE, (440, 70), font=default_font, color=LIGHT_ORANGE_COLOR))
         else:
-            self.elements = []
+            self.reset_ui_elements()

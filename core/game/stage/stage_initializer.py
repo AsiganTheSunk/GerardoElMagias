@@ -14,7 +14,7 @@ class StageInitializer:
         # Load Configuration File
 
         self.battle_master = BattleMaster(animation_master, sound_master, game_attributes)
-        self.stage_renderer = StageRenderer(self.battle_master, game_attributes, animation_master)
+        self.stage_renderer = StageRenderer(self.battle_master, game_attributes, animation_master, sound_master)
         self.stage_renderer.display_caption()
         self.stage_resolver = StageResolver(sound_master, self.battle_master, self.stage_renderer, game_attributes)
 

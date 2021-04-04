@@ -11,14 +11,8 @@ from constants.game_fonts import default_font
 class StageUIInformation(UILayout):
     def __init__(self):
         super().__init__()
-        self.elements = []
+        self.static = False
 
-    def add(self, ui_text_element):
-        self.elements.append(ui_text_element)
-
-    def reset(self):
-        self.elements = []
-
-    def update(self, stage_realm, stage_level):
-        self.reset()
-        self.add(UITextElement(CURRENT_STAGE(stage_realm.value, stage_level), (490, 25), color=RED_COLOR, font=default_font))
+    def update_ui_elements(self, stage_realm, stage_level):
+        self.reset_ui_elements()
+        self.add_ui_element(UITextElement(CURRENT_STAGE(stage_realm.value, stage_level), (490, 25), color=RED_COLOR, font=default_font))

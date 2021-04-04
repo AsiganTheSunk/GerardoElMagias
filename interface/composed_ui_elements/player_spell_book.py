@@ -31,12 +31,12 @@ class SpellBook(UILayout):
         heal_spell_button.on_click(self.handle_spell_click)
         magic_nova_spell_button.on_click(self.handle_spell_click)
 
-        self.elements = [
-            background_panel,
-            lightning_spell_button, firestorm_spell_button,
-            earth_spell_button, heal_spell_button,
-            magic_nova_spell_button
-        ]
+        self.add_ui_element(background_panel)
+        self.add_ui_element(lightning_spell_button)
+        self.add_ui_element(firestorm_spell_button)
+        self.add_ui_element(earth_spell_button)
+        self.add_ui_element(heal_spell_button)
+        self.add_ui_element(magic_nova_spell_button)
         self.add_effect = add_effect
 
     def handle_spell_click(self, event, button):

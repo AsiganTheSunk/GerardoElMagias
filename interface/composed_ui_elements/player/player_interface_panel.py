@@ -8,6 +8,18 @@ from core.game.game_event_control import event_controller
 from interface.ui_elements.ui_layout import UILayout
 
 
+class PlayerInterfaceRenderer:
+    def __init__(self):
+        self.ui_elements = []
+
+    def add(self, element):
+        self.ui_elements.append(element)
+        event_controller.add_subscriber(element)
+        if isinstance(element, UILayout):
+            for sub_element in element.elements:
+                event_controller.add_subscriber(sub_element)
+
+
 class PlayerInterfacePanel:
     def __init__(self, surface, width, height, panel_width, panel_height):
         self.surface = surface

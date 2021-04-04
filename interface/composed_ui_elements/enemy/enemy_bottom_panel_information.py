@@ -12,22 +12,15 @@ class EnemyBottomPanelInformation(UILayout):
         super().__init__()
         self.game_attributes = game_attributes
         self.panel_height_correction = self.game_attributes.screen_height - self.game_attributes.panel_height
-        self.elements = []
 
-    def add(self, ui_text_element):
-        self.elements.append(ui_text_element)
-
-    def reset(self):
-        self.elements = []
-
-    def update(self, is_boss_battle, enemy_unit_list):
-        self.reset()
+    def update_ui_elements(self, is_boss_battle, enemy_unit_list):
+        self.reset_ui_elements()
         if is_boss_battle:
-            self.add(UITextElement(BOSS_UNIT_TITLE_MESSAGE(enemy_unit_list[0].name),
+            self.add_ui_element(UITextElement(BOSS_UNIT_TITLE_MESSAGE(enemy_unit_list[0].name),
                                    (ENEMY_UNIT_PANEL_DATA[0][0],
                                     ENEMY_UNIT_PANEL_DATA[0][1](self.panel_height_correction))))
         else:
             for enemy_index, enemy_unit in enumerate(enemy_unit_list):
-                self.add(UITextElement(ENEMY_UNIT_TITLE_MESSAGE(enemy_unit.name, enemy_index + 1),
+                self.add_ui_element(UITextElement(ENEMY_UNIT_TITLE_MESSAGE(enemy_unit.name, enemy_index + 1),
                                        (ENEMY_UNIT_PANEL_DATA[enemy_index][0],
                                         ENEMY_UNIT_PANEL_DATA[enemy_index][1](self.panel_height_correction))))

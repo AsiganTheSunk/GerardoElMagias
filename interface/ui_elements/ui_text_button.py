@@ -12,8 +12,8 @@ from interface.ui_elements.ui_transparent_rect import UITransparentRect
 
 class UITextButton(UILayout):
     def __init__(self, ui_identifier, x, y, image, image_width, image_height, text_message='',
-                 text_color=Color('Black'), text_font_size=10, text_font='./resources/fonts/Verdana.ttf',
-                 text_placement='center', show_text=True):
+                 text_color=Color('White'), text_font_size=10, text_font='./resources/fonts/Verdana.ttf',
+                 text_placement='center', show_text=True, background=True):
         super().__init__()
 
         self.text_color = text_color
@@ -23,11 +23,11 @@ class UITextButton(UILayout):
         self.text_placement = text_placement
 
         self.button = UIButton(ui_identifier, x, y, image, image_width, image_height)
-
+        self.background = background
         self.key_bind = None
         self.last_update = 0
         self.show_text = show_text
-        self.reset()
+        self.reset_ui_elements()
 
     def activate(self):
         self.button.active = True
@@ -38,8 +38,9 @@ class UITextButton(UILayout):
     def add(self, ui_button_element):
         self.elements.append(ui_button_element)
 
-    def reset(self):
+    def reset_ui_elements(self):
         self.elements = []
+
         self.default_button()
         if self.button.mouse_over:
             self.mouse_over_effect()
@@ -51,10 +52,11 @@ class UITextButton(UILayout):
         if self.debounce_time():
             self.button.clicked = mouse.get_pressed(num_buttons=3)[0] and self.button.rect.collidepoint(mouse.get_pos())
             self.button.mouse_over = self.button.rect.collidepoint(mouse.get_pos())
-            self.reset()
+            self.reset_ui_elements()
 
     def default_button(self):
-        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')))
+        if self.background:
+            self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')))
         self.add(self.button)
         self.button_text()
 

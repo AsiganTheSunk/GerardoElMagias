@@ -12,22 +12,16 @@ class PlayerBottomPanelInformation(UILayout):
         super().__init__()
         self.game_attributes = game_attributes
         self.panel_height_correction = self.game_attributes.screen_height - self.game_attributes.panel_height
-        self.elements = []
+        self.static = False
 
-    def add(self, ui_text_element):
-        self.elements.append(ui_text_element)
-
-    def reset(self):
-        self.elements = []
-
-    def update(self, player):
-        self.reset()
-        self.add(UITextElement(PLAYER_HP(player.current_hp, player.max_hp), (440, self.panel_height_correction + 18)))
-        self.add(UITextElement(PLAYER_MP(player.current_mp, player.max_mp), (440, self.panel_height_correction + 38)))
-        self.add(UITextElement(PLAYER_FURY(player.current_fury, player.max_fury), (440, self.panel_height_correction + 58)))
-        self.add(UITextElement(PLAYER_CONSUMABLE(player.stash.healing_potions),
+    def update_ui_elements(self, player):
+        self.reset_ui_elements()
+        self.add_ui_element(UITextElement(PLAYER_HP(player.current_hp, player.max_hp), (440, self.panel_height_correction + 18)))
+        self.add_ui_element(UITextElement(PLAYER_MP(player.current_mp, player.max_mp), (440, self.panel_height_correction + 38)))
+        self.add_ui_element(UITextElement(PLAYER_FURY(player.current_fury, player.max_fury), (440, self.panel_height_correction + 58)))
+        self.add_ui_element(UITextElement(PLAYER_CONSUMABLE(player.stash.healing_potions),
                                (190, self.panel_height_correction + 20), font=default_font))
-        self.add(UITextElement(PLAYER_CONSUMABLE(player.stash.mana_potions),
+        self.add_ui_element(UITextElement(PLAYER_CONSUMABLE(player.stash.mana_potions),
                                (190, self.panel_height_correction + 80), font=default_font))
 
 

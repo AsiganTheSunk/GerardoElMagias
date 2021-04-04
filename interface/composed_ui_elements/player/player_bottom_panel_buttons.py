@@ -22,81 +22,89 @@ from constants.game_images import skull_button_image, spell_book_button_image, k
 
 
 class PlayerBottomPanelButtons(UILayout):
-    def __init__(self, sound_master, battle_master, stage_renderer, game_attributes):
+    def __init__(self, sound_master, battle_master, game_attributes, add_effect):
         super().__init__()
         self.sound_master = sound_master
         self.battle_master = battle_master
         self.game_attributes = game_attributes
-        self.stage_renderer = stage_renderer
-
-        self.elements = []
 
         # Consumable Buttons
         self.healing_potion_button = \
-            UIButton('healing_potion', 130, self.game_attributes.screen_height - self.game_attributes.panel_height + 1,
-                     health_potion_image, 64, 64)
+            UITextButton('healing_potion',
+                         130, self.game_attributes.screen_height - self.game_attributes.panel_height + 1,
+                         health_potion_image, 60, 60, background=False)
 
         self.mana_potion_button = \
-            UIButton('mana_potion', 132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
-                     mana_potion_image, 60, 60)
+            UITextButton('mana_potion',
+                         132, self.game_attributes.screen_height - self.game_attributes.panel_height + 65,
+                         mana_potion_image, 60, 60, background=False)
 
         # Skill Buttons
-        self.ultimate_button = UIButton('ultimate', 555, 590, ultimate_image, 60, 60)
-        self.ultimate_button.hidden = True
+        self.ultimate_button = UITextButton('ultimate', 350, 655, ultimate_image, 40, 40)
+        self.ultimate_button.deactivate()
 
-        self.whirlwind_button = UIButton('whirlwind', 280, 655, whirlwind_image, 40, 40)
-        self.whirlwind_button.hidden = True
+        self.whirlwind_button = UITextButton('whirlwind', 280, 655, whirlwind_image, 40, 40)
+        self.whirlwind_button.deactivate()
 
         # SpellBook Button and Reference Layout:
-        self.spell_book_button = UIButton('spell_book', 10, 600, spell_book_button_image, 100, 100)
-        self.spell_book = SpellBook(self.battle_master, self.game_attributes.text_sprite, self.stage_renderer.add_effect)
+        self.spell_book_button = UITextButton('spell_book', 10, 600, spell_book_button_image, 100, 100, background=False)
+        self.spell_book = SpellBook(self.battle_master, self.game_attributes.text_sprite, add_effect)
         self.spell_book.hidden = True
 
         # Next Button
-        self.next_button = UIButton('next', 1015, 180, next_button_image, 80, 80)
+        self.next_button = UITextButton('next', 1015, 180, next_button_image, 80, 80, background=False)
         self.next_button.hidden = True
 
         # Debug Buttons:
-        self.kill_switch_button = UIButton('kill_switch', 30, 260, skull_button_image, 60, 60)
-        self.kill_switch_and_next_button = UIButton('kill_switch_and_next', 30, 350, kill_button_image, 60, 60)
+        self.kill_switch_button = UITextButton('kill_switch', 30, 260, skull_button_image, 60, 60, background=False)
+        self.kill_switch_and_next_button = UITextButton('kill_switch_and_next', 30, 350, kill_button_image, 60, 60, background=False)
 
         # Handle Buttons Events
-        self.mana_potion_button.on_click(self.battle_master.handle_potion_click)
-        self.healing_potion_button.on_click(self.battle_master.handle_potion_click)
-        self.ultimate_button.on_click(self.handle_ultimate_click)
-        self.whirlwind_button.on_click(self.handle_whirlwind_click)
-        self.spell_book_button.on_click(self.toggle_player_spell_book)
-        self.next_button.on_click(self.handle_next_click)
-        self.kill_switch_button.on_click(self.handle_kill_switch)
-        self.kill_switch_and_next_button.on_click(self.handle_kill_switch_and_next)
+        self.mana_potion_button.button.on_click(self.battle_master.handle_potion_click)
+        self.healing_potion_button.button.on_click(self.battle_master.handle_potion_click)
+        self.ultimate_button.button.on_click(self.handle_ultimate_click)
+        self.whirlwind_button.button.on_click(self.handle_whirlwind_click)
+        self.spell_book_button.button.on_click(self.toggle_player_spell_book)
+        self.next_button.button.on_click(self.handle_next_click)
+        self.kill_switch_button.button.on_click(self.handle_kill_switch)
+        self.kill_switch_and_next_button.button.on_click(self.handle_kill_switch_and_next)
 
         # Add Elements to Layout
-        self.add(self.healing_potion_button)
-        self.add(self.mana_potion_button)
-        self.add(self.ultimate_button)
-        self.add(self.whirlwind_button)
-        self.add(self.spell_book_button)
-        self.add(self.spell_book)
-        self.add(self.next_button)
-        self.add(self.kill_switch_button)
-        self.add(self.kill_switch_and_next_button)
+        self.add_ui_element(self.healing_potion_button)
+        self.add_ui_element(self.mana_potion_button)
+        self.add_ui_element(self.ultimate_button)
+        self.add_ui_element(self.whirlwind_button)
+        self.add_ui_element(self.spell_book_button)
+        self.add_ui_element(self.spell_book)
+        self.add_ui_element(self.next_button)
+        self.add_ui_element(self.kill_switch_button)
+        self.add_ui_element(self.kill_switch_and_next_button)
 
-    def add(self, ui_element):
-        self.elements.append(ui_element)
+    def update_button_elements(self):
+        self.healing_potion_button.update()
+        self.mana_potion_button.update()
+        self.ultimate_button.update()
+        self.whirlwind_button.update()
+        self.spell_book_button.update()
+        self.next_button.update()
+        self.kill_switch_button.update()
+        self.kill_switch_and_next_button.update()
 
     def handle_ultimate_click(self, event, button):
-        if self.battle_master.is_player_phase():
-            self.battle_master.get_hero().ultimate_status = True
-            self.sound_master.play_unit_fx_sound('ultimate')
-            self.battle_master.get_hero().reset_fury()
-            constants.globals.action_cooldown = -25
+        if button.active:
+            if self.battle_master.is_player_phase():
+                self.battle_master.get_hero().ultimate_status = True
+                self.sound_master.play_unit_fx_sound('ultimate')
+                self.battle_master.get_hero().reset_fury()
+                constants.globals.action_cooldown = -25
 
     def handle_whirlwind_click(self, event, button):
-        if self.battle_master.is_player_phase():
-            self.battle_master.get_hero().whirlwind_status = True
-            self.sound_master.play_unit_fx_sound('ultimate')
-            self.battle_master.get_hero().reduce_fury(50)
-            constants.globals.action_cooldown = -25
+        if button.active:
+            if self.battle_master.is_player_phase():
+                self.battle_master.get_hero().whirlwind_status = True
+                self.sound_master.play_unit_fx_sound('ultimate')
+                self.battle_master.get_hero().reduce_fury(50)
+                constants.globals.action_cooldown = -25
 
     def toggle_player_spell_book(self, event, spell_book):
         if self.battle_master.is_player_phase():

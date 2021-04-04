@@ -18,8 +18,11 @@ class UIButton(UIElement):
 		self.image_width = image_width
 		self.image_height = image_height
 
+		# Create a grey image instead of doing it on loading button, cause this causes slow down
 		self.image = transform.scale(image, (self.image_width, self.image_height))
 		self.clicked_image = transform.scale(image, (self.image_width - 2, self.image_height - 2))
+		self.inactive_image = self.grayscale(self.image)
+		self.inactive_clicked_image = self.grayscale(self.clicked_image)
 
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
@@ -36,11 +39,8 @@ class UIButton(UIElement):
 	def render(self):
 		if not self.active:
 			if self.clicked:
-				inactive_image = self.grayscale(self.clicked_image)
-				return inactive_image, (self.rect.x + 2, self.rect.y + 2)
-
-			inactive_image = self.grayscale(self.image)
-			return inactive_image, (self.rect.x, self.rect.y)
+				return self.inactive_clicked_image, (self.rect.x + 2, self.rect.y + 2)
+			return self.inactive_image, (self.rect.x, self.rect.y)
 		else:
 			if self.clicked:
 				return self.clicked_image, (self.rect.x + 2, self.rect.y + 2)

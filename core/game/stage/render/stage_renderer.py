@@ -14,14 +14,16 @@ from interface.ui_elements.ui_text_button import UITextButton
 from interface.ui_elements.ui_button import UIButton
 from interface.ui_elements.ui_rect import UIRect
 from interface.ui_elements.ui_transparent_rect import UITransparentRect
+from interface.composed_ui_elements.player.player_bottom_panel_buttons import PlayerBottomPanelButtons
 
 
 class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
                     StageBackgroundSelector, StageUnitEffectsRenderer):
-    def __init__(self, battle_master, game_attributes, animation_master):
+    def __init__(self, battle_master, game_attributes, animation_master, sound_master):
         self.battle_master = battle_master
         self.game_attributes = game_attributes
         self.animation_master = animation_master
+        self.sound_master = sound_master
 
         StageBackgroundSelector.__init__(self, game_attributes.surface)
         StageUnitEffectsRenderer.__init__(self, animation_master)
@@ -30,13 +32,14 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
         PlayerInterfacePanel.__init__(self, game_attributes.surface, game_attributes.screen_width,
                                       game_attributes.screen_height, 0, game_attributes.panel_height)
 
+        self.player_bottom_panel_buttons = \
+            PlayerBottomPanelButtons(self.sound_master, self.battle_master, self.game_attributes, self.add_effect)
+
+        for ui_elements in  self.player_bottom_panel_buttons.elements:
+            self.add(ui_elements)
+
         self.clock = self.game_attributes.clock
         self.fps = self.game_attributes.fps
-
-        self.new_button = UITextButton('new_button', 400, 655, whirlwind_image, 40, 40, text_message='hello')
-        # self.new_button.button.on_click(self.new_button.handle_on_click_event)
-        # self.new_button.button.on_mouse_over(self.new_button.handle_mouse_over_event)
-        self.add(self.new_button)
 
     @staticmethod
     def display_caption():
@@ -68,14 +71,12 @@ class StageRenderer(PlayerInterfacePanel, PlayerUITextStageInformation,
 
         # draw effects: in front of units
         self.update_effects()
-
-        self.update_ui_text_elements(self.battle_master)
-        self.new_button.update()
-
         self.render_ui_elements(self.ui_elements + self.ui_text_elements)
-        # self.render_ui_elements(self.ui_text_elements)
 
     def render_ui_elements(self, elements):
+        self.update_layout(self.battle_master)
+        self.player_bottom_panel_buttons.update_button_elements()
+
         for ui_element in elements:
             if not ui_element.hidden:
                 if isinstance(ui_element, UILayout):

@@ -5,7 +5,6 @@
 from pygame import mouse
 import constants.globals
 from core.game.text.damage_text import DamageText
-from interface.composed_ui_elements.player.player_bottom_panel_buttons import PlayerBottomPanelButtons
 
 # Init DamageText
 damage_text = DamageText()
@@ -20,13 +19,6 @@ class StageResolver:
         self.stage_renderer = stage_renderer
 
         self.game_attributes = game_attributes
-
-        self.player_bottom_panel_buttons = \
-            PlayerBottomPanelButtons(self.sound_master, self.battle_master, self.stage_renderer, self.game_attributes)
-
-        for ui_element in self.player_bottom_panel_buttons.elements:
-            self.stage_renderer.add(ui_element)
-
         self.player = self.battle_master.get_hero()
 
     def stage_loop_resolver(self):
@@ -53,14 +45,14 @@ class StageResolver:
 
     def resolve_player_interface_actions(self):
         if self.player.has_enough_fury():
-            self.player_bottom_panel_buttons.ultimate_button.hidden = False
+            self.stage_renderer.player_bottom_panel_buttons.ultimate_button.activate()
         else:
-            self.player_bottom_panel_buttons.ultimate_button.hidden = True
+            self.stage_renderer.player_bottom_panel_buttons.ultimate_button.deactivate()
 
         if self.player.has_enough_fury(50):
-            self.player_bottom_panel_buttons.whirlwind_button.hidden = False
+            self.stage_renderer.player_bottom_panel_buttons.whirlwind_button.activate()
         else:
-            self.player_bottom_panel_buttons.whirlwind_button.hidden = True
+            self.stage_renderer.player_bottom_panel_buttons.whirlwind_button.deactivate()
 
     def resolve_player_mouse_actions(self):
         if self.battle_master.is_victory_phase():
@@ -91,7 +83,7 @@ class StageResolver:
 
     def resolve_victory(self):
         if self.battle_master.is_victory_phase():
-            self.player_bottom_panel_buttons.next_button.hidden = False
+            self.stage_renderer.player_bottom_panel_buttons.next_button.hidden = False
             self.stage_renderer.display_victory()
 
     def resolve_defeat(self):
