@@ -6,7 +6,7 @@ from interface.ui_elements.ui_layout import UILayout
 from interface.ui_elements.ui_text_element import UITextElement
 from interface.composed_ui_elements.player.player_interface_panel import PlayerInterfacePanel
 from interface.composed_ui_elements.player_interface_text import PlayerUITextStageInformation
-from selector.stage_background_selector import StageBackgroundSelector
+from core.game.stage.selector.stage_background_selector import StageBackgroundSelector
 from core.game.stage.render.stage_unit_effects_renderer import StageUnitEffectsRenderer
 from constants.game_images import skull_button_image, spell_book_button_image, kill_button_image, \
     health_potion_image, mana_potion_image, ultimate_image, next_button_image, whirlwind_image

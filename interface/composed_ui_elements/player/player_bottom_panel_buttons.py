@@ -7,7 +7,7 @@ from constants.game_fonts import default_font
 import constants.globals
 
 # Game Drawable Instance Imports:
-from ui_elements.ui_button import UIButton
+from interface.ui_elements.ui_text_button import UIButton
 from interface.ui_elements.ui_layout import UILayout
 from interface.ui_elements.ui_text_button import UITextButton
 from interface.composed_ui_elements.player_spell_book import SpellBook

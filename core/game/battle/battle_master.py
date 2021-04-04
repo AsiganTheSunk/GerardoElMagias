@@ -7,7 +7,7 @@ from core.game.battle.enemy.group_generator import EnemyGroupGenerator
 import constants.globals
 from random import randint
 from core.game.constants.game_modes import GameModes
-from render.stage_unit_renderer import StageUnitRenderer
+from core.game.stage.render.stage_unit_renderer import StageUnitRenderer
 from core.game.stage.constants.stage_realms import StageRealms
 
 
