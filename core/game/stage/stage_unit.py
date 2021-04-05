@@ -14,6 +14,7 @@ from core.units.resources.mana_bar import ManaBar
 from core.units.resources.health_bar import HealthBar
 
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
+from interface.ui_elements.ui_resource_bar import UIResourceBar
 
 
 class StageUnit:
@@ -47,7 +48,8 @@ class StageUnit:
 
     def set_health_bar(self, health_bar_position, size_x=160, size_y=15):
         health_bar_x, health_bar_y = health_bar_position
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.unit.current_hp, self.unit.max_hp, size_x, size_y)
+        # self.health_bar = HealthBar(health_bar_x, health_bar_y, self.unit.current_hp, self.unit.max_hp, size_x, size_y)
+        self.health_bar = UIResourceBar(health_bar_x, health_bar_y, self.unit.current_hp, self.unit.max_hp, size_x, size_y)
 
     def set_mana_bar(self, mana_bar_position, size_x=160, size_y=15):
         mana_bar_x, mana_bar_y = mana_bar_position
