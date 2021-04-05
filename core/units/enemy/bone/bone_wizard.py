@@ -34,7 +34,7 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
         return True
 
     def use_shadow_bolt(self, target, text_sprite):
-        if self.reduce_mana(10):
+        if self.reduce_mana(20):
             self.use_animation('ShadowBolt')
             self.cast_shadow_bolt(self, target, text_sprite)
             return True
@@ -42,10 +42,9 @@ class BoneWizard(EnemyUnit, MeleeSpells, MagicSpells):
 
     def action(self, target, text_sprite):
         random_action = randint(1, 2)
+
         if random_action == 1:
-            if self.use_shadow_bolt(target, text_sprite):
-                pass
-            else:
-                self.use_attack(target, text_sprite)
+            self.use_shadow_bolt(target, text_sprite)
+
         if random_action == 2:
             self.use_attack(target, text_sprite)

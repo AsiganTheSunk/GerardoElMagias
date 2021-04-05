@@ -14,6 +14,7 @@ from core.units.enemy.dragon.small_dragon import SmallDragon
 from core.units.enemy.dragon.dragon import Dragon
 from core.units.enemy.djinn.djinn import Djinn
 from core.units.enemy.demon.demon import Demon
+from core.units.enemy.medusa.medusa import Medusa
 
 
 class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySetGenerator):
@@ -84,19 +85,19 @@ class EnemyGroupGenerator(EnemyStatsGenerator, EnemyPositionsGenerator, EnemySet
             BanditChief(650, 475, 10, 17, 10, 0, 214, 0,
                         680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                         animation_master, sound_master),
-            Djinn(750, 400, 14, 0, 25, 20, 278, 40,
+            Djinn(750, 400, 14, 0, 25, 20, 278, 50,
                   680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                   animation_master, sound_master),
-            SmallDragon(730, 438, 18, 18, 7, 12, 332, 50,
+            SmallDragon(730, 438, 18, 18, 7, 12, 332, 64,
                         680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                         animation_master, sound_master),
-            Dragon(800, 352, 22, 20, 8, 22, 400, 70,
+            Dragon(800, 352, 22, 20, 8, 22, 400, 96,
                    680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                    animation_master, sound_master),
-            Demon(800, 365, 26, 31, 12, 18, 480, 50,
+            Medusa(800, 365, 26, 31, 12, 18, 480, 80,
                   680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                   animation_master, sound_master),
-            Demon(600, 365, 30, 41, 25, 25, 666, 80,
+            Demon(600, 365, 30, 41, 25, 25, 666, 120,
                   680, (self.game_attributes.screen_height - self.game_attributes.panel_height + 40),
                   animation_master, sound_master),
         ]

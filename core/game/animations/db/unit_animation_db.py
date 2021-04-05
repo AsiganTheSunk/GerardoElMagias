@@ -101,5 +101,15 @@ UNIT_ANIMATION_SETS = {
         AnimationResource(UnitAnimationType.BLOCK, 3),
         AnimationResource(UnitAnimationType.MISS, 3),
         AnimationResource(UnitAnimationType.MATERIALIZE, 4)
+    ],
+
+    UnitType.MEDUSA: [
+        # Index 0: Idle, 1: Death, 2: Attack, 3:Hurt, 4:Block, 5: Miss, 6: Materialize
+        AnimationResource(UnitAnimationType.IDLE, 3),
+        AnimationResource(UnitAnimationType.DEATH, 6),
+        AnimationResource(UnitAnimationType.ATTACK, 6),
+        AnimationResource(UnitAnimationType.HURT, 3),
+        AnimationResource(UnitAnimationType.BLOCK, 4),
+        AnimationResource(UnitAnimationType.MISS, 4),
     ]
 }

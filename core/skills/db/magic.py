@@ -27,7 +27,7 @@ class MagicSpells(CombatFormulas, CombatResolver):
         # Todo: Init proper 150x, 400y
         damage_text.cast(caster, "Heal", text_sprite, 0, -30)
 
-        base_heal = 1 + randint(0, 10) + (caster.magic_power * 4)
+        base_heal = randint(0, 5) + (caster.magic_power * 3)
         if target.max_hp - target.current_hp > base_heal:
             heal_amount = base_heal
         else:
@@ -48,8 +48,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = randint(0, 5)
-                output_damage = (caster.magic_power * 2) + base_damage
+                base_damage = randint(0, 3)
+                output_damage = caster.magic_power + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
@@ -90,8 +90,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = 10
-                output_damage = (caster.magic_power * 1) + base_damage
+                base_damage = randint(1, 6)
+                output_damage = round(caster.magic_power * 1.5) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
@@ -111,8 +111,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
             input_type_list = []
             for _ in target_list:
                 # Basic Spell Attributes: minimum, maximum, multiplier
-                base_damage = 3
-                output_damage = (caster.magic_power * 1) + base_damage
+                base_damage = randint(1, 8)
+                output_damage = (caster.magic_power * 2) + base_damage
 
                 input_damage, input_type = self.spell_attack_resolution(caster, output_damage, self.hit_resolution())
                 input_damage_list.append(input_damage)
@@ -121,13 +121,8 @@ class MagicSpells(CombatFormulas, CombatResolver):
             self.resolve_aoe_attack(caster, target_list, input_damage_list, input_type_list, text_sprite)
 
     def cast_shadow_bolt(self, caster, target, text_sprite):
-        constants.globals.action_cooldown = -30
-        # Display Header Cast
-        damage_text.cast(caster, "Shadow Bolt!", text_sprite, 0, -30)
+        output_damage = round(caster.magic_power * 1.4)
+        input_damage, input_type = self.fixed_damage_attack_resolution(output_damage)
+        self.resolve_fixed_damage_attack(target, input_damage, input_type, text_sprite)
 
-        # Calculate Basic Damage: Based on Strength
-        base_damage = randint(0, 3)
-        output_damage = caster.magic_power + base_damage
-
-        input_damage, input_type = self.melee_attack_resolution(caster, output_damage, self.hit_resolution())
-        self.resolve_attack(caster, target, input_damage, input_type, text_sprite)
+        damage_text.cast(self, "Shadow Bolt!", text_sprite, 0, -30)

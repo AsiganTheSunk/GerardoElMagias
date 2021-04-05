@@ -45,7 +45,7 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
 
     def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(12):
+        if self.reduce_mana(25):
             self.cast_heal(self, self, text_sprite)
             self.sound_master.play_spell_fx_sound('heal_spell')
             return True
@@ -59,7 +59,7 @@ class Djinn(EnemyUnit, MeleeSpells, MagicSpells):
             if health_trigger:
                 random_action = randint(1, 2)
                 if random_action == 1:
-                    if self.current_mp >= 12:
+                    if self.current_mp >= 25:
                         self.use_heal(text_sprite)
                     else:
                         self.use_power_of_two_attack(target, text_sprite)

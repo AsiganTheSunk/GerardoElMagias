@@ -35,7 +35,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
 
     def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(12):
+        if self.reduce_mana(25):
             self.cast_heal(self, self, text_sprite)
             self.sound_master.play_spell_fx_sound('heal_spell')
             return True
@@ -43,7 +43,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
 
     def use_firestorm(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(15):
+        if self.reduce_mana(32):
             self.cast_firestorm(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
@@ -51,7 +51,7 @@ class Demon(EnemyUnit, MeleeSpells, MagicSpells):
 
     def use_lightning(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(20):
+        if self.reduce_mana(30):
             self.cast_lightning(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('lightning_spell')
             return True

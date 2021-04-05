@@ -33,7 +33,7 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
 
     def use_heal(self, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(12):
+        if self.reduce_mana(25):
             self.cast_heal(self, self, text_sprite)
             self.sound_master.play_spell_fx_sound('heal_spell')
             return True
@@ -41,7 +41,7 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
 
     def use_firestorm(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(15):
+        if self.reduce_mana(32):
             self.cast_firestorm(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
             return True
@@ -51,17 +51,21 @@ class SmallDragon(EnemyUnit, MagicSpells, MeleeSpells):
         health_trigger = self.current_hp <= round(self.max_hp * 0.60)
         if health_trigger:
             random_action = randint(1, 3)
+
             if random_action == 1:
                 self.use_attack(target, text_sprite)
+
             elif random_action == 2:
-                if self.use_heal(text_sprite):
-                    pass
+                if self.current_mp >= 25:
+                    self.use_heal(text_sprite)
                 else:
                     self.use_attack(target, text_sprite)
+
             elif random_action == 3:
-                if self.use_firestorm([target], text_sprite):
-                    pass
+                if self.current_mp >= 32:
+                    self.use_firestorm([target], text_sprite)
                 else:
                     self.use_attack(target, text_sprite)
+
         else:
             self.use_attack(target, text_sprite)
