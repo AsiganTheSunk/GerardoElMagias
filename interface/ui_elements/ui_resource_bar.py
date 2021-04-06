@@ -125,7 +125,7 @@ class UIResourceBar(UILayout):
             self.percentage_value_change = (self.last_value / self.max_value) - \
                                            (current_value / self.max_value)
             # Establish Number of Transition Cycles based on Percentage Value Change
-            if self.percentage_value_change > 0.60:
+            if self.percentage_value_change >= 0.50:
                 self.upper_effect_cycles = 20
             else:
                 self.upper_effect_cycles = 10
@@ -143,7 +143,7 @@ class UIResourceBar(UILayout):
                                            (current_value / self.max_value)
 
             # Establish Number of Transition Cycles based on Percentage Value Change
-            if self.percentage_value_change > 0.60:
+            if self.percentage_value_change >= 0.50:
                 self.upper_effect_cycles = 30
             else:
                 self.upper_effect_cycles = 20

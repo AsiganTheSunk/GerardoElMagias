@@ -54,7 +54,7 @@ class StageUnit:
     def set_mana_bar(self, mana_bar_position, size_x=160, size_y=15):
         mana_bar_x, mana_bar_y = mana_bar_position
         self.mana_bar = UIResourceBar(mana_bar_x, mana_bar_y, self.unit.current_mp, self.unit.max_mp, size_x, size_y,
-                                      MEDIUM_BLUE_COLOR, GRAY_COLOR, Color('DarkSlateGrey'), Color('DodgerBlue'),
+                                      MEDIUM_BLUE_COLOR, GRAY_COLOR, Color('Cyan4'), Color('CornFlowerBlue'),
                                       Color('DodgerBlue4'), shake_effect_status=False)
 
     def set_fury_bar(self, fury_bar_position, size_x=160, size_y=15):
