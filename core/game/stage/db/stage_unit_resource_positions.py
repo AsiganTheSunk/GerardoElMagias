@@ -16,7 +16,7 @@ STAGE_UNIT_UI_RESOURCE_POSITIONS = [
     [
         (440, lambda stage_unit_height_correction: stage_unit_height_correction + 20),
         (440, lambda stage_unit_height_correction: stage_unit_height_correction + 40),
-        (440, lambda stage_unit_height_correction: stage_unit_height_correction + 35)
+        (440, lambda stage_unit_height_correction: stage_unit_height_correction + 55)
     ],
     [
         (870, lambda stage_unit_height_correction: stage_unit_height_correction + 20)

@@ -12,7 +12,8 @@ from core.units.enemy.lizard.lizard import Lizard
 from core.units.resources.fury_bar import FuryBar
 from core.units.resources.mana_bar import ManaBar
 from core.units.resources.health_bar import HealthBar
-
+from pygame import Color
+from constants.game_colors import MEDIUM_BLUE_COLOR, GRAY_COLOR, ORANGE_COLOR
 from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 from interface.ui_elements.ui_resource_bar import UIResourceBar
 
@@ -48,16 +49,19 @@ class StageUnit:
 
     def set_health_bar(self, health_bar_position, size_x=160, size_y=15):
         health_bar_x, health_bar_y = health_bar_position
-        # self.health_bar = HealthBar(health_bar_x, health_bar_y, self.unit.current_hp, self.unit.max_hp, size_x, size_y)
         self.health_bar = UIResourceBar(health_bar_x, health_bar_y, self.unit.current_hp, self.unit.max_hp, size_x, size_y)
 
     def set_mana_bar(self, mana_bar_position, size_x=160, size_y=15):
         mana_bar_x, mana_bar_y = mana_bar_position
-        self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.unit.current_mp, self.unit.max_mp, size_x, size_y)
+        self.mana_bar = UIResourceBar(mana_bar_x, mana_bar_y, self.unit.current_mp, self.unit.max_mp, size_x, size_y,
+                                      MEDIUM_BLUE_COLOR, GRAY_COLOR, Color('DarkSlateGrey'), Color('DodgerBlue'),
+                                      Color('DodgerBlue4'), shake_effect_status=False)
 
     def set_fury_bar(self, fury_bar_position, size_x=160, size_y=15):
         fury_bar_x, fury_bar_y = fury_bar_position
-        self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.unit.current_fury, self.unit.max_fury, size_x, size_y)
+        self.fury_bar = UIResourceBar(fury_bar_x, fury_bar_y, self.unit.current_fury, self.unit.max_fury, size_x, size_y,
+                                      ORANGE_COLOR, GRAY_COLOR, Color('Coral2'), Color('DarkOrange'),
+                                      Color('DarkOrange3'), shake_effect_status=False)
 
     def render_health_bar(self, surface):
         if self.health_bar is not None:
