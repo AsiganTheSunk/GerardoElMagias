@@ -28,10 +28,10 @@ class StageRenderer(PlayerUITextStageInformation,
             PlayerBottomPanelButtons(self.sound_master, self.battle_master, self.game_attributes, self.add_effect)
 
         for ui_elements in self.player_interface_panel.elements:
-            self.add(ui_elements)
+            self.add_to_render(ui_elements)
 
         for ui_elements in self.player_bottom_panel_buttons.elements:
-            self.add(ui_elements)
+            self.add_to_render(ui_elements)
 
         self.clock = self.game_attributes.clock
         self.fps = self.game_attributes.fps
@@ -55,10 +55,9 @@ class StageRenderer(PlayerUITextStageInformation,
 
         self.update_layout(self.battle_master)
         self.player_bottom_panel_buttons.update_button_elements()
-        self.render_ui_elements(self.ui_elements)
-
-        # draw units
         self.battle_master.stage_unit_renderer.render_units()
+        self.render_interface()
+        self.battle_master.stage_unit_renderer.render_unit_resources()
 
         # draw effects: in front of units
         self.update_effects()

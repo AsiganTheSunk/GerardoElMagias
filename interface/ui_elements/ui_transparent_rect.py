@@ -21,4 +21,4 @@ class UITransparentRect(UIElement):
         alpha_surface = Surface((self.width, self.height), SRCALPHA, 32)
         alpha_surface.set_alpha(100)
         alpha_surface.fill(self.color)
-        return alpha_surface, self.x, self.y
+        return alpha_surface, (self.x, self.y)

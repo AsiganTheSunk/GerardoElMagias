@@ -12,7 +12,7 @@ class UIGradientRect(UIElement):
         self.gradient_rect = self.get_gradient_rect()
 
     def render(self):
-        return self.gradient_rect, self.rect.x, self.rect.y
+        return self.gradient_rect, (self.rect.x, self.rect.y)
 
     def get_gradient_rect(self):
         """ Draw a horizontal-gradient filled rectangle covering <target_rect> """

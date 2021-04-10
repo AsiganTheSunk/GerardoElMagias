@@ -18,7 +18,7 @@ class UIRect(UIElement):
         self.color = color
 
     def render(self):
-        if self.border_size != 0:
+        return self.color, (self.x, self.y, self.width + round(self.border_size/2), self.height + round(self.border_size/2)), self.border_size
             return self.color, self.x, self.y, \
                    self.width + round(self.border_size/2), self.height + round(self.border_size/2), self.border_size
         return self.color, self.x, self.y, \

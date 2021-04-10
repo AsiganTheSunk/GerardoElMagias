@@ -39,6 +39,8 @@ class StageUnitRenderer:
             stage_unit.animation_set.draw()
             stage_unit.animation_set.update()
 
+    def render_unit_resources(self):
+        for stage_unit in self.stage_units:
             stage_unit.render_health_bar(self.animation_master.surface)
             stage_unit.render_mana_bar(self.animation_master.surface)
             stage_unit.render_fury_bar(self.animation_master.surface)

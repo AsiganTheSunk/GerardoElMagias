@@ -15,3 +15,5 @@ class UIImage(UIElement):
 
     # def render(self):
     #     return self.image, self.x ,self.y
+    def render(self):
+        return self.image, (self.x, self.y)

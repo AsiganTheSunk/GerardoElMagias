@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pygame import time, font, Color, mouse
-
+from interface.ui_elements.ui_render_layer import UIRenderLayer
 from interface.ui_elements.ui_layout import UILayout
 from interface.ui_elements.ui_button import UIButton
 from interface.ui_elements.ui_text_element import UITextElement
@@ -29,14 +29,13 @@ class UITextButton(UILayout):
         self.show_text = show_text
         self.reset_ui_elements()
 
+        self.layer = UIRenderLayer.BACKGROUND
+
     def activate(self):
         self.button.active = True
 
     def deactivate(self):
         self.button.active = False
-
-    def add(self, ui_button_element):
-        self.elements.append(ui_button_element)
 
     def reset_ui_elements(self):
         self.elements = []
@@ -56,28 +55,28 @@ class UITextButton(UILayout):
 
     def default_button(self):
         if self.background:
-            self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')))
-        self.add(self.button)
+            self.add_ui_element(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width + 2, self.button.image_height + 2, color=Color('DarkBlue')))
+        self.add_ui_element(self.button)
         self.button_text()
 
     def button_text(self):
         text_x, text_y = self.get_text_placement()
         if self.show_text:
-            self.add(UITextElement(self.text_message, (text_x, text_y)))
+            self.add_ui_element(UITextElement(self.text_message, (text_x, text_y)))
 
     def clicked_button_text_effect(self):
         if self.show_text:
             text_x, text_y = self.get_text_placement()
-            self.add(UITextElement(self.text_message, (text_x, text_y), color=Color('Tomato')))
+            self.add_ui_element(UITextElement(self.text_message, (text_x, text_y), color=Color('Tomato')))
 
     def click_effect(self):
-        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
+        self.add_ui_element(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
                         color=Color('Pink')))
         self.clicked_button_text_effect()
 
     def mouse_over_effect(self):
-        self.add(UITransparentRect(self.button.x, self.button.y, self.button.image_width, self.button.image_height))
-        self.add(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
+        self.add_ui_element(UITransparentRect(self.button.x, self.button.y, self.button.image_width, self.button.image_height))
+        self.add_ui_element(UIRect(self.button.x - 1, self.button.y - 1, self.button.image_width, self.button.image_height, 2,
                         color=Color('Green')))
 
     def get_text_placement(self):
