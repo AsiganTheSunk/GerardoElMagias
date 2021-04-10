@@ -10,6 +10,7 @@ from core.units.enemy.bandit.bandit_chief import BanditChief
 from core.units.enemy.bandit.bandit import Bandit
 from core.units.enemy.dragon.small_dragon import SmallDragon
 from core.units.enemy.dragon.dragon import Dragon
+from core.units.enemy.medusa.medusa import Medusa
 from core.units.enemy.lizard.lizard import Lizard
 from core.units.enemy.demon.demon import Demon
 from core.items.consumable.db.consumable_db import BREAD, LARGE_BREAD, DRINK, LARGE_DRINK
@@ -29,7 +30,8 @@ class LootMaster:
         if type(target) is Bandit or type(target) is BoneWizard or type(target) is Lizard:
             self.roll_basic_loot(caster, target, text_sprite)
         elif type(target) is BanditChief or type(target) is SmallDragon \
-                or type(target) is Djinn or type(target) is Dragon or type(target) is Demon:
+                or type(target) is Djinn or type(target) is Dragon \
+                or type(target) is Demon or type(target) is Medusa:
             self.roll_boss_loot(caster, target, text_sprite)
 
     def roll_basic_loot(self, caster, target, text_sprite):

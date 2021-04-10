@@ -59,15 +59,14 @@ class StageRenderer(PlayerUITextStageInformation,
         self.update_ui_text_stage_layout(self.battle_master)
         self.player_bottom_panel_buttons.update_button_elements()
         self.update_effects()
-        self.update_victory()
-        self.update_defeat()
+
         self.update_ultimate_buttons()
         self.update_mouse()
+        self.game_attributes.text_sprite.update()
 
     def render(self):
-        # Todo: Known Issues, the Victory Badge Displays Above the SpellBook. This issue comes from been unable to
-        #  render layers at the moment. Since there it's just the order in which the elements where added in the list,
-        #  and not a level associated to it. The current render order must be done manually.
+        # Todo: Since there elements are process in the order in which they where added in the list,
+        #  and not based on a layer level associated to it. The current render order must be done manually.
         #  (Also the use of the Sprite class, since we are using Primitives it's not an options unless we
         #  establish the mouse_over effects as images in the future, then we can think of layering properly.)
 
@@ -76,6 +75,10 @@ class StageRenderer(PlayerUITextStageInformation,
 
         # Render Units
         self.battle_master.stage_unit_renderer.render_units()
+
+        # Render Victory/Defeat Banner
+        self.render_victory_banner()
+        self.render_defeat_banner()
 
         # Render Interface
         self.render_interface()
@@ -87,7 +90,6 @@ class StageRenderer(PlayerUITextStageInformation,
         self.render_ui_elements(self.ui_text_elements)
 
         # Render Combat Text: So it shows above the current Stage Menus
-        self.game_attributes.text_sprite.update()
         self.game_attributes.text_sprite.draw(self.surface)
 
     def resolve_render(self):
@@ -133,11 +135,11 @@ class StageRenderer(PlayerUITextStageInformation,
         # Enable default mouse
         mouse.set_visible(True)
 
-    def update_victory(self):
+    def render_victory_banner(self):
         if self.battle_master.is_victory_phase():
             self.player_bottom_panel_buttons.next_button.hidden = False
             self.display_victory()
 
-    def update_defeat(self):
+    def render_defeat_banner(self):
         if self.battle_master.is_defeat_phase():
             self.display_defeat()

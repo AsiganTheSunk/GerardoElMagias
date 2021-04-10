@@ -2,33 +2,30 @@
 # -*- coding: utf-8 -*-
 
 from core.units.enemy_unit import EnemyUnit
-from core.units.resources.health_bar import HealthBar
 import constants.globals
 
 # Skill Imports
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.magic import MagicSpells
 
-# Animation Imports
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
-
 
 class Medusa(EnemyUnit, MeleeSpells, MagicSpells):
-    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
-                 health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'Medusa', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
+    def __init__(self, level, attack_power, attack_rating, magic_power, max_hp, max_mp, sound_master):
+        EnemyUnit.__init__(self, 'Medusa', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
+        MagicSpells.__init__(self, sound_master)
 
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
         self.sound_master = sound_master
-        self.animation_set = \
-            UnitAnimationSet(animation_master.surface, x, y,
-                             'Medusa', animation_master.get_unit_animation_set('Medusa'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Medusa')
+        self.animation_set = None
+        self.animation_callbacks = None
 
         self.ultimate_strikes = 1
         self.fury_status = True
         self.action_counter = 1
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
