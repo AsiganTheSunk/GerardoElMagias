@@ -19,7 +19,3 @@ class UIRect(UIElement):
 
     def render(self):
         return self.color, (self.x, self.y, self.width + round(self.border_size/2), self.height + round(self.border_size/2)), self.border_size
-            return self.color, self.x, self.y, \
-                   self.width + round(self.border_size/2), self.height + round(self.border_size/2), self.border_size
-        return self.color, self.x, self.y, \
-               self.width, self.height, self.border_size
