@@ -12,7 +12,7 @@ class PlayerInterfaceRenderer:
         self.surface = surface
         self.ui_elements = []
 
-    def add_to_render(self, element):
+    def add(self, element):
         self.ui_elements.append(element)
         event_controller.add_subscriber(element)
         if isinstance(element, UILayout):

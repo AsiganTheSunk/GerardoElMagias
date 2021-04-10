@@ -27,7 +27,7 @@ class PlayerUITextStageInformation(UILayout):
             StageUnitDebugInformation(),
         ]
 
-    def update_layout(self, battle_master):
+    def update_ui_text_stage_layout(self, battle_master):
         # Unpack BattleMaster Data
         player = battle_master.friendly_fighters[0]
         current_level = battle_master.level
