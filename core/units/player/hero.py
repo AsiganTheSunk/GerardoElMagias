@@ -73,7 +73,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
     def use_heal_spell(self, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(12):
+        if self.reduce_mana(25):
             constants.globals.action_cooldown = -30
             self.cast_heal(self, self, text_sprite)
             self.sound_master.play_spell_fx_sound('heal_spell')
@@ -83,7 +83,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
     def use_firestorm_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(20):
+        if self.reduce_mana(32):
             constants.globals.action_cooldown = -30
             self.cast_firestorm(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('firestorm_spell')
@@ -94,7 +94,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
     def use_lightning_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(16):
+        if self.reduce_mana(30):
             constants.globals.action_cooldown = -30
             self.cast_lightning(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('lightning_spell')
@@ -105,7 +105,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
     def use_earth_shock_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(14):
+        if self.reduce_mana(40):
             constants.globals.action_cooldown = -40
             self.cast_earth_shock(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')
@@ -116,7 +116,7 @@ class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpe
 
     def use_water_nova_spell(self, target_list, text_sprite):
         # Consume Mana: Spell Casting
-        if self.reduce_mana(18):
+        if self.reduce_mana(50):
             constants.globals.action_cooldown = -50
             self.cast_water_nova(self, target_list, text_sprite)
             self.sound_master.play_spell_fx_sound('earth_shock_spell')

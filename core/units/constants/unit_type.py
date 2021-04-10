@@ -14,3 +14,4 @@ class UnitType(Enum):
     HERO = 'Hero'
     DJINN = 'Djinn'
     DEMON = "Demon"
+    MEDUSA = "Medusa"
