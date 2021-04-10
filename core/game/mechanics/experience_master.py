@@ -60,6 +60,14 @@ class ExperienceMaster:
         self.player.resilience += resilience_raise
         self.player.luck += luck_raise
 
+        # This will be used when changing equipment to recover the raw value for the hero.
+        self.player.raw_strength += strength_raise
+        self.player.raw_dexterity += dexterity_raise
+        self.player.raw_magic += magic_raise
+        self.player.raw_vitality += vitality_raise
+        self.player.raw_resilience += resilience_raise
+        self.player.raw_luck += luck_raise
+
         self.player.attack_power = self.player.strength * 1
         self.player.attack_rating = self.player.dexterity * 1
         self.player.magic_power = self.player.magic * 1
@@ -69,6 +77,9 @@ class ExperienceMaster:
         self.player.current_hp = self.player.current_hp + vitality_raise * 3
         self.player.max_mp = self.player.magic * 2 + self.player.resilience
         self.player.current_mp = self.player.current_mp + magic_raise * 2 + resilience_raise
+
+        self.player.re_calculate_hero_stats()
+
 
     def evaluate_kill(self, target, text_sprite):
         if not target.alive:

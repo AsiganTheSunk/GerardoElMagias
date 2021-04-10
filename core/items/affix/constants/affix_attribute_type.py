@@ -6,7 +6,7 @@ from enum import Enum
 
 class AffixAttributeType(Enum):
     STRENGTH = 'Fuerza'
-    MAGIC_POWER = 'Magia'
+    MAGIC = 'Magia'
     DEXTERITY = 'Destreza'
     HEALTH = 'Vida'
     MANA = 'Mana'

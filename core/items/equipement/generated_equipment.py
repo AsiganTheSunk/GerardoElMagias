@@ -24,6 +24,14 @@ class GeneratedEquipment:
         self.dexterity = 0
         self.magic = 0
 
+        self.vitality = 0
+        self.resilience = 0
+        self.luck = 0
+
+        self.attack_power = 0
+        self.attack_rating = 0
+        self.magic_power = 0
+
         self.unpack_prefix_stats()
         self.unpack_suffix_stats()
 
@@ -35,11 +43,16 @@ class GeneratedEquipment:
                f'{self.get_suffix_str_stats()}' \
                f'Strength: {self.strength} \n' \
                f'Dexterity: {self.dexterity} \n' \
-               f'Magic Power: {self.magic} \n' \
+               f'Magic: {self.magic} \n' \
+               f'Vitality: {self.vitality} \n' \
+               f'Resilience: {self.resilience} \n' \
+               f'Luck: {self.luck} \n' \
+               f'Attack Power: {self.attack_power} \n' \
+               f'Attack Rating: {self.attack_rating} \n' \
+               f'Magic Power: {self.magic_power} \n' \
                f'Max Health: {self.max_hp} \n' \
                f'Max Mana: {self.max_mp} \n' \
-               f'Max Fury: {self.max_fury} \n' \
-
+               f'Max Fury: {self.max_fury} \n'
 
     def get_item_name(self):
         composed_item_name = ''
@@ -59,7 +72,7 @@ class GeneratedEquipment:
             self.strength = self.strength + attribute_value
         elif attribute_type == AffixAttributeType.DEXTERITY.value:
             self.dexterity = self.dexterity + attribute_value
-        elif attribute_type == AffixAttributeType.MAGIC_POWER.value:
+        elif attribute_type == AffixAttributeType.MAGIC.value:
             self.magic = self.magic + attribute_value
         elif attribute_type == AffixAttributeType.HEALTH.value:
             self.max_hp = self.max_hp + attribute_value
