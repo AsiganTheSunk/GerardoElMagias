@@ -7,7 +7,7 @@ from core.skills.effects_db.water_nova_skill_effect import WaterNovaSkillEffect
 from core.skills.effects_db.lightnning_skills_effect import LightningSkillEffect
 
 
-class StageEffectsRenderer:
+class StageUnitEffectsRenderer:
     def __init__(self, animation_master):
         self.animation_master = animation_master
         self.animation_effects = []

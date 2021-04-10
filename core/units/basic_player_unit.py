@@ -3,12 +3,7 @@
 
 
 class BasicPlayerUnit:
-    def __init__(self, x, y, name, level, strength, dexterity, magic, vitality, resilience, luck):
-
-        # Basic Unit Coordinates x,y
-        self.x = x
-        self.y = y
-
+    def __init__(self, name, level, strength, dexterity, magic, vitality, resilience, luck):
         # Basic Unit Name
         self.name = name
 

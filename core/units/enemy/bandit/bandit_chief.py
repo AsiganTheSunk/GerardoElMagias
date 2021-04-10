@@ -3,13 +3,9 @@
 
 from core.skills.db.melee import MeleeSpells
 from core.units.enemy_unit import EnemyUnit
-from core.units.resources.health_bar import HealthBar
 from core.units.player.resources.stash import Stash
 from core.game.text.damage_text import DamageText
 from core.items.consumable.db.consumable_db import HEALTH_POTION
-
-# Animation Imports
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 import constants.globals
 
 # Init: Damage Text, CombatTextResolver
@@ -17,18 +13,17 @@ damage_text = DamageText()
 
 
 class BanditChief(EnemyUnit, MeleeSpells):
-    def __init__(self, x, y, level, attack_power, attack_rating, magic_power, max_hp, max_mp,
-                 health_bar_x, health_bar_y, animation_master, sound_master):
-        EnemyUnit.__init__(self, x, y, 'BanditChief', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
+    def __init__(self, level, attack_power, attack_rating, magic_power, max_hp, max_mp, sound_master):
+        EnemyUnit.__init__(self, 'BanditChief', level, attack_power, attack_rating, magic_power, max_hp, max_mp)
         MeleeSpells.__init__(self, sound_master)
 
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        self.animation_set = \
-            UnitAnimationSet(animation_master.surface, x, y,
-                             'BanditChief', animation_master.get_unit_animation_set('BanditChief'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('BanditChief')
-
+        self.animation_set = None
+        self.animation_callbacks = None
         self.stash = Stash(healing_potions=round(self.level / 5), mana_potions=0, gold=0)
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)
@@ -50,7 +45,7 @@ class BanditChief(EnemyUnit, MeleeSpells):
 
     def action(self, target, text_sprite):
         health_trigger = self.current_hp <= round(self.max_hp * 0.4)
-        if health_trigger and self.stash.has_healing_potion():
+        if self.stash.has_healing_potion() and health_trigger:
             self.use_healing_potion(text_sprite)
         elif not self.stash.has_healing_potion() and self.has_tried_to_consume_health_potion() and health_trigger:
             self.use_healing_potion(text_sprite)

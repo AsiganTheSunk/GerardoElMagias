@@ -1,24 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.units.resources.mana_bar import ManaBar
+
 from core.units.player.resources.stash import Stash
 from core.skills.db.magic import MagicSpells
 from core.skills.db.melee import MeleeSpells
 from core.skills.db.fury import FurySpells
-from core.units.resources.fury_bar import FuryBar
 from core.game.mechanics.experience_master import ExperienceMaster
 from core.game.text.combat_text_resolver import CombatTextResolver
 from core.game.text.damage_text import DamageText
 import constants.globals
 from core.game.mechanics.loot_master import LootMaster
 from core.units.player_unit import PlayerUnit
-from core.units.resources.health_bar import HealthBar
 from core.units.player.resources.backpack import BackPack
-from random import randint
 
-# Animation Imports
-from core.game.animations.sets.unit_animation_set import UnitAnimationSet
 
 # Consumable Items
 from core.items.consumable.db.consumable_db import HEALTH_POTION, MANA_POTION
@@ -29,27 +24,27 @@ damage_text = DamageText()
 combat_text_resolver = CombatTextResolver()
 
 
-class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpells, UnitAnimationSet):
-    def __init__(self, x, y, level, strength, dexterity, magic, vitality, resilience, luck, health_bar_x, health_bar_y, mana_bar_x, mana_bar_y, fury_bar_x, fury_bar_y, animation_master, sound_master):
-        PlayerUnit.__init__(self, x, y, "Hero", level, strength, dexterity, magic, vitality, resilience, luck)
+class HeroPlayer(PlayerUnit, ExperienceMaster, MeleeSpells, MagicSpells, FurySpells):
+    def __init__(self, level, strength, dexterity, magic, vitality, resilience, luck, sound_master):
+        PlayerUnit.__init__(self, "Hero", level, strength, dexterity, magic, vitality, resilience, luck)
         FurySpells.__init__(self, sound_master)
         MeleeSpells.__init__(self, sound_master)
         MagicSpells.__init__(self, sound_master)
         ExperienceMaster.__init__(self, self)
 
-        self.animation_set = \
-            UnitAnimationSet(animation_master.surface, x, y, 'Hero',
-                             animation_master.get_unit_animation_set('Hero'))
-        self.animation_callbacks = animation_master.get_unit_animation_set_callbacks('Hero')
-
-        self.health_bar = HealthBar(health_bar_x, health_bar_y, self.current_hp, self.max_hp)
-        self.mana_bar = ManaBar(mana_bar_x, mana_bar_y, self.current_mp, self.max_mp)
-        self.fury_bar = FuryBar(fury_bar_x, fury_bar_y, self.current_fury, self.max_fury)
-        self.stash = Stash()
+        self.animation_set = None
+        self.animation_callbacks = None
 
         self.fury_status = True
         self.loot_pool = LootMaster(self.sound_master)
         self.backpack = BackPack()
+
+        self.stash = Stash()
+        self.backpack = BackPack()
+
+    def set_animations(self, animation_set, animation_callbacks):
+        self.animation_set = animation_set
+        self.animation_callbacks = animation_callbacks
 
     def use_animation(self, animation):
         self.animation_callbacks[animation](self.animation_set)

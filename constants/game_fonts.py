@@ -11,6 +11,7 @@ verdana_font_path = './resources/fonts/Verdana.ttf'
 # Pygame Fonts:
 default_font = font.Font(tahoma_font_path, 26)
 interface_font = font.Font(tahoma_font_path, 15)
+small_interface_font = font.Font(tahoma_font_path, 13)
 
 # Combat Fonts:
 combat_text_font = font.Font(verdana_font_path, 32)
